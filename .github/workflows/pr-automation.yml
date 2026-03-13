@@ -1,0 +1,103 @@
+name: PR Automation
+on:
+  pull_request:
+    types: [opened, ready_for_review, synchronize, reopened]
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+jobs:
+  # ─────────────────────────────────────────────
+  # 1. Auto Assign – Assignees & Reviewers
+  # ─────────────────────────────────────────────
+  auto-assign:
+    name: Auto Assign Reviewers & Assignees
+    runs-on: ubuntu-latest
+    if: github.event.action == 'opened' || github.event.action == 'ready_for_review'
+    steps:
+      - name: Auto Assign
+        uses: kentaro-m/auto-assign-action@v2.0.1
+        with:
+          configuration-path: ".github/auto_assign.yml"
+
+  # ─────────────────────────────────────────────
+  # 2. Auto Labeler
+  # ─────────────────────────────────────────────
+  labeler:
+    name: Auto Label
+    runs-on: ubuntu-latest
+    if: github.event.action == 'opened' || github.event.action == 'ready_for_review'
+    steps:
+      - name: Auto Label
+        id: labeler
+        uses: actions/labeler@v5
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          configuration-path: ".github/labeler.yml"
+          sync-labels: true
+          dot: true
+
+  # ─────────────────────────────────────────────
+  # 3. Draft → Ready 전환 알림
+  # ─────────────────────────────────────────────
+  discord-pr-ready:
+    name: Discord PR 리뷰 요청 알림
+    runs-on: ubuntu-latest
+    needs: [auto-assign, labeler]
+    if: github.event.action == 'ready_for_review'
+    steps:
+      - name: Discord 알림 전송 – PR 리뷰 준비 완료
+        uses: sarisia/actions-status-discord@v1
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          status: ${{ job.status }}
+          content: "🔔 Draft에서 리뷰 요청으로 전환되었습니다. 리뷰어 확인 부탁드립니다."
+          title: "${{ github.event.pull_request.title }}"
+          description: |
+            작성자: @${{ github.event.pull_request.user.login }}
+            베이스: `${{ github.event.pull_request.base.ref }}` ← `${{ github.event.pull_request.head.ref }}`
+            변경 파일: ${{ github.event.pull_request.changed_files }}개
+            커밋: ${{ github.event.pull_request.commits }}개
+          url: ${{ github.event.pull_request.html_url }}
+          username: "Flooding Client Bot"
+          avatar_url: ${{ secrets.DISCORD_AVATAR_URL }}
+          color: "0x57F287"
+          nofail: true
+          nocontext: true
+          noprefix: true
+          nodetail: false
+          notimestamp: false
+          ack_no_webhook: true
+
+  # ─────────────────────────────────────────────
+  # 4. PR 오픈 알림 (opened 이벤트만)
+  # ─────────────────────────────────────────────
+  discord-pr-opened:
+    name: Discord PR 오픈 알림
+    runs-on: ubuntu-latest
+    needs: [auto-assign, labeler]
+    if: github.event.action == 'opened'
+    steps:
+      - name: Discord 알림 전송 – New Pull Request Opened
+        uses: sarisia/actions-status-discord@v1
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          status: ${{ job.status }}
+          content: "<@&${{ secrets.DISCORD_UNITY_TEAM_ROLE_ID }}> PR 확인해주세요."
+          title: "${{ github.event.pull_request.title }}"
+          description: |
+            작성자: @${{ github.event.pull_request.user.login }}
+            베이스: `${{ github.event.pull_request.base.ref }}` ← `${{ github.event.pull_request.head.ref }}`
+            변경 파일: ${{ github.event.pull_request.changed_files }}개
+            커밋: ${{ github.event.pull_request.commits }}개
+          url: ${{ github.event.pull_request.html_url }}
+          username: "Flooding Client Bot"
+          avatar_url: ${{ secrets.DISCORD_AVATAR_URL }}
+          color: "0xEB459E"
+          nofail: true
+          nocontext: true
+          noprefix: true
+          nodetail: false
+          notimestamp: false
+          ack_no_webhook: true
