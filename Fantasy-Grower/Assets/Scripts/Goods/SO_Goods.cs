@@ -3,12 +3,14 @@ using UnityEngine;
 /// <summary>
 /// Parent class for goods
 /// </summary>
-public class SO_Goods : ScriptableObject
+public abstract class SO_Goods : ScriptableObject
 {
     /// <summary>
     /// The number of goods
     /// </summary>
     [SerializeField] protected uint value;
+
+    protected abstract string GoodsName { get; }
 
     /// <summary>
     /// Get the number of goods
@@ -24,5 +26,15 @@ public class SO_Goods : ScriptableObject
     /// <summary>
     /// Decrease goods by the value of 'amount'
     /// </summary>
-    public virtual void Decrease(uint amount) => value -= amount;
+    public virtual void Decrease(uint amount)
+    {
+        if (amount > value)
+        {
+            // 재화가 부족한 경우
+            Debug.LogError($"{GoodsName}이(가) {amount - value}만큼 부족합니다!!!");
+            return;
+        }
+
+        value -= amount;
+    }
 }
