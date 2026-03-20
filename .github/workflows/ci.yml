@@ -86,26 +86,26 @@ jobs:
           fi
           echo "✅ 고아 .meta 파일 없음"
 
-  # ─────────────────────────────────────────────
-  # 2. C# 정적 분석
-  # ─────────────────────────────────────────────
+# ─────────────────────────────────────────────
+# 2. C# 정적 분석
+# ─────────────────────────────────────────────
   static-analysis:
     name: C# Static Analysis
     runs-on: ubuntu-latest
     needs: [review-gate]
     steps:
       - uses: actions/checkout@v4
-
+  
       - name: .NET SDK 설치
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
-
+  
       - name: dotnet-csharpier 설치 (코드 포맷 검사)
-        run: dotnet tool install -g csharpier
-
+        run: dotnet tool install --tool-path ./tools csharpier
+  
       - name: C# 포맷 검사
-        run: dotnet csharpier --check Assets/Scripts
+        run: ./tools/csharpier --check Assets/Scripts
 
   # ─────────────────────────────────────────────
   # 3. Unity 빌드 (meta-check + static-analysis 통과 후)
