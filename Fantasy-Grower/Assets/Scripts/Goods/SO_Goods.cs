@@ -8,7 +8,8 @@ public abstract class SO_Goods : ScriptableObject
     /// <summary>
     /// The number of goods
     /// </summary>
-    [SerializeField] protected uint value;
+    [SerializeField]
+    protected uint value;
 
     protected abstract string GoodsName { get; }
 
