@@ -22,6 +22,6 @@ VS 기준
 
 문제 코드 부분 - 우클릭 - `Reformat for Csharpier`
 
-#### 전역 설정
+#### 저장 시 포맷 정렬
 
 도구 - 옵션 - `CSharpier` - `Reformat with Charpier on Save` - True로 바꾸기
