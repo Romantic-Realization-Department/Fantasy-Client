@@ -3,11 +3,9 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
     branches: [main, develop]
-  # 리뷰가 승인/철회될 때도 CI 재실행 → 게이트 상태 즉시 갱신
   pull_request_review:
     types: [submitted, dismissed]
 
-# 같은 PR에 새 커밋 또는 리뷰 이벤트가 오면 이전 실행 취소
 concurrency:
   group: ci-${{ github.event.pull_request.number }}
   cancel-in-progress: true
@@ -15,9 +13,6 @@ concurrency:
 jobs:
   # ─────────────────────────────────────────────
   # 0. 리뷰 승인 여부 게이트
-  #    - 승인 없이 올라온 PR은 이 단계에서 차단
-  #    - Branch Protection → Required status checks 에
-  #      "Review Gate (승인 필요)" 를 등록하면 머지 불가
   # ─────────────────────────────────────────────
   review-gate:
     name: Review Gate (승인 필요)
@@ -31,10 +26,9 @@ jobs:
             const { data: reviews } = await github.rest.pulls.listReviews({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              pull_number: context.payload.pull_request.number,
+              pull_number: context.payload.pull_request?.number ?? context.payload.review?.pull_request_url?.split('/').pop(),
             });
 
-            // 리뷰어별 가장 최신 상태만 추출
             const latest = {};
             for (const r of reviews) {
               if (r.state === 'APPROVED' || r.state === 'CHANGES_REQUESTED') {
@@ -43,7 +37,7 @@ jobs:
             }
 
             const approved = Object.values(latest).filter(s => s === 'APPROVED').length;
-            const required = 1; // ← 필요한 최소 승인 수
+            const required = 1;
 
             console.log(`승인 수: ${approved} / 필요: ${required}`);
 
@@ -63,7 +57,7 @@ jobs:
 
       - name: .meta 파일 누락 확인
         run: |
-          MISSING=$(find Assets -type f ! -name "*.meta" | while read f; do
+          MISSING=$(find Fantasy-Grower/Assets -type f ! -name "*.meta" | while read f; do
             if [ ! -f "${f}.meta" ]; then echo "$f"; fi
           done)
           if [ -n "$MISSING" ]; then
@@ -73,9 +67,9 @@ jobs:
           fi
           echo "✅ 모든 .meta 파일 정상"
 
-      - name: 고아 .meta 파일 확인 (원본 없는 .meta)
+      - name: 고아 .meta 파일 확인
         run: |
-          ORPHAN=$(find Assets -name "*.meta" | while read m; do
+          ORPHAN=$(find Fantasy-Grower/Assets -name "*.meta" | while read m; do
             original="${m%.meta}"
             if [ ! -e "$original" ]; then echo "$m"; fi
           done)
@@ -86,29 +80,29 @@ jobs:
           fi
           echo "✅ 고아 .meta 파일 없음"
 
-# ─────────────────────────────────────────────
-# 2. C# 정적 분석
-# ─────────────────────────────────────────────
+  # ─────────────────────────────────────────────
+  # 2. C# 정적 분석
+  # ─────────────────────────────────────────────
   static-analysis:
     name: C# Static Analysis
     runs-on: ubuntu-latest
     needs: [review-gate]
     steps:
       - uses: actions/checkout@v4
-  
+
       - name: .NET SDK 설치
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
-  
-      - name: dotnet-csharpier 설치 (코드 포맷 검사)
+
+      - name: dotnet-csharpier 설치
         run: dotnet tool install --tool-path ./tools csharpier
-  
+
       - name: C# 포맷 검사
         run: ./tools/csharpier check Fantasy-Grower/Assets/Scripts
 
   # ─────────────────────────────────────────────
-  # 3. Unity 빌드 (meta-check + static-analysis 통과 후)
+  # 3. Unity 빌드
   # ─────────────────────────────────────────────
   build:
     name: Build
@@ -128,8 +122,8 @@ jobs:
       - name: Unity 라이선스 캐시
         uses: actions/cache@v4
         with:
-          path: Library
-          key: Library-${{ matrix.targetPlatform }}-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          path: Fantasy-Grower/Library
+          key: Library-${{ matrix.targetPlatform }}-${{ hashFiles('Fantasy-Grower/Assets/**', 'Fantasy-Grower/Packages/**', 'Fantasy-Grower/ProjectSettings/**') }}
           restore-keys: |
             Library-${{ matrix.targetPlatform }}-
             Library-
@@ -143,12 +137,13 @@ jobs:
         with:
           targetPlatform: ${{ matrix.targetPlatform }}
           buildName: ${{ github.event.repository.name }}
+          projectPath: Fantasy-Grower
 
       - name: 빌드 결과물 업로드
         uses: actions/upload-artifact@v4
         with:
           name: Build-${{ matrix.targetPlatform }}
-          path: build/${{ matrix.targetPlatform }}
+          path: Fantasy-Grower/build/${{ matrix.targetPlatform }}
           retention-days: 7
 
   # ─────────────────────────────────────────────
@@ -157,7 +152,7 @@ jobs:
   discord-ci-failure:
     name: Discord CI 실패 알림
     runs-on: ubuntu-latest
-    needs: [review-gate, meta-check, static-analysis, build]
+    needs: [review-gate, meta-check, static-analysis]
     if: failure()
     steps:
       - name: Discord 알림 전송
