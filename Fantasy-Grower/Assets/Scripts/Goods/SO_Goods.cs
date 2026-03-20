@@ -8,8 +8,7 @@ public abstract class SO_Goods : ScriptableObject
     /// <summary>
     /// The number of goods
     /// </summary>
-    [SerializeField]
-    protected uint value;
+    [SerializeField] protected uint value;
 
     protected abstract string GoodsName { get; }
 
@@ -31,8 +30,8 @@ public abstract class SO_Goods : ScriptableObject
     {
         if (amount > value)
         {
-            // ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
-            Debug.LogError($"{GoodsName}ï¿½ï¿½(ï¿½ï¿½) {amount - value}ï¿½ï¿½Å­ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½!!!");
+            // ÀçÈ­°¡ ºÎÁ·ÇÑ °æ¿ì
+            Debug.LogError($"{GoodsName}ÀÌ(°¡) {amount - value}¸¸Å­ ºÎÁ·ÇÕ´Ï´Ù!!!");
             return;
         }
 
