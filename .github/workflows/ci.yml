@@ -105,7 +105,7 @@ jobs:
         run: dotnet tool install --tool-path ./tools csharpier
   
       - name: C# 포맷 검사
-        run: ./tools/csharpier --check Assets/Scripts
+        run: ./tools/csharpier check Assets/Scripts
 
   # ─────────────────────────────────────────────
   # 3. Unity 빌드 (meta-check + static-analysis 통과 후)
