@@ -95,9 +95,10 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
+      # 수정
       - name: dotnet-csharpier 설치
         run: dotnet tool install --tool-path ./tools csharpier
-
+      
       - name: C# 포맷 검사
         run: ./tools/csharpier check Fantasy-Grower/Assets/Scripts
 
