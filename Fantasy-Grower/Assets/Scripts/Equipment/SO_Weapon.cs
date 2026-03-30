@@ -3,7 +3,6 @@ using UnityEngine;
 public enum WeaponLevel
 {
     C,
-    D,
     B,
     A,
     S,

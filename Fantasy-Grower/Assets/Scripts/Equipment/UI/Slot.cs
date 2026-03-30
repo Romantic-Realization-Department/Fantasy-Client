@@ -8,12 +8,27 @@ public enum SlotType
     Enchent,
 }
 
-public class Slot : MonoBehaviour
+public abstract class Slot : MonoBehaviour
 {
-    private Button button;
+    [Header("酒捞袍 加己")]
+    public SO_Weapon weapon; //公扁 SO
 
-    public SO_Weapon weapon;
-    public Image spriteImage;
+    [Header("UI加己")]
+    public Image weaponIcon;
     public SlotType slotType;
-    public WeaponLevel level;
+
+    protected Color[] weaponLevelColor = { Color.green, Color.cyan, Color.magenta, Color.yellow };
+
+    protected void Awake()
+    {
+        RefreshIcon();
+        if (TryGetComponent<Button>(out Button button))
+        {
+            button.onClick.AddListener(OnButtonClick);
+        }
+    }
+
+    protected abstract void OnButtonClick();
+
+    public abstract void RefreshIcon();
 }

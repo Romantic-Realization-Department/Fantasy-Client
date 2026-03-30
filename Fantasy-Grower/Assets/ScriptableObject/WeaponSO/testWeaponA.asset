@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf84d2193e2760c4c9f107ed9dfb64cb, type: 3}
   m_Name: testWeaponA
   m_EditorClassIdentifier: 
-  weaponName: 
-  weaponInfo: 
+  WeaponIcon: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  weaponName: A
+  weaponInfo: AA
   Damage: 0
+  Type: 0
   currentLevel: 0
