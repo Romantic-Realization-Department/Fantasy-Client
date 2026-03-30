@@ -1,7 +1,7 @@
 name: PR Automation
 on:
   pull_request:
-    types: [opened, ready_for_review, synchronize, reopened]
+    types: [opened, ready_for_review, reopened]
 permissions:
   contents: read
   pull-requests: write
