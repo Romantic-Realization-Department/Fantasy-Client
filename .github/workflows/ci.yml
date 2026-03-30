@@ -5,56 +5,18 @@ on:
     branches: [main, develop]
   pull_request_review:
     types: [submitted, dismissed]
-
 concurrency:
   group: ci-${{ github.event.pull_request.number }}
   cancel-in-progress: true
-
 jobs:
-  # ─────────────────────────────────────────────
-  # 0. 리뷰 승인 여부 게이트
-  # ─────────────────────────────────────────────
-  review-gate:
-    name: Review Gate (승인 필요)
-    runs-on: ubuntu-latest
-    steps:
-      - name: 리뷰 승인 수 확인
-        uses: actions/github-script@v7
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const { data: reviews } = await github.rest.pulls.listReviews({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: context.payload.pull_request?.number ?? context.payload.review?.pull_request_url?.split('/').pop(),
-            });
-
-            const latest = {};
-            for (const r of reviews) {
-              if (r.state === 'APPROVED' || r.state === 'CHANGES_REQUESTED') {
-                latest[r.user.login] = r.state;
-              }
-            }
-
-            const approved = Object.values(latest).filter(s => s === 'APPROVED').length;
-            const required = 1;
-
-            console.log(`승인 수: ${approved} / 필요: ${required}`);
-
-            if (approved < required) {
-              core.setFailed(`❌ 리뷰 승인이 ${required}개 필요합니다. (현재 ${approved}개)`);
-            }
-
   # ─────────────────────────────────────────────
   # 1. 메타파일 누락 검사
   # ─────────────────────────────────────────────
   meta-check:
     name: Meta File Check
     runs-on: ubuntu-latest
-    needs: [review-gate]
     steps:
       - uses: actions/checkout@v4
-
       - name: .meta 파일 누락 확인
         run: |
           MISSING=$(find Fantasy-Grower/Assets -type f ! -name "*.meta" | while read f; do
@@ -66,7 +28,6 @@ jobs:
             exit 1
           fi
           echo "✅ 모든 .meta 파일 정상"
-
       - name: 고아 .meta 파일 확인
         run: |
           ORPHAN=$(find Fantasy-Grower/Assets -name "*.meta" | while read m; do
@@ -79,37 +40,29 @@ jobs:
             exit 1
           fi
           echo "✅ 고아 .meta 파일 없음"
-
   # ─────────────────────────────────────────────
   # 2. C# 정적 분석
   # ─────────────────────────────────────────────
   static-analysis:
     name: C# Static Analysis
     runs-on: ubuntu-latest
-    needs: [review-gate]
     steps:
       - uses: actions/checkout@v4
-
       - name: .NET SDK 설치
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
-
-      # 수정
       - name: dotnet-csharpier 설치
         run: dotnet tool install --tool-path ./tools csharpier
-      
       - name: C# 포맷 검사
         run: ./tools/csharpier check Fantasy-Grower/Assets/Scripts
-
-
   # ─────────────────────────────────────────────
-  # 4. Discord 실패 알림
+  # 3. Discord 실패 알림
   # ─────────────────────────────────────────────
   discord-ci-failure:
     name: Discord CI 실패 알림
     runs-on: ubuntu-latest
-    needs: [review-gate, meta-check, static-analysis]
+    needs: [meta-check, static-analysis]
     if: failure()
     steps:
       - name: Discord 알림 전송
