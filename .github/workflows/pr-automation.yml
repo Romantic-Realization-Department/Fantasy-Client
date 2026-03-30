@@ -20,6 +20,7 @@ jobs:
         uses: kentaro-m/auto-assign-action@v2.0.1
         with:
           configuration-path: ".github/auto-assign.yml"
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
 
   # ─────────────────────────────────────────────
   # 2. Auto Labeler
