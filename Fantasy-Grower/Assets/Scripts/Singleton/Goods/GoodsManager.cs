@@ -17,8 +17,23 @@ public class GoodsManager : MonoBehaviour
     /// <summary>
     /// 싱글톤 인스턴스
     /// </summary>
-    public static GoodsManager Instance => _instance;
+    public static GoodsManager Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = FindAnyObjectByType<GoodsManager>();
+                if (_instance == null)
+                {
+                    Debug.LogError("GoodsManager instance not found in the scene!");
+                }
+            }
+            return _instance;
+        }
+    }
 
+    [System.Serializable]
     private struct Goods
     {
         public GoodsType key;
@@ -28,12 +43,12 @@ public class GoodsManager : MonoBehaviour
     [SerializeField]
     private Goods[] goods; // 인스펙터에서 GoodsType과 SO_Goods를 매핑하여 설정할 수 있도록 배열로 선언
 
-    private Dictionary<GoodsType, SO_Goods> _goodsDictionary; // GoodsType과 SO_Goods를 매핑하여 빠르게 접근할 수 있도록 딕셔너리로 변환
+    private Dictionary<GoodsType, SO_Goods> _goodsDictionary = new(); // GoodsType과 SO_Goods를 매핑하여 빠르게 접근할 수 있도록 딕셔너리로 변환
 
     private void Awake()
     {
         // 싱글톤 패턴 구현: 이미 인스턴스가 존재하면 자신을 파괴하고, 그렇지 않으면 인스턴스로 설정
-        if (_instance != null)
+        if (_instance != null && _instance != this)
         {
             Destroy(gameObject);
             return;
