@@ -9,3 +9,19 @@
 | `fix:`      | 버그 수정                   | 🐛 버그 수정     |
 | `remove:`   | 삭제                        | 🗑️ 삭제          |
 | `docs:`     | 문서 수정                   | 📝 문서          |
+
+# 코드 포맷 설정
+
+VS 기준
+
+### 설치
+
+확장 - 확장 관리자 - `CSharpier` 검색 - 설치
+
+#### 기본 사용
+
+문제 코드 부분 - 우클릭 - `Reformat for Csharpier`
+
+#### 저장 시 포맷 정렬
+
+도구 - 옵션 - `CSharpier` - `Reformat with Charpier on Save` - True로 바꾸기
