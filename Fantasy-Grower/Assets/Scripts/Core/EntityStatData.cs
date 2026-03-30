@@ -4,6 +4,8 @@ using UnityEngine;
 public class EntityStatData : ScriptableObject
 {
     public int Hp;
+    public float DamageReduction;
     public int AttackPower;
+    public float AttackSpeed;
     public float CriticalPercentage;
 }

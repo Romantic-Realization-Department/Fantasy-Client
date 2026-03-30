@@ -3,7 +3,9 @@ using UnityEngine;
 public abstract class Entity : MonoBehaviour
 {
     public int Hp { get; private set; }
+    public float DamageReduction { get; private set; }
     public int AttackPower { get; private set; }
+    public float AttackSpeed { get; private set; }
     public float CriticalPercentage { get; private set; }
 
     [SerializeField]
