@@ -31,7 +31,6 @@ public class SO_Weapon : ScriptableObject
     [Header("무기 정보")]
     public string weaponName;
     public string weaponInfo;
+    public uint weaponCount;
     public int Damage;
-    public WeaponType Type;
-    public WeaponLevel currentLevel;
 }
