@@ -3,11 +3,11 @@ using UnityEngine;
 
 public enum DungeonState
 {
-    None,
-    Start,
-    InProgress,
-    Failed,
-    Completed,
+    None, // 초기 상태, 던전이 시작되지 않은 상태
+    Start, // 던전이 시작된 상태
+    InProgress, // 던전이 진행 중인 상태
+    Failed, // 클리어에 실패한 상태
+    Completed, // 클리어에 성공한 상태
 }
 
 public class SO_DungeonState : ScriptableObject
