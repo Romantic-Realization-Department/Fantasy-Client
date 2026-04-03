@@ -34,4 +34,9 @@ public class SO_DungeonState : ScriptableObject
     /// 사용 예 : state.OnDungeonStateChanged += (newState) => { Debug.Log($"Dungeon state changed to: {newState}"); };
     /// </summary>
     public event Action<DungeonState> OnDungeonStateChanged;
+
+    private void OnEnable()
+    {
+        currentState = DungeonState.None; // 초기 상태 설정
+    }
 }
