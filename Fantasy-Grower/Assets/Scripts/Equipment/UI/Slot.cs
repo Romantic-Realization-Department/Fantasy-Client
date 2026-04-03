@@ -15,11 +15,12 @@ public class Slot : MonoBehaviour
     public WeaponLevel weaponLevel;
 
     [Header("UI속성")]
-    public Image weaponIcon;
     public SlotType slotType;
+    public GameObject weaponIconWall;
+    public Image weaponIcon;
     public Text weaponCountText;
 
-    protected void Awake()
+    protected void Start()
     {
         RefreshIcon();
         if (TryGetComponent<Button>(out Button button))
@@ -40,13 +41,15 @@ public class Slot : MonoBehaviour
     {
         GetComponent<Image>().color = EquipmentManager.weaponLevelColor[(int)weaponLevel];
         weaponIcon.sprite = EquipmentManager.Instance.GetWeapon(weaponType, weaponLevel).weaponIcon;
-        if (EquipmentManager.Instance.GetWeapon(weaponType, weaponLevel).weaponCount > 0)
+        if (EquipmentManager.Instance.GetWeapon(weaponType, weaponLevel).isUnlock)
         {
+            weaponIconWall.SetActive(false);
             weaponIcon.color = Color.white;
+            // 무기 개수 text 필요
         }
         else
         {
-            weaponIcon.color = new Color(0, 0, 0, .3f);
+            weaponIconWall.SetActive(true);
         }
     }
 }

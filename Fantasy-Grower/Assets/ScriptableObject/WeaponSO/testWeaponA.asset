@@ -15,6 +15,6 @@ MonoBehaviour:
   WeaponIcon: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   weaponName: A
   weaponInfo: AA
+  weaponCount: 0
   Damage: 0
-  Type: 0
-  currentLevel: 0
+  isUnlock: 1

@@ -31,11 +31,11 @@ public class EquipmentManager : MonoBehaviour
     public Text synthesisCountText;
 
     private Color[] synthesisColor = { Color.red, Color.cyan };
-    private uint synthesisCount;
+    private int synthesisCount = 1;
 
     [Header("강화")]
     [Header("인벤토리")]
-    public WeaponTable[] weaponArray;
+    public WeaponTable[] weaponArray; // 2중 배열로 무기 종류와 등급에 따른 무기 분류
     public Slot[] invens;
 
     private void Awake()
@@ -54,9 +54,18 @@ public class EquipmentManager : MonoBehaviour
         weaponTypeValue = (int)inven.weaponType;
         weaponLevelValue = (int)inven.weaponLevel;
         ItemInfoPanel.SetActive(true);
+        RefreshSynthesis();
     }
 
-    private void RefreshAllUI()
+    public void RefreshSlot()
+    {
+        for (int i = 0; i < invens.Length; i++)
+        {
+            invens[i].RefreshIcon();
+        }
+    }
+
+    private void RefreshSynthesis()
     {
         for (int i = 0; i < 2; i++)
         {
@@ -64,24 +73,54 @@ public class EquipmentManager : MonoBehaviour
             weaponSlotImage[i].sprite = weaponArray[weaponTypeValue]
                 .weapons[weaponLevelValue + i]
                 .weaponIcon;
-            //weaponCountText[i].text = $"{weaponArray[weaponTypeValue].weapons[weaponLevelValue].weaponCount}({synthesisColor[i]}{}{}/color)"
+            string hexColor = "#" + ColorUtility.ToHtmlStringRGB(synthesisColor[i]);
+            weaponCountText[i].text =
+                $"{weaponArray[weaponTypeValue].weapons[weaponLevelValue + i].weaponCount}(<color={hexColor}>{synthesisCount * 5 * (i == 0 ? -1 : (1 / 5f))}</color>)";
+            synthesisCountText.text = synthesisCount.ToString("0");
         }
     }
 
     public SO_Weapon GetWeapon(WeaponType type, WeaponLevel level) =>
         weaponArray[(int)type].weapons[(int)level];
 
-    public void GetItem(SO_Weapon weapon)
+    public void UpCount()
     {
-        for (int i = 0; i < invens.Length; i++)
+        if (
+            (synthesisCount + 1) * 5
+            <= weaponArray[weaponTypeValue].weapons[weaponLevelValue].weaponCount
+        )
         {
-            if (
-                weaponArray[(int)invens[i].weaponType].weapons[(int)invens[i].weaponLevel] == weapon
-            )
-            {
-                invens[i].GetItem();
-                return;
-            }
+            Debug.Log("dslfksjdf");
+            synthesisCount++;
+            RefreshSynthesis();
         }
+    }
+
+    public void DownCount()
+    {
+        if (synthesisCount - 1 > 0)
+        {
+            Debug.Log("dslfksjdf");
+            synthesisCount--;
+            RefreshSynthesis();
+        }
+    }
+
+    public void Synthesis()
+    {
+        if (synthesisCount * 5 < weaponArray[weaponTypeValue].weapons[weaponLevelValue].weaponCount)
+        {
+            weaponArray[weaponTypeValue].weapons[weaponLevelValue].weaponCount -=
+                (uint)synthesisCount * 5;
+            GetItem(weaponTypeValue, weaponLevelValue + 1, (uint)synthesisCount);
+            synthesisCount = 1;
+            RefreshSynthesis();
+        }
+    }
+
+    public void GetItem(int weaponType, int weaponLevel, uint amount)
+    {
+        weaponArray[weaponType].weapons[weaponLevel].weaponCount += amount;
+        RefreshSlot();
     }
 }

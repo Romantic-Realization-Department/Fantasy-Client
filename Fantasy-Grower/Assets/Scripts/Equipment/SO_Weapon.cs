@@ -33,4 +33,5 @@ public class SO_Weapon : ScriptableObject
     public string weaponInfo;
     public uint weaponCount;
     public int Damage;
+    public bool isUnlock;
 }
