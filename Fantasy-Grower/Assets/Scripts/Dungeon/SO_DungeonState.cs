@@ -18,7 +18,7 @@ public class SO_DungeonState : ScriptableObject
     /// <summary>
     /// 상태 변경 시 이벤트를 발생시키는 프로퍼티
     /// </summary>
-    public DungeonState CurrentState;
+    public DungeonState CurrentState
     {
         get => currentState;
         set
