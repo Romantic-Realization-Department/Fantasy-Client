@@ -10,6 +10,7 @@ public enum DungeonState
     Completed, // 클리어에 성공한 상태
 }
 
+[CreateAssetMenu(fileName = "DungeonState", menuName = "ScriptableObjects/DungeonState", order = 1)]
 public class SO_DungeonState : ScriptableObject
 {
     private DungeonState currentState;
@@ -17,7 +18,7 @@ public class SO_DungeonState : ScriptableObject
     /// <summary>
     /// 상태 변경 시 이벤트를 발생시키는 프로퍼티
     /// </summary>
-    public DungeonState DungeonState
+    public DungeonState CurrentState;
     {
         get => currentState;
         set
