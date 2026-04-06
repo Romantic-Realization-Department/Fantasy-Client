@@ -27,7 +27,11 @@ public class SO_Weapon : ScriptableObject
     [Header("필요 변수")]
     [SerializeField]
     private Sprite _weaponIcon;
-    public Sprite WeaponIcon => WeaponIcon;
+    public Sprite WeaponIcon => _weaponIcon;
+
+    [SerializeField]
+    private string _weaponID;
+    public string WeaponID => _weaponID;
 
     [Header("무기 정보")]
     public string weaponName;
