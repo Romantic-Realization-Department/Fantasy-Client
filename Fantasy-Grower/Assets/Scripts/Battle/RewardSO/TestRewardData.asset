@@ -9,11 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5df7739d4b9038a4d9cb6566170314b6, type: 3}
-  m_Name: WarriorStat
+  m_Script: {fileID: 11500000, guid: 9e3fab7113fbdbd4e86847cd9d15e830, type: 3}
+  m_Name: TestRewardData
   m_EditorClassIdentifier: 
-  Hp: 200
-  DamageReduction: 0
-  AttackPower: 20
-  AttackSpeed: 1
-  CriticalPercentage: 0
+  goldAmount: 100
+  xpAmount: 100

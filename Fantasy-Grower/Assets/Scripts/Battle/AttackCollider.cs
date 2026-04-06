@@ -22,8 +22,14 @@ public class AttackCollider : MonoBehaviour
             (type == EntityType.Player && target is Enemy)
             || (type == EntityType.Enemy && target is Player);
 
-        if (shouldHit)
-            target.TakeDamage(entity.AttackPower);
+        if (!shouldHit) return;
+
+        var (damage, _) = DamageCalculator.Calculate(
+            entity.AttackPower,
+            target.DamageReduction,
+            entity.CriticalPercentage
+        );
+        target.TakeDamage(damage);
     }
 }
 
