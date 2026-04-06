@@ -3,6 +3,7 @@ using UnityEngine;
 public enum WeaponLevel
 {
     C,
+    D,
     B,
     A,
     S,
@@ -25,8 +26,8 @@ public class SO_Weapon : ScriptableObject
     //필요한 기능에 따라 변수 및 함수가 추가될 수 있음
     [Header("필요 변수")]
     [SerializeField]
-    private Sprite WeaponIcon;
-    public Sprite weaponIcon => WeaponIcon;
+    private Sprite _weaponIcon;
+    public Sprite WeaponIcon => WeaponIcon;
 
     [Header("무기 정보")]
     public string weaponName;

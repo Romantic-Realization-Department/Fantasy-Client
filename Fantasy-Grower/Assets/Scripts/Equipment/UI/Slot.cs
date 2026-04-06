@@ -11,14 +11,14 @@ public enum SlotType
 public class Slot : MonoBehaviour
 {
     [Header("아이템 속성")]
-    public WeaponType weaponType;
-    public WeaponLevel weaponLevel;
+    public WeaponType _WeaponType;
+    public WeaponLevel _WeaponLevel;
 
     [Header("UI속성")]
-    public SlotType slotType;
-    public GameObject weaponIconWall;
-    public Image weaponIcon;
-    public Text weaponCountText;
+    public SlotType _SlotType;
+    public GameObject WeaponIconWall;
+    public Image WeaponIcon;
+    public Text WeaponCountText;
 
     protected void Start()
     {
@@ -35,21 +35,23 @@ public class Slot : MonoBehaviour
     }
 
     public void GetItem() =>
-        EquipmentManager.Instance.GetWeapon(weaponType, weaponLevel).weaponCount++;
+        EquipmentManager.Instance.GetWeapon(_WeaponType, _WeaponLevel).weaponCount++;
 
     public void RefreshIcon()
     {
-        GetComponent<Image>().color = EquipmentManager.weaponLevelColor[(int)weaponLevel];
-        weaponIcon.sprite = EquipmentManager.Instance.GetWeapon(weaponType, weaponLevel).weaponIcon;
-        if (EquipmentManager.Instance.GetWeapon(weaponType, weaponLevel).isUnlock)
+        GetComponent<Image>().color = EquipmentManager.weaponLevelColor[(int)_WeaponLevel];
+        WeaponIcon.sprite = EquipmentManager
+            .Instance.GetWeapon(_WeaponType, _WeaponLevel)
+            .WeaponIcon;
+        if (EquipmentManager.Instance.GetWeapon(_WeaponType, _WeaponLevel).isUnlock)
         {
-            weaponIconWall.SetActive(false);
-            weaponIcon.color = Color.white;
+            WeaponIconWall.SetActive(false);
+            WeaponIcon.color = Color.white;
             // 무기 개수 text 필요
         }
         else
         {
-            weaponIconWall.SetActive(true);
+            WeaponIconWall.SetActive(true);
         }
     }
 }
