@@ -12,11 +12,7 @@ public class EnemyAI : MonoBehaviour
     private Player player;
     private Coroutine attackCoroutine;
 
-    private bool hasAttackCollider
-    {
-        get { return childCollider != null; }
-        set { hasAttackCollider = value; }
-    }
+    private bool hasAttackCollider => childCollider != null;
 
     private AttackCollider childCollider;
 
