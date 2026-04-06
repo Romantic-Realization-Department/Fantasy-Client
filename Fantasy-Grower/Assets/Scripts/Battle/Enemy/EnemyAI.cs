@@ -8,33 +8,42 @@ using UnityEngine;
 [RequireComponent(typeof(Enemy))]
 public class EnemyAI : MonoBehaviour
 {
-    private Enemy _enemy;
-    private Player _player;
-    private Coroutine _attackCoroutine;
+    private Enemy enemy;
+    private Player player;
+    private Coroutine attackCoroutine;
+
+    private bool hasAttackCollider
+    {
+        get { return childCollider != null; }
+        set { hasAttackCollider = value; }
+    }
+
+    private AttackCollider childCollider;
 
     private void Awake()
     {
-        _enemy = GetComponent<Enemy>();
+        enemy = GetComponent<Enemy>();
+        childCollider = GetComponentInChildren<AttackCollider>(includeInactive: true);
     }
 
     /// <summary>타겟 플레이어를 설정한다. BattleManager가 스폰 직후 호출한다.</summary>
     public void Initialize(Player player)
     {
-        _player = player;
+        this.player = player;
     }
 
     public void StartAttacking()
     {
         StopAttacking();
-        _attackCoroutine = StartCoroutine(AttackLoop());
+        attackCoroutine = StartCoroutine(AttackLoop());
     }
 
     public void StopAttacking()
     {
-        if (_attackCoroutine != null)
+        if (attackCoroutine != null)
         {
-            StopCoroutine(_attackCoroutine);
-            _attackCoroutine = null;
+            StopCoroutine(attackCoroutine);
+            attackCoroutine = null;
         }
     }
 
@@ -42,32 +51,27 @@ public class EnemyAI : MonoBehaviour
     {
         while (true)
         {
-            if (_player != null && _player.Hp > 0)
+            if (player != null && player.Hp > 0)
             {
                 // Enemy 프리팹에 AttackCollider가 있으면 Attack()으로 애니메이션+충돌 처리.
                 // AttackCollider가 없는 경우 DamageCalculator로 직접 피해 적용.
-                if (HasAttackCollider())
+                if (hasAttackCollider)
                 {
-                    _enemy.Attack();
+                    enemy.Attack();
                 }
                 else
                 {
                     var (damage, _) = DamageCalculator.Calculate(
-                        _enemy.AttackPower,
-                        _player.DamageReduction,
-                        _enemy.CriticalPercentage
+                        enemy.AttackPower,
+                        player.DamageReduction,
+                        enemy.CriticalPercentage
                     );
-                    _player.TakeDamage(damage);
+                    player.TakeDamage(damage);
                 }
             }
 
-            float interval = _enemy.AttackSpeed > 0f ? 1f / _enemy.AttackSpeed : 2f;
+            float interval = enemy.AttackSpeed > 0f ? 1f / enemy.AttackSpeed : 2f;
             yield return new WaitForSeconds(interval);
         }
-    }
-
-    private bool HasAttackCollider()
-    {
-        return GetComponentInChildren<AttackCollider>(includeInactive: true) != null;
     }
 }

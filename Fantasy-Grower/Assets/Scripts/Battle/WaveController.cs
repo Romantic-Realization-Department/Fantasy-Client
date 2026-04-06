@@ -24,18 +24,18 @@ public class WaveController : MonoBehaviour
         _activeEnemies.Clear();
         int spawnIndex = 0;
 
-        foreach (var entry in waveData.entries)
+        foreach (var entry in waveData.Entries)
         {
-            for (int i = 0; i < entry.count; i++)
+            for (int i = 0; i < entry.Count; i++)
             {
                 Vector3 pos = spawnPoints[spawnIndex % spawnPoints.Length].position;
-                GameObject go = Instantiate(entry.enemyPrefab, pos, Quaternion.identity);
+                GameObject go = Instantiate(entry.EnemyPrefab, pos, Quaternion.identity);
 
                 Enemy enemy = go.GetComponent<Enemy>();
                 if (enemy == null)
                 {
                     Debug.LogWarning(
-                        $"[WaveController] 프리팹 {entry.enemyPrefab.name}에 Enemy 컴포넌트가 없습니다."
+                        $"[WaveController] 프리팹 {entry.EnemyPrefab.name}에 Enemy 컴포넌트가 없습니다."
                     );
                     Destroy(go);
                     continue;

@@ -9,7 +9,7 @@ using UnityEngine;
 /// </summary>
 public class LinearTreeStrategy : ISkillTreeStrategy
 {
-    private string _selectedAttribute;
+    private string selectedAttribute;
 
     /// <summary>
     /// 속성을 선택한다. 첫 번째 노드를 해금할 때 자동 결정되며,
@@ -17,17 +17,17 @@ public class LinearTreeStrategy : ISkillTreeStrategy
     /// </summary>
     public void SelectAttribute(string attribute)
     {
-        _selectedAttribute = attribute;
+        selectedAttribute = attribute;
     }
 
     public bool CanUnlock(SkillNodeData node, IReadOnlyDictionary<SkillNodeData, bool> state)
     {
         // 속성이 아직 선택되지 않은 경우: 어떤 속성이든 첫 번째 노드(TierIndex == 0) 해금 가능
-        if (string.IsNullOrEmpty(_selectedAttribute))
+        if (string.IsNullOrEmpty(selectedAttribute))
             return node.TierIndex == 0;
 
         // 선택된 속성 라인만 허용
-        if (node.AttributeTag != _selectedAttribute)
+        if (node.AttributeTag != selectedAttribute)
             return false;
 
         // 선행 노드가 없으면 해금 가능
@@ -43,7 +43,7 @@ public class LinearTreeStrategy : ISkillTreeStrategy
     public void OnNodeUnlocked(SkillNodeData node, IReadOnlyDictionary<SkillNodeData, bool> state)
     {
         // 첫 번째 노드 해금 시 속성을 확정한다
-        if (string.IsNullOrEmpty(_selectedAttribute) && !string.IsNullOrEmpty(node.AttributeTag))
+        if (string.IsNullOrEmpty(selectedAttribute) && !string.IsNullOrEmpty(node.AttributeTag))
             SelectAttribute(node.AttributeTag);
     }
 }

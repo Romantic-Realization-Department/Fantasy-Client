@@ -16,16 +16,16 @@ public enum DungeonType
 public class DungeonData : ScriptableObject
 {
     [Header("던전 유형")]
-    public DungeonType dungeonType;
+    public DungeonType DungeonType;
 
     [Header("웨이브 목록 (순서대로 진행)")]
-    public WaveData[] waves;
+    public WaveData[] Waves;
 
     [Header("던전 클리어 보너스 보상")]
-    public uint bonusGoldReward;
-    public uint bonusXpReward;
+    public uint BonusGoldReward;
+    public uint BonusXpReward;
 
     [Header("보스 던전 전용 보상")]
-    public SO_Mithril mithrilAsset;
-    public uint mithrilRewardAmount;
+    public SO_Mithril MithrilAsset;
+    public uint MithrilRewardAmount;
 }

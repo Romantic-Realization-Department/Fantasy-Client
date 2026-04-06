@@ -11,13 +11,13 @@ public class WaveData : ScriptableObject
     [System.Serializable]
     public struct EnemySpawnEntry
     {
-        public GameObject enemyPrefab;
-        public int count;
+        public GameObject EnemyPrefab;
+        public int Count;
     }
 
     [Header("스폰 목록 (적 종류 × 수량)")]
-    public EnemySpawnEntry[] entries;
+    public EnemySpawnEntry[] Entries;
 
     /// <summary>이 웨이브의 총 적 수</summary>
-    public int TotalEnemyCount => entries?.Sum(e => e.count) ?? 0;
+    public int TotalEnemyCount => Entries?.Sum(e => e.Count) ?? 0;
 }

@@ -7,22 +7,22 @@
 public class Enemy : Entity
 {
     [SerializeField]
-    private EnemyRewardData _rewardData;
+    private EnemyRewardData rewardData;
 
     [SerializeField]
-    private SO_Gold _gold;
+    private SO_Gold gold;
 
     [SerializeField]
-    private SO_XP _xp;
+    private SO_XP xp;
 
     public override void Death()
     {
         base.Death(); // OnDied 이벤트 발화 (WaveController가 구독 중)
 
-        if (_rewardData != null)
+        if (rewardData != null)
         {
-            _gold?.Increase(_rewardData.goldAmount);
-            _xp?.Increase(_rewardData.xpAmount);
+            gold?.Increase(rewardData.GoldAmount);
+            xp?.Increase(rewardData.XpAmount);
         }
 
         Destroy(gameObject, 0.5f); // 사망 연출 시간 확보 후 제거

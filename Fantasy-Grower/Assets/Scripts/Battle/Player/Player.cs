@@ -12,21 +12,21 @@ public class Player : Entity
         col.gameObject.SetActive(false);
     }
 
-    private bool _isAttacking;
+    private bool isAttacking;
 
     public override void Attack()
     {
-        if (_isAttacking)
+        if (isAttacking)
             return;
-        StartCoroutine(attackCoroutine());
+        StartCoroutine(AttackCoroutine());
     }
 
-    private IEnumerator attackCoroutine()
+    private IEnumerator AttackCoroutine()
     {
-        _isAttacking = true;
+        isAttacking = true;
         col.gameObject.SetActive(true);
         yield return new WaitForSeconds(0.2f); // 히트 판정 윈도우 (고정)
         col.gameObject.SetActive(false);
-        _isAttacking = false;
+        isAttacking = false;
     }
 }

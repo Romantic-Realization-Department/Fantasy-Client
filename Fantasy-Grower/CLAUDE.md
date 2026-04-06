@@ -4,9 +4,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**판타지 키우기 (Fantasy Grower)** — 2D 방치형 RPG 모바일 게임 (Unity 6.0.0, Android)
+**Fantasy Grower** — 2D Idle RPG Mobile Game (Unity 6.0.0, Android)
 
-플레이어가 직업/무기/스킬 트리를 조합하여 빌드를 만들고, 던전을 자동 전투로 진행하며 성장하는 방치형 RPG.
+Players build characters by combining jobs, weapons, and skill trees, then progress through dungeons via auto-combat.
 
 ## Development Environment
 
@@ -16,10 +16,31 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Input**: Unity New Input System
 - **Platform**: Android (target), Desktop (test)
 
-Unity에는 별도 CLI 빌드 커맨드가 없음. 모든 빌드/실행은 Unity Editor 내에서 수행:
-- **Play**: Unity Editor > Play 버튼
+No CLI build commands. All build/run operations are performed inside the Unity Editor:
+- **Play**: Unity Editor > Play button
 - **Build**: File > Build and Run
-- **Tests**: Window > General > Test Runner (Unity Test Framework 사용)
+- **Tests**: Window > General > Test Runner (Unity Test Framework)
+
+## C# Naming Conventions
+
+Follows Microsoft C# naming conventions.
+
+| Target | Rule | Example |
+|--------|------|---------|
+| Class / Struct | PascalCase | `EntityStatData`, `AttackCollider` |
+| Interface | `I` + PascalCase | `ISkillData`, `IAttackable` |
+| Method | PascalCase | `TakeDamage()`, `GetGoods()` |
+| Property | PascalCase | `AttackPower`, `MaxHealth` |
+| public field | PascalCase | `public int AttackPower;` |
+| private field | camelCase | `private int attackPower;` |
+| Local variable | camelCase | `int currentHp = 0;` |
+| Parameter | camelCase | `void TakeDamage(int damageAmount)` |
+| Constant (`const`) | PascalCase | `const int MaxLevel = 100;` |
+| enum type | PascalCase | `EntityType` |
+| enum value | PascalCase | `EntityType.Player`, `EntityType.Enemy` |
+| ScriptableObject class | PascalCase (no prefix) | `GoodsBase`, `SkillData` (~~`SO_Goods`~~ forbidden) |
+
+> **Note**: Hungarian prefixes such as `SO_`, `m_`, `_` are not allowed.
 
 ## Code Architecture
 
@@ -27,150 +48,150 @@ Unity에는 별도 CLI 빌드 커맨드가 없음. 모든 빌드/실행은 Unity
 
 ```
 MonoBehaviour
-└── Entity (abstract)          — HP, 공격력, TakeDamage(), Death()
-    ├── Player                 — Attack() 구현
-    │   └── Warrior            — 검사 서브클래스
-    └── Enemy                  — Enemy 기반
-        └── TestEnemy          — Death() 오버라이드
+└── Entity (abstract)          — HP, AttackPower, TakeDamage(), Death()
+    ├── Player                 — Implements Attack()
+    │   └── Warrior            — Swordsman subclass
+    └── Enemy                  — Enemy base
+        └── TestEnemy          — Overrides Death()
 ```
 
 ### Key Design Patterns
 
-**ScriptableObject 기반 데이터 분리**
-- `EntityStatData` — HP, 공격력, 공격속도, 크리티컬 등 스탯 저장
-- `SkillData` (abstract) — 스킬 데이터 베이스
-- `SO_Goods` 계열 — 재화 시스템 (Gold, XP, SP, Mithril, UpgradeScroll)
+**ScriptableObject-based data separation**
+- `EntityStatData` — Stores stats: HP, AttackPower, AttackSpeed, CriticalChance, etc.
+- `SkillData` (abstract) — Skill data base class
+- `GoodsBase` family — Currency system (Gold, XP, SP, Mithril, UpgradeScroll)
 
-**전투 히트 판정**
-- `AttackCollider` 컴포넌트가 2D Trigger 충돌로 피해 처리
-- `EntityType` enum으로 아군 피해 방지 (Player는 Enemy만, Enemy는 Player만 타격)
-- 피해 = 공격자의 `AttackPower` 직접 적용
+**Combat hit detection**
+- `AttackCollider` component handles damage via 2D Trigger collision
+- `EntityType` enum prevents friendly fire (`EntityType.Player` hits `EntityType.Enemy` only, and vice versa)
+- Damage = attacker's `AttackPower` applied directly
 
-**재화(Goods) 시스템**
-- `SO_Goods` 추상 클래스: `Get()`, `Increase()`, `Decrease()`
-- XP는 `Decrease()` 불가 (`[Obsolete]` 처리)
-- 범위 검사로 과소비 방지
+**Goods (Currency) system**
+- `GoodsBase` abstract class: `Get()`, `Increase()`, `Decrease()`
+- XP cannot call `Decrease()` (marked `[Obsolete]`)
+- Range checks prevent overspending
 
 ### Directory Structure
 
 ```
 Assets/Scripts/
 ├── Battle/
-│   ├── Entity.cs              — 전투 엔티티 기반 클래스
-│   ├── AttackCollider.cs      — 공격 히트박스 컴포넌트
-│   ├── Player/                — 플레이어 계열
-│   └── Enemy/                 — 적 계열
+│   ├── Entity.cs              — Combat entity base class
+│   ├── AttackCollider.cs      — Attack hitbox component
+│   ├── Player/                — Player classes
+│   └── Enemy/                 — Enemy classes
 └── Core/
-    ├── EntityStatData.cs      — 스탯 ScriptableObject
-    ├── SkillData.cs           — 스킬 데이터 기반
-    └── Goods/                 — 재화 ScriptableObject 계열
+    ├── EntityStatData.cs      — Stat ScriptableObject
+    ├── SkillData.cs           — Skill data base
+    └── Goods/                 — Currency ScriptableObject family
 ```
 
 ---
 
-## 게임 기획서 요약 (판타지 키우기)
+## Game Design Document Summary
 
-> 구현 시 이 기획을 기준으로 삼을 것.
+> Use this as the reference for all implementation decisions.
 
-### 성장 요소
+### Growth Resources
 
-| 요소 | 용도 |
-|------|------|
-| Gold | 무기 구매, 강화, 상점 새로고침 |
-| XP | 캐릭터 레벨업 |
-| SP (Skill Point) | 스킬 트리 강화, 레벨업 시 획득 |
-| 강화 스크롤 | 무기 강화 (무기 종류별 스크롤 별도) |
-| 미스릴 | 무기 합성 |
+| Resource | Usage |
+|----------|-------|
+| Gold | Buy/upgrade weapons, refresh shop |
+| XP | Character level up |
+| SP (Skill Point) | Upgrade skill tree; gained on level up |
+| Upgrade Scroll | Weapon upgrade (separate scroll per weapon type) |
+| Mithril | Weapon synthesis |
 
-### 직업 시스템 (3종)
+### Job System (3 types)
 
-| 직업 | 특징 |
-|------|------|
-| 검사 | 높은 체력, 안정적 전투, 광역/단일 빌드 |
-| 궁수 | 낮은 체력, 크리티컬 특화, 무기 패시브 중요 |
-| 법사 | 중간 체력, 불/얼음/바람 속성 중 하나 특화 |
+| Job | Traits |
+|-----|--------|
+| Warrior | High HP, stable combat, AoE/single-target builds |
+| Archer | Low HP, crit-focused, weapon passives are key |
+| Mage | Medium HP, specializes in one element: Fire / Ice / Wind |
 
-**법사 속성 특징**:
-- 불: 지속 피해, 광역
-- 얼음: 적 이속/공속 감소 (유틸)
-- 바람: 공격 속도 증가, 낮은 쿨타임
+**Mage element traits**:
+- Fire: DoT damage, AoE
+- Ice: Reduces enemy move/attack speed (utility)
+- Wind: Increases attack speed, low cooldowns
 
-### 무기 시스템
+### Weapon System
 
-**등급**: S > A > B > C
-- A 이상: 특수 패시브 제공
-- S등급: 제련(합성)으로만 제작 가능
+**Grades**: S > A > B > C
+- A and above: provide special passives
+- S grade: craftable only via synthesis (smelting)
 
-**직업별 무기**:
-- 검사: 레이피어(크리), 롱소드(균형), 대검(공격력)
-- 궁수: 대궁(공격력+크리), 석궁(공속+유틸)
-- 법사: 지팡이(쿨타임 감소), 마법서(속성 강화)
+**Job weapons**:
+- Warrior: Rapier (crit), Longsword (balanced), Greatsword (attack power)
+- Archer: Longbow (attack+crit), Crossbow (attack speed+utility)
+- Mage: Staff (cooldown reduction), Spellbook (element boost)
 
-**장비 관리**:
-- 강화: 강화 스크롤 사용, 등급 상승 → 필요 스크롤 증가
-- 합성: 미스릴 + 무기 2개 → 새 무기 (평균 등급)
-- 판매: Gold 획득
+**Equipment management**:
+- Upgrade: Uses Upgrade Scrolls; higher grade requires more scrolls
+- Synthesis: Mithril + 2 weapons → new weapon (average grade)
+- Sell: Gain Gold
 
-### 던전 시스템 (4종)
+### Dungeon System (4 types)
 
-| 던전 | 내용 |
-|------|------|
-| 기본 던전 | 자동 전투, Gold+XP 획득, 웨이브 진행, 정예 몬스터 등장 |
-| 골드 던전 | 광산 미니게임, 화면 클릭으로 채굴, 30~60초 제한, 미스릴 극소확률 드랍 |
-| 무기 던전 | 자동 전투, C등급 무기 드랍, 낮은 확률로 B등급/스크롤 드랍 |
-| 보스 던전 | 강력한 정예 다수, 클리어 시 미스릴+A등급 무기+XP 획득 |
+| Dungeon | Description |
+|---------|-------------|
+| Basic Dungeon | Auto-combat; rewards Gold+XP; wave progression; elite monsters appear |
+| Gold Dungeon | Mining minigame; tap screen to mine; 30–60s time limit; rare Mithril drop |
+| Weapon Dungeon | Auto-combat; drops C-grade weapons; low chance for B-grade/scrolls |
+| Boss Dungeon | Many powerful elites; rewards Mithril+A-grade weapon+XP on clear |
 
-### 상점 시스템
+### Shop System
 
-- **대장간**: 랜덤 무기 판매, Gold로 새로고침, 고객 등급 시스템 (구매/강화할수록 등급↑, 높은 등급 무기 제공)
-- **마도 상점**: 강화 스크롤 판매, Gold로 새로고침
+- **Blacksmith**: Random weapon stock; refresh with Gold; customer rank system (rank up by buying/upgrading → better weapon grades available)
+- **Magic Shop**: Sells Upgrade Scrolls; refresh with Gold
 
-### 스킬 트리
+### Skill Tree
 
-공통: 레벨업 시 SP 획득, 액티브 스킬 최대 3개 장착, 패시브/액티브 분리
+Common rules: Gain SP on level up; equip up to 3 active skills; passives and actives are separate trees.
 
-#### 검사 — 액티브 트리 (분기형)
+#### Warrior — Active Tree (branching)
 
-| 티어 | 스킬 | 타입 | 특징 |
-|------|------|------|------|
-| 평타 | 기본 베기 | 평타 | 2마리 공격, 데미지 낮음, 공격속도 빠름 |
-| 평타 | 기본 찌르기 | 평타 | 1명 공격, 데미지 높음, 공격속도 느림 |
-| 1티어 | 회선 베기 | 액티브 | 3마리 공격, 데미지 낮음, 쿨타임 보통 |
-| 1티어 | 머리치기 | 액티브 | 2마리 공격, 데미지 보통, 쿨타임 김, 2초 기절 |
-| 1티어 | 과통 | 액티브 | 2마리 공격, 데미지 높음, 쿨타임 꽤 김 |
-| 1티어 | 연속 찌르기 | 액티브 | 1마리 공격, 데미지 높음, 쿨타임 보통 |
-| 2티어 | 검무 | 액티브 | 4마리 공격, 데미지 낮음, 쿨타임 김 |
-| 2티어 | 버티기 | 액티브 | 쿨타임 김, 적 수만큼 반피감 |
-| 2티어 | 호흡 | 액티브 | 쿨타임 많이 김, 잔심 제외 모든 스킬 쿨초 |
-| 2티어 | 일검사 | 액티브 | 1마리 공격, 데미지 높음, 쿨타임 김, 치명타로 즉사 |
-| 최종 | 최종 스킬 | 액티브 | (미정) |
+| Tier | Skill | Type | Description |
+|------|-------|------|-------------|
+| Basic | Slash | Basic Attack | Hits 2 enemies, low damage, fast attack speed |
+| Basic | Thrust | Basic Attack | Hits 1 enemy, high damage, slow attack speed |
+| Tier 1 | Spin Slash | Active | Hits 3 enemies, low damage, normal cooldown |
+| Tier 1 | Headbutt | Active | Hits 2 enemies, medium damage, long cooldown, 2s stun |
+| Tier 1 | Pierce | Active | Hits 2 enemies, high damage, fairly long cooldown |
+| Tier 1 | Rapid Thrust | Active | Hits 1 enemy, high damage, normal cooldown |
+| Tier 2 | Sword Dance | Active | Hits 4 enemies, low damage, long cooldown |
+| Tier 2 | Endure | Active | Long cooldown; reduces HP by half per enemy present |
+| Tier 2 | Breath | Active | Very long cooldown; resets all skill cooldowns except itself |
+| Tier 2 | One-Sword | Active | Hits 1 enemy, high damage, long cooldown; insta-kill on crit |
+| Final | Final Skill | Active | (TBD) |
 
-#### 검사 — 패시브 트리 (2갈래)
+#### Warrior — Passive Tree (2 branches)
 
-**방어 라인**: 천 갑옷(피해 감소) → 사전 준비(전 스킬 쿨감) → 부러진 칼(HP 50% 이하시 초당 n 회복) → 단련(최대체력+공격력 n%)
+**Defense line**: Cloth Armor (damage reduction) → Preparation (reduce all skill CDs) → Broken Blade (recover n HP/s below 50% HP) → Tempering (max HP + attack power n%)
 
-**공격 라인**: 속돌(공속 상승) → 슬로우스타터(처치마다 공격력 증가, 면전 입장시 초기화) → 부러진 갑옷(HP 50% 이하시 피해 n% 회복) → 단련(공유 최종 노드)
+**Offense line**: Quick Stone (attack speed up) → Slow Starter (attack power increases per kill, resets on entering dungeon) → Broken Armor (recover n% damage dealt below 50% HP) → Tempering (shared final node)
 
-#### 궁수 — 롤토체스식 3택1 (3행)
+#### Archer — TFT-style Pick 1 of 3 (3 rows)
 
-매 행마다 후보 중 1개를 선택.
+Choose 1 option per row.
 
-| 행 | 스킬 목록 |
-|----|-----------|
-| 1행 | 정신집중(다음 공격 데미지 n배), 곡사(광역 낮은 데미지), 멀티샷(75% 데미지로 2발), 대형 화살(관통+슬로우 디버프), 육감(정예 몬스터 추가 피해) |
-| 2행 | 발사(평타: 단일, 크리 20% 보정), 연속 사격(5초 크리화), 은화살(공격시 100%), 낙하탄(공격속도 n% 증가), 헤드샷(최대체력 n% 피해), 숙련(사거리 증가) |
-| 3행 | 준통 사격(3마리 공격), 저격(단일 높은 데미지), 역경(크리율 n% 증가), 독탄화살(3발, 데미지 매우 높음), 영광(크리 피해 증가) |
+| Row | Skills |
+|-----|--------|
+| Row 1 | Focus (next attack deals n× damage), Arc Shot (AoE, low damage), Multi-Shot (2 shots at 75% damage), Heavy Arrow (pierce + slow debuff), Sixth Sense (bonus damage to elite monsters) |
+| Row 2 | Fire (basic: single, +20% crit), Rapid Fire (5s crit window), Silver Arrow (100% on attack), Falling Shot (+n% attack speed), Headshot (n% of max HP damage), Expertise (range increase) |
+| Row 3 | Spread Shot (hits 3 enemies), Snipe (single, very high damage), Adversity (+n% crit rate), Poison Arrow (3 shots, very high damage), Glory (crit damage increase) |
 
-#### 법사 — 속성별 선형 트리
+#### Mage — Linear Tree per Element
 
-**불**: 불 원소(평타, 광역) → 화상(패시브: 매초 n데미지 상태이상) → 화염구(단일) → 불기둥(장판형) → [재(화상 추가피해) / 폭발 마법(범위 증가)] → 메테오(광역, 쿨 매우 김) → [마법 단련(액티브 데미지+) / 4도 화상(화상 중첩 가능)]
+**Fire**: Fire Element (basic, AoE) → Burn (passive: n damage/s status) → Fireball (single) → Fire Pillar (ground AoE) → [Ash (bonus burn damage) / Explosion (AoE size up)] → Meteor (AoE, very long CD) → [Magic Mastery (active damage+) / 4th Degree Burn (burn stackable)]
 
-**얼음**: 얼음 원소(평타, 단일, 느림) → 동상(패시브: 이속/공속 감소) → 빙결피(광역) → 얼음파편(단일, 높음) → [냉기강화(동상 효과 강화) / 얼음 갑옷(피격 시 10초 피해감소)] → 눈보라(광역, 쿨 매우 김) → [마법 단련 / 영하(동상 중첩 시 이동 불가)]
+**Ice**: Ice Element (basic, single, slow) → Frostbite (passive: reduces move/attack speed) → Ice Shatter (AoE) → Ice Shard (single, high damage) → [Chill Boost (stronger frostbite) / Ice Armor (damage reduction for 10s on hit)] → Blizzard (AoE, very long CD) → [Magic Mastery / Sub-Zero (frostbite stacks → immobilize)]
 
-**바람**: 바람 원소(평타, 2명, 빠름) → 칼바람(패시브: 공격마다 상처 1 중첩, 5중첩 시 데미지) → 바람 칼날(15초 공속 상승, 3명 공격) → 토네이도(광역, 에이본 효과) → [가속(적 공격 일정확률 무시) / 순풍(기본공격 추가 공격 확률)] → 돌풍(광역, 쿨 매우 김) → [마법 단련 / 나락(칼바람 발동 시 모든 스킬 쿨감)]
+**Wind**: Wind Element (basic, hits 2, fast) → Gale (passive: stack 1 wound per attack, deal damage at 5 stacks) → Wind Blade (15s attack speed buff, hits 3) → Tornado (AoE, knockback effect) → [Accelerate (chance to ignore enemy attack) / Tailwind (chance for extra basic attack)] → Gust (AoE, very long CD) → [Magic Mastery / Abyss (Gale proc resets all skill CDs)]
 
-### 게임 루프
+### Game Loop
 
 ```
-던전 진행 → Gold/XP 획득 → 레벨업+SP 획득 → 스킬 트리 강화 → 무기 획득/강화 → 더 높은 던전 도전
+Clear dungeon → Earn Gold/XP → Level up + gain SP → Upgrade skill tree → Acquire/upgrade weapons → Challenge higher dungeons
 ```

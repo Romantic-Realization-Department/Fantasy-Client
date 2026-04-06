@@ -10,28 +10,28 @@ using UnityEngine;
 public class AutoAttackController : MonoBehaviour
 {
     [SerializeField]
-    private WaveController _waveController;
+    private WaveController waveController;
 
-    private Player _player;
-    private Coroutine _attackCoroutine;
+    private Player player;
+    private Coroutine attackCoroutine;
 
     private void Awake()
     {
-        _player = GetComponent<Player>();
+        player = GetComponent<Player>();
     }
 
     public void StartAutoAttack()
     {
         StopAutoAttack();
-        _attackCoroutine = StartCoroutine(AutoAttackLoop());
+        attackCoroutine = StartCoroutine(AutoAttackLoop());
     }
 
     public void StopAutoAttack()
     {
-        if (_attackCoroutine != null)
+        if (attackCoroutine != null)
         {
-            StopCoroutine(_attackCoroutine);
-            _attackCoroutine = null;
+            StopCoroutine(attackCoroutine);
+            attackCoroutine = null;
         }
     }
 
@@ -39,11 +39,11 @@ public class AutoAttackController : MonoBehaviour
     {
         while (true)
         {
-            if (_waveController.GetFirstAliveEnemy() != null)
-                _player.Attack(); // AttackCollider가 실제 피해를 처리
+            if (waveController.GetFirstAliveEnemy() != null)
+                player.Attack(); // AttackCollider가 실제 피해를 처리
 
             // AttackSpeed = 초당 공격 횟수 (예: 1.0 → 1초마다 공격)
-            float interval = _player.AttackSpeed > 0f ? 1f / _player.AttackSpeed : 1f;
+            float interval = player.AttackSpeed > 0f ? 1f / player.AttackSpeed : 1f;
             yield return new WaitForSeconds(interval);
         }
     }

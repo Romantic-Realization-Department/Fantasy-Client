@@ -3,7 +3,8 @@
 [RequireComponent(typeof(Collider2D))]
 public class AttackCollider : MonoBehaviour
 {
-    public EntityType type;
+    [SerializeField]
+    private EntityType type;
 
     private Entity entity;
 
@@ -14,8 +15,7 @@ public class AttackCollider : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Entity target;
-        if (!collision.gameObject.TryGetComponent<Entity>(out target))
+        if (!collision.gameObject.TryGetComponent<Entity>(out Entity target))
             return;
 
         bool shouldHit =

@@ -8,6 +8,6 @@
 public class EnemyRewardData : ScriptableObject
 {
     [Header("사망 보상")]
-    public uint goldAmount;
-    public uint xpAmount;
+    public uint GoldAmount;
+    public uint XpAmount;
 }

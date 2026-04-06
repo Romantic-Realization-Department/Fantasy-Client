@@ -22,35 +22,35 @@ public class BattleManager : MonoBehaviour
 {
     // ─── Inspector 연결 ──────────────────────────────────────────
     [SerializeField]
-    private Player _player;
+    private Player player;
 
     [SerializeField]
-    private AutoAttackController _autoAttack;
+    private AutoAttackController autoAttack;
 
     [SerializeField]
-    private WaveController _waveController;
+    private WaveController waveController;
 
     [SerializeField]
-    private Transform[] _spawnPoints;
+    private Transform[] spawnPoints;
 
     [Header("던전 데이터")]
     [SerializeField]
-    private DungeonData _dungeonData;
+    private DungeonData dungeonData;
 
     [Header("재화 SO")]
     [SerializeField]
-    private SO_Gold _gold;
+    private SO_Gold gold;
 
     [SerializeField]
-    private SO_XP _xp;
+    private SO_XP xp;
 
     [SerializeField]
-    private SO_Mithril _mithril;
+    private SO_Mithril mithril;
 
     // ─── 런타임 상태 ─────────────────────────────────────────────
-    private BattleState _state = BattleState.Idle;
-    private int _currentWaveIndex;
-    private List<Enemy> _currentWaveEnemies;
+    private BattleState state = BattleState.Idle;
+    private int currentWaveIndex;
+    private List<Enemy> currentWaveEnemies;
 
     // ─── UI 알림 이벤트 ───────────────────────────────────────────
     /// <summary>상태가 변경될 때마다 발화된다. UI 패널 전환에 사용한다.</summary>
@@ -62,54 +62,54 @@ public class BattleManager : MonoBehaviour
     // ─── 유니티 라이프사이클 ──────────────────────────────────────
     private void Awake()
     {
-        _waveController.OnAllEnemiesDead += HandleAllEnemiesDead;
-        _player.OnDied += HandlePlayerDied;
+        waveController.OnAllEnemiesDead += HandleAllEnemiesDead;
+        player.OnDied += HandlePlayerDied;
     }
 
     private void OnDestroy()
     {
-        _waveController.OnAllEnemiesDead -= HandleAllEnemiesDead;
-        _player.OnDied -= HandlePlayerDied;
+        waveController.OnAllEnemiesDead -= HandleAllEnemiesDead;
+        player.OnDied -= HandlePlayerDied;
     }
 
     // ─── 공개 API (UI 버튼에서 호출) ─────────────────────────────
     /// <summary>던전을 시작한다.</summary>
     public void StartDungeon()
     {
-        if (_dungeonData == null)
+        if (dungeonData == null)
         {
             Debug.LogError("[BattleManager] DungeonData가 연결되지 않았습니다.");
             return;
         }
 
-        if (_dungeonData.dungeonType == DungeonType.Gold)
+        if (dungeonData.DungeonType == DungeonType.Gold)
         {
             Debug.Log("[BattleManager] 골드 던전은 미니게임 씬으로 전환해야 합니다.");
             // TODO: SceneManager.LoadScene("GoldDungeonScene");
             return;
         }
 
-        _currentWaveIndex = 0;
+        currentWaveIndex = 0;
         TransitionTo(BattleState.WaveStart);
     }
 
     /// <summary>플레이어 사망 후 던전을 처음부터 재시도한다.</summary>
     public void RetryDungeon()
     {
-        _waveController.Clear();
-        _player.ResetHp();
-        _currentWaveIndex = 0;
+        waveController.Clear();
+        player.ResetHp();
+        currentWaveIndex = 0;
         TransitionTo(BattleState.WaveStart);
     }
 
     // ─── 상태 머신 ────────────────────────────────────────────────
     private void TransitionTo(BattleState newState)
     {
-        _state = newState;
-        OnStateChanged?.Invoke(_state);
+        state = newState;
+        OnStateChanged?.Invoke(state);
         Debug.Log($"[BattleManager] 상태 전환: {newState}");
 
-        switch (_state)
+        switch (state)
         {
             case BattleState.WaveStart:
                 EnterWaveStart();
@@ -132,32 +132,32 @@ public class BattleManager : MonoBehaviour
     private void EnterWaveStart()
     {
         Debug.Log(
-            $"[BattleManager] 웨이브 {_currentWaveIndex + 1} / {_dungeonData.waves.Length} 시작"
+            $"[BattleManager] 웨이브 {currentWaveIndex + 1} / {dungeonData.Waves.Length} 시작"
         );
-        OnWaveChanged?.Invoke(_currentWaveIndex);
+        OnWaveChanged?.Invoke(currentWaveIndex);
 
-        WaveData wave = _dungeonData.waves[_currentWaveIndex];
-        _currentWaveEnemies = _waveController.SpawnWave(wave, _spawnPoints);
+        WaveData wave = dungeonData.Waves[currentWaveIndex];
+        currentWaveEnemies = waveController.SpawnWave(wave, spawnPoints);
 
-        foreach (Enemy e in _currentWaveEnemies)
-            e.GetComponent<EnemyAI>()?.Initialize(_player);
+        foreach (Enemy e in currentWaveEnemies)
+            e.GetComponent<EnemyAI>()?.Initialize(player);
 
         TransitionTo(BattleState.Fighting);
     }
 
     private void EnterFighting()
     {
-        _autoAttack.StartAutoAttack();
+        autoAttack.StartAutoAttack();
 
-        foreach (Enemy e in _currentWaveEnemies)
+        foreach (Enemy e in currentWaveEnemies)
             e.GetComponent<EnemyAI>()?.StartAttacking();
     }
 
     private void HandleAllEnemiesDead()
     {
-        _autoAttack.StopAutoAttack();
+        autoAttack.StopAutoAttack();
 
-        foreach (Enemy e in _currentWaveEnemies)
+        foreach (Enemy e in currentWaveEnemies)
             e.GetComponent<EnemyAI>()?.StopAttacking();
 
         TransitionTo(BattleState.WaveCleared);
@@ -165,9 +165,9 @@ public class BattleManager : MonoBehaviour
 
     private void EnterWaveCleared()
     {
-        _currentWaveIndex++;
+        currentWaveIndex++;
 
-        if (_currentWaveIndex >= _dungeonData.waves.Length)
+        if (currentWaveIndex >= dungeonData.Waves.Length)
         {
             TransitionTo(BattleState.DungeonCleared);
         }
@@ -181,17 +181,17 @@ public class BattleManager : MonoBehaviour
     {
         Debug.Log("[BattleManager] 던전 클리어!");
 
-        _gold?.Increase(_dungeonData.bonusGoldReward);
-        _xp?.Increase(_dungeonData.bonusXpReward);
+        gold?.Increase(dungeonData.BonusGoldReward);
+        xp?.Increase(dungeonData.BonusXpReward);
 
-        if (_dungeonData.dungeonType == DungeonType.Boss && _dungeonData.mithrilAsset != null)
-            _dungeonData.mithrilAsset.Increase(_dungeonData.mithrilRewardAmount);
+        if (dungeonData.DungeonType == DungeonType.Boss && dungeonData.MithrilAsset != null)
+            dungeonData.MithrilAsset.Increase(dungeonData.MithrilRewardAmount);
     }
 
     private void HandlePlayerDied(Entity _)
     {
-        _autoAttack.StopAutoAttack();
-        _waveController.Clear();
+        autoAttack.StopAutoAttack();
+        waveController.Clear();
         TransitionTo(BattleState.PlayerDead);
     }
 
