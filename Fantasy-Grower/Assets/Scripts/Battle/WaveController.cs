@@ -21,6 +21,12 @@ public class WaveController : MonoBehaviour
     /// </summary>
     public List<Enemy> SpawnWave(WaveData waveData, Transform[] spawnPoints)
     {
+        if (spawnPoints == null || spawnPoints.Length == 0)
+        {
+            Debug.LogError("[WaveController] 스폰 포인트가 설정되지 않았습니다.");
+            return null;
+        }
+
         _activeEnemies.Clear();
         int spawnIndex = 0;
 
