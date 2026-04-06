@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 /// <summary>
 /// 적 엔티티 기반 클래스.
@@ -6,13 +6,18 @@ using UnityEngine;
 /// </summary>
 public class Enemy : Entity
 {
-    [SerializeField] private EnemyRewardData _rewardData;
-    [SerializeField] private SO_Gold _gold;
-    [SerializeField] private SO_XP _xp;
+    [SerializeField]
+    private EnemyRewardData _rewardData;
+
+    [SerializeField]
+    private SO_Gold _gold;
+
+    [SerializeField]
+    private SO_XP _xp;
 
     public override void Death()
     {
-        base.Death();  // OnDied 이벤트 발화 (WaveController가 구독 중)
+        base.Death(); // OnDied 이벤트 발화 (WaveController가 구독 중)
 
         if (_rewardData != null)
         {
@@ -20,6 +25,6 @@ public class Enemy : Entity
             _xp?.Increase(_rewardData.xpAmount);
         }
 
-        Destroy(gameObject, 0.5f);  // 사망 연출 시간 확보 후 제거
+        Destroy(gameObject, 0.5f); // 사망 연출 시간 확보 후 제거
     }
 }

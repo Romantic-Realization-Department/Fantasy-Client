@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
 public class AttackCollider : MonoBehaviour
@@ -22,7 +22,8 @@ public class AttackCollider : MonoBehaviour
             (type == EntityType.Player && target is Enemy)
             || (type == EntityType.Enemy && target is Player);
 
-        if (!shouldHit) return;
+        if (!shouldHit)
+            return;
 
         var (damage, _) = DamageCalculator.Calculate(
             entity.AttackPower,

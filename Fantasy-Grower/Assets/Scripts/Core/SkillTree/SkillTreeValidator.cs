@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 /// <summary>
@@ -12,13 +12,15 @@ public static class SkillTreeValidator
     /// </summary>
     public static bool ArePrerequisitesMet(
         SkillNodeData node,
-        IReadOnlyDictionary<SkillNodeData, bool> state)
+        IReadOnlyDictionary<SkillNodeData, bool> state
+    )
     {
         if (node.Prerequisites == null || node.Prerequisites.Length == 0)
             return true;
 
-        return node.Prerequisites
-            .All(pre => pre != null && state.TryGetValue(pre, out bool unlocked) && unlocked);
+        return node.Prerequisites.All(pre =>
+            pre != null && state.TryGetValue(pre, out bool unlocked) && unlocked
+        );
     }
 
     /// <summary>
@@ -26,16 +28,15 @@ public static class SkillTreeValidator
     /// </summary>
     public static bool HasEnoughSP(SkillNodeData node, SO_SP sp)
     {
-        if (node.Skill == null) return false;
+        if (node.Skill == null)
+            return false;
         return sp.Get() >= (uint)node.Skill.SPCost;
     }
 
     /// <summary>
     /// 액티브 스킬 슬롯에 여유가 있는지 확인한다.
     /// </summary>
-    public static bool HasActiveSlotAvailable(
-        IReadOnlyList<ActiveSkillData> equipped,
-        int maxSlots)
+    public static bool HasActiveSlotAvailable(IReadOnlyList<ActiveSkillData> equipped, int maxSlots)
     {
         int occupiedSlots = equipped.Count(skill => skill != null);
         return occupiedSlots < maxSlots;

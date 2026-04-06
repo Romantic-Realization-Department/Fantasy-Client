@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 /// <summary>
 /// 액티브 스킬 데이터의 추상 기반 클래스.

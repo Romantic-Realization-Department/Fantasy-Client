@@ -1,6 +1,3 @@
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Warrior : Player
-{
-    
-}
+public class Warrior : Player { }

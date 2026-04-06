@@ -1,6 +1,12 @@
-using UnityEngine;
+﻿using UnityEngine;
 
-public enum DungeonType { Basic, Gold, Weapon, Boss }
+public enum DungeonType
+{
+    Basic,
+    Gold,
+    Weapon,
+    Boss,
+}
 
 /// <summary>
 /// 던전 전체 구성 데이터 (웨이브 목록 + 던전 유형 + 클리어 보상).

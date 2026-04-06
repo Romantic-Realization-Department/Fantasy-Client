@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 /// <summary>
 /// 직업별 스킬 트리 해금 규칙을 추상화하는 전략 인터페이스.

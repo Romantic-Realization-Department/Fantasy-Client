@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -34,7 +34,9 @@ public class WaveController : MonoBehaviour
                 Enemy enemy = go.GetComponent<Enemy>();
                 if (enemy == null)
                 {
-                    Debug.LogWarning($"[WaveController] 프리팹 {entry.enemyPrefab.name}에 Enemy 컴포넌트가 없습니다.");
+                    Debug.LogWarning(
+                        $"[WaveController] 프리팹 {entry.enemyPrefab.name}에 Enemy 컴포넌트가 없습니다."
+                    );
                     Destroy(go);
                     continue;
                 }
@@ -57,8 +59,7 @@ public class WaveController : MonoBehaviour
     }
 
     /// <summary>현재 살아있는 첫 번째 적을 반환한다. 없으면 null.</summary>
-    public Enemy GetFirstAliveEnemy()
-        => _activeEnemies.FirstOrDefault(e => e != null && e.Hp > 0);
+    public Enemy GetFirstAliveEnemy() => _activeEnemies.FirstOrDefault(e => e != null && e.Hp > 0);
 
     public IReadOnlyList<Enemy> ActiveEnemies => _activeEnemies.AsReadOnly();
 

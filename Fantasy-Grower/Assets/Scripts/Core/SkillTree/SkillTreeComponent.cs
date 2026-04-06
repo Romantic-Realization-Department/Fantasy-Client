@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -9,8 +9,11 @@ using UnityEngine;
 [RequireComponent(typeof(Player))]
 public class SkillTreeComponent : MonoBehaviour
 {
-    [SerializeField] private SkillTreeData _treeData;
-    [SerializeField] private SO_SP _spResource;
+    [SerializeField]
+    private SkillTreeData _treeData;
+
+    [SerializeField]
+    private SO_SP _spResource;
 
     // ScriptableObject를 직접 수정하지 않고 런타임 상태를 Dictionary로 격리
     private Dictionary<SkillNodeData, bool> _unlockedState;
@@ -51,7 +54,8 @@ public class SkillTreeComponent : MonoBehaviour
     /// </summary>
     public bool TryUnlockNode(SkillNodeData node)
     {
-        if (node == null || _strategy == null) return false;
+        if (node == null || _strategy == null)
+            return false;
 
         if (IsUnlocked(node))
         {
@@ -86,7 +90,8 @@ public class SkillTreeComponent : MonoBehaviour
 
         foreach (var kv in _unlockedState)
         {
-            if (!kv.Value) continue;
+            if (!kv.Value)
+                continue;
             if (kv.Key.Skill is PassiveSkillData passive)
                 passive.ApplyPassive(ref modifier);
         }
@@ -122,7 +127,8 @@ public class SkillTreeComponent : MonoBehaviour
 
     public ActiveSkillData GetEquippedSkill(int slotIndex)
     {
-        if (slotIndex < 0 || slotIndex >= _equippedActives.Count) return null;
+        if (slotIndex < 0 || slotIndex >= _equippedActives.Count)
+            return null;
         return _equippedActives[slotIndex];
     }
 
@@ -138,8 +144,10 @@ public class SkillTreeComponent : MonoBehaviour
     /// </summary>
     public bool CanUnlock(SkillNodeData node)
     {
-        if (node == null || node.Skill == null) return false;
-        if (!SkillTreeValidator.HasEnoughSP(node, _spResource)) return false;
+        if (node == null || node.Skill == null)
+            return false;
+        if (!SkillTreeValidator.HasEnoughSP(node, _spResource))
+            return false;
         return _strategy.CanUnlock(node, _unlockedState);
     }
 

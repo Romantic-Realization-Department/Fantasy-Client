@@ -1,7 +1,12 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-public enum SkillTreeStrategyType { Branching, RowSelect, Linear }
+public enum SkillTreeStrategyType
+{
+    Branching,
+    RowSelect,
+    Linear,
+}
 
 /// <summary>
 /// 직업별 스킬 트리 전체 정의. 에디터에서 AllNodes에 노드를 등록하고
@@ -31,7 +36,7 @@ public class SkillTreeData : ScriptableObject
         {
             SkillTreeStrategyType.Branching => new BranchingTreeStrategy(),
             SkillTreeStrategyType.RowSelect => new RowSelectTreeStrategy(),
-            SkillTreeStrategyType.Linear    => new LinearTreeStrategy(),
+            SkillTreeStrategyType.Linear => new LinearTreeStrategy(),
             _ => new BranchingTreeStrategy(),
         };
     }

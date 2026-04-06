@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 [CreateAssetMenu(fileName = "EntityStat", menuName = "Stat/Entity")]
 public class EntityStatData : ScriptableObject

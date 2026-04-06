@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 /// <summary>
@@ -15,8 +15,9 @@ public class BranchingTreeStrategy : ISkillTreeStrategy
             return true;
 
         // 선행 노드 중 하나라도 해금되어 있으면 진행 가능
-        bool anyPrerequisiteMet = node.Prerequisites
-            .Any(pre => pre != null && state.TryGetValue(pre, out bool unlocked) && unlocked);
+        bool anyPrerequisiteMet = node.Prerequisites.Any(pre =>
+            pre != null && state.TryGetValue(pre, out bool unlocked) && unlocked
+        );
 
         if (!anyPrerequisiteMet)
             return false;
@@ -26,12 +27,16 @@ public class BranchingTreeStrategy : ISkillTreeStrategy
             .Where(kv => kv.Value)
             .Select(kv => kv.Key)
             .Any(unlocked =>
-                unlocked != node &&
-                unlocked.TierIndex == node.TierIndex &&
-                unlocked.SlotIndex == node.SlotIndex);
+                unlocked != node
+                && unlocked.TierIndex == node.TierIndex
+                && unlocked.SlotIndex == node.SlotIndex
+            );
 
         return !conflictExists;
     }
 
-    public void OnNodeUnlocked(SkillNodeData node, IReadOnlyDictionary<SkillNodeData, bool> state) { }
+    public void OnNodeUnlocked(
+        SkillNodeData node,
+        IReadOnlyDictionary<SkillNodeData, bool> state
+    ) { }
 }

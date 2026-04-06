@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 /// <summary>
@@ -11,8 +11,9 @@ public class RowSelectTreeStrategy : ISkillTreeStrategy
     public bool CanUnlock(SkillNodeData node, IReadOnlyDictionary<SkillNodeData, bool> state)
     {
         // 이미 이 행에서 선택된 노드가 있으면 불가
-        bool rowAlreadySelected = state
-            .Any(kv => kv.Value && kv.Key != node && kv.Key.TierIndex == node.TierIndex);
+        bool rowAlreadySelected = state.Any(kv =>
+            kv.Value && kv.Key != node && kv.Key.TierIndex == node.TierIndex
+        );
 
         if (rowAlreadySelected)
             return false;
@@ -22,11 +23,15 @@ public class RowSelectTreeStrategy : ISkillTreeStrategy
             return true;
 
         // 이전 행(TierIndex - 1)에서 선택된 노드가 있어야 다음 행 선택 가능
-        bool previousRowSelected = state
-            .Any(kv => kv.Value && kv.Key.TierIndex == node.TierIndex - 1);
+        bool previousRowSelected = state.Any(kv =>
+            kv.Value && kv.Key.TierIndex == node.TierIndex - 1
+        );
 
         return previousRowSelected;
     }
 
-    public void OnNodeUnlocked(SkillNodeData node, IReadOnlyDictionary<SkillNodeData, bool> state) { }
+    public void OnNodeUnlocked(
+        SkillNodeData node,
+        IReadOnlyDictionary<SkillNodeData, bool> state
+    ) { }
 }

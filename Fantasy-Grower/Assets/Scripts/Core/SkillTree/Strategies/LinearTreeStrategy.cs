@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -35,8 +35,9 @@ public class LinearTreeStrategy : ISkillTreeStrategy
             return true;
 
         // 선형 트리: 모든 선행 노드가 해금되어 있어야 한다
-        return node.Prerequisites
-            .All(pre => pre != null && state.TryGetValue(pre, out bool unlocked) && unlocked);
+        return node.Prerequisites.All(pre =>
+            pre != null && state.TryGetValue(pre, out bool unlocked) && unlocked
+        );
     }
 
     public void OnNodeUnlocked(SkillNodeData node, IReadOnlyDictionary<SkillNodeData, bool> state)

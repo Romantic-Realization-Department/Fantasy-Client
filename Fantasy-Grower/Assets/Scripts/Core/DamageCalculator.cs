@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 /// <summary>
 /// 데미지 계산 공식을 담당하는 정적 유틸리티.
@@ -16,7 +16,8 @@ public static class DamageCalculator
     public static (int damage, bool isCritical) Calculate(
         int rawAttackPower,
         float targetDamageReduction,
-        float attackerCriticalPercentage)
+        float attackerCriticalPercentage
+    )
     {
         int reduced = Mathf.Max(1, Mathf.RoundToInt(rawAttackPower * (1f - targetDamageReduction)));
         bool isCritical = Random.value * 100f < attackerCriticalPercentage;

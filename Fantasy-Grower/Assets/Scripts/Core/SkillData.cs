@@ -1,6 +1,10 @@
-using UnityEngine;
+﻿using UnityEngine;
 
-public enum SkillCategory { Active, Passive }
+public enum SkillCategory
+{
+    Active,
+    Passive,
+}
 
 [CreateAssetMenu(fileName = "SkillStat", menuName = "Stat/Skill")]
 public abstract class SkillData : ScriptableObject
