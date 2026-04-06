@@ -32,7 +32,15 @@ public class SO_Weapon : ScriptableObject
     [Header("무기 정보")]
     public string weaponName;
     public string weaponInfo;
-    public uint weaponCount;
+    public uint weaponCount
+    {
+        get { return weaponCount; }
+        set
+        {
+            isUnlock = true;
+            weaponCount = value;
+        }
+    }
     public int Damage;
     public bool isUnlock;
 }
