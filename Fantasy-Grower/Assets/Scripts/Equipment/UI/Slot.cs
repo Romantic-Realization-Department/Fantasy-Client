@@ -11,8 +11,7 @@ public enum SlotType
 public class Slot : MonoBehaviour
 {
     [Header("酒捞袍 加己")]
-    public WeaponType _WeaponType;
-    public WeaponLevel _WeaponLevel;
+    public string weaponID;
 
     [Header("UI加己")]
     public SlotType _SlotType;
@@ -34,16 +33,13 @@ public class Slot : MonoBehaviour
         EquipmentManager.Instance.OpenItemInfoPage(this);
     }
 
-    public void GetItem() =>
-        EquipmentManager.Instance.GetWeapon(_WeaponType, _WeaponLevel).weaponCount++;
+    SO_Weapon GetWeapon() => EquipmentManager.Instance.GetWeapon(weaponID);
 
     public void RefreshIcon()
     {
-        GetComponent<Image>().color = EquipmentManager.weaponLevelColor[(int)_WeaponLevel];
-        WeaponIcon.sprite = EquipmentManager
-            .Instance.GetWeapon(_WeaponType, _WeaponLevel)
-            .WeaponIcon;
-        if (EquipmentManager.Instance.GetWeapon(_WeaponType, _WeaponLevel).isUnlock)
+        GetComponent<Image>().color = EquipmentManager.weaponLevelColor[(int)GetWeapon().Rate];
+        WeaponIcon.sprite = GetWeapon().WeaponIcon;
+        if (GetWeapon().isUnlock)
         {
             WeaponIconWall.SetActive(false);
             WeaponIcon.color = Color.white;

@@ -1,11 +1,6 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
-[System.Serializable]
-public struct WeaponTable
-{
-    public SO_Weapon[] weapons;
-}
 
 public class EquipmentManager : MonoBehaviour
 {
@@ -30,11 +25,16 @@ public class EquipmentManager : MonoBehaviour
         Color.yellow,
     };
 
-    [Header("합성&강화 공통 변수")]
-    public GameObject ItemInfoPanel;
+    [Header("장비 탭")]
+    [SerializeField]
+    private GameObject WeaponInfoObject;
 
-    private int weaponTypeValue;
-    private int weaponLevelValue;
+    [Header("강화")]
+    [Header("인벤토리")]
+    public Slot[] Invens;
+
+    [Header("대장간 변수")]
+    public GameObject SmithyTab;
 
     [Header("합성")]
     public Image[] WeaponBackgroundImage;
@@ -42,13 +42,10 @@ public class EquipmentManager : MonoBehaviour
     public Text[] WeaponCountText;
     public Text SynthesisCountText;
 
+    private Dictionary<string, SO_Weapon> weapons;
     private Color[] SynthesisColor = { Color.red, Color.cyan };
     private int synthesisCount = 1;
-
-    [Header("강화")]
-    [Header("인벤토리")]
-    public WeaponTable[] WeaponArray; // 2중 배열로 무기 종류와 등급에 따른 무기 분류
-    public Slot[] Invens;
+    private string WeaponID;
 
     private void Awake()
     {
@@ -63,10 +60,11 @@ public class EquipmentManager : MonoBehaviour
 
     public void OpenItemInfoPage(Slot inven)
     {
-        weaponTypeValue = (int)inven._WeaponType;
-        weaponLevelValue = (int)inven._WeaponLevel;
-        ItemInfoPanel.SetActive(true);
-        RefreshSynthesis();
+        WeaponID = inven.weaponID;
+        WeaponInfoObject.SetActive(true);
+
+        //ItemInfoPanel.SetActive(true);
+        //RefreshSynthesis();
     }
 
     public void RefreshSlot()
@@ -79,31 +77,28 @@ public class EquipmentManager : MonoBehaviour
 
     private void RefreshSynthesis()
     {
-        if (WeaponArray[weaponTypeValue].weapons.Length < weaponLevelValue + 1)
+        if (weapons[WeaponID].Rate == WeaponLevel.S)
             return;
-        for (int i = 0; i < 2; i++)
-        {
-            WeaponBackgroundImage[i].color = weaponLevelColor[weaponLevelValue + i];
-            WeaponSlotImage[i].sprite = WeaponArray[weaponTypeValue]
-                .weapons[weaponLevelValue + i]
-                .WeaponIcon;
-            string hexColor = "#" + ColorUtility.ToHtmlStringRGB(SynthesisColor[i]);
-            int weaponValue = synthesisCount * (i == 0 ? 5 : 1);
-            WeaponCountText[i].text =
-                $"{WeaponArray[weaponTypeValue].weapons[weaponLevelValue + i].weaponCount}(<color={hexColor}>{(weaponValue >= 0 ? "+" : "-")}{weaponValue}</color>)";
-            SynthesisCountText.text = synthesisCount.ToString("0");
-        }
+        //수정 필요
+        //for (int i = 0; i < 2; i++)
+        //{
+        //    WeaponBackgroundImage[i].color = weaponLevelColor[(int)weapons[WeaponID].Rate + i];
+        //    WeaponSlotImage[i].sprite = weapons[(int)weapons[WeaponID].Rate]
+        //        .weapons[weaponLevelValue + i]
+        //        .WeaponIcon;
+        //    string hexColor = "#" + ColorUtility.ToHtmlStringRGB(SynthesisColor[i]);
+        //    int weaponValue = synthesisCount * (i == 0 ? 5 : 1);
+        //    WeaponCountText[i].text =
+        //        $"{WeaponArray[(int)weapons[WeaponID].Rate].weapons[weaponLevelValue + i].weaponCount}(<color={hexColor}>{(weaponValue >= 0 ? "+" : "-")}{weaponValue}</color>)";
+        //    SynthesisCountText.text = synthesisCount.ToString("0");
+        //}
     }
 
-    public SO_Weapon GetWeapon(WeaponType type, WeaponLevel level) =>
-        WeaponArray[(int)type].weapons[(int)level];
+    public SO_Weapon GetWeapon(string weaponID) => weapons[weaponID];
 
     public void UpCount()
     {
-        if (
-            (synthesisCount + 1) * 5
-            <= WeaponArray[weaponTypeValue].weapons[weaponLevelValue].weaponCount
-        )
+        if ((synthesisCount + 1) * 5 <= weapons[WeaponID].weaponCount)
         {
             synthesisCount++;
             RefreshSynthesis();
@@ -121,24 +116,25 @@ public class EquipmentManager : MonoBehaviour
 
     public void Synthesis()
     {
-        if (WeaponArray[weaponTypeValue].weapons.Length < weaponLevelValue + 1)
-            return;
-        if (
-            synthesisCount * 5
-            <= WeaponArray[weaponTypeValue].weapons[weaponLevelValue].weaponCount
-        )
-        {
-            WeaponArray[weaponTypeValue].weapons[weaponLevelValue].weaponCount -=
-                (uint)synthesisCount * 5;
-            GetItem(weaponTypeValue, weaponLevelValue + 1, (uint)synthesisCount);
-            synthesisCount = 1;
-            RefreshSynthesis();
-        }
+        //수정 필요
+        //if (WeaponArray[(int)weapons[WeaponID].Rate].weapons.Length < weaponLevelValue + 1)
+        //    return;
+        //if (
+        //    synthesisCount * 5
+        //    <= WeaponArray[(int)weapons[WeaponID].Rate].weapons[weaponLevelValue].weaponCount
+        //)
+        //{
+        //    WeaponArray[(int)weapons[WeaponID].Rate].weapons[weaponLevelValue].weaponCount -=
+        //        (uint)synthesisCount * 5;
+        //    GetItem((int)weapons[WeaponID].Rate, weaponLevelValue + 1, (uint)synthesisCount);
+        //    synthesisCount = 1;
+        //    RefreshSynthesis();
+        //}
     }
 
     public void GetItem(int weaponType, int weaponLevel, uint amount)
     {
-        WeaponArray[weaponType].weapons[weaponLevel].weaponCount += amount;
+        weapons[WeaponID].weaponCount += amount;
         RefreshSlot();
     }
 }

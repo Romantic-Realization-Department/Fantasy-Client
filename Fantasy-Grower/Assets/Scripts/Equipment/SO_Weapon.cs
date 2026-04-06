@@ -3,21 +3,9 @@ using UnityEngine;
 public enum WeaponLevel
 {
     C,
-    D,
     B,
     A,
     S,
-}
-
-public enum WeaponType
-{
-    Rapier,
-    LongSword,
-    GreatSword,
-    GreatBow,
-    CrossBow,
-    Staff,
-    Grimoire,
 }
 
 [CreateAssetMenu(fileName = "SO_Equipment", menuName = "ScriptableObjects/SO_Equipment", order = 6)]
@@ -29,6 +17,7 @@ public class SO_Weapon : ScriptableObject
     private Sprite _weaponIcon;
     public Sprite WeaponIcon => _weaponIcon;
 
+    [Tooltip("제대로 된 ID가 아니라면 오류가 납니다")]
     [SerializeField]
     private string _weaponID;
     public string WeaponID => _weaponID;
@@ -36,6 +25,7 @@ public class SO_Weapon : ScriptableObject
     [Header("무기 정보")]
     public string weaponName;
     public string weaponInfo;
+    public WeaponLevel Rate;
     public uint weaponCount
     {
         get { return weaponCount; }
