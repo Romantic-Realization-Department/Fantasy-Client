@@ -1,11 +1,16 @@
 using UnityEngine;
 
-public enum WeaponLevel
+public enum WeaponID
 {
-    C,
-    B,
-    A,
-    S,
+    S1,
+    S2,
+    A1,
+    A2,
+    B1,
+    B2,
+    c1,
+    C2,
+    Count,
 }
 
 [CreateAssetMenu(fileName = "SO_Equipment", menuName = "ScriptableObjects/SO_Equipment", order = 6)]
@@ -19,13 +24,12 @@ public class SO_Weapon : ScriptableObject
 
     [Tooltip("제대로 된 ID가 아니라면 오류가 납니다")]
     [SerializeField]
-    private string _weaponID;
-    public string WeaponID => _weaponID;
+    private WeaponID _weaponID;
+    public WeaponID WeaponID => _weaponID;
 
     [Header("무기 정보")]
     public string weaponName;
     public string weaponInfo;
-    public WeaponLevel Rate;
     public uint weaponCount
     {
         get { return weaponCount; }

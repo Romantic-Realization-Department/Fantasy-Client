@@ -25,12 +25,20 @@ public class EquipmentManager : MonoBehaviour
         Color.yellow,
     };
 
+    [Header("임시 변수(실 사용 시 삭제 바람)")]
+    [Range(0, 2)]
+    public int career;
+
     [Header("장비 탭")]
+    [SerializeField]
+    private Sprite[] WeaponIcon = new Sprite[6];
+
     [SerializeField]
     private GameObject WeaponInfoObject;
 
     [Header("강화")]
     [Header("인벤토리")]
+    public SO_Weapon[] weapons = new SO_Weapon[(int)WeaponID.Count];
     public Slot[] Invens;
 
     [Header("대장간 변수")]
@@ -42,10 +50,10 @@ public class EquipmentManager : MonoBehaviour
     public Text[] WeaponCountText;
     public Text SynthesisCountText;
 
-    private Dictionary<string, SO_Weapon> weapons;
     private Color[] SynthesisColor = { Color.red, Color.cyan };
+    private Dictionary<int, Sprite> WeaponIconDic;
     private int synthesisCount = 1;
-    private string WeaponID;
+    private WeaponID currentWeaponID;
 
     private void Awake()
     {
@@ -58,9 +66,17 @@ public class EquipmentManager : MonoBehaviour
             Destroy(gameObject);
     }
 
+    private void AssignIcon()
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            WeaponIconDic.Add(i, WeaponIcon[i + career * 2]);
+        }
+    }
+
     public void OpenItemInfoPage(Slot inven)
     {
-        WeaponID = inven.weaponID;
+        currentWeaponID = inven.ID;
         WeaponInfoObject.SetActive(true);
 
         //ItemInfoPanel.SetActive(true);
@@ -77,8 +93,6 @@ public class EquipmentManager : MonoBehaviour
 
     private void RefreshSynthesis()
     {
-        if (weapons[WeaponID].Rate == WeaponLevel.S)
-            return;
         //수정 필요
         //for (int i = 0; i < 2; i++)
         //{
@@ -94,24 +108,30 @@ public class EquipmentManager : MonoBehaviour
         //}
     }
 
-    public SO_Weapon GetWeapon(string weaponID) => weapons[weaponID];
+    public SO_Weapon GetWeapon(WeaponID weaponID) => weapons[(int)weaponID];
+
+    public Sprite GetIcon(WeaponID ID)
+    {
+        int iconCode = (int)ID % 2;
+        return WeaponIconDic[iconCode];
+    }
 
     public void UpCount()
     {
-        if ((synthesisCount + 1) * 5 <= weapons[WeaponID].weaponCount)
-        {
-            synthesisCount++;
-            RefreshSynthesis();
-        }
+        //if ((synthesisCount + 1) * 5 <= weapons[WeaponID].weaponCount)
+        //{
+        //    synthesisCount++;
+        //    RefreshSynthesis();
+        //}
     }
 
     public void DownCount()
     {
-        if (synthesisCount - 1 > 0)
-        {
-            synthesisCount--;
-            RefreshSynthesis();
-        }
+        //if (synthesisCount - 1 > 0)
+        //{
+        //    synthesisCount--;
+        //    RefreshSynthesis();
+        //}
     }
 
     public void Synthesis()
@@ -132,9 +152,9 @@ public class EquipmentManager : MonoBehaviour
         //}
     }
 
-    public void GetItem(int weaponType, int weaponLevel, uint amount)
+    public void GetItem(WeaponID id, uint amount)
     {
-        weapons[WeaponID].weaponCount += amount;
+        weapons[(int)id].weaponCount += amount;
         RefreshSlot();
     }
 }

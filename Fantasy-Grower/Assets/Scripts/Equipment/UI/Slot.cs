@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public enum SlotType
@@ -8,10 +9,10 @@ public enum SlotType
     Enchent,
 }
 
-public class Slot : MonoBehaviour
+public class Slot : MonoBehaviour, IPointerClickHandler
 {
     [Header("酒捞袍 加己")]
-    public string weaponID;
+    public WeaponID ID;
 
     [Header("UI加己")]
     public SlotType _SlotType;
@@ -21,23 +22,17 @@ public class Slot : MonoBehaviour
 
     protected void Start()
     {
+        WeaponIcon.sprite = getIcon();
         RefreshIcon();
-        if (TryGetComponent<Button>(out Button button))
-        {
-            button.onClick.AddListener(OnButtonClick);
-        }
     }
 
-    protected void OnButtonClick()
-    {
-        EquipmentManager.Instance.OpenItemInfoPage(this);
-    }
+    SO_Weapon GetWeapon() => EquipmentManager.Instance.GetWeapon(ID);
 
-    SO_Weapon GetWeapon() => EquipmentManager.Instance.GetWeapon(weaponID);
+    Sprite getIcon() => EquipmentManager.Instance.GetIcon(ID);
 
     public void RefreshIcon()
     {
-        GetComponent<Image>().color = EquipmentManager.weaponLevelColor[(int)GetWeapon().Rate];
+        //GetComponent<Image>().color = EquipmentManager.weaponLevelColor[(int)GetWeapon()];
         WeaponIcon.sprite = GetWeapon().WeaponIcon;
         if (GetWeapon().isUnlock)
         {
@@ -49,5 +44,10 @@ public class Slot : MonoBehaviour
         {
             WeaponIconWall.SetActive(true);
         }
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        EquipmentManager.Instance.OpenItemInfoPage(this);
     }
 }
