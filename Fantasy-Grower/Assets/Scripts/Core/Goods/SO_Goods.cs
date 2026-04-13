@@ -31,8 +31,7 @@ public abstract class SO_Goods : ScriptableObject
     {
         if (amount > value)
         {
-            // ÀçÈ­°¡ ºÎÁ·ÇÑ °æ¿ì
-            Debug.LogError($"{GoodsName}ÀÌ(°¡) {amount - value}¸¸Å­ ºÎÁ·ÇÕ´Ï´Ù!!!");
+            Debug.LogError($"{GoodsName}ì€(ëŠ”) {amount - value}ë§Œí¼ ë¶€ì¡±í•©ë‹ˆë‹¤!!!");
             return;
         }
 
