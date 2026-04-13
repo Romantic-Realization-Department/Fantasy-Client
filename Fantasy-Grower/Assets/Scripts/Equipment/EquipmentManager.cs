@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -37,6 +39,30 @@ public class EquipmentManager : MonoBehaviour
     private GameObject WeaponInfoObject;
 
     [Header("강화")]
+    [SerializeField]
+    private Image WeaponIconImage;
+
+    [SerializeField]
+    private Image WeaponBGImage;
+
+    [SerializeField]
+    private Text WeaponLevelText;
+
+    [SerializeField]
+    private Text EquipInfoText;
+
+    [SerializeField]
+    private Text GetInfoText;
+
+    [SerializeField]
+    private GameObject[] AwakeObject;
+
+    [Space(20f)]
+    [SerializeField]
+    private int _maxUpgradeLevel;
+    public int maxUpgradeLevel => _maxUpgradeLevel;
+    private SO_Weapon EquipWeapon;
+
     [Header("인벤토리")]
     public SO_Weapon[] weapons = new SO_Weapon[(int)WeaponID.Count];
     public Slot[] Invens;
@@ -53,7 +79,7 @@ public class EquipmentManager : MonoBehaviour
     private Color[] SynthesisColor = { Color.red, Color.cyan };
     private Dictionary<int, Sprite> WeaponIconDic = new Dictionary<int, Sprite>();
     private int synthesisCount = 1;
-    private WeaponID currentWeaponID;
+    private SO_Weapon currentWeapon;
 
     private void Awake()
     {
@@ -64,15 +90,7 @@ public class EquipmentManager : MonoBehaviour
         }
         else
             Destroy(gameObject);
-        for (int i = 0; i < 2; i++)
-        {
-            WeaponIconDic.Add(
-                i,
-                WeaponIcon[
-                    i /*+2*직업*/
-                ]
-            );
-        }
+        AssignIcon();
     }
 
     private void AssignIcon()
@@ -83,13 +101,48 @@ public class EquipmentManager : MonoBehaviour
         }
     }
 
+    public void Equip()
+    {
+        EquipWeapon = currentWeapon;
+    }
+
+    public void UpgradeWeapon()
+    {
+        //재화 관리 매니저에서 강화스크롤 비교 후 사용 메서드 활용하여 재화 사용
+        if (true)
+        {
+            if (maxUpgradeLevel < currentWeapon.weaponLevel)
+            {
+                currentWeapon.weaponLevel++;
+                RefreshInfo();
+            }
+        }
+    }
+
     public void OpenItemInfoPage(Slot inven)
     {
-        currentWeaponID = inven.ID;
+        currentWeapon = GetWeapon(inven.ID);
+        WeaponIconImage.sprite = GetIcon(inven.ID);
+        //WeaponBGImage.color =
+
         WeaponInfoObject.SetActive(true);
 
         //ItemInfoPanel.SetActive(true);
         //RefreshSynthesis();
+    }
+
+    void RefreshInfo()
+    {
+        if (currentWeapon.weaponLevel > 0)
+        {
+            WeaponLevelText.text = "+" + currentWeapon.weaponLevel.ToString("0");
+        }
+        else
+        {
+            WeaponLevelText.text = "";
+        }
+
+        EquipInfoText.text = "공격력: " + (currentWeapon.equipDamage * 100f).ToString("0") + "%";
     }
 
     public void RefreshSlot()

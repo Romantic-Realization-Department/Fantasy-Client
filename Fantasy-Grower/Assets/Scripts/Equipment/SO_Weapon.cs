@@ -18,7 +18,6 @@ public class SO_Weapon : ScriptableObject
 {
     //필요한 기능에 따라 변수 및 함수가 추가될 수 있음
     [Header("필요 변수")]
-    [Tooltip("제대로 된 ID가 아니라면 오류가 납니다")]
     [SerializeField]
     private WeaponID _weaponID;
     public WeaponID WeaponID => _weaponID;
@@ -35,6 +34,9 @@ public class SO_Weapon : ScriptableObject
             weaponCount = value;
         }
     }
-    public int Damage;
+    public int equipDamage;
+    public int getDamage;
+    public int weaponLevel;
+    public int weaponAwakeLevel;
     public bool isUnlock;
 }
