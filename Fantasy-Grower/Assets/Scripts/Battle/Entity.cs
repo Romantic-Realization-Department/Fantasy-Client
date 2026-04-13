@@ -67,8 +67,11 @@ public abstract class Entity : MonoBehaviour
         if (statData == null)
             return;
 
+        // 현재 체력 비율에 맞춰 회복
+        float hpRatio = MaxHp > 0 ? (float)Hp / MaxHp : 1f;
         MaxHp = statData.Hp + modifier.BonusHp;
-        Hp = MaxHp;
+        Hp = Mathf.RoundToInt(MaxHp * hpRatio);
+
         DamageReduction = statData.DamageReduction + modifier.BonusDamageReduction;
         AttackPower = statData.AttackPower + modifier.BonusAttackPower;
         AttackSpeed = statData.AttackSpeed + modifier.BonusAttackSpeed;
