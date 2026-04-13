@@ -13,7 +13,7 @@ public class WaveController : MonoBehaviour
     public static event Action OnAllEnemiesDead;
 
     private int _aliveCount;
-    private readonly List<Enemy> _activeEnemies = new();
+    private readonly HashSet<Enemy> _activeEnemies = new();
 
     private void Awake()
     {
@@ -29,7 +29,7 @@ public class WaveController : MonoBehaviour
     /// 웨이브 데이터에 따라 적을 스폰한다.
     /// 스폰된 Enemy 인스턴스 목록을 반환한다.
     /// </summary>
-    public List<Enemy> SpawnWave(WaveData waveData, Transform[] spawnPoints)
+    public IReadOnlyCollection<Enemy> SpawnWave(WaveData waveData, Transform[] spawnPoints)
     {
         if (spawnPoints == null || spawnPoints.Length == 0)
         {
@@ -76,7 +76,7 @@ public class WaveController : MonoBehaviour
     /// <summary>현재 살아있는 첫 번째 적을 반환한다. 없으면 null.</summary>
     public Enemy GetFirstAliveEnemy() => _activeEnemies.FirstOrDefault(e => e != null && e.Hp > 0);
 
-    public IReadOnlyList<Enemy> ActiveEnemies => _activeEnemies.AsReadOnly();
+    public IReadOnlyCollection<Enemy> ActiveEnemies => _activeEnemies;
 
     /// <summary>살아있는 적을 모두 파괴하고 상태를 초기화한다. 재시도 또는 씬 정리 시 사용.</summary>
     public void Clear()

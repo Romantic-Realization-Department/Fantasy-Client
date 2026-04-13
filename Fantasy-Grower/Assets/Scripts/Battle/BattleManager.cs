@@ -40,7 +40,8 @@ public class BattleManager : MonoBehaviour
     // ─── 런타임 상태 ─────────────────────────────────────────────
     private BattleState state = BattleState.Idle;
     private int currentWaveIndex;
-    private List<Enemy> currentWaveEnemies;
+    private IReadOnlyCollection<Enemy> currentWaveEnemies;
+    private Coroutine _delayedTransitionCoroutine;
 
     // ─── UI 알림 이벤트 ───────────────────────────────────────────
     /// <summary>상태가 변경될 때마다 발화된다. UI 패널 전환에 사용한다.</summary>
@@ -163,7 +164,9 @@ public class BattleManager : MonoBehaviour
         }
         else
         {
-            StartCoroutine(DelayedTransition(BattleState.WaveStart, 1.5f));
+            _delayedTransitionCoroutine = StartCoroutine(
+                DelayedTransition(BattleState.WaveStart, 1.5f)
+            );
         }
     }
 
@@ -184,6 +187,12 @@ public class BattleManager : MonoBehaviour
     {
         if (entity != player)
             return;
+
+        if (_delayedTransitionCoroutine != null)
+        {
+            StopCoroutine(_delayedTransitionCoroutine);
+            _delayedTransitionCoroutine = null;
+        }
 
         autoAttack.StopAutoAttack();
         waveController.Clear();
