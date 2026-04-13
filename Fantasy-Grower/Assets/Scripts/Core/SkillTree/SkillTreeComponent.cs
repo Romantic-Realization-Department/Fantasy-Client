@@ -140,7 +140,12 @@ public class SkillTreeComponent : MonoBehaviour
     {
         if (node == null || node.Skill == null)
             return false;
-        if (!SkillTreeValidator.HasEnoughSP(node, GoodsManager.Instance.GetGoods(GoodsType.SP) as SO_SP))
+        if (
+            !SkillTreeValidator.HasEnoughSP(
+                node,
+                GoodsManager.Instance.GetGoods(GoodsType.SP) as SO_SP
+            )
+        )
             return false;
         return strategy.CanUnlock(node, unlockedState);
     }

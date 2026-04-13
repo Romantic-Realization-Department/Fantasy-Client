@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -175,7 +175,9 @@ public class BattleManager : MonoBehaviour
         GoodsManager.Instance.GetGoods(GoodsType.XP).Increase(dungeonData.BonusXpReward);
 
         if (dungeonData.DungeonType == DungeonType.Boss)
-            GoodsManager.Instance.GetGoods(GoodsType.Mithril).Increase(dungeonData.MithrilRewardAmount);
+            GoodsManager
+                .Instance.GetGoods(GoodsType.Mithril)
+                .Increase(dungeonData.MithrilRewardAmount);
     }
 
     private void HandlePlayerDied(Entity entity)
