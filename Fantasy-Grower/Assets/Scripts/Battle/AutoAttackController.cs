@@ -14,6 +14,8 @@ public class AutoAttackController : MonoBehaviour
 
     private Player player;
     private Coroutine attackCoroutine;
+    private float _cachedInterval = -1f;
+    private WaitForSeconds _waitForSeconds;
 
     private void Awake()
     {
@@ -44,7 +46,12 @@ public class AutoAttackController : MonoBehaviour
 
             // AttackSpeed = 초당 공격 횟수 (예: 1.0 → 1초마다 공격)
             float interval = player.AttackSpeed > 0f ? 1f / player.AttackSpeed : 1f;
-            yield return new WaitForSeconds(interval);
+            if (interval != _cachedInterval)
+            {
+                _cachedInterval = interval;
+                _waitForSeconds = new WaitForSeconds(interval);
+            }
+            yield return _waitForSeconds;
         }
     }
 }

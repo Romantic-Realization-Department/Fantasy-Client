@@ -11,6 +11,8 @@ public class EnemyAI : MonoBehaviour
     private Enemy enemy;
     private Player player;
     private Coroutine attackCoroutine;
+    private float _cachedInterval = -1f;
+    private WaitForSeconds _waitForSeconds;
 
     private bool hasAttackCollider => childCollider != null;
 
@@ -67,7 +69,12 @@ public class EnemyAI : MonoBehaviour
             }
 
             float interval = enemy.AttackSpeed > 0f ? 1f / enemy.AttackSpeed : 2f;
-            yield return new WaitForSeconds(interval);
+            if (interval != _cachedInterval)
+            {
+                _cachedInterval = interval;
+                _waitForSeconds = new WaitForSeconds(interval);
+            }
+            yield return _waitForSeconds;
         }
     }
 }
