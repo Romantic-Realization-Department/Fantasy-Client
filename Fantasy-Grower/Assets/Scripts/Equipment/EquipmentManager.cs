@@ -10,7 +10,7 @@ public class EquipmentManager : MonoBehaviour
         get
         {
             _instance = FindAnyObjectByType<EquipmentManager>();
-            if (Instance == null)
+            if (_instance == null)
             {
                 Debug.LogError("씬에 스크립트를 참조한 오브젝트가 없습니다");
             }
@@ -51,7 +51,7 @@ public class EquipmentManager : MonoBehaviour
     public Text SynthesisCountText;
 
     private Color[] SynthesisColor = { Color.red, Color.cyan };
-    private Dictionary<int, Sprite> WeaponIconDic;
+    private Dictionary<int, Sprite> WeaponIconDic = new Dictionary<int, Sprite>();
     private int synthesisCount = 1;
     private WeaponID currentWeaponID;
 
@@ -64,6 +64,15 @@ public class EquipmentManager : MonoBehaviour
         }
         else
             Destroy(gameObject);
+        for (int i = 0; i < 2; i++)
+        {
+            WeaponIconDic.Add(
+                i,
+                WeaponIcon[
+                    i /*+2*직업*/
+                ]
+            );
+        }
     }
 
     private void AssignIcon()

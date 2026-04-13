@@ -33,7 +33,6 @@ public class Slot : MonoBehaviour, IPointerClickHandler
     public void RefreshIcon()
     {
         //GetComponent<Image>().color = EquipmentManager.weaponLevelColor[(int)GetWeapon()];
-        WeaponIcon.sprite = GetWeapon().WeaponIcon;
         if (GetWeapon().isUnlock)
         {
             WeaponIconWall.SetActive(false);
