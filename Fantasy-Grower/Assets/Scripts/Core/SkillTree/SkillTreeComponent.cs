@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -11,9 +11,6 @@ public class SkillTreeComponent : MonoBehaviour
 {
     [SerializeField]
     private SkillTreeData treeData;
-
-    [SerializeField]
-    private SO_SP spResource;
 
     // ScriptableObject를 직접 수정하지 않고 런타임 상태를 Dictionary로 격리
     private Dictionary<SkillNodeData, bool> unlockedState;
@@ -35,9 +32,6 @@ public class SkillTreeComponent : MonoBehaviour
 
         if (treeData == null)
             Debug.LogWarning("[SkillTreeComponent] SkillTreeData가 비어 있습니다!");
-
-        if (spResource == null)
-            Debug.LogWarning("[SkillTreeComponent] SO_SP가 비어 있습니다!");
 
         // 모든 노드를 초기 잠금 상태로 등록
         if (treeData != null && treeData.AllNodes != null)
@@ -70,7 +64,7 @@ public class SkillTreeComponent : MonoBehaviour
         }
 
         // SP 소비
-        spResource.Decrease((uint)node.Skill.SPCost);
+        GoodsManager.Instance.GetGoods(GoodsType.SP).Decrease((uint)node.Skill.SPCost);
 
         unlockedState[node] = true;
         strategy.OnNodeUnlocked(node, unlockedState);
@@ -146,7 +140,7 @@ public class SkillTreeComponent : MonoBehaviour
     {
         if (node == null || node.Skill == null)
             return false;
-        if (!SkillTreeValidator.HasEnoughSP(node, spResource))
+        if (!SkillTreeValidator.HasEnoughSP(node, GoodsManager.Instance.GetGoods(GoodsType.SP) as SO_SP))
             return false;
         return strategy.CanUnlock(node, unlockedState);
     }

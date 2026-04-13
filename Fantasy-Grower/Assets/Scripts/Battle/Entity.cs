@@ -14,7 +14,7 @@ public abstract class Entity : MonoBehaviour
     private EntityStatData statData;
 
     /// <summary>HP가 0이 되어 Death()가 호출될 때 발화된다.</summary>
-    public event Action<Entity> OnDied;
+    public static event Action<Entity> OnDied;
 
     protected virtual void Awake()
     {

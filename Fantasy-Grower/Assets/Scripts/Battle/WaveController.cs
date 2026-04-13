@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -10,10 +10,20 @@ using UnityEngine;
 public class WaveController : MonoBehaviour
 {
     /// <summary>현재 웨이브의 모든 적이 사망했을 때 발화된다.</summary>
-    public event Action OnAllEnemiesDead;
+    public static event Action OnAllEnemiesDead;
 
     private int _aliveCount;
     private readonly List<Enemy> _activeEnemies = new();
+
+    private void Awake()
+    {
+        Entity.OnDied += OnEnemyDied;
+    }
+
+    private void OnDestroy()
+    {
+        Entity.OnDied -= OnEnemyDied;
+    }
 
     /// <summary>
     /// 웨이브 데이터에 따라 적을 스폰한다.
@@ -48,7 +58,6 @@ public class WaveController : MonoBehaviour
                 }
 
                 _activeEnemies.Add(enemy);
-                enemy.OnDied += OnEnemyDied;
                 spawnIndex++;
             }
         }
@@ -83,6 +92,9 @@ public class WaveController : MonoBehaviour
 
     private void OnEnemyDied(Entity entity)
     {
+        if (entity is not Enemy enemy || !_activeEnemies.Contains(enemy))
+            return;
+
         _aliveCount = Mathf.Max(0, _aliveCount - 1);
 
         if (_aliveCount == 0)

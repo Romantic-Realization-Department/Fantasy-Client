@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -37,16 +37,6 @@ public class BattleManager : MonoBehaviour
     [SerializeField]
     private DungeonData dungeonData;
 
-    [Header("재화 SO")]
-    [SerializeField]
-    private SO_Gold gold;
-
-    [SerializeField]
-    private SO_XP xp;
-
-    [SerializeField]
-    private SO_Mithril mithril;
-
     // ─── 런타임 상태 ─────────────────────────────────────────────
     private BattleState state = BattleState.Idle;
     private int currentWaveIndex;
@@ -54,22 +44,22 @@ public class BattleManager : MonoBehaviour
 
     // ─── UI 알림 이벤트 ───────────────────────────────────────────
     /// <summary>상태가 변경될 때마다 발화된다. UI 패널 전환에 사용한다.</summary>
-    public event Action<BattleState> OnStateChanged;
+    public static event Action<BattleState> OnStateChanged;
 
     /// <summary>새 웨이브가 시작될 때 웨이브 번호(0-based)를 전달한다.</summary>
-    public event Action<int> OnWaveChanged;
+    public static event Action<int> OnWaveChanged;
 
     // ─── 유니티 라이프사이클 ──────────────────────────────────────
     private void Awake()
     {
-        waveController.OnAllEnemiesDead += HandleAllEnemiesDead;
-        player.OnDied += HandlePlayerDied;
+        WaveController.OnAllEnemiesDead += HandleAllEnemiesDead;
+        Entity.OnDied += HandlePlayerDied;
     }
 
     private void OnDestroy()
     {
-        waveController.OnAllEnemiesDead -= HandleAllEnemiesDead;
-        player.OnDied -= HandlePlayerDied;
+        WaveController.OnAllEnemiesDead -= HandleAllEnemiesDead;
+        Entity.OnDied -= HandlePlayerDied;
     }
 
     // ─── 공개 API (UI 버튼에서 호출) ─────────────────────────────
@@ -181,15 +171,18 @@ public class BattleManager : MonoBehaviour
     {
         Debug.Log("[BattleManager] 던전 클리어!");
 
-        gold?.Increase(dungeonData.BonusGoldReward);
-        xp?.Increase(dungeonData.BonusXpReward);
+        GoodsManager.Instance.GetGoods(GoodsType.Gold).Increase(dungeonData.BonusGoldReward);
+        GoodsManager.Instance.GetGoods(GoodsType.XP).Increase(dungeonData.BonusXpReward);
 
-        if (dungeonData.DungeonType == DungeonType.Boss && dungeonData.MithrilAsset != null)
-            dungeonData.MithrilAsset.Increase(dungeonData.MithrilRewardAmount);
+        if (dungeonData.DungeonType == DungeonType.Boss)
+            GoodsManager.Instance.GetGoods(GoodsType.Mithril).Increase(dungeonData.MithrilRewardAmount);
     }
 
-    private void HandlePlayerDied(Entity _)
+    private void HandlePlayerDied(Entity entity)
     {
+        if (entity != player)
+            return;
+
         autoAttack.StopAutoAttack();
         waveController.Clear();
         TransitionTo(BattleState.PlayerDead);

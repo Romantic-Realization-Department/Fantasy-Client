@@ -26,6 +26,5 @@ public class DungeonData : ScriptableObject
     public uint BonusXpReward;
 
     [Header("보스 던전 전용 보상")]
-    public SO_Mithril MithrilAsset;
     public uint MithrilRewardAmount;
 }
