@@ -9,6 +9,13 @@ public enum Career
     Wizard,
 }
 
+[System.Serializable]
+public struct WeaponIcon
+{
+    public Career career;
+    public Sprite[] icons;
+}
+
 public class EquipmentManager : MonoBehaviour
 {
     private static EquipmentManager _instance;
@@ -37,7 +44,7 @@ public class EquipmentManager : MonoBehaviour
 
     [Header("¿Â∫Ò ≈«")]
     [SerializeField]
-    private Sprite[] WeaponIcon = new Sprite[6];
+    private WeaponIcon[] WeaponIcons = new WeaponIcon[3];
 
     [SerializeField]
     private GameObject WeaponInfoObject;
@@ -101,7 +108,7 @@ public class EquipmentManager : MonoBehaviour
     {
         for (int i = 0; i < 2; i++)
         {
-            WeaponIconDic.Add(i, WeaponIcon[i + (int)career * 2]);
+            WeaponIconDic.Add(i, WeaponIcons[(int)career].icons[i]);
         }
     }
 

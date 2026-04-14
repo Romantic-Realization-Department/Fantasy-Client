@@ -661,13 +661,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   career: 0
-  WeaponIcon:
-  - {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
-  - {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  WeaponIcons:
+  - career: 0
+    icons:
+    - {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+  - career: 1
+    icons:
+    - {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+    - {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  - career: 2
+    icons:
+    - {fileID: 0}
+    - {fileID: 0}
   WeaponInfoObject: {fileID: 1386043713}
   WeaponIconImage: {fileID: 734089307}
   WeaponBGImage: {fileID: 550606379}
