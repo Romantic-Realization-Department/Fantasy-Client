@@ -18,9 +18,7 @@ public class AttackCollider : MonoBehaviour
         if (!collision.gameObject.TryGetComponent<Entity>(out Entity target))
             return;
 
-        bool shouldHit =
-            (type == EntityType.Player && target is Enemy)
-            || (type == EntityType.Enemy && target is Player);
+        bool shouldHit = (type != entity.EntityType);
 
         if (!shouldHit)
             return;
