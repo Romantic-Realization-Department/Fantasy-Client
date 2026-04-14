@@ -99,6 +99,7 @@ public class WaveController : MonoBehaviour
             return;
 
         entity.OnDied -= OnEnemyDied;
+        _activeEnemies.Remove(enemy);
         _aliveCount = Mathf.Max(0, _aliveCount - 1);
 
         if (_aliveCount == 0)
