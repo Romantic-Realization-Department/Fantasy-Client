@@ -110,7 +110,7 @@ public class EquipmentManager : MonoBehaviour
     public void UpgradeWeapon()
     {
         //재화 관리 매니저에서 강화스크롤 비교 후 사용 메서드 활용하여 재화 사용
-        if (true)
+        if (true && currentWeapon != null)
         {
             if (maxUpgradeLevel > currentWeapon.weaponLevel)
             {
@@ -145,7 +145,7 @@ public class EquipmentManager : MonoBehaviour
         }
 
         EquipInfoText.text = "공격력: " + (currentWeapon.equipDamage * 100f).ToString("0") + "%";
-        //GetInfoText.text =
+        GetInfoText.text = currentWeapon.weaponInfo;
     }
 
     public void RefreshSlot()

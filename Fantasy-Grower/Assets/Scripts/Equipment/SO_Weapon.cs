@@ -28,13 +28,14 @@ public class SO_Weapon : ScriptableObject
     [TextArea]
     public string weaponInfo;
 
+    private uint _weaponCount;
     public uint weaponCount
     {
-        get { return weaponCount; }
+        get { return _weaponCount; }
         set
         {
+            _weaponCount = value;
             isUnlock = true;
-            weaponCount = value;
         }
     }
     public int equipDamage;
