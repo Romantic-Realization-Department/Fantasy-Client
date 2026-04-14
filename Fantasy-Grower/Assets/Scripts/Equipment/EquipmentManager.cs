@@ -75,7 +75,7 @@ public class EquipmentManager : MonoBehaviour
     private SO_Weapon EquipWeapon;
 
     [Header("인벤토리")]
-    public SO_Weapon[] weapons = new SO_Weapon[(int)WeaponID.C2 + 1];
+    public SO_Weapon[] weapons = new SO_Weapon[(int)WeaponID.D2 + 1];
     public Slot[] Invens;
 
     [Header("대장간 변수")]

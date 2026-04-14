@@ -10,6 +10,8 @@ public enum WeaponID
     B2,
     c1,
     C2,
+    D1,
+    D2,
 }
 
 [CreateAssetMenu(fileName = "SO_Equipment", menuName = "ScriptableObjects/SO_Equipment", order = 6)]
