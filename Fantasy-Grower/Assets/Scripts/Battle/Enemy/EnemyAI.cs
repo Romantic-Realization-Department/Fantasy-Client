@@ -11,8 +11,6 @@ public class EnemyAI : MonoBehaviour
     private Enemy enemy;
     private Player player;
     private Coroutine attackCoroutine;
-    private float _cachedInterval = -1f;
-    private WaitForSeconds _waitForSeconds;
 
     private bool hasAttackCollider => childCollider != null;
 
@@ -22,7 +20,16 @@ public class EnemyAI : MonoBehaviour
     {
         enemy = GetComponent<Enemy>();
         childCollider = GetComponentInChildren<AttackCollider>(includeInactive: true);
+        enemy.OnDied += OnEnemyDied;
     }
+
+    private void OnDestroy()
+    {
+        if (enemy != null)
+            enemy.OnDied -= OnEnemyDied;
+    }
+
+    private void OnEnemyDied(Entity _) => StopAttacking();
 
     /// <summary>타겟 플레이어를 설정한다. BattleManager가 스폰 직후 호출한다.</summary>
     public void Initialize(Player player)
@@ -69,12 +76,7 @@ public class EnemyAI : MonoBehaviour
             }
 
             float interval = enemy.AttackSpeed > 0f ? 1f / enemy.AttackSpeed : 2f;
-            if (interval != _cachedInterval)
-            {
-                _cachedInterval = interval;
-                _waitForSeconds = new WaitForSeconds(interval);
-            }
-            yield return _waitForSeconds;
+            yield return YieldInstructionCache.WaitForSeconds(interval);
         }
     }
 }

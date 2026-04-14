@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -15,14 +15,13 @@ public class WaveController : MonoBehaviour
     private int _aliveCount;
     private readonly HashSet<Enemy> _activeEnemies = new();
 
-    private void Awake()
-    {
-        Entity.OnDied += OnEnemyDied;
-    }
-
     private void OnDestroy()
     {
-        Entity.OnDied -= OnEnemyDied;
+        foreach (Enemy e in _activeEnemies)
+        {
+            if (e != null)
+                e.OnDied -= OnEnemyDied;
+        }
     }
 
     /// <summary>
@@ -40,6 +39,7 @@ public class WaveController : MonoBehaviour
         _activeEnemies.Clear();
         int spawnIndex = 0;
 
+        // 추후 오브젝트 풀링 작동 방식으로 변환할 것.
         foreach (var entry in waveData.Entries)
         {
             for (int i = 0; i < entry.Count; i++)
@@ -47,8 +47,7 @@ public class WaveController : MonoBehaviour
                 Vector3 pos = spawnPoints[spawnIndex % spawnPoints.Length].position;
                 GameObject go = Instantiate(entry.EnemyPrefab, pos, Quaternion.identity);
 
-                Enemy enemy = go.GetComponent<Enemy>();
-                if (enemy == null)
+                if (!go.TryGetComponent<Enemy>(out Enemy enemy))
                 {
                     Debug.LogWarning(
                         $"[WaveController] 프리팹 {entry.EnemyPrefab.name}에 Enemy 컴포넌트가 없습니다."
@@ -57,6 +56,7 @@ public class WaveController : MonoBehaviour
                     continue;
                 }
 
+                enemy.OnDied += OnEnemyDied;
                 _activeEnemies.Add(enemy);
                 spawnIndex++;
             }
@@ -84,7 +84,10 @@ public class WaveController : MonoBehaviour
         foreach (Enemy e in _activeEnemies)
         {
             if (e != null)
+            {
+                e.OnDied -= OnEnemyDied;
                 Destroy(e.gameObject);
+            }
         }
         _activeEnemies.Clear();
         _aliveCount = 0;
@@ -95,6 +98,7 @@ public class WaveController : MonoBehaviour
         if (entity is not Enemy enemy || !_activeEnemies.Contains(enemy))
             return;
 
+        entity.OnDied -= OnEnemyDied;
         _aliveCount = Mathf.Max(0, _aliveCount - 1);
 
         if (_aliveCount == 0)

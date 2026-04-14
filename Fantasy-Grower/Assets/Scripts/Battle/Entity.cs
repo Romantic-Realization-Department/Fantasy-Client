@@ -9,12 +9,13 @@ public abstract class Entity : MonoBehaviour
     public int AttackPower { get; private set; }
     public float AttackSpeed { get; private set; }
     public float CriticalPercentage { get; private set; }
+    public EntityType EntityType { get; private set; }
 
     [SerializeField]
     private EntityStatData statData;
 
     /// <summary>HP가 0이 되어 Death()가 호출될 때 발화된다.</summary>
-    public static event Action<Entity> OnDied;
+    public event Action<Entity> OnDied;
 
     protected virtual void Awake()
     {

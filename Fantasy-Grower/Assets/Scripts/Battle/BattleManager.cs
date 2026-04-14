@@ -54,13 +54,13 @@ public class BattleManager : MonoBehaviour
     private void Awake()
     {
         WaveController.OnAllEnemiesDead += HandleAllEnemiesDead;
-        Entity.OnDied += HandlePlayerDied;
+        player.OnDied += HandlePlayerDied;
     }
 
     private void OnDestroy()
     {
         WaveController.OnAllEnemiesDead -= HandleAllEnemiesDead;
-        Entity.OnDied -= HandlePlayerDied;
+        player.OnDied -= HandlePlayerDied;
     }
 
     // ─── 공개 API (UI 버튼에서 호출) ─────────────────────────────
@@ -96,6 +96,12 @@ public class BattleManager : MonoBehaviour
     // ─── 상태 머신 ────────────────────────────────────────────────
     private void TransitionTo(BattleState newState)
     {
+        if (_delayedTransitionCoroutine != null)
+        {
+            StopCoroutine(_delayedTransitionCoroutine);
+            _delayedTransitionCoroutine = null;
+        }
+
         state = newState;
         OnStateChanged?.Invoke(state);
         Debug.Log($"[BattleManager] 상태 전환: {newState}");
@@ -187,12 +193,6 @@ public class BattleManager : MonoBehaviour
     {
         if (entity != player)
             return;
-
-        if (_delayedTransitionCoroutine != null)
-        {
-            StopCoroutine(_delayedTransitionCoroutine);
-            _delayedTransitionCoroutine = null;
-        }
 
         autoAttack.StopAutoAttack();
         waveController.Clear();

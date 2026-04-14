@@ -14,12 +14,12 @@ public class AutoAttackController : MonoBehaviour
 
     private Player player;
     private Coroutine attackCoroutine;
-    private float _cachedInterval = -1f;
-    private WaitForSeconds _waitForSeconds;
 
     private void Awake()
     {
         player = GetComponent<Player>();
+        if (waveController == null)
+            Debug.LogError("[AutoAttackController] WaveController가 연결되지 않았습니다.", this);
     }
 
     public void StartAutoAttack()
@@ -41,17 +41,12 @@ public class AutoAttackController : MonoBehaviour
     {
         while (true)
         {
-            if (waveController.GetFirstAliveEnemy() != null)
+            if (waveController != null && waveController.GetFirstAliveEnemy() != null)
                 player.Attack(); // AttackCollider가 실제 피해를 처리
 
             // AttackSpeed = 초당 공격 횟수 (예: 1.0 → 1초마다 공격)
             float interval = player.AttackSpeed > 0f ? 1f / player.AttackSpeed : 1f;
-            if (interval != _cachedInterval)
-            {
-                _cachedInterval = interval;
-                _waitForSeconds = new WaitForSeconds(interval);
-            }
-            yield return _waitForSeconds;
+            yield return YieldInstructionCache.WaitForSeconds(interval);
         }
     }
 }
