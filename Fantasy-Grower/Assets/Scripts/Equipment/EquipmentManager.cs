@@ -1,10 +1,19 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[System.Serializable]
-public struct WeaponTable
+public enum Career
 {
-    public SO_Weapon[] weapons;
+    Warrior,
+    Archer,
+    Wizard,
+}
+
+[System.Serializable]
+public struct WeaponIcon
+{
+    public Career career;
+    public Sprite[] icons;
 }
 
 public class EquipmentManager : MonoBehaviour
@@ -15,7 +24,7 @@ public class EquipmentManager : MonoBehaviour
         get
         {
             _instance = FindAnyObjectByType<EquipmentManager>();
-            if (Instance == null)
+            if (_instance == null)
             {
                 Debug.LogError("씬에 스크립트를 참조한 오브젝트가 없습니다");
             }
@@ -30,11 +39,47 @@ public class EquipmentManager : MonoBehaviour
         Color.yellow,
     };
 
-    [Header("합성&강화 공통 변수")]
-    public GameObject ItemInfoPanel;
+    [Header("임시 변수(실 사용 시 삭제 바람)")]
+    public Career career;
 
-    private int weaponTypeValue;
-    private int weaponLevelValue;
+    [Header("장비 탭")]
+    [SerializeField]
+    private WeaponIcon[] WeaponIcons = new WeaponIcon[3];
+
+    [SerializeField]
+    private GameObject WeaponInfoObject;
+
+    [Header("강화")]
+    [SerializeField]
+    private Image WeaponIconImage;
+
+    [SerializeField]
+    private Image WeaponBGImage;
+
+    [SerializeField]
+    private Text WeaponLevelText;
+
+    [SerializeField]
+    private Text EquipInfoText;
+
+    [SerializeField]
+    private Text GetInfoText;
+
+    [SerializeField]
+    private GameObject[] AwakeObject;
+
+    [Space(20f)]
+    [SerializeField]
+    private int _maxUpgradeLevel;
+    public int maxUpgradeLevel => _maxUpgradeLevel;
+    private SO_Weapon EquipWeapon;
+
+    [Header("인벤토리")]
+    public SO_Weapon[] weapons = new SO_Weapon[(int)WeaponID.D2 + 1];
+    public Slot[] Invens;
+
+    [Header("대장간 변수")]
+    public GameObject SmithyTab;
 
     [Header("합성")]
     public Image[] WeaponBackgroundImage;
@@ -43,12 +88,9 @@ public class EquipmentManager : MonoBehaviour
     public Text SynthesisCountText;
 
     private Color[] SynthesisColor = { Color.red, Color.cyan };
+    private Dictionary<int, Sprite> WeaponIconDic = new Dictionary<int, Sprite>();
     private int synthesisCount = 1;
-
-    [Header("강화")]
-    [Header("인벤토리")]
-    public WeaponTable[] WeaponArray; // 2중 배열로 무기 종류와 등급에 따른 무기 분류
-    public Slot[] Invens;
+    private SO_Weapon currentWeapon;
 
     private void Awake()
     {
@@ -59,14 +101,62 @@ public class EquipmentManager : MonoBehaviour
         }
         else
             Destroy(gameObject);
+        AssignIcon();
+    }
+
+    private void AssignIcon()
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            WeaponIconDic.Add(i, WeaponIcons[(int)career].icons[i]);
+        }
+    }
+
+    public void Equip()
+    {
+        Debug.Log("장착");
+        EquipWeapon = currentWeapon;
+    }
+
+    public void UpgradeWeapon()
+    {
+        //재화 관리 매니저에서 강화스크롤 비교 후 사용 메서드 활용하여 재화 사용
+        if (true && currentWeapon != null)
+        {
+            if (maxUpgradeLevel > currentWeapon.weaponLevel)
+            {
+                Debug.Log("강화");
+                currentWeapon.weaponLevel++;
+                RefreshInfo();
+            }
+        }
     }
 
     public void OpenItemInfoPage(Slot inven)
     {
-        weaponTypeValue = (int)inven._WeaponType;
-        weaponLevelValue = (int)inven._WeaponLevel;
-        ItemInfoPanel.SetActive(true);
-        RefreshSynthesis();
+        currentWeapon = GetWeapon(inven.ID);
+        WeaponIconImage.sprite = GetIcon(inven.ID);
+        //WeaponBGImage.color =
+
+        WeaponInfoObject.SetActive(true);
+
+        //ItemInfoPanel.SetActive(true);
+        //RefreshSynthesis();
+    }
+
+    void RefreshInfo()
+    {
+        if (currentWeapon.weaponLevel > 0)
+        {
+            WeaponLevelText.text = "+" + currentWeapon.weaponLevel.ToString("0");
+        }
+        else
+        {
+            WeaponLevelText.text = "";
+        }
+
+        EquipInfoText.text = "공격력: " + (currentWeapon.equipDamage * 100f).ToString("0") + "%";
+        GetInfoText.text = currentWeapon.weaponInfo;
     }
 
     public void RefreshSlot()
@@ -79,66 +169,68 @@ public class EquipmentManager : MonoBehaviour
 
     private void RefreshSynthesis()
     {
-        if (WeaponArray[weaponTypeValue].weapons.Length < weaponLevelValue + 1)
-            return;
-        for (int i = 0; i < 2; i++)
-        {
-            WeaponBackgroundImage[i].color = weaponLevelColor[weaponLevelValue + i];
-            WeaponSlotImage[i].sprite = WeaponArray[weaponTypeValue]
-                .weapons[weaponLevelValue + i]
-                .WeaponIcon;
-            string hexColor = "#" + ColorUtility.ToHtmlStringRGB(SynthesisColor[i]);
-            int weaponValue = synthesisCount * (i == 0 ? 5 : 1);
-            WeaponCountText[i].text =
-                $"{WeaponArray[weaponTypeValue].weapons[weaponLevelValue + i].weaponCount}(<color={hexColor}>{(weaponValue >= 0 ? "+" : "-")}{weaponValue}</color>)";
-            SynthesisCountText.text = synthesisCount.ToString("0");
-        }
+        //수정 필요
+        //for (int i = 0; i < 2; i++)
+        //{
+        //    WeaponBackgroundImage[i].color = weaponLevelColor[(int)weapons[WeaponID].Rate + i];
+        //    WeaponSlotImage[i].sprite = weapons[(int)weapons[WeaponID].Rate]
+        //        .weapons[weaponLevelValue + i]
+        //        .WeaponIcon;
+        //    string hexColor = "#" + ColorUtility.ToHtmlStringRGB(SynthesisColor[i]);
+        //    int weaponValue = synthesisCount * (i == 0 ? 5 : 1);
+        //    WeaponCountText[i].text =
+        //        $"{WeaponArray[(int)weapons[WeaponID].Rate].weapons[weaponLevelValue + i].weaponCount}(<color={hexColor}>{(weaponValue >= 0 ? "+" : "-")}{weaponValue}</color>)";
+        //    SynthesisCountText.text = synthesisCount.ToString("0");
+        //}
     }
 
-    public SO_Weapon GetWeapon(WeaponType type, WeaponLevel level) =>
-        WeaponArray[(int)type].weapons[(int)level];
+    public SO_Weapon GetWeapon(WeaponID weaponID) => weapons[(int)weaponID];
+
+    public Sprite GetIcon(WeaponID ID)
+    {
+        int iconCode = (int)ID % 2;
+        return WeaponIconDic[iconCode];
+    }
 
     public void UpCount()
     {
-        if (
-            (synthesisCount + 1) * 5
-            <= WeaponArray[weaponTypeValue].weapons[weaponLevelValue].weaponCount
-        )
-        {
-            synthesisCount++;
-            RefreshSynthesis();
-        }
+        //if ((synthesisCount + 1) * 5 <= weapons[WeaponID].weaponCount)
+        //{
+        //    synthesisCount++;
+        //    RefreshSynthesis();
+        //}
     }
 
     public void DownCount()
     {
-        if (synthesisCount - 1 > 0)
-        {
-            synthesisCount--;
-            RefreshSynthesis();
-        }
+        //if (synthesisCount - 1 > 0)
+        //{
+        //    synthesisCount--;
+        //    RefreshSynthesis();
+        //}
     }
 
     public void Synthesis()
     {
-        if (WeaponArray[weaponTypeValue].weapons.Length < weaponLevelValue + 1)
-            return;
-        if (
-            synthesisCount * 5
-            <= WeaponArray[weaponTypeValue].weapons[weaponLevelValue].weaponCount
-        )
-        {
-            WeaponArray[weaponTypeValue].weapons[weaponLevelValue].weaponCount -=
-                (uint)synthesisCount * 5;
-            GetItem(weaponTypeValue, weaponLevelValue + 1, (uint)synthesisCount);
-            synthesisCount = 1;
-            RefreshSynthesis();
-        }
+        //수정 필요
+        //if (WeaponArray[(int)weapons[WeaponID].Rate].weapons.Length < weaponLevelValue + 1)
+        //    return;
+        //if (
+        //    synthesisCount * 5
+        //    <= WeaponArray[(int)weapons[WeaponID].Rate].weapons[weaponLevelValue].weaponCount
+        //)
+        //{
+        //    WeaponArray[(int)weapons[WeaponID].Rate].weapons[weaponLevelValue].weaponCount -=
+        //        (uint)synthesisCount * 5;
+        //    GetItem((int)weapons[WeaponID].Rate, weaponLevelValue + 1, (uint)synthesisCount);
+        //    synthesisCount = 1;
+        //    RefreshSynthesis();
+        //}
     }
 
-    public void GetItem(int weaponType, int weaponLevel, uint amount)
+    public void GetItem(WeaponID id, uint amount)
     {
-        WeaponArray[weaponType].weapons[weaponLevel].weaponCount += amount;
+        weapons[(int)id].weaponCount += amount;
         RefreshSlot();
     }
 }

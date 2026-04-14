@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public enum SlotType
@@ -8,11 +9,10 @@ public enum SlotType
     Enchent,
 }
 
-public class Slot : MonoBehaviour
+public class Slot : MonoBehaviour, IPointerClickHandler
 {
     [Header("酒捞袍 加己")]
-    public WeaponType _WeaponType;
-    public WeaponLevel _WeaponLevel;
+    public WeaponID ID;
 
     [Header("UI加己")]
     public SlotType _SlotType;
@@ -22,28 +22,18 @@ public class Slot : MonoBehaviour
 
     protected void Start()
     {
+        WeaponIcon.sprite = getIcon();
         RefreshIcon();
-        if (TryGetComponent<Button>(out Button button))
-        {
-            button.onClick.AddListener(OnButtonClick);
-        }
     }
 
-    protected void OnButtonClick()
-    {
-        EquipmentManager.Instance.OpenItemInfoPage(this);
-    }
+    SO_Weapon GetWeapon() => EquipmentManager.Instance.GetWeapon(ID);
 
-    public void GetItem() =>
-        EquipmentManager.Instance.GetWeapon(_WeaponType, _WeaponLevel).weaponCount++;
+    Sprite getIcon() => EquipmentManager.Instance.GetIcon(ID);
 
     public void RefreshIcon()
     {
-        GetComponent<Image>().color = EquipmentManager.weaponLevelColor[(int)_WeaponLevel];
-        WeaponIcon.sprite = EquipmentManager
-            .Instance.GetWeapon(_WeaponType, _WeaponLevel)
-            .WeaponIcon;
-        if (EquipmentManager.Instance.GetWeapon(_WeaponType, _WeaponLevel).isUnlock)
+        //GetComponent<Image>().color = EquipmentManager.weaponLevelColor[(int)GetWeapon()];
+        if (GetWeapon().isUnlock)
         {
             WeaponIconWall.SetActive(false);
             WeaponIcon.color = Color.white;
@@ -53,5 +43,10 @@ public class Slot : MonoBehaviour
         {
             WeaponIconWall.SetActive(true);
         }
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        EquipmentManager.Instance.OpenItemInfoPage(this);
     }
 }
