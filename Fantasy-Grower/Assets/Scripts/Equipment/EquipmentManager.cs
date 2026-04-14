@@ -82,11 +82,6 @@ public class EquipmentManager : MonoBehaviour
     public GameObject SmithyTab;
 
     [Header("ÇÕ¼º")]
-    public Image[] WeaponBackgroundImage;
-    public Image[] WeaponSlotImage;
-    public Text[] WeaponCountText;
-    public Text SynthesisCountText;
-
     private Color[] SynthesisColor = { Color.red, Color.cyan };
     private Dictionary<int, Sprite> WeaponIconDic = new Dictionary<int, Sprite>();
     private int synthesisCount = 1;
@@ -139,9 +134,6 @@ public class EquipmentManager : MonoBehaviour
         //WeaponBGImage.color =
 
         WeaponInfoObject.SetActive(true);
-
-        //ItemInfoPanel.SetActive(true);
-        //RefreshSynthesis();
     }
 
     void RefreshInfo()
@@ -190,24 +182,6 @@ public class EquipmentManager : MonoBehaviour
     {
         int iconCode = (int)ID % 2;
         return WeaponIconDic[iconCode];
-    }
-
-    public void UpCount()
-    {
-        //if ((synthesisCount + 1) * 5 <= weapons[WeaponID].weaponCount)
-        //{
-        //    synthesisCount++;
-        //    RefreshSynthesis();
-        //}
-    }
-
-    public void DownCount()
-    {
-        //if (synthesisCount - 1 > 0)
-        //{
-        //    synthesisCount--;
-        //    RefreshSynthesis();
-        //}
     }
 
     public void Synthesis()
