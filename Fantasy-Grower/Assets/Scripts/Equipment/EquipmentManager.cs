@@ -103,6 +103,7 @@ public class EquipmentManager : MonoBehaviour
 
     public void Equip()
     {
+        Debug.Log("장착");
         EquipWeapon = currentWeapon;
     }
 
@@ -111,8 +112,9 @@ public class EquipmentManager : MonoBehaviour
         //재화 관리 매니저에서 강화스크롤 비교 후 사용 메서드 활용하여 재화 사용
         if (true)
         {
-            if (maxUpgradeLevel < currentWeapon.weaponLevel)
+            if (maxUpgradeLevel > currentWeapon.weaponLevel)
             {
+                Debug.Log("강화");
                 currentWeapon.weaponLevel++;
                 RefreshInfo();
             }
@@ -143,6 +145,7 @@ public class EquipmentManager : MonoBehaviour
         }
 
         EquipInfoText.text = "공격력: " + (currentWeapon.equipDamage * 100f).ToString("0") + "%";
+        GetInfoText.text = 
     }
 
     public void RefreshSlot()

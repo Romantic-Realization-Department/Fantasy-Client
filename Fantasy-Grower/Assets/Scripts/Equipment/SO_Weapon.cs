@@ -24,7 +24,10 @@ public class SO_Weapon : ScriptableObject
 
     [Header("무기 정보")]
     public string weaponName;
+
+    [TextArea]
     public string weaponInfo;
+
     public uint weaponCount
     {
         get { return weaponCount; }

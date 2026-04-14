@@ -353,7 +353,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 218622786}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 313917097}
+        m_TargetAssemblyTypeName: EquipmentManager, Assembly-CSharp
+        m_MethodName: Equip
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &218622786
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -657,13 +669,18 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   WeaponInfoObject: {fileID: 1386043713}
-  WeaponIconImage: {fileID: 0}
-  WeaponBGImage: {fileID: 0}
-  WeaponLevelText: {fileID: 0}
-  EquipInfoText: {fileID: 0}
-  GetInfoText: {fileID: 0}
-  AwakeObject: []
-  _maxUpgradeLevel: 0
+  WeaponIconImage: {fileID: 734089307}
+  WeaponBGImage: {fileID: 550606379}
+  WeaponLevelText: {fileID: 432458175}
+  EquipInfoText: {fileID: 1109895051}
+  GetInfoText: {fileID: 1123555339}
+  AwakeObject:
+  - {fileID: 1104758848}
+  - {fileID: 1192142691}
+  - {fileID: 2137930211}
+  - {fileID: 9100692}
+  - {fileID: 845584116}
+  _maxUpgradeLevel: 20
   weapons:
   - {fileID: 11400000, guid: 5e9d0d0c4b6357b48bf105992e9ba7ed, type: 2}
   - {fileID: 11400000, guid: 19f5222ba29401f4da11c9fc70dbcbc4, type: 2}
@@ -1637,7 +1654,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 988672347}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 313917097}
+        m_TargetAssemblyTypeName: EquipmentManager, Assembly-CSharp
+        m_MethodName: UpgradeWeapon
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &988672347
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2276,7 +2305,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1386043714
 RectTransform:
   m_ObjectHideFlags: 0
