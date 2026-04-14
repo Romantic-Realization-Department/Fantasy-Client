@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -141,7 +141,7 @@ public class SkillTreeComponent : MonoBehaviour
         if (node == null || node.Skill == null || strategy == null)
             return false;
         var spGoods = GoodsManager.Instance.GetGoods(GoodsType.SP) as SO_SP;
-        if (spGoods == null || !SkillTreeValidator.HasEnoughSP(node, spGoods))
+        if (strategy == null || spGoods == null || !SkillTreeValidator.HasEnoughSP(node, spGoods))
             return false;
         return strategy.CanUnlock(node, unlockedState);
     }
