@@ -847,17 +847,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c944bded2de69ce47982eaff981c54e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player: {fileID: 1107896319}
-  _autoAttack: {fileID: 1107896320}
-  _waveController: {fileID: 212572581}
-  _spawnPoints:
+  player: {fileID: 1107896319}
+  autoAttack: {fileID: 1107896320}
+  waveController: {fileID: 212572581}
+  spawnPoints:
   - {fileID: 258795092}
   - {fileID: 568675757}
   - {fileID: 1047311748}
-  _dungeonData: {fileID: 11400000, guid: 0a0276ae91b1a0c40a8184ce9a87f3be, type: 2}
-  _gold: {fileID: 0}
-  _xp: {fileID: 0}
-  _mithril: {fileID: 0}
+  dungeonData: {fileID: 11400000, guid: 0a0276ae91b1a0c40a8184ce9a87f3be, type: 2}
 --- !u!1 &1107896316
 GameObject:
   m_ObjectHideFlags: 0
@@ -973,7 +970,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41833eeeae4a47b4e956be891274a363, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _waveController: {fileID: 212572581}
+  waveController: {fileID: 212572581}
 --- !u!1 &1308738508
 GameObject:
   m_ObjectHideFlags: 0
