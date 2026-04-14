@@ -1,8 +1,13 @@
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+
+public enum Career
+{
+    Warrior,
+    Archer,
+    Wizard,
+}
 
 public class EquipmentManager : MonoBehaviour
 {
@@ -28,8 +33,7 @@ public class EquipmentManager : MonoBehaviour
     };
 
     [Header("임시 변수(실 사용 시 삭제 바람)")]
-    [Range(0, 2)]
-    public int career;
+    public Career career;
 
     [Header("장비 탭")]
     [SerializeField]
@@ -97,7 +101,7 @@ public class EquipmentManager : MonoBehaviour
     {
         for (int i = 0; i < 2; i++)
         {
-            WeaponIconDic.Add(i, WeaponIcon[i + career * 2]);
+            WeaponIconDic.Add(i, WeaponIcon[i + (int)career * 2]);
         }
     }
 
