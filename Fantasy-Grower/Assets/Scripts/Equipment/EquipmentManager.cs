@@ -145,7 +145,7 @@ public class EquipmentManager : MonoBehaviour
         }
 
         EquipInfoText.text = "°ø°Ý·Â: " + (currentWeapon.equipDamage * 100f).ToString("0") + "%";
-        GetInfoText.text = 
+        //GetInfoText.text =
     }
 
     public void RefreshSlot()
