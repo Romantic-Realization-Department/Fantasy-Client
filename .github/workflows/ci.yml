@@ -1,13 +1,16 @@
 name: CI
+
 on:
   pull_request:
     types: [opened, synchronize, reopened]
     branches: [main, develop]
   pull_request_review:
     types: [submitted, dismissed]
+
 concurrency:
   group: ci-${{ github.event.pull_request.number }}
   cancel-in-progress: true
+
 jobs:
   # ─────────────────────────────────────────────
   # 1. 메타파일 누락 검사
@@ -40,6 +43,7 @@ jobs:
             exit 1
           fi
           echo "✅ 고아 .meta 파일 없음"
+
   # ─────────────────────────────────────────────
   # 2. C# 정적 분석
   # ─────────────────────────────────────────────
@@ -56,6 +60,7 @@ jobs:
         run: dotnet tool install --tool-path ./tools csharpier
       - name: C# 포맷 검사
         run: ./tools/csharpier check Fantasy-Grower/Assets/Scripts
+
   # ─────────────────────────────────────────────
   # 3. Discord 실패 알림
   # ─────────────────────────────────────────────
@@ -63,7 +68,7 @@ jobs:
     name: Discord CI 실패 알림
     runs-on: ubuntu-latest
     needs: [meta-check, static-analysis]
-    if: failure()
+    if: always() && (needs.meta-check.result == 'failure' || needs.static-analysis.result == 'failure')
     steps:
       - name: Discord 알림 전송
         uses: sarisia/actions-status-discord@v1
@@ -79,6 +84,35 @@ jobs:
           username: "Flooding Client Bot"
           avatar_url: ${{ secrets.DISCORD_AVATAR_URL }}
           color: "0xFF0000"
+          nofail: true
+          nocontext: true
+          noprefix: true
+          notimestamp: false
+          ack_no_webhook: true
+
+  # ─────────────────────────────────────────────
+  # 4. Discord 성공 알림
+  # ─────────────────────────────────────────────
+  discord-ci-success:
+    name: Discord CI 성공 알림
+    runs-on: ubuntu-latest
+    needs: [meta-check, static-analysis]
+    if: always() && (needs.meta-check.result == 'success' && needs.static-analysis.result == 'success')
+    steps:
+      - name: Discord 알림 전송
+        uses: sarisia/actions-status-discord@v1
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          status: success
+          title: "CI 검사 통과"
+          description: |
+            PR: ${{ github.event.pull_request.title }}
+            작성자: @${{ github.event.pull_request.user.login }}
+            베이스: `${{ github.event.pull_request.base.ref }}` ← `${{ github.event.pull_request.head.ref }}`
+          url: ${{ github.event.pull_request.html_url }}
+          username: "Flooding Client Bot"
+          avatar_url: ${{ secrets.DISCORD_AVATAR_URL }}
+          color: "0x00FF00"
           nofail: true
           nocontext: true
           noprefix: true

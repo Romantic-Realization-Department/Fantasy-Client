@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install:*)",
+      "Bash(dotnet csharpier:*)",
+      "Bash(dotnet tool:*)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[[ \"$CLAUDE_TOOL_RESULT_FILEPATH\" == *.cs ]] && dotnet csharpier \"$CLAUDE_TOOL_RESULT_FILEPATH\" 2>/dev/null || true"
+          }
+        ]
+      }
+    ]
+  }
+}
