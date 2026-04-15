@@ -82,10 +82,12 @@ public class EquipmentManager : MonoBehaviour
     public GameObject SmithyTab;
 
     [Header("ÇÕ¼º")]
+    public int SynthCount;
+
     private Color[] SynthesisColor = { Color.red, Color.cyan };
-    private Dictionary<int, Sprite> WeaponIconDic = new Dictionary<int, Sprite>();
-    private int synthesisCount = 1;
     private SO_Weapon currentWeapon;
+
+    private Dictionary<int, Sprite> WeaponIconDic = new Dictionary<int, Sprite>();
 
     private void Awake()
     {
@@ -183,6 +185,8 @@ public class EquipmentManager : MonoBehaviour
         int iconCode = (int)ID % 2;
         return WeaponIconDic[iconCode];
     }
+
+    public bool CanSynth(WeaponID ID) => weapons[(int)ID].weaponCount >= SynthCount;
 
     public void Synthesis()
     {
