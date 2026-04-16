@@ -36,5 +36,6 @@ public class SynthSlot : MonoBehaviour, IPointerClickHandler
         SlotImage.sprite = icon;
         //BGImage.color =
         WeaponCountText.text = weapon.weaponCount.ToString("0");
+        SelectUI.SetActive(false);
     }
 }

@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf84d2193e2760c4c9f107ed9dfb64cb, type: 3}
   m_Name: testWeaponA
   m_EditorClassIdentifier: 
-  _weaponID: 0
+  _weaponID: 2
   weaponName: A
   weaponInfo: "\uC544\uB7EC\uB2C8\uB7F0\uC774\u314F\uB7F0\uC774\uB7F0\uC54C\uB11D\uB9B0"
   equipDamage: 0
   getDamage: 0
   weaponLevel: 0
   weaponAwakeLevel: 0
-  isUnlock: 1
+  isUnlock: 0

@@ -4,7 +4,8 @@ using UnityEngine.UI;
 
 public class SelectSlot : MonoBehaviour, IPointerClickHandler
 {
-    [Header("무기(ID는 S2보다는 큰 값으로 해주세요)")]
+    [Header("무기")]
+    [Tooltip("ID는 S2보다는 큰 값으로 해주세요")]
     public WeaponID ID;
     SO_Weapon _Weapon;
 
@@ -20,9 +21,12 @@ public class SelectSlot : MonoBehaviour, IPointerClickHandler
 
     private void OnEnable()
     {
-        if (!_Weapon.isUnlock && EquipmentManager.Instance.CanSynth(ID))
+        if (!_Weapon.isUnlock || !EquipmentManager.Instance.CanSynth(ID))
             gameObject.SetActive(false);
     }
 
-    public void OnPointerClick(PointerEventData eventData) { }
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        EquipmentManager.Instance.SaveSynthWeapon(ID);
+    }
 }
