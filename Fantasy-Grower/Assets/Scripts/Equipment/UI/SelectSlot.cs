@@ -17,7 +17,6 @@ public class SelectSlot : MonoBehaviour, IPointerClickHandler
     {
         if (ID <= WeaponID.S2)
         {
-            Debug.LogError("잘못된 ID값 입니다");
             return;
         }
         _Weapon = EquipmentManager.Instance.GetWeapon(ID);

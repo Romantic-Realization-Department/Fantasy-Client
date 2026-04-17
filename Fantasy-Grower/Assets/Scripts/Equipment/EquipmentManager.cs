@@ -123,7 +123,6 @@ public class EquipmentManager : MonoBehaviour
 
     public void Equip()
     {
-        Debug.Log("ÀåÂø");
         EquipWeapon = currentWeapon;
     }
 
@@ -134,7 +133,6 @@ public class EquipmentManager : MonoBehaviour
         {
             if (maxUpgradeLevel > currentWeapon.weaponLevel)
             {
-                Debug.Log("°­È­");
                 currentWeapon.weaponLevel++;
                 RefreshInfo();
             }
