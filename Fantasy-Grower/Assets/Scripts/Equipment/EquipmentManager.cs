@@ -31,13 +31,9 @@ public class EquipmentManager : MonoBehaviour
             return _instance;
         }
     }
-    public static Color[] weaponLevelColor =
-    {
-        Color.green,
-        Color.cyan,
-        Color.magenta,
-        Color.yellow,
-    };
+
+    [Tooltip("낮은 index일 수록 높은 등급의 색으로 해주세요")]
+    public Color[] weaponLevelColor = new Color[5];
 
     [Header("임시 변수(실 사용 시 삭제 바람)")]
     public Career career;
@@ -87,18 +83,23 @@ public class EquipmentManager : MonoBehaviour
 
     private WeaponID synthID;
 
-    private Color[] SynthesisColor = { Color.red, Color.cyan };
     private SO_Weapon currentWeapon;
 
-    private Dictionary<int, Sprite> WeaponIconDic = new Dictionary<int, Sprite>();
+    private Sprite[] WeaponSprite = new Sprite[2];
 
-    public void SynthTest()
+    private Dictionary<WeaponID, int> weaponBGColorMap = new Dictionary<WeaponID, int>
     {
-        for (int i = 0; i < weapons.Length; i++)
-        {
-            weapons[i].weaponCount = 100;
-        }
-    }
+        { WeaponID.S1, 0 },
+        { WeaponID.S2, 0 },
+        { WeaponID.A1, 1 },
+        { WeaponID.A2, 1 },
+        { WeaponID.B1, 2 },
+        { WeaponID.B2, 2 },
+        { WeaponID.C1, 3 },
+        { WeaponID.C2, 3 },
+        { WeaponID.D1, 4 },
+        { WeaponID.D2, 4 },
+    };
 
     private void Awake()
     {
@@ -114,9 +115,9 @@ public class EquipmentManager : MonoBehaviour
 
     private void AssignIcon()
     {
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < WeaponSprite.Length; i++)
         {
-            WeaponIconDic.Add(i, WeaponIcons[(int)career].icons[i]);
+            WeaponSprite[i] = WeaponIcons[(int)career].icons[i];
         }
     }
 
@@ -178,13 +179,16 @@ public class EquipmentManager : MonoBehaviour
         {
             if (SynthSlots[i].isSelectSlot)
             {
+                synthID = ID;
                 SO_Weapon temp = GetWeapon(ID);
                 currentWeapon = temp;
-                SynthSlots[i].SwapImage(temp, GetIcon(ID));
+                SynthSlots[i].SwapImage(temp, GetIcon(ID), GetColor(ID));
             }
             else
             {
-                SynthSlots[i].SwapImage(GetWeapon(ID - 2), GetIcon(ID));
+                WeaponID nextWeaponID = ID - 2;
+                SynthSlots[i]
+                    .SwapImage(GetWeapon(nextWeaponID), GetIcon(ID), GetColor(nextWeaponID));
             }
         }
     }
@@ -194,7 +198,13 @@ public class EquipmentManager : MonoBehaviour
     public Sprite GetIcon(WeaponID ID)
     {
         int iconCode = (int)ID % 2;
-        return WeaponIconDic[iconCode];
+        return WeaponSprite[iconCode];
+    }
+
+    public Color GetColor(WeaponID ID)
+    {
+        weaponBGColorMap.TryGetValue(ID, out int index);
+        return weaponLevelColor[index];
     }
 
     public bool CanSynth(WeaponID ID) => weapons[(int)ID].weaponCount >= SynthCount;
@@ -205,7 +215,8 @@ public class EquipmentManager : MonoBehaviour
         {
             uint synthAmount = (uint)(currentWeapon.weaponCount / SynthCount);
             currentWeapon.weaponCount = (uint)(currentWeapon.weaponCount % SynthCount);
-            GetWeapon(synthID).weaponCount += synthAmount;
+            GetWeapon(synthID - 2).weaponCount += synthAmount;
+            Debug.Log(synthID - 2);
             SaveSynthWeapon(synthID);
         }
     }

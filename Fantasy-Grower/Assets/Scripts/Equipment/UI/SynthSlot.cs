@@ -31,10 +31,10 @@ public class SynthSlot : MonoBehaviour, IPointerClickHandler
         SelectUI.SetActive(true);
     }
 
-    public void SwapImage(SO_Weapon weapon, Sprite icon)
+    public void SwapImage(SO_Weapon weapon, Sprite icon, Color _color)
     {
         SlotImage.sprite = icon;
-        //BGImage.color =
+        BGImage.color = _color;
         WeaponCountText.text = weapon.weaponCount.ToString("0");
         SelectUI.SetActive(false);
     }

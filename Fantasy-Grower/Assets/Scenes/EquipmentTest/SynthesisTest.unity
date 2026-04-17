@@ -1131,6 +1131,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 9
   WeaponIcon: {fileID: 1976771876}
+  BGImage: {fileID: 749328109}
 --- !u!114 &749328109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1456,6 +1457,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 8
   WeaponIcon: {fileID: 1576438309}
+  BGImage: {fileID: 915884704}
 --- !u!1 &930205026
 GameObject:
   m_ObjectHideFlags: 0
@@ -1783,6 +1785,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 5
   WeaponIcon: {fileID: 42701804}
+  BGImage: {fileID: 1099293563}
 --- !u!114 &1099293563
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1891,7 +1894,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 10/10
+  m_Text: '
+
+'
 --- !u!222 &1159581883
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2032,6 +2037,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 6
   WeaponIcon: {fileID: 2104816049}
+  BGImage: {fileID: 1197116788}
 --- !u!114 &1197116788
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2387,6 +2393,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 2
   WeaponIcon: {fileID: 1849386728}
+  BGImage: {fileID: 1421838563}
 --- !u!114 &1421838563
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2495,7 +2502,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 10/10
+  m_Text: '
+
+'
 --- !u!222 &1544736164
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2557,6 +2566,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 4
   WeaponIcon: {fileID: 1950130682}
+  BGImage: {fileID: 1559027482}
 --- !u!114 &1559027482
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3014,6 +3024,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 7
   WeaponIcon: {fileID: 44434341}
+  BGImage: {fileID: 1826012847}
 --- !u!114 &1826012847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3205,6 +3216,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 745ad09a46763e0449a12022ffc84c2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponLevelColor:
+  - {r: 1, g: 1, b: 0, a: 1}
+  - {r: 1, g: 0, b: 0, a: 1}
+  - {r: 0, g: 0, b: 1, a: 1}
+  - {r: 0, g: 1, b: 0, a: 1}
+  - {r: 0.6377357, g: 0.6377357, b: 0.6377357, a: 1}
   career: 0
   WeaponIcons:
   - career: 0
@@ -3461,6 +3478,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 3
   WeaponIcon: {fileID: 511251328}
+  BGImage: {fileID: 1906724225}
 --- !u!114 &1906724225
 MonoBehaviour:
   m_ObjectHideFlags: 0

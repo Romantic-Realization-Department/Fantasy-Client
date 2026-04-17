@@ -8,7 +8,7 @@ public enum WeaponID
     A2,
     B1,
     B2,
-    c1,
+    C1,
     C2,
     D1,
     D2,
