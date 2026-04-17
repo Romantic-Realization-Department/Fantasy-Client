@@ -8,6 +8,7 @@ public enum GoodsType
     SP,
     UpgradeScroll,
     Mithril,
+    Level,
 }
 
 public class GoodsManager : MonoBehaviour
