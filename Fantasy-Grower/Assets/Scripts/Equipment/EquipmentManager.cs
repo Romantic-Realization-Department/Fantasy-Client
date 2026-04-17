@@ -175,6 +175,8 @@ public class EquipmentManager : MonoBehaviour
 
     public void SaveSynthWeapon(WeaponID ID)
     {
+        if (ID < WeaponID.A2)
+            return;
         for (int i = 0; i < SynthSlots.Length; i++)
         {
             if (SynthSlots[i].isSelectSlot)
@@ -186,7 +188,7 @@ public class EquipmentManager : MonoBehaviour
             }
             else
             {
-                WeaponID nextWeaponID = ID - 2;
+                WeaponID nextWeaponID = (WeaponID)(ID - 2);
                 SynthSlots[i]
                     .SwapImage(GetWeapon(nextWeaponID), GetIcon(ID), GetColor(nextWeaponID));
             }
@@ -211,12 +213,11 @@ public class EquipmentManager : MonoBehaviour
 
     public void Synthesis()
     {
-        if (currentWeapon != null && CanSynth(synthID))
+        if (currentWeapon != null && SynthCount > 0 && synthID >= WeaponID.A1 && CanSynth(synthID))
         {
             uint synthAmount = (uint)(currentWeapon.weaponCount / SynthCount);
             currentWeapon.weaponCount = (uint)(currentWeapon.weaponCount % SynthCount);
-            GetWeapon(synthID - 2).weaponCount += synthAmount;
-            Debug.Log(synthID - 2);
+            GetWeapon((WeaponID)(synthID - 2)).weaponCount += synthAmount;
             SaveSynthWeapon(synthID);
         }
     }

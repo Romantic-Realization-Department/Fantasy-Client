@@ -16,7 +16,10 @@ public class SelectSlot : MonoBehaviour, IPointerClickHandler
     private void Awake()
     {
         if (ID <= WeaponID.S2)
+        {
             Debug.LogError("잘못된 ID값 입니다");
+            return;
+        }
         _Weapon = EquipmentManager.Instance.GetWeapon(ID);
         WeaponIcon.sprite = EquipmentManager.Instance.GetIcon(ID);
         BGImage.color = EquipmentManager.Instance.GetColor(ID);
@@ -30,8 +33,6 @@ public class SelectSlot : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log(ID);
-        Debug.Log(_Weapon.weaponCount);
         EquipmentManager.Instance.SaveSynthWeapon(ID);
     }
 }
