@@ -36,7 +36,7 @@ public abstract class SO_Goods : ScriptableObject
     {
         if (amount > value)
         {
-            Debug.LogError($"{GoodsName}은(는) {amount - value}만큼 부족합니다!!!");
+            Debug.LogWarning($"{GoodsName}은(는) {amount - value}만큼 부족합니다!!!");
             return false;
         }
 

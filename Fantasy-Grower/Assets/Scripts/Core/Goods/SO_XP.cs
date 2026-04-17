@@ -37,7 +37,7 @@ public class SO_XP : SO_Goods
     /// <summary>
     /// 레벨별 필요 경험치 명시
     /// </summary>
-    public static readonly EachLevelNeedXp EachLevelNeedXp = new();
+    public static readonly EachLevelNeedXp NeedXpTable = new();
 
     public override bool Decrease(uint amount)
     {
