@@ -137,7 +137,8 @@ public class BattleManager : MonoBehaviour
         currentWaveEnemies = waveController.SpawnWave(wave, spawnPoints);
 
         foreach (Enemy e in currentWaveEnemies)
-            e.GetComponent<EnemyAI>()?.Initialize(player);
+            if (e.TryGetComponent(out EnemyAI ai))
+                ai.Initialize(player);
 
         TransitionTo(BattleState.Fighting);
     }
@@ -147,7 +148,8 @@ public class BattleManager : MonoBehaviour
         autoAttack.StartAutoAttack();
 
         foreach (Enemy e in currentWaveEnemies)
-            e.GetComponent<EnemyAI>()?.StartAttacking();
+            if (e.TryGetComponent(out EnemyAI ai))
+                ai.StartAttacking();
     }
 
     private void HandleAllEnemiesDead()
@@ -155,7 +157,8 @@ public class BattleManager : MonoBehaviour
         autoAttack.StopAutoAttack();
 
         foreach (Enemy e in currentWaveEnemies)
-            e.GetComponent<EnemyAI>()?.StopAttacking();
+            if (e.TryGetComponent(out EnemyAI ai))
+                ai.StopAttacking();
 
         TransitionTo(BattleState.WaveCleared);
     }
@@ -182,11 +185,7 @@ public class BattleManager : MonoBehaviour
 
         GoodsManager.Instance.GetGoods(GoodsType.Gold).Increase(dungeonData.BonusGoldReward);
         GoodsManager.Instance.GetGoods(GoodsType.XP).Increase(dungeonData.BonusXpReward);
-
-        if (dungeonData.DungeonType == DungeonType.Boss)
-            GoodsManager
-                .Instance.GetGoods(GoodsType.Mithril)
-                .Increase(dungeonData.MithrilRewardAmount);
+        GoodsManager.Instance.GetGoods(GoodsType.Mithril).Increase(dungeonData.MithrilRewardAmount);
     }
 
     private void HandlePlayerDied(Entity entity)

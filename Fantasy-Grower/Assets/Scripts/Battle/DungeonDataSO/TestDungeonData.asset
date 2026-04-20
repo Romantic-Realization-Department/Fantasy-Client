@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12ba244a718458e4097ed6e5be48a7f4, type: 3}
   m_Name: TestDungeonData
   m_EditorClassIdentifier: 
-  DungeonType: 0
-  Waves:
+  _dungeonType: 0
+  _waves:
   - {fileID: 11400000, guid: fed3edd92df95224e95ac553fd8093dc, type: 2}
   - {fileID: 11400000, guid: fed3edd92df95224e95ac553fd8093dc, type: 2}
   - {fileID: 11400000, guid: fed3edd92df95224e95ac553fd8093dc, type: 2}
-  BonusGoldReward: 1
-  BonusXpReward: 1
-  MithrilRewardAmount: 1
+  _bonusGoldReward: 0
+  _bonusXpReward: 0
+  _mithrilRewardAmount: 0
+  <IsExistEnd>k__BackingField: 0
+  <IsChangeable>k__BackingField: 0
