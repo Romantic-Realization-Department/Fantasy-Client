@@ -1799,6 +1799,7 @@ GameObject:
   - component: {fileID: 353029814}
   - component: {fileID: 353029816}
   - component: {fileID: 353029815}
+  - component: {fileID: 353029817}
   m_Layer: 5
   m_Name: FillEXPBar
   m_TagString: Untagged
@@ -1863,6 +1864,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 353029813}
   m_CullTransparentMesh: 1
+--- !u!114 &353029817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 353029813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8d2e1d554212a449b1231acdc569f7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startColor: {r: 0, g: 1, b: 0.7372549, a: 1}
+  endColor: {r: 0.45490196, g: 0, b: 1, a: 1}
+  gradientDirection: 1
 --- !u!1 &357706824
 GameObject:
   m_ObjectHideFlags: 0
