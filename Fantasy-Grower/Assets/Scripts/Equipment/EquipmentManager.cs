@@ -16,6 +16,13 @@ public struct WeaponIcon
     public Sprite[] icons;
 }
 
+[System.Serializable]
+public struct Weapon
+{
+    public Career career;
+    public SO_Weapon[] weapon;
+}
+
 public class EquipmentManager : MonoBehaviour
 {
     private static EquipmentManager _instance;
@@ -26,30 +33,27 @@ public class EquipmentManager : MonoBehaviour
             _instance = FindAnyObjectByType<EquipmentManager>();
             if (_instance == null)
             {
-                Debug.LogError("æ¿ø° Ω∫≈©∏≥∆Æ∏¶ ¬¸¡∂«— ø¿∫Í¡ß∆Æ∞° æ¯Ω¿¥œ¥Ÿ");
+                Debug.LogError("Ïî¨Ïóê Ïä§ÌÅ¨Î¶ΩÌä∏Î•º Ï∞∏Ï°∞Ìïú Ïò§Î∏åÏ†ùÌä∏Í∞Ä ÏóÜÏäµÎãàÎã§");
             }
             return _instance;
         }
     }
-    public static Color[] weaponLevelColor =
-    {
-        Color.green,
-        Color.cyan,
-        Color.magenta,
-        Color.yellow,
-    };
 
-    [Header("¿”Ω√ ∫Øºˆ(Ω« ªÁøÎ Ω√ ªË¡¶ πŸ∂˜)")]
+    [Tooltip("ÎÇÆÏùÄ indexÏùº ÏàòÎ°ù ÎÜíÏùÄ Îì±Í∏âÏùò ÏÉâÏúºÎ°ú Ìï¥Ï£ºÏÑ∏Ïöî")]
+    [SerializeField]
+    private Color[] weaponLevelColor = new Color[5];
+
+    [Header("ÏûÑÏãú Î≥ÄÏàò(Ïã§ ÏÇ¨Ïö© Ïãú ÏÇ≠Ï†ú Î∞îÎûå)")]
     public Career career;
 
-    [Header("¿Â∫Ò ≈«")]
+    [Header("Ïû•ÎπÑ ÌÉ≠")]
     [SerializeField]
     private WeaponIcon[] WeaponIcons = new WeaponIcon[3];
 
     [SerializeField]
     private GameObject WeaponInfoObject;
 
-    [Header("∞≠»≠")]
+    [Header("Í∞ïÌôî")]
     [SerializeField]
     private Image WeaponIconImage;
 
@@ -74,23 +78,26 @@ public class EquipmentManager : MonoBehaviour
     public int maxUpgradeLevel => _maxUpgradeLevel;
     private SO_Weapon EquipWeapon;
 
-    [Header("¿Œ∫•≈‰∏Æ")]
-    public SO_Weapon[] weapons = new SO_Weapon[(int)WeaponID.D2 + 1];
+    [Header("Ïù∏Î≤§ÌÜ†Î¶¨")]
+    public Weapon[] weapons = new Weapon[(int)Career.Wizard + 1];
     public Slot[] Invens;
 
-    [Header("¥Î¿Â∞£ ∫Øºˆ")]
+    [Header("ÎåÄÏû•Í∞Ñ Î≥ÄÏàò")]
     public GameObject SmithyTab;
 
-    [Header("«’º∫")]
-    public Image[] WeaponBackgroundImage;
-    public Image[] WeaponSlotImage;
-    public Text[] WeaponCountText;
-    public Text SynthesisCountText;
+    [Header("Ìï©ÏÑ±")]
+    public int SynthCount;
+    public SynthSlot[] SynthSlots;
 
-    private Color[] SynthesisColor = { Color.red, Color.cyan };
-    private Dictionary<int, Sprite> WeaponIconDic = new Dictionary<int, Sprite>();
-    private int synthesisCount = 1;
+    private WeaponID synthID;
+
     private SO_Weapon currentWeapon;
+
+    private Sprite[] WeaponSprite = new Sprite[2];
+
+    private Dictionary<WeaponID, SO_Weapon> weaponMap = new Dictionary<WeaponID, SO_Weapon>();
+
+    private Dictionary<WeaponID, Color> weaponBGColorMap = new Dictionary<WeaponID, Color>();
 
     private void Awake()
     {
@@ -101,31 +108,39 @@ public class EquipmentManager : MonoBehaviour
         }
         else
             Destroy(gameObject);
+        ResetWeaponDicionary();
         AssignIcon();
     }
 
+    private void ResetWeaponDicionary()
+    {
+        for (int i = 0; i < (int)WeaponID.D2 + 1; i++)
+        {
+            weaponBGColorMap.Add((WeaponID)i, weaponLevelColor[i < 4 ? i / 2 : (i / 2) + 1]);
+            weaponMap.Add((WeaponID)i, weapons[(int)career].weapon[i]);
+        }
+    } //Î¨¥Í∏∞Ïùò Ï¢ÖÎ•òÍ∞Ä 2Í∞úÏùº Í≤ΩÏö∞Îßå Ìï¥Îãπ, 3Í∞ú Ïù¥ÏÉÅÏù¥ ÎêòÎ©¥ ÏàòÏ†ï ÌïÑÏöî
+
     private void AssignIcon()
     {
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < WeaponSprite.Length; i++)
         {
-            WeaponIconDic.Add(i, WeaponIcons[(int)career].icons[i]);
+            WeaponSprite[i] = WeaponIcons[(int)career].icons[i];
         }
     }
 
     public void Equip()
     {
-        Debug.Log("¿Â¬¯");
         EquipWeapon = currentWeapon;
     }
 
     public void UpgradeWeapon()
     {
-        //¿Á»≠ ∞¸∏Æ ∏≈¥œ¿˙ø°º≠ ∞≠»≠Ω∫≈©∑— ∫Ò±≥ »ƒ ªÁøÎ ∏ﬁº≠µÂ »∞øÎ«œø© ¿Á»≠ ªÁøÎ
+        //Ïû¨Ìôî Í¥ÄÎ¶¨ Îß§ÎãàÏ†ÄÏóêÏÑú Í∞ïÌôîÏä§ÌÅ¨Î°§ ÎπÑÍµê ÌõÑ ÏÇ¨Ïö© Î©îÏÑúÎìú ÌôúÏö©ÌïòÏó¨ Ïû¨Ìôî ÏÇ¨Ïö©
         if (true && currentWeapon != null)
         {
             if (maxUpgradeLevel > currentWeapon.weaponLevel)
             {
-                Debug.Log("∞≠»≠");
                 currentWeapon.weaponLevel++;
                 RefreshInfo();
             }
@@ -139,9 +154,6 @@ public class EquipmentManager : MonoBehaviour
         //WeaponBGImage.color =
 
         WeaponInfoObject.SetActive(true);
-
-        //ItemInfoPanel.SetActive(true);
-        //RefreshSynthesis();
     }
 
     void RefreshInfo()
@@ -155,7 +167,7 @@ public class EquipmentManager : MonoBehaviour
             WeaponLevelText.text = "";
         }
 
-        EquipInfoText.text = "∞¯∞›∑¬: " + (currentWeapon.equipDamage * 100f).ToString("0") + "%";
+        EquipInfoText.text = "Í≥µÍ≤©Î†•: " + (currentWeapon.equipDamage * 100f).ToString("0") + "%";
         GetInfoText.text = currentWeapon.weaponInfo;
     }
 
@@ -167,70 +179,60 @@ public class EquipmentManager : MonoBehaviour
         }
     }
 
-    private void RefreshSynthesis()
+    public void SaveSynthWeapon(WeaponID ID)
     {
-        //ºˆ¡§ « ø‰
-        //for (int i = 0; i < 2; i++)
-        //{
-        //    WeaponBackgroundImage[i].color = weaponLevelColor[(int)weapons[WeaponID].Rate + i];
-        //    WeaponSlotImage[i].sprite = weapons[(int)weapons[WeaponID].Rate]
-        //        .weapons[weaponLevelValue + i]
-        //        .WeaponIcon;
-        //    string hexColor = "#" + ColorUtility.ToHtmlStringRGB(SynthesisColor[i]);
-        //    int weaponValue = synthesisCount * (i == 0 ? 5 : 1);
-        //    WeaponCountText[i].text =
-        //        $"{WeaponArray[(int)weapons[WeaponID].Rate].weapons[weaponLevelValue + i].weaponCount}(<color={hexColor}>{(weaponValue >= 0 ? "+" : "-")}{weaponValue}</color>)";
-        //    SynthesisCountText.text = synthesisCount.ToString("0");
-        //}
+        if (ID < WeaponID.A2)
+            return;
+        for (int i = 0; i < SynthSlots.Length; i++)
+        {
+            if (SynthSlots[i].isSelectSlot)
+            {
+                synthID = ID;
+                SO_Weapon temp = GetWeapon(ID);
+                currentWeapon = temp;
+                SynthSlots[i].SwapImage(temp, GetIcon(ID), GetColor(ID));
+            }
+            else
+            {
+                WeaponID nextWeaponID = (WeaponID)(ID - 2);
+                SynthSlots[i]
+                    .SwapImage(GetWeapon(nextWeaponID), GetIcon(ID), GetColor(nextWeaponID));
+            }
+        }
     }
 
-    public SO_Weapon GetWeapon(WeaponID weaponID) => weapons[(int)weaponID];
+    public SO_Weapon GetWeapon(WeaponID weaponID) => weaponMap[weaponID];
 
     public Sprite GetIcon(WeaponID ID)
     {
         int iconCode = (int)ID % 2;
-        return WeaponIconDic[iconCode];
+        return WeaponSprite[iconCode];
     }
 
-    public void UpCount()
+    public Color GetColor(WeaponID ID)
     {
-        //if ((synthesisCount + 1) * 5 <= weapons[WeaponID].weaponCount)
-        //{
-        //    synthesisCount++;
-        //    RefreshSynthesis();
-        //}
+        weaponBGColorMap.TryGetValue(ID, out Color _color);
+        return _color;
     }
 
-    public void DownCount()
-    {
-        //if (synthesisCount - 1 > 0)
-        //{
-        //    synthesisCount--;
-        //    RefreshSynthesis();
-        //}
-    }
+    public bool CanSynth(WeaponID ID) => weaponMap[ID].weaponCount >= SynthCount;
 
     public void Synthesis()
     {
-        //ºˆ¡§ « ø‰
-        //if (WeaponArray[(int)weapons[WeaponID].Rate].weapons.Length < weaponLevelValue + 1)
-        //    return;
-        //if (
-        //    synthesisCount * 5
-        //    <= WeaponArray[(int)weapons[WeaponID].Rate].weapons[weaponLevelValue].weaponCount
-        //)
-        //{
-        //    WeaponArray[(int)weapons[WeaponID].Rate].weapons[weaponLevelValue].weaponCount -=
-        //        (uint)synthesisCount * 5;
-        //    GetItem((int)weapons[WeaponID].Rate, weaponLevelValue + 1, (uint)synthesisCount);
-        //    synthesisCount = 1;
-        //    RefreshSynthesis();
-        //}
+        if (currentWeapon != null && SynthCount > 0 && synthID >= WeaponID.A1 && CanSynth(synthID))
+        {
+            uint synthAmount = (uint)(currentWeapon.weaponCount / SynthCount);
+            currentWeapon.weaponCount = (uint)(currentWeapon.weaponCount % SynthCount);
+            GetWeapon((WeaponID)(synthID - 2)).weaponCount += synthAmount;
+            SaveSynthWeapon(synthID);
+        }
     }
 
     public void GetItem(WeaponID id, uint amount)
     {
-        weapons[(int)id].weaponCount += amount;
+        weaponMap[id].weaponCount += amount;
         RefreshSlot();
     }
+
+    public void ResetWeapon() => currentWeapon = null;
 }
