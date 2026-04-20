@@ -4,10 +4,10 @@ using UnityEngine.UI;
 [AddComponentMenu("UI/Effects/Gradient")]
 public class UIGradient : BaseMeshEffect
 {
-    [SerializeField]
+    [SerializeField, Tooltip("The starting color of the gradient.")]
     private Color startColor = Color.black;
 
-    [SerializeField]
+    [SerializeField, Tooltip("The ending color of the gradient.")]
     private Color endColor = Color.white;
 
     public enum GradientDirection
@@ -18,7 +18,7 @@ public class UIGradient : BaseMeshEffect
         DiagonalDown,
     }
 
-    [SerializeField]
+    [SerializeField, Tooltip("The direction of the gradient.")]
     private GradientDirection gradientDirection = GradientDirection.Vertical;
 
     public override void ModifyMesh(VertexHelper vh)
