@@ -16,6 +16,13 @@ public struct WeaponIcon
     public Sprite[] icons;
 }
 
+[System.Serializable]
+public struct Weapon
+{
+    public Career career;
+    public SO_Weapon[] weapon;
+}
+
 public class EquipmentManager : MonoBehaviour
 {
     private static EquipmentManager _instance;
@@ -72,7 +79,7 @@ public class EquipmentManager : MonoBehaviour
     private SO_Weapon EquipWeapon;
 
     [Header("인벤토리")]
-    public SO_Weapon[] weapons = new SO_Weapon[(int)WeaponID.D2 + 1];
+    public Weapon[] weapons = new Weapon[(int)Career.Wizard + 1];
     public Slot[] Invens;
 
     [Header("대장간 변수")]
@@ -88,6 +95,8 @@ public class EquipmentManager : MonoBehaviour
 
     private Sprite[] WeaponSprite = new Sprite[2];
 
+    private Dictionary<WeaponID, SO_Weapon> weaponMap = new Dictionary<WeaponID, SO_Weapon>();
+
     private Dictionary<WeaponID, Color> weaponBGColorMap = new Dictionary<WeaponID, Color>();
 
     private void Awake()
@@ -99,15 +108,16 @@ public class EquipmentManager : MonoBehaviour
         }
         else
             Destroy(gameObject);
-        ResetBGColorMaping();
+        ResetWeaponDicionary();
         AssignIcon();
     }
 
-    private void ResetBGColorMaping()
+    private void ResetWeaponDicionary()
     {
         for (int i = 0; i < (int)WeaponID.D2 + 1; i++)
         {
             weaponBGColorMap.Add((WeaponID)i, weaponLevelColor[i < 4 ? i / 2 : (i / 2) + 1]);
+            weaponMap.Add((WeaponID)i, weapons[(int)career].weapon[i]);
         }
     } //무기의 종류가 2개일 경우만 해당, 3개 이상이 되면 수정 필요
 
@@ -191,7 +201,7 @@ public class EquipmentManager : MonoBehaviour
         }
     }
 
-    public SO_Weapon GetWeapon(WeaponID weaponID) => weapons[(int)weaponID];
+    public SO_Weapon GetWeapon(WeaponID weaponID) => weaponMap[weaponID];
 
     public Sprite GetIcon(WeaponID ID)
     {
@@ -205,7 +215,7 @@ public class EquipmentManager : MonoBehaviour
         return _color;
     }
 
-    public bool CanSynth(WeaponID ID) => weapons[(int)ID].weaponCount >= SynthCount;
+    public bool CanSynth(WeaponID ID) => weaponMap[ID].weaponCount >= SynthCount;
 
     public void Synthesis()
     {
@@ -220,7 +230,7 @@ public class EquipmentManager : MonoBehaviour
 
     public void GetItem(WeaponID id, uint amount)
     {
-        weapons[(int)id].weaponCount += amount;
+        weaponMap[id].weaponCount += amount;
         RefreshSlot();
     }
 
