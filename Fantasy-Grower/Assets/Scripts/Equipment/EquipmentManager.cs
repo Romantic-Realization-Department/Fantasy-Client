@@ -88,19 +88,7 @@ public class EquipmentManager : MonoBehaviour
 
     private Sprite[] WeaponSprite = new Sprite[2];
 
-    private Dictionary<WeaponID, int> weaponBGColorMap = new Dictionary<WeaponID, int>
-    {
-        { WeaponID.S1, 0 },
-        { WeaponID.S2, 0 },
-        { WeaponID.A1, 1 },
-        { WeaponID.A2, 1 },
-        { WeaponID.B1, 2 },
-        { WeaponID.B2, 2 },
-        { WeaponID.C1, 3 },
-        { WeaponID.C2, 3 },
-        { WeaponID.D1, 4 },
-        { WeaponID.D2, 4 },
-    };
+    private Dictionary<WeaponID, Color> weaponBGColorMap = new Dictionary<WeaponID, Color>();
 
     private void Awake()
     {
@@ -111,8 +99,17 @@ public class EquipmentManager : MonoBehaviour
         }
         else
             Destroy(gameObject);
+        ResetBGColorMaping();
         AssignIcon();
     }
+
+    private void ResetBGColorMaping()
+    {
+        for (int i = 0; i < (int)WeaponID.D2 + 1; i++)
+        {
+            weaponBGColorMap.Add((WeaponID)i, weaponLevelColor[i < 4 ? i / 2 : (i / 2) + 1]);
+        }
+    } //무기의 종류가 2개일 경우만 해당, 3개 이상이 되면 수정 필요
 
     private void AssignIcon()
     {
@@ -204,8 +201,8 @@ public class EquipmentManager : MonoBehaviour
 
     public Color GetColor(WeaponID ID)
     {
-        weaponBGColorMap.TryGetValue(ID, out int index);
-        return weaponLevelColor[index];
+        weaponBGColorMap.TryGetValue(ID, out Color _color);
+        return _color;
     }
 
     public bool CanSynth(WeaponID ID) => weapons[(int)ID].weaponCount >= SynthCount;
