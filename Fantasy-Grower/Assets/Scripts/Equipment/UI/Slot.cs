@@ -11,14 +11,21 @@ public enum SlotType
 
 public class Slot : MonoBehaviour, IPointerClickHandler
 {
-    [Header("¾ÆÀÌÅÛ ¼Ó¼º")]
+    [Header("ì•„ì´í…œ ì†ì„±")]
     public WeaponID ID;
 
-    [Header("UI¼Ó¼º")]
-    public SlotType _SlotType;
-    public GameObject WeaponIconWall;
-    public Image WeaponIcon;
-    public Text WeaponCountText;
+    [Header("UIì†ì„±")]
+    [SerializeField]
+    private SlotType _SlotType;
+
+    [SerializeField]
+    private GameObject WeaponIconWall;
+
+    [SerializeField]
+    private Image WeaponIcon;
+
+    [SerializeField]
+    private Text WeaponCountText;
 
     protected void Start()
     {
@@ -37,7 +44,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler
         {
             WeaponIconWall.SetActive(false);
             WeaponIcon.color = Color.white;
-            // ¹«±â °³¼ö text ÇÊ¿ä
+            // ë¬´ê¸° ê°œìˆ˜ text í•„ìš”
         }
         else
         {

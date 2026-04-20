@@ -4,14 +4,18 @@ using UnityEngine.UI;
 
 public class SelectSlot : MonoBehaviour, IPointerClickHandler
 {
-    [Header("¹«±â")]
-    [Tooltip("ID´Â S2º¸´Ù´Â Å« °ªÀ¸·Î ÇØÁÖ¼¼¿ä")]
-    public WeaponID ID;
+    [Header("ë¬´ê¸°")]
+    [Tooltip("IDëŠ” S2ë³´ë‹¤ëŠ” í° ê°’ìœ¼ë¡œ í•´ì£¼ì„¸ìš”"), SerializeField]
+    private WeaponID ID;
+
     SO_Weapon _Weapon;
 
-    [Header("UI¼Ó¼º")]
-    public Image WeaponIcon;
-    public Image BGImage;
+    [Header("UIì†ì„±")]
+    [SerializeField]
+    private Image WeaponIcon;
+
+    [SerializeField]
+    private Image BGImage;
 
     private void Awake()
     {

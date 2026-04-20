@@ -26,26 +26,27 @@ public class EquipmentManager : MonoBehaviour
             _instance = FindAnyObjectByType<EquipmentManager>();
             if (_instance == null)
             {
-                Debug.LogError("¾À¿¡ ½ºÅ©¸³Æ®¸¦ ÂüÁ¶ÇÑ ¿ÀºêÁ§Æ®°¡ ¾ø½À´Ï´Ù");
+                Debug.LogError("ì”¬ì— ìŠ¤í¬ë¦½íŠ¸ë¥¼ ì°¸ì¡°í•œ ì˜¤ë¸Œì íŠ¸ê°€ ì—†ìŠµë‹ˆë‹¤");
             }
             return _instance;
         }
     }
 
-    [Tooltip("³·Àº indexÀÏ ¼ö·Ï ³ôÀº µî±ÞÀÇ »öÀ¸·Î ÇØÁÖ¼¼¿ä")]
-    public Color[] weaponLevelColor = new Color[5];
+    [Tooltip("ë‚®ì€ indexì¼ ìˆ˜ë¡ ë†’ì€ ë“±ê¸‰ì˜ ìƒ‰ìœ¼ë¡œ í•´ì£¼ì„¸ìš”")]
+    [SerializeField]
+    private Color[] weaponLevelColor = new Color[5];
 
-    [Header("ÀÓ½Ã º¯¼ö(½Ç »ç¿ë ½Ã »èÁ¦ ¹Ù¶÷)")]
+    [Header("ìž„ì‹œ ë³€ìˆ˜(ì‹¤ ì‚¬ìš© ì‹œ ì‚­ì œ ë°”ëžŒ)")]
     public Career career;
 
-    [Header("Àåºñ ÅÇ")]
+    [Header("ìž¥ë¹„ íƒ­")]
     [SerializeField]
     private WeaponIcon[] WeaponIcons = new WeaponIcon[3];
 
     [SerializeField]
     private GameObject WeaponInfoObject;
 
-    [Header("°­È­")]
+    [Header("ê°•í™”")]
     [SerializeField]
     private Image WeaponIconImage;
 
@@ -70,14 +71,14 @@ public class EquipmentManager : MonoBehaviour
     public int maxUpgradeLevel => _maxUpgradeLevel;
     private SO_Weapon EquipWeapon;
 
-    [Header("ÀÎº¥Åä¸®")]
+    [Header("ì¸ë²¤í† ë¦¬")]
     public SO_Weapon[] weapons = new SO_Weapon[(int)WeaponID.D2 + 1];
     public Slot[] Invens;
 
-    [Header("´ëÀå°£ º¯¼ö")]
+    [Header("ëŒ€ìž¥ê°„ ë³€ìˆ˜")]
     public GameObject SmithyTab;
 
-    [Header("ÇÕ¼º")]
+    [Header("í•©ì„±")]
     public int SynthCount;
     public SynthSlot[] SynthSlots;
 
@@ -128,7 +129,7 @@ public class EquipmentManager : MonoBehaviour
 
     public void UpgradeWeapon()
     {
-        //ÀçÈ­ °ü¸® ¸Å´ÏÀú¿¡¼­ °­È­½ºÅ©·Ñ ºñ±³ ÈÄ »ç¿ë ¸Þ¼­µå È°¿ëÇÏ¿© ÀçÈ­ »ç¿ë
+        //ìž¬í™” ê´€ë¦¬ ë§¤ë‹ˆì €ì—ì„œ ê°•í™”ìŠ¤í¬ë¡¤ ë¹„êµ í›„ ì‚¬ìš© ë©”ì„œë“œ í™œìš©í•˜ì—¬ ìž¬í™” ì‚¬ìš©
         if (true && currentWeapon != null)
         {
             if (maxUpgradeLevel > currentWeapon.weaponLevel)
@@ -159,7 +160,7 @@ public class EquipmentManager : MonoBehaviour
             WeaponLevelText.text = "";
         }
 
-        EquipInfoText.text = "°ø°Ý·Â: " + (currentWeapon.equipDamage * 100f).ToString("0") + "%";
+        EquipInfoText.text = "ê³µê²©ë ¥: " + (currentWeapon.equipDamage * 100f).ToString("0") + "%";
         GetInfoText.text = currentWeapon.weaponInfo;
     }
 

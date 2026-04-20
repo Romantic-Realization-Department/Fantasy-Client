@@ -4,16 +4,24 @@ using UnityEngine.UI;
 
 public class SynthSlot : MonoBehaviour, IPointerClickHandler
 {
-    [Header("SlotUI¼Ó¼º")]
-    public Image SlotImage;
-    public Image BGImage;
-    public Text WeaponCountText; //TMP·Î ¹Ù²ğ ¿¹Á¤
+    [Header("SlotUIì†ì„±")]
+    [SerializeField]
+    private Image SlotImage;
 
-    [Header("¼±ÅÃ UI ¼Ó¼º")]
-    public GameObject SelectUI;
-    public GameObject[] SelectSlots; //Àü¿ë Å¬·¡½º »ı¼ºÀ¸·Î º¯È¯
+    [SerializeField]
+    private Image BGImage;
 
-    [Header("Àç·á¿Í °á°ú ºĞ¸®")]
+    [SerializeField]
+    private Text WeaponCountText; //TMPë¡œ ë°”ë€” ì˜ˆì •
+
+    [Header("ì„ íƒ UI ì†ì„±")]
+    [SerializeField]
+    private GameObject SelectUI;
+
+    [SerializeField]
+    private GameObject[] SelectSlots; //ì „ìš© í´ë˜ìŠ¤ ìƒì„±ìœ¼ë¡œ ë³€í™˜
+
+    [Header("ì¬ë£Œì™€ ê²°ê³¼ ë¶„ë¦¬")]
     public bool isSelectSlot;
 
     public void OnPointerClick(PointerEventData eventData)
