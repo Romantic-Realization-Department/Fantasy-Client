@@ -136,10 +136,6 @@ public class BattleManager : MonoBehaviour
         WaveData wave = dungeonData.Waves[currentWaveIndex];
         currentWaveEnemies = waveController.SpawnWave(wave, spawnPoints);
 
-        foreach (Enemy e in currentWaveEnemies)
-            if (e.TryGetComponent(out EnemyAI ai))
-                ai.Initialize(player);
-
         TransitionTo(BattleState.Fighting);
     }
 

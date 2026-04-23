@@ -7,5 +7,6 @@ public class EntityStatData : ScriptableObject
     public float DamageReduction;
     public int AttackPower;
     public float AttackSpeed;
+    public float AttackRange;
     public float CriticalPercentage;
 }

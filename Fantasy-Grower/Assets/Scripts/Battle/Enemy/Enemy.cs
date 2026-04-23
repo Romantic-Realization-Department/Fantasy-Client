@@ -6,6 +6,8 @@ using UnityEngine;
 /// </summary>
 public class Enemy : Entity
 {
+    protected override int MaxEntityCount => 1;
+
     [SerializeField]
     private EnemyRewardData rewardData;
 
