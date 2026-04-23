@@ -16,7 +16,7 @@ public abstract class Entity : MonoBehaviour
     public float AttackSpeed { get; private set; }
     public float CriticalPercentage { get; private set; }
 
-    [field: SerializeField]
+    [field: SerializeField, Header("엔티티 설정")]
     public EntityType EntityType { get; private set; }
 
     [SerializeField]
@@ -25,15 +25,17 @@ public abstract class Entity : MonoBehaviour
     /// <summary>HP가 0이 되어 Death()가 호출될 때 발화된다.</summary>
     public event Action<Entity> OnDied;
 
+    [Header("공격 설정")]
     [SerializeField, Tooltip("타겟 레이어")]
     protected LayerMask targetLayer;
 
-    protected abstract int MaxEntityCount { get; }
+    [field: SerializeField, Tooltip("공격 범위 내 최대 엔티티 수")]
+    protected int maxEntityCount = 50;
 
     [SerializeField]
-    private Collider2D attackCollider;
-    private Collider2D[] entities;
-    private ContactFilter2D contactFilter;
+    protected Collider2D attackCollider;
+    protected Collider2D[] entities;
+    protected ContactFilter2D contactFilter;
 
     protected virtual void Awake()
     {
@@ -51,7 +53,7 @@ public abstract class Entity : MonoBehaviour
         CriticalPercentage = statData.CriticalPercentage;
         contactFilter.useLayerMask = true;
         contactFilter.SetLayerMask(targetLayer);
-        entities = new Collider2D[MaxEntityCount];
+        entities = new Collider2D[maxEntityCount];
     }
 
     public virtual void Attack()

@@ -191,11 +191,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <EntityType>k__BackingField: 1
   statData: {fileID: 11400000, guid: 947637eac36383b49827043094c83699, type: 2}
-  entityDirection: -1
   targetLayer:
     serializedVersion: 2
     m_Bits: 64
-  attackCollider: {fileID: 0}
+  maxEntityCount: 1
+  attackCollider: {fileID: 5256461534563001090}
   rewardData: {fileID: 0}
 --- !u!1 &6637181185444963787
 GameObject:
