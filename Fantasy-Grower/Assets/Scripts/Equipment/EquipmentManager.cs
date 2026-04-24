@@ -1,5 +1,6 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.XR.Haptics;
 using UnityEngine.UI;
 
 public enum Career
@@ -84,12 +85,16 @@ public class EquipmentManager : MonoBehaviour
 
     [Header("대장간 변수")]
     public GameObject SmithyTab;
+    public int useWeaponCount;
 
     [Header("합성")]
-    public int SynthCount;
-    public SynthSlot[] SynthSlots;
+    public AnvilSlot[] SynthSlots;
 
-    private WeaponID synthID;
+    [Header("각성")]
+    public AnvilSlot[] AwakeSlots;
+    public int maxAwakeLevel;
+
+    private WeaponID currentSelectID;
 
     private SO_Weapon currentWeapon;
 
@@ -179,7 +184,15 @@ public class EquipmentManager : MonoBehaviour
         }
     }
 
-    public void SaveSynthWeapon(WeaponID ID)
+    public void SaveSelectWeapon(WeaponID ID, bool isSynth)
+    {
+        if (isSynth)
+            SaveSelectSynthWeapon(ID);
+        else
+            SaveSelectAwakeWeapon(ID);
+    }
+
+    public void SaveSelectSynthWeapon(WeaponID ID)
     {
         if (ID < WeaponID.A2)
             return;
@@ -187,7 +200,7 @@ public class EquipmentManager : MonoBehaviour
         {
             if (SynthSlots[i].isSelectSlot)
             {
-                synthID = ID;
+                currentSelectID = ID;
                 SO_Weapon temp = GetWeapon(ID);
                 currentWeapon = temp;
                 SynthSlots[i].SwapImage(temp, GetIcon(ID), GetColor(ID));
@@ -198,6 +211,17 @@ public class EquipmentManager : MonoBehaviour
                 SynthSlots[i]
                     .SwapImage(GetWeapon(nextWeaponID), GetIcon(ID), GetColor(nextWeaponID));
             }
+        }
+    }
+
+    public void SaveSelectAwakeWeapon(WeaponID ID)
+    {
+        currentSelectID = ID;
+        currentWeapon = GetWeapon(ID);
+        for (int i = 0; i < AwakeSlots.Length; i++)
+        {
+            AwakeSlots[i].SwapImage(currentWeapon, GetIcon(ID), GetColor(ID));
+            AwakeSlots[i].ShowAwakeImage(currentWeapon.weaponAwakeLevel + i);
         }
     }
 
@@ -215,16 +239,28 @@ public class EquipmentManager : MonoBehaviour
         return _color;
     }
 
-    public bool CanSynth(WeaponID ID) => weaponMap[ID].weaponCount >= SynthCount;
+    public bool CanUse(WeaponID ID) => weaponMap[ID].weaponCount >= useWeaponCount;
+
+    bool CheckWeaponState => currentWeapon != null && useWeaponCount > 0 && CanUse(currentSelectID);
 
     public void Synthesis()
     {
-        if (currentWeapon != null && SynthCount > 0 && synthID >= WeaponID.A1 && CanSynth(synthID))
+        if (CheckWeaponState && currentSelectID >= WeaponID.A1)
         {
-            uint synthAmount = (uint)(currentWeapon.weaponCount / SynthCount);
-            currentWeapon.weaponCount = (uint)(currentWeapon.weaponCount % SynthCount);
-            GetWeapon((WeaponID)(synthID - 2)).weaponCount += synthAmount;
-            SaveSynthWeapon(synthID);
+            uint synthAmount = (uint)(currentWeapon.weaponCount / useWeaponCount);
+            currentWeapon.weaponCount = (uint)(currentWeapon.weaponCount % useWeaponCount);
+            GetWeapon((WeaponID)(currentSelectID - 2)).weaponCount += synthAmount;
+            SaveSelectSynthWeapon(currentSelectID);
+        }
+    }
+
+    public void Awakening()
+    {
+        if (CheckWeaponState && currentWeapon.weaponAwakeLevel < maxAwakeLevel)
+        {
+            currentWeapon.weaponCount = (uint)(currentWeapon.weaponCount % useWeaponCount);
+            currentWeapon.weaponAwakeLevel++;
+            SaveSelectAwakeWeapon(currentSelectID);
         }
     }
 

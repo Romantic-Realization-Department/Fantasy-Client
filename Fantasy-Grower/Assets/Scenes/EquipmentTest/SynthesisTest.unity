@@ -370,13 +370,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 198589724}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1753149340}
-  m_Father: {fileID: 1009374079}
+  m_Father: {fileID: 702099502}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -427,7 +427,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1009374075}
+      - m_Target: {fileID: 702099501}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -736,18 +736,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 494079895}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 254308992}
   - {fileID: 1159581881}
-  m_Father: {fileID: 1283426400}
+  m_Father: {fileID: 1009374079}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -200, y: 50}
+  m_AnchoredPosition: {x: -219.99997, y: -164.99998}
   m_SizeDelta: {x: 250, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &494079897
@@ -803,7 +803,9 @@ MonoBehaviour:
   SlotImage: {fileID: 254308993}
   BGImage: {fileID: 494079897}
   WeaponCountText: {fileID: 1159581882}
-  SelectUI: {fileID: 1009374075}
+  AwakeImage: []
+  isAwake: 0
+  SelectUI: {fileID: 702099501}
   SelectSlots:
   - {fileID: 915884702}
   - {fileID: 749328106}
@@ -1003,6 +1005,43 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 658081331}
   m_CullTransparentMesh: 1
+--- !u!1 &702099501
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 702099502}
+  m_Layer: 5
+  m_Name: SelectObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &702099502
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 702099501}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1284441983}
+  - {fileID: 198589725}
+  m_Father: {fileID: 1009374079}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &733379578
 GameObject:
   m_ObjectHideFlags: 0
@@ -1132,6 +1171,7 @@ MonoBehaviour:
   ID: 9
   WeaponIcon: {fileID: 1976771876}
   BGImage: {fileID: 749328109}
+  isSynth: 0
 --- !u!114 &749328109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1458,6 +1498,7 @@ MonoBehaviour:
   ID: 8
   WeaponIcon: {fileID: 1576438309}
   BGImage: {fileID: 915884704}
+  isSynth: 0
 --- !u!1 &930205026
 GameObject:
   m_ObjectHideFlags: 0
@@ -1642,7 +1683,7 @@ GameObject:
   - component: {fileID: 1009374077}
   - component: {fileID: 1009374076}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: SynthCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1723,8 +1764,10 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1284441983}
-  - {fileID: 198589725}
+  - {fileID: 494079896}
+  - {fileID: 2084440193}
+  - {fileID: 1787831087}
+  - {fileID: 702099502}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1786,6 +1829,7 @@ MonoBehaviour:
   ID: 5
   WeaponIcon: {fileID: 42701804}
   BGImage: {fileID: 1099293563}
+  isSynth: 0
 --- !u!114 &1099293563
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2038,6 +2082,7 @@ MonoBehaviour:
   ID: 6
   WeaponIcon: {fileID: 2104816049}
   BGImage: {fileID: 1197116788}
+  isSynth: 0
 --- !u!114 &1197116788
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2105,9 +2150,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 494079896}
-  - {fileID: 2084440193}
+  m_Children: []
   m_Father: {fileID: 656231342}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -2192,7 +2235,7 @@ RectTransform:
   - {fileID: 1099293561}
   - {fileID: 1421838561}
   - {fileID: 1906724223}
-  m_Father: {fileID: 1009374079}
+  m_Father: {fileID: 702099502}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2394,6 +2437,7 @@ MonoBehaviour:
   ID: 2
   WeaponIcon: {fileID: 1849386728}
   BGImage: {fileID: 1421838563}
+  isSynth: 0
 --- !u!114 &1421838563
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2567,6 +2611,7 @@ MonoBehaviour:
   ID: 4
   WeaponIcon: {fileID: 1950130682}
   BGImage: {fileID: 1559027482}
+  isSynth: 0
 --- !u!114 &1559027482
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2711,7 +2756,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 656231342}
-  - {fileID: 1787831087}
   - {fileID: 802215156}
   - {fileID: 1842645245}
   m_Father: {fileID: 2143578594}
@@ -2864,17 +2908,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1787831086}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 321814540}
-  m_Father: {fileID: 1731573591}
+  m_Father: {fileID: 1009374079}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -500}
+  m_AnchoredPosition: {x: 0, y: -749.99994}
   m_SizeDelta: {x: 600, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1787831088
@@ -3025,6 +3069,7 @@ MonoBehaviour:
   ID: 7
   WeaponIcon: {fileID: 44434341}
   BGImage: {fileID: 1826012847}
+  isSynth: 0
 --- !u!114 &1826012847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3250,23 +3295,35 @@ MonoBehaviour:
   - {fileID: 0}
   _maxUpgradeLevel: 20
   weapons:
-  - {fileID: 11400000, guid: 5e9d0d0c4b6357b48bf105992e9ba7ed, type: 2}
-  - {fileID: 11400000, guid: 19f5222ba29401f4da11c9fc70dbcbc4, type: 2}
-  - {fileID: 11400000, guid: 95cc1d6851f88e64a83dc265e38cffba, type: 2}
-  - {fileID: 11400000, guid: 5e9d0d0c4b6357b48bf105992e9ba7ed, type: 2}
-  - {fileID: 11400000, guid: 19f5222ba29401f4da11c9fc70dbcbc4, type: 2}
-  - {fileID: 11400000, guid: 95cc1d6851f88e64a83dc265e38cffba, type: 2}
-  - {fileID: 11400000, guid: 5e9d0d0c4b6357b48bf105992e9ba7ed, type: 2}
-  - {fileID: 11400000, guid: 19f5222ba29401f4da11c9fc70dbcbc4, type: 2}
-  - {fileID: 11400000, guid: 95cc1d6851f88e64a83dc265e38cffba, type: 2}
-  - {fileID: 11400000, guid: 5e9d0d0c4b6357b48bf105992e9ba7ed, type: 2}
+  - career: 0
+    weapon: []
+  - career: 0
+    weapon: []
+  - career: 0
+    weapon: []
+  - career: 0
+    weapon: []
+  - career: 0
+    weapon: []
+  - career: 0
+    weapon: []
+  - career: 0
+    weapon: []
+  - career: 0
+    weapon: []
+  - career: 0
+    weapon: []
+  - career: 0
+    weapon: []
   Invens:
   - {fileID: 0}
   SmithyTab: {fileID: 0}
-  SynthCount: 5
+  useWeaponCount: 0
   SynthSlots:
   - {fileID: 494079899}
   - {fileID: 2084440196}
+  AwakeSlots: []
+  maxAwakeLevel: 0
 --- !u!114 &1843445276
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3479,6 +3536,7 @@ MonoBehaviour:
   ID: 3
   WeaponIcon: {fileID: 511251328}
   BGImage: {fileID: 1906724225}
+  isSynth: 0
 --- !u!114 &1906724225
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3693,18 +3751,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2084440192}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 904193449}
   - {fileID: 1544736162}
-  m_Father: {fileID: 1283426400}
+  m_Father: {fileID: 1009374079}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 225, y: 50}
+  m_AnchoredPosition: {x: 205.00003, y: -164.99998}
   m_SizeDelta: {x: 250, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2084440194
@@ -3760,7 +3818,9 @@ MonoBehaviour:
   SlotImage: {fileID: 904193450}
   BGImage: {fileID: 2084440194}
   WeaponCountText: {fileID: 1544736163}
-  SelectUI: {fileID: 1009374075}
+  AwakeImage: []
+  isAwake: 0
+  SelectUI: {fileID: 702099501}
   SelectSlots: []
   isSelectSlot: 0
 --- !u!1 &2104816047

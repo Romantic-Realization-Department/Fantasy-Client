@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public enum WeaponID
 {
@@ -17,13 +17,13 @@ public enum WeaponID
 [CreateAssetMenu(fileName = "SO_Equipment", menuName = "ScriptableObjects/SO_Equipment", order = 6)]
 public class SO_Weapon : ScriptableObject
 {
-    //ÇÊ¿äÇÑ ±â´É¿¡ µû¶ó º¯¼ö ¹× ÇÔ¼ö°¡ Ãß°¡µÉ ¼ö ÀÖÀ½
-    [Header("ÇÊ¿ä º¯¼ö")]
+    //í•„ìš”í•œ ê¸°ëŠ¥ì— ë”°ë¼ ë³€ìˆ˜ ë° í•¨ìˆ˜ê°€ ì¶”ê°€ë  ìˆ˜ ìžˆìŒ
+    [Header("í•„ìš” ë³€ìˆ˜")]
     [SerializeField]
     private WeaponID _weaponID;
     public WeaponID WeaponID => _weaponID;
 
-    [Header("¹«±â Á¤º¸")]
+    [Header("ë¬´ê¸° ì •ë³´")]
     public string weaponName;
 
     [TextArea]
