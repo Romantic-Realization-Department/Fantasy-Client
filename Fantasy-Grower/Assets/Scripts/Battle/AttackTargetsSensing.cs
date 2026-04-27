@@ -12,10 +12,11 @@ public class AttackTargetsSensing : MonoBehaviour
 
     private readonly HashSet<Entity> _targets = new();
 
-    private readonly HashSet<Entity> _targetListCache = new();
+    private readonly List<Entity> _targetListCache = new();
 
     public IReadOnlyCollection<Entity> GetTargets()
     {
+        _targetListCache.Clear();
         foreach (var target in _targets)
         {
             if (target)
@@ -35,7 +36,13 @@ public class AttackTargetsSensing : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.TryGetComponent<Entity>(out var entity) && entity.EntityType != _type)
+        if (other.attachedRigidbody == null)
+            return;
+
+        if (
+            other.attachedRigidbody.TryGetComponent<Entity>(out var entity)
+            && entity.EntityType != _type
+        )
         {
             if (_targets.Add(entity))
             {
@@ -49,7 +56,10 @@ public class AttackTargetsSensing : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.TryGetComponent<Entity>(out var entity))
+        if (other.attachedRigidbody == null)
+            return;
+
+        if (other.attachedRigidbody.TryGetComponent<Entity>(out var entity))
         {
             RemoveTarget(entity);
         }

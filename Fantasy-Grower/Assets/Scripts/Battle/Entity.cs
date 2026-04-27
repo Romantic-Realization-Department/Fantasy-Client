@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 public enum EntityType
@@ -23,6 +22,9 @@ public abstract class Entity : MonoBehaviour
     [SerializeField]
     protected EntityStatData statData;
 
+    [SerializeField]
+    protected EntityState entityState;
+
     /// <summary>HP가 0이 되어 Death()가 호출될 때 발화된다.</summary>
     public event Action<Entity> OnDied;
 
@@ -43,26 +45,56 @@ public abstract class Entity : MonoBehaviour
         AttackPower = statData.AttackPower;
         AttackSpeed = statData.AttackSpeed;
         CriticalPercentage = statData.CriticalPercentage;
+        entityState[gameObject].OnStateChanged += OnStateChanged; // 상태 이벤트 구독
+        entityState[gameObject].State = PlayerState.IDLE;
     }
 
-    public virtual void Attack()
+    private void OnStateChanged(PlayerState state)
     {
-        // 애니메이션의 특정 시점에서 호출하고 싶다면, StateMachineBehaviour를 활용하여 호출하는 것을 추천합니다.
-
-        // 공격 범위 내의 적을 감지하여 데미지를 입히는 로직
-        foreach (Entity target in Targets.GetTargets())
+        switch (state)
         {
-            bool shouldHit = (EntityType != target.EntityType);
-            if (!shouldHit)
-                continue;
-            var (damage, _) = DamageCalculator.Calculate(
-                AttackPower,
-                target.DamageReduction,
-                CriticalPercentage
-            );
-            target.TakeDamage(damage);
+            case PlayerState.IDLE:
+                OnIdle();
+                break;
+            case PlayerState.MOVE:
+                OnMove();
+                break;
+            case PlayerState.ATTACK:
+                OnAttack();
+                break;
+            case PlayerState.DAMAGED:
+                OnDamaged();
+                break;
+            case PlayerState.DEBUFF:
+                OnDebuff();
+                break;
+            case PlayerState.DEATH:
+                OnDeath();
+                break;
+            case PlayerState.OTHER:
+                OnOther();
+                break;
         }
     }
+
+    #region 상태별 액션 메서드 (필요 시 오버라이드하여 구현)
+    protected virtual void OnIdle() { }
+
+    protected virtual void OnMove() { }
+
+    protected virtual void OnAttack() { }
+
+    protected virtual void OnDamaged() { }
+
+    protected virtual void OnDebuff() { }
+
+    protected virtual void OnDeath() { }
+
+    protected virtual void OnOther() { }
+    #endregion
+
+    // 애니메이션의 특정 시점에서 호출하고 싶다면, StateMachineBehaviour를 거쳐 호출하는 것을 추천합니다.
+    public virtual void Attack() { }
 
     /// <summary>HP를 MaxHp로 복구한다. 던전 재시도 시 사용.</summary>
     public void ResetHp()
@@ -106,5 +138,26 @@ public abstract class Entity : MonoBehaviour
         AttackPower = statData.AttackPower + modifier.BonusAttackPower;
         AttackSpeed = statData.AttackSpeed + modifier.BonusAttackSpeed;
         CriticalPercentage = statData.CriticalPercentage + modifier.BonusCriticalPercentage;
+    }
+
+    private void OnDestroy()
+    {
+        if (entityState)
+            entityState[gameObject].OnStateChanged -= OnStateChanged; // 상태 이벤트 구독 해제
+    }
+
+    private void OnValidate()
+    {
+        if (!Targets)
+            Debug.LogError(
+                "[Entity] Targets 필드에 AttackTargetsSensing 컴포넌트를 할당해주세요.",
+                this
+            );
+
+        if (!statData)
+            Debug.LogWarning("[Entity] StatData가 비어 있습니다!", this);
+
+        if (!entityState)
+            Debug.LogWarning("[Entity] EntityState가 비어 있습니다!", this);
     }
 }

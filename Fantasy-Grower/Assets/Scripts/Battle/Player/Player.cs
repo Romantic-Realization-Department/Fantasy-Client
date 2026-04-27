@@ -2,12 +2,4 @@
 using UnityEngine;
 
 [RequireComponent(typeof(AutoAttackController))]
-public class Player : Entity
-{
-    public override void Attack()
-    {
-        // TODO : 플레이어 애니메이션 효과 적용
-
-        base.Attack();
-    }
-}
+public class Player : Entity { }
