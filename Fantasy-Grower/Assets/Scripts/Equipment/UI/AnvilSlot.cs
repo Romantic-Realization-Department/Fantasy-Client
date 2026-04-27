@@ -30,6 +30,11 @@ public class AnvilSlot : MonoBehaviour, IPointerClickHandler
     [Header("재료와 결과 분리")]
     public bool isSelectSlot;
 
+    private void OnEnable()
+    {
+        HideAwakeImage();
+    }
+
     public void OnPointerClick(PointerEventData eventData)
     {
         if (isSelectSlot)
@@ -49,7 +54,15 @@ public class AnvilSlot : MonoBehaviour, IPointerClickHandler
     {
         for (int i = 0; i < awakeLevel; i++)
         {
-            AwakeImage[i].SetActive(true);
+            AwakeImage[i]?.SetActive(true);
+        }
+    }
+
+    public void HideAwakeImage()
+    {
+        for (int i = 0; i < AwakeImage.Length; i++)
+        {
+            AwakeImage[i]?.SetActive(false);
         }
     }
 

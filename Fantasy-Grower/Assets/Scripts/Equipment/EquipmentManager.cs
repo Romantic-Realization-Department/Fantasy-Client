@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem.XR.Haptics;
 using UnityEngine.UI;
 
 public enum Career
@@ -117,11 +116,19 @@ public class EquipmentManager : MonoBehaviour
         AssignIcon();
     }
 
+    public void TestButton()
+    {
+        for (int i = 0; i < weaponMap.Count; i++)
+        {
+            weaponMap[(WeaponID)i].weaponCount = 100;
+        }
+    }
+
     private void ResetWeaponDicionary()
     {
-        for (int i = 0; i < (int)WeaponID.D2 + 1; i++)
+        for (int i = 0; i <= (int)WeaponID.D2; i++)
         {
-            weaponBGColorMap.Add((WeaponID)i, weaponLevelColor[i < 4 ? i / 2 : (i / 2) + 1]);
+            weaponBGColorMap.Add((WeaponID)i, weaponLevelColor[i / 2]);
             weaponMap.Add((WeaponID)i, weapons[(int)career].weapon[i]);
         }
     } //무기의 종류가 2개일 경우만 해당, 3개 이상이 되면 수정 필요
