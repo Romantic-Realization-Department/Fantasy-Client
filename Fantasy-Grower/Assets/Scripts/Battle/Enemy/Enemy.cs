@@ -4,6 +4,7 @@ using UnityEngine;
 /// 적 엔티티 기반 클래스.
 /// 사망 시 EnemyRewardData에 정의된 Gold/XP를 지급한다.
 /// </summary>
+[RequireComponent(typeof(EnemyAI))]
 public class Enemy : Entity
 {
     [Header("처치 보상 설정")]

@@ -139,23 +139,10 @@ public class BattleManager : MonoBehaviour
         TransitionTo(BattleState.Fighting);
     }
 
-    private void EnterFighting()
-    {
-        autoAttack.StartAutoAttack();
-
-        foreach (Enemy e in currentWaveEnemies)
-            if (e.TryGetComponent(out EnemyAI ai))
-                ai.StartAttacking();
-    }
+    private void EnterFighting() { }
 
     private void HandleAllEnemiesDead()
     {
-        autoAttack.StopAutoAttack();
-
-        foreach (Enemy e in currentWaveEnemies)
-            if (e.TryGetComponent(out EnemyAI ai))
-                ai.StopAttacking();
-
         TransitionTo(BattleState.WaveCleared);
     }
 
@@ -189,7 +176,6 @@ public class BattleManager : MonoBehaviour
         if (entity != player)
             return;
 
-        autoAttack.StopAutoAttack();
         waveController.Clear();
         TransitionTo(BattleState.PlayerDead);
     }

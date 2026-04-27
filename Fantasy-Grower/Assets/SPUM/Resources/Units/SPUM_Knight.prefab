@@ -3803,7 +3803,7 @@ GameObject:
   - component: {fileID: 2800209671157808350}
   - component: {fileID: 440824162355683358}
   m_Layer: 5
-  m_Name: SPUM_20260424144738312
+  m_Name: SPUM_Knight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3843,7 +3843,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _version: 188
   EditChk: 0
-  _code: SPUM_20260424144738312
+  _code: SPUM_Knight
   _anim: {fileID: 1829799308974446729}
   OverrideController: {fileID: 0}
   UnitType: Unit

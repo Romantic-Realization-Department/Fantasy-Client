@@ -7,7 +7,7 @@ using UnityEngine;
 /// BattleManager가 StartAutoAttack() / StopAutoAttack()으로 제어한다.
 /// </summary>
 [RequireComponent(typeof(Player))]
-public class AutoAttackController : MonoBehaviour
+public class AutoAttackController : MonoBehaviour, IAttackEvent
 {
     [SerializeField]
     private WaveController waveController;
@@ -22,13 +22,13 @@ public class AutoAttackController : MonoBehaviour
             Debug.LogError("[AutoAttackController] WaveController가 연결되지 않았습니다.", this);
     }
 
-    public void StartAutoAttack()
+    public void StartAttacking()
     {
-        StopAutoAttack();
+        StopAttacking();
         attackCoroutine = StartCoroutine(AutoAttackLoop());
     }
 
-    public void StopAutoAttack()
+    public void StopAttacking()
     {
         if (attackCoroutine != null)
         {

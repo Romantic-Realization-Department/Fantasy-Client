@@ -191,11 +191,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <EntityType>k__BackingField: 1
   statData: {fileID: 11400000, guid: 947637eac36383b49827043094c83699, type: 2}
-  targetLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  maxEntityCount: 1
-  attackCollider: {fileID: 5256461534563001090}
+  <Targets>k__BackingField: {fileID: 9193396476829707428}
   rewardData: {fileID: 0}
 --- !u!1 &6637181185444963787
 GameObject:
@@ -207,6 +203,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6245523390461526167}
   - component: {fileID: 5256461534563001090}
+  - component: {fileID: 9193396476829707428}
   m_Layer: 6
   m_Name: AttackCollider
   m_TagString: Untagged
@@ -275,3 +272,16 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 5, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &9193396476829707428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6637181185444963787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b28c4059098ce6143854ee8c464a0b26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _type: 1

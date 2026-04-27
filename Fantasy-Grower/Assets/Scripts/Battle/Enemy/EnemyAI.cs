@@ -6,7 +6,7 @@ using UnityEngine;
 /// BattleManager가 스폰 후 Initialize()와 StartAttacking()을 호출하여 동작을 시작한다.
 /// </summary>
 [RequireComponent(typeof(Enemy))]
-public class EnemyAI : MonoBehaviour
+public class EnemyAI : MonoBehaviour, IAttackEvent
 {
     private Enemy enemy;
     private Coroutine attackCoroutine;

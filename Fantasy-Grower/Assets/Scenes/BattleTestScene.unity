@@ -816,7 +816,8 @@ MonoBehaviour:
   targetLayer:
     serializedVersion: 2
     m_Bits: 128
-  attackCollider: {fileID: 1553636759}
+  maxEntityCount: 50
+  <Targets>k__BackingField: {fileID: 1553636760}
 --- !u!114 &1107896320
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -947,6 +948,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1553636758}
   - component: {fileID: 1553636759}
+  - component: {fileID: 1553636760}
   m_Layer: 6
   m_Name: AttackCollider
   m_TagString: Untagged
@@ -1015,6 +1017,19 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 5, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1553636760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1553636757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b28c4059098ce6143854ee8c464a0b26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _type: 0
 --- !u!1 &1589174767
 GameObject:
   m_ObjectHideFlags: 0

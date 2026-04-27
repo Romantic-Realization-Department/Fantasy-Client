@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum EntityType
@@ -25,17 +26,8 @@ public abstract class Entity : MonoBehaviour
     /// <summary>HP가 0이 되어 Death()가 호출될 때 발화된다.</summary>
     public event Action<Entity> OnDied;
 
-    [Header("공격 설정")]
-    [SerializeField, Tooltip("타겟 레이어")]
-    protected LayerMask targetLayer;
-
-    [field: SerializeField, Tooltip("공격 범위 내 최대 엔티티 수")]
-    protected int maxEntityCount = 50;
-
-    [SerializeField]
-    protected Collider2D attackCollider;
-    protected Collider2D[] entities;
-    protected ContactFilter2D contactFilter;
+    [field: SerializeField, Header("공격 설정")]
+    public AttackTargetsSensing Targets { get; private set; }
 
     protected virtual void Awake()
     {
@@ -51,9 +43,6 @@ public abstract class Entity : MonoBehaviour
         AttackPower = statData.AttackPower;
         AttackSpeed = statData.AttackSpeed;
         CriticalPercentage = statData.CriticalPercentage;
-        contactFilter.useLayerMask = true;
-        contactFilter.SetLayerMask(targetLayer);
-        entities = new Collider2D[maxEntityCount];
     }
 
     public virtual void Attack()
@@ -61,22 +50,17 @@ public abstract class Entity : MonoBehaviour
         // 애니메이션의 특정 시점에서 호출하고 싶다면, StateMachineBehaviour를 활용하여 호출하는 것을 추천합니다.
 
         // 공격 범위 내의 적을 감지하여 데미지를 입히는 로직
-        int hitCount = attackCollider.Overlap(contactFilter, entities);
-
-        for (int i = 0; i < hitCount; i++)
+        foreach (Entity target in Targets.GetTargets())
         {
-            if (entities[i].TryGetComponent(out Entity target))
-            {
-                bool shouldHit = (EntityType != target.EntityType);
-                if (!shouldHit)
-                    continue;
-                var (damage, _) = DamageCalculator.Calculate(
-                    AttackPower,
-                    target.DamageReduction,
-                    CriticalPercentage
-                );
-                target.TakeDamage(damage);
-            }
+            bool shouldHit = (EntityType != target.EntityType);
+            if (!shouldHit)
+                continue;
+            var (damage, _) = DamageCalculator.Calculate(
+                AttackPower,
+                target.DamageReduction,
+                CriticalPercentage
+            );
+            target.TakeDamage(damage);
         }
     }
 
