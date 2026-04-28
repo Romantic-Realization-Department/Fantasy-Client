@@ -191,8 +191,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <EntityType>k__BackingField: 1
   statData: {fileID: 11400000, guid: 947637eac36383b49827043094c83699, type: 2}
-  <Targets>k__BackingField: {fileID: 9193396476829707428}
-  rewardData: {fileID: 0}
+  targets: {fileID: 9193396476829707428}
+  rewardData: {fileID: 11400000, guid: c7bbabc7ae6924a4ca2dd98f7f57abf7, type: 2}
+  rb: {fileID: 846388253315880859}
+  moveSpeed: 3
 --- !u!1 &6637181185444963787
 GameObject:
   m_ObjectHideFlags: 0
@@ -260,7 +262,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -2.5, y: 0}
+  m_Offset: {x: -0.5, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -270,7 +272,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 5, y: 1}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &9193396476829707428
 MonoBehaviour:

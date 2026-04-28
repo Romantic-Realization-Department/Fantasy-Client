@@ -813,11 +813,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <EntityType>k__BackingField: 0
   statData: {fileID: 11400000, guid: fe352f708efa65540819d5d6bf040e6b, type: 2}
-  targetLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  maxEntityCount: 50
-  <Targets>k__BackingField: {fileID: 1553636760}
+  entityState: {fileID: 0}
+  targets: {fileID: 1553636760}
 --- !u!114 &1107896320
 MonoBehaviour:
   m_ObjectHideFlags: 0

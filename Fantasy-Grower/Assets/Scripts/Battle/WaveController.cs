@@ -28,12 +28,12 @@ public class WaveController : MonoBehaviour
     /// 웨이브 데이터에 따라 적을 스폰한다.
     /// 스폰된 Enemy 인스턴스 목록을 반환한다.
     /// </summary>
-    public IReadOnlyCollection<Enemy> SpawnWave(WaveData waveData, Transform[] spawnPoints)
+    public void SpawnWave(WaveData waveData, Transform[] spawnPoints)
     {
         if (spawnPoints == null || spawnPoints.Length == 0)
         {
             Debug.LogError("[WaveController] 스폰 포인트가 설정되지 않았습니다.");
-            return null;
+            return;
         }
 
         _activeEnemies.Clear();
@@ -69,8 +69,6 @@ public class WaveController : MonoBehaviour
             Debug.LogWarning("[WaveController] 웨이브에 적이 없습니다. 즉시 완료 처리됩니다.");
             OnAllEnemiesDead?.Invoke();
         }
-
-        return _activeEnemies;
     }
 
     /// <summary>현재 살아있는 첫 번째 적을 반환한다. 없으면 null.</summary>

@@ -9,17 +9,12 @@ using UnityEngine;
 [RequireComponent(typeof(Player))]
 public class AutoAttackController : MonoBehaviour, IAttackEvent
 {
-    [SerializeField]
-    private WaveController waveController;
-
     private Player player;
     private Coroutine attackCoroutine;
 
     private void Awake()
     {
         player = GetComponent<Player>();
-        if (waveController == null)
-            Debug.LogError("[AutoAttackController] WaveController가 연결되지 않았습니다.", this);
     }
 
     public void StartAttacking()
@@ -41,8 +36,7 @@ public class AutoAttackController : MonoBehaviour, IAttackEvent
     {
         while (true)
         {
-            if (waveController != null && waveController.GetFirstAliveEnemy() != null)
-                player.Attack(); // AttackCollider가 실제 피해를 처리
+            player.Attack(); // 플레이어가 실제 피해를 처리
 
             // AttackSpeed = 초당 공격 횟수 (예: 1.0 → 1초마다 공격)
             float interval = player.AttackSpeed > 0f ? 1f / player.AttackSpeed : 1f;

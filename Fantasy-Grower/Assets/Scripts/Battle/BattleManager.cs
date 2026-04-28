@@ -20,12 +20,26 @@ public enum BattleState
 /// </summary>
 public class BattleManager : MonoBehaviour
 {
+    private static BattleManager _instance;
+    public static BattleManager Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = FindAnyObjectByType<BattleManager>();
+                if (_instance == null)
+                {
+                    Debug.LogError("[BattleManager] 씬에 BattleManager가 존재하지 않습니다.");
+                }
+            }
+            return _instance;
+        }
+    }
+
     // ─── Inspector 연결 ──────────────────────────────────────────
     [SerializeField]
     private Player player;
-
-    [SerializeField]
-    private AutoAttackController autoAttack;
 
     [SerializeField]
     private WaveController waveController;
@@ -40,19 +54,26 @@ public class BattleManager : MonoBehaviour
     // ─── 런타임 상태 ─────────────────────────────────────────────
     private BattleState state = BattleState.Idle;
     private int currentWaveIndex;
-    private IReadOnlyCollection<Enemy> currentWaveEnemies;
     private Coroutine _delayedTransitionCoroutine;
 
     // ─── UI 알림 이벤트 ───────────────────────────────────────────
     /// <summary>상태가 변경될 때마다 발화된다. UI 패널 전환에 사용한다.</summary>
-    public static event Action<BattleState> OnStateChanged;
+    public event Action<BattleState> OnStateChanged;
 
     /// <summary>새 웨이브가 시작될 때 웨이브 번호(0-based)를 전달한다.</summary>
-    public static event Action<int> OnWaveChanged;
+    public event Action<int> OnWaveChanged;
 
     // ─── 유니티 라이프사이클 ──────────────────────────────────────
     private void Awake()
     {
+        if (_instance != null && _instance != this)
+        {
+            Debug.LogError("[BattleManager] 씬에 BattleManager가 2개 이상 존재합니다.");
+            Destroy(this);
+            return;
+        }
+        _instance = this;
+
         WaveController.OnAllEnemiesDead += HandleAllEnemiesDead;
         player.OnDied += HandlePlayerDied;
     }
@@ -61,6 +82,11 @@ public class BattleManager : MonoBehaviour
     {
         WaveController.OnAllEnemiesDead -= HandleAllEnemiesDead;
         player.OnDied -= HandlePlayerDied;
+
+        if (_instance == this)
+        {
+            _instance = null;
+        }
     }
 
     // ─── 공개 API (UI 버튼에서 호출) ─────────────────────────────
@@ -134,7 +160,7 @@ public class BattleManager : MonoBehaviour
         OnWaveChanged?.Invoke(currentWaveIndex);
 
         WaveData wave = dungeonData.Waves[currentWaveIndex];
-        currentWaveEnemies = waveController.SpawnWave(wave, spawnPoints);
+        waveController.SpawnWave(wave, spawnPoints);
 
         TransitionTo(BattleState.Fighting);
     }
@@ -189,7 +215,7 @@ public class BattleManager : MonoBehaviour
     // ─── 내부 유틸 ────────────────────────────────────────────────
     private IEnumerator DelayedTransition(BattleState next, float delay)
     {
-        yield return new WaitForSeconds(delay);
+        yield return YieldInstructionCache.WaitForSeconds(delay);
         TransitionTo(next);
     }
 }

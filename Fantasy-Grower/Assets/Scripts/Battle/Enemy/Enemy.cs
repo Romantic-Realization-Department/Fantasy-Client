@@ -4,12 +4,46 @@ using UnityEngine;
 /// 적 엔티티 기반 클래스.
 /// 사망 시 EnemyRewardData에 정의된 Gold/XP를 지급한다.
 /// </summary>
-[RequireComponent(typeof(EnemyAI))]
 public class Enemy : Entity
 {
+    [SerializeField, Header("공격 설정")]
+    protected AttackTargetsSensing targets;
+
     [Header("처치 보상 설정")]
     [SerializeField]
     private EnemyRewardData rewardData;
+
+    [Header("움직임 설정")]
+    [SerializeField]
+    protected Rigidbody2D rb;
+
+    [SerializeField]
+    protected float moveSpeed = 3f;
+
+    protected override void Start()
+    {
+        entityState[gameObject].State = PlayerState.MOVE;
+    }
+
+    protected override void OnMove()
+    {
+        rb.linearVelocityX = -moveSpeed;
+    }
+
+    protected override void OnIdle()
+    {
+        rb.linearVelocityX = 0f;
+    }
+
+    protected override void OnAttack()
+    {
+        OnIdle(); // 공격 중에는 움직이지 않도록 설정
+    }
+
+    public override void Attack()
+    {
+        entityState[gameObject].State = PlayerState.ATTACK; // 공격 상태로 전환하여 애니메이션과 공격 로직이 실행되도록 함
+    }
 
     public override void Death()
     {
@@ -22,5 +56,28 @@ public class Enemy : Entity
         }
 
         Destroy(gameObject, 0.5f); // 사망 연출 시간 확보 후 제거
+    }
+
+    protected override void OnValidate()
+    {
+        if (!targets)
+            Debug.LogError(
+                "[Entity] Targets 필드에 AttackTargetsSensing 컴포넌트를 할당해주세요.",
+                this
+            );
+
+        base.OnValidate();
+
+        if (!rewardData)
+            Debug.LogWarning(
+                "[Enemy] RewardData가 할당되지 않았습니다. 처치 보상이 지급되지 않습니다.",
+                this
+            );
+
+        if (!rb)
+            Debug.LogWarning(
+                "[Enemy] Rigidbody2D가 할당되지 않았습니다. 움직임이 정상적으로 작동하지 않을 수 있습니다.",
+                this
+            );
     }
 }

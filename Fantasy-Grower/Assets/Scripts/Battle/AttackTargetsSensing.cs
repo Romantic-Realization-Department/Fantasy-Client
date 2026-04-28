@@ -10,20 +10,16 @@ public class AttackTargetsSensing : MonoBehaviour
     [SerializeField]
     private EntityType _type;
 
-    private readonly HashSet<Entity> _targets = new();
+    private readonly List<Entity> _targets = new();
 
-    private readonly List<Entity> _targetListCache = new();
-
-    public IReadOnlyCollection<Entity> GetTargets()
+    public Entity GetFirstTarget()
     {
-        _targetListCache.Clear();
-        foreach (var target in _targets)
-        {
-            if (target)
-                _targetListCache.Add(target);
-        }
-        return _targetListCache;
+        if (_targets.Count > 0)
+            return _targets[0];
+        return null;
     }
+
+    public IReadOnlyList<Entity> GetTargets() => _targets;
 
     private IAttackEvent _attackEvent;
 
@@ -36,16 +32,11 @@ public class AttackTargetsSensing : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.attachedRigidbody == null)
-            return;
-
-        if (
-            other.attachedRigidbody.TryGetComponent<Entity>(out var entity)
-            && entity.EntityType != _type
-        )
+        if (other.TryGetComponent<Entity>(out var entity) && entity.EntityType != _type)
         {
-            if (_targets.Add(entity))
+            if (!_targets.Contains(entity))
             {
+                _targets.Add(entity);
                 entity.OnDied += HandleTargetDied;
 
                 if (_targets.Count == 1)
@@ -56,10 +47,7 @@ public class AttackTargetsSensing : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.attachedRigidbody == null)
-            return;
-
-        if (other.attachedRigidbody.TryGetComponent<Entity>(out var entity))
+        if (other.TryGetComponent<Entity>(out var entity))
         {
             RemoveTarget(entity);
         }

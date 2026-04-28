@@ -22,14 +22,10 @@ public abstract class Entity : MonoBehaviour
     [SerializeField]
     protected EntityStatData statData;
 
-    [SerializeField]
-    protected EntityState entityState;
+    protected EntityState entityState = EntityState.Instance;
 
     /// <summary>HP가 0이 되어 Death()가 호출될 때 발화된다.</summary>
     public event Action<Entity> OnDied;
-
-    [field: SerializeField, Header("공격 설정")]
-    public AttackTargetsSensing Targets { get; private set; }
 
     protected virtual void Awake()
     {
@@ -45,7 +41,11 @@ public abstract class Entity : MonoBehaviour
         AttackPower = statData.AttackPower;
         AttackSpeed = statData.AttackSpeed;
         CriticalPercentage = statData.CriticalPercentage;
-        entityState[gameObject].OnStateChanged += OnStateChanged; // 상태 이벤트 구독
+        entityState[gameObject].OnStateChanged += OnStateChanged;
+    }
+
+    protected virtual void Start()
+    {
         entityState[gameObject].State = PlayerState.IDLE;
     }
 
@@ -77,7 +77,8 @@ public abstract class Entity : MonoBehaviour
         }
     }
 
-    #region 상태별 액션 메서드 (필요 시 오버라이드하여 구현)
+    #region 상태 변경 로직
+
     protected virtual void OnIdle() { }
 
     protected virtual void OnMove() { }
@@ -91,6 +92,7 @@ public abstract class Entity : MonoBehaviour
     protected virtual void OnDeath() { }
 
     protected virtual void OnOther() { }
+
     #endregion
 
     // 애니메이션의 특정 시점에서 호출하고 싶다면, StateMachineBehaviour를 거쳐 호출하는 것을 추천합니다.
@@ -140,24 +142,14 @@ public abstract class Entity : MonoBehaviour
         CriticalPercentage = statData.CriticalPercentage + modifier.BonusCriticalPercentage;
     }
 
-    private void OnDestroy()
+    protected virtual void OnDestroy()
     {
-        if (entityState)
-            entityState[gameObject].OnStateChanged -= OnStateChanged; // 상태 이벤트 구독 해제
+        entityState[gameObject].OnStateChanged -= OnStateChanged;
     }
 
-    private void OnValidate()
+    protected virtual void OnValidate()
     {
-        if (!Targets)
-            Debug.LogError(
-                "[Entity] Targets 필드에 AttackTargetsSensing 컴포넌트를 할당해주세요.",
-                this
-            );
-
         if (!statData)
             Debug.LogWarning("[Entity] StatData가 비어 있습니다!", this);
-
-        if (!entityState)
-            Debug.LogWarning("[Entity] EntityState가 비어 있습니다!", this);
     }
 }

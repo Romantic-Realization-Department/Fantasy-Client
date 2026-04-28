@@ -22,20 +22,18 @@ public class EntityStateData
         get => _state;
         set
         {
-            if (_state != value)
-            {
-                _state = value;
-                OnStateChanged?.Invoke(_state);
-            }
+            _state = value;
+            OnStateChanged?.Invoke(_state);
         }
     }
 
     public event Action<PlayerState> OnStateChanged;
 }
 
-[CreateAssetMenu(fileName = "EntityState", menuName = "Entity/State", order = 1)]
-public class EntityState : ScriptableObject
+public class EntityState
 {
+    public static EntityState Instance { get; } = new(); // 싱글톤 인스턴스
+
     private readonly Dictionary<GameObject, EntityStateData> _entityStats = new(); // 엔티티 별 상태 데이터를 저장하는 딕셔너리
 
     public EntityStateData this[GameObject go]
@@ -52,11 +50,6 @@ public class EntityState : ScriptableObject
 
             return data;
         }
-    }
-
-    private void OnEnable()
-    {
-        _entityStats.Clear();
     }
 
     public bool Remove(GameObject go)
