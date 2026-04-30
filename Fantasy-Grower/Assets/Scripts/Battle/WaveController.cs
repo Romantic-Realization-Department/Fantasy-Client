@@ -28,26 +28,26 @@ public class WaveController : MonoBehaviour
     /// 웨이브 데이터에 따라 적을 스폰한다.
     /// 스폰된 Enemy 인스턴스 목록을 반환한다.
     /// </summary>
-    public void SpawnWave(WaveData waveData, Transform[] spawnPoints)
+    public void SpawnWave(WaveData waveData, Transform spawnPoint, float spawnInterval)
     {
-        if (spawnPoints == null || spawnPoints.Length == 0)
+        if (spawnPoint == null)
         {
             Debug.LogError("[WaveController] 스폰 포인트가 설정되지 않았습니다.");
             return;
         }
 
         _activeEnemies.Clear();
-        int spawnIndex = 0;
+        float curOffset = 0f;
 
         // 추후 오브젝트 풀링 작동 방식으로 변환할 것.
         foreach (var entry in waveData.Entries)
         {
             for (int i = 0; i < entry.Count; i++)
             {
-                Vector3 pos = spawnPoints[spawnIndex % spawnPoints.Length].position;
+                Vector3 pos = spawnPoint.position + new Vector3(curOffset, 0);
                 GameObject go = Instantiate(entry.EnemyPrefab, pos, Quaternion.identity);
 
-                if (!go.TryGetComponent<Enemy>(out Enemy enemy))
+                if (!go.TryGetComponent(out Enemy enemy))
                 {
                     Debug.LogWarning(
                         $"[WaveController] 프리팹 {entry.EnemyPrefab.name}에 Enemy 컴포넌트가 없습니다."
@@ -58,7 +58,7 @@ public class WaveController : MonoBehaviour
 
                 enemy.OnDied += OnEnemyDied;
                 _activeEnemies.Add(enemy);
-                spawnIndex++;
+                curOffset += spawnInterval;
             }
         }
 

@@ -44,8 +44,12 @@ public class BattleManager : MonoBehaviour
     [SerializeField]
     private WaveController waveController;
 
+    [Header("스폰 설정")]
     [SerializeField]
-    private Transform[] spawnPoints;
+    private Transform spawnPoint;
+
+    [SerializeField]
+    private float spawnPointInterval = 1.0f;
 
     [Header("던전 데이터")]
     [SerializeField]
@@ -62,6 +66,9 @@ public class BattleManager : MonoBehaviour
 
     /// <summary>새 웨이브가 시작될 때 웨이브 번호(0-based)를 전달한다.</summary>
     public event Action<int> OnWaveChanged;
+
+    /// <summary>던전이 클리어되었을 때 발화된다. 던전 번호를 전달한다.</summary>
+    public event Action OnDungeonCleared;
 
     // ─── 유니티 라이프사이클 ──────────────────────────────────────
     private void Awake()
@@ -160,7 +167,7 @@ public class BattleManager : MonoBehaviour
         OnWaveChanged?.Invoke(currentWaveIndex);
 
         WaveData wave = dungeonData.Waves[currentWaveIndex];
-        waveController.SpawnWave(wave, spawnPoints);
+        waveController.SpawnWave(wave, spawnPoint, spawnPointInterval);
 
         TransitionTo(BattleState.Fighting);
     }
@@ -195,6 +202,8 @@ public class BattleManager : MonoBehaviour
         GoodsManager.Instance.GetGoods(GoodsType.Gold).Increase(dungeonData.BonusGoldReward);
         GoodsManager.Instance.GetGoods(GoodsType.XP).Increase(dungeonData.BonusXpReward);
         GoodsManager.Instance.GetGoods(GoodsType.Mithril).Increase(dungeonData.MithrilRewardAmount);
+
+        OnDungeonCleared?.Invoke();
     }
 
     private void HandlePlayerDied(Entity entity)
