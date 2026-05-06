@@ -44,7 +44,7 @@ public class GoodsManager : MonoBehaviour
     [SerializeField]
     private Goods[] goods; // 인스펙터에서 GoodsType과 SO_Goods를 매핑하여 설정할 수 있도록 배열로 선언
 
-    private Dictionary<GoodsType, SO_Goods> _goodsDictionary = new(); // GoodsType과 SO_Goods를 매핑하여 빠르게 접근할 수 있도록 딕셔너리로 변환
+    private readonly Dictionary<GoodsType, SO_Goods> _goodsDictionary = new(); // GoodsType과 SO_Goods를 매핑하여 빠르게 접근할 수 있도록 딕셔너리로 변환
 
     private void Awake()
     {

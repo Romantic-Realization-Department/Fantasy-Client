@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 public enum PlayerClass
@@ -12,16 +13,29 @@ public class PlayerAnimation : EntityAnimation
     [SerializeField]
     private PlayerClass _playerClass;
 
-    protected override void OnStateChanged(PlayerState state)
+    protected override void OnIdle()
     {
-        if (state == PlayerState.ATTACK)
-        {
-            _prefabs._anim.SetFloat(ATTACK_SPEED, _entity.AttackSpeed);
-            _prefabs.PlayAnimation(state, (int)_playerClass);
-        }
-        else
-        {
-            _prefabs.PlayAnimation(state, 0);
-        }
+        _prefabs.PlayAnimation(PlayerState.IDLE, 0);
+    }
+
+    protected override void OnAttack()
+    {
+        _prefabs._anim.SetFloat(ATTACK_SPEED, _entity.AttackSpeed); // 공격 속도에 따라 애니메이션 속도 조절
+        _prefabs.PlayAnimation(PlayerState.ATTACK, (int)_playerClass); // 공격 애니메이션은 플레이어 클래스에 따라 다르게 재생
+    }
+
+    protected override void OnDamaged()
+    {
+        if (_takeDamageTweener != null && _takeDamageTweener.IsPlaying())
+            _takeDamageTweener.Kill();
+
+        _takeDamageTweener = _spriteRenderer
+            .DOColor(_takeDamageColor, 0.1f)
+            .SetLoops(2, LoopType.Yoyo);
+    }
+
+    protected override void OnDeath()
+    {
+        _prefabs.PlayAnimation(PlayerState.DEATH, (int)_playerClass);
     }
 }

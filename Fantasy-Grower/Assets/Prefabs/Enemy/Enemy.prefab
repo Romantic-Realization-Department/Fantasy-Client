@@ -192,7 +192,7 @@ MonoBehaviour:
   <EntityType>k__BackingField: 1
   statData: {fileID: 11400000, guid: 947637eac36383b49827043094c83699, type: 2}
   targets: {fileID: 9193396476829707428}
-  rewardData: {fileID: 11400000, guid: c7bbabc7ae6924a4ca2dd98f7f57abf7, type: 2}
+  rewardData: {fileID: 0}
   rb: {fileID: 846388253315880859}
   moveSpeed: 3
 --- !u!1 &6637181185444963787

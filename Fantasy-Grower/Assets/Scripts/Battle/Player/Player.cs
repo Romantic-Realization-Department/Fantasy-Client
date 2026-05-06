@@ -10,6 +10,13 @@ public class Player : Entity
         entityState[gameObject].State = PlayerState.ATTACK; // 공격 상태로 전환하여 애니메이션과 공격 로직이 실행되도록 함
     }
 
+    public override void Death()
+    {
+        base.Death();
+
+        entityState[gameObject].State = PlayerState.DEATH; // 사망 상태로 전환하여 애니메이션과 사망 로직이 실행되도록 함
+    }
+
     protected override void OnValidate()
     {
         if (!targets)

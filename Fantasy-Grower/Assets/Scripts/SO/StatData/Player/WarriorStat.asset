@@ -16,6 +16,4 @@ MonoBehaviour:
   DamageReduction: 0
   AttackPower: 20
   AttackSpeed: 1
-  AttackRange: 2.5
   CriticalPercentage: 0
-  EntityType: 0
