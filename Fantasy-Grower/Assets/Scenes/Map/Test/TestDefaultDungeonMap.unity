@@ -4999,6 +4999,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _prefabs: {fileID: 1028698797}
   _entity: {fileID: 1028698800}
+  _takeDamageColor: {r: 1, g: 0, b: 0, a: 1}
   _playerClass: 0
 --- !u!1 &1051916319
 GameObject:

@@ -116,6 +116,7 @@ public abstract class Entity : MonoBehaviour
 
         Debug.Log($"데미지 받음: {damage}");
         Hp = Mathf.Max(0, Hp - damage);
+        entityState[gameObject].State = PlayerState.DAMAGED;
 
         if (Hp <= 0)
             Death();

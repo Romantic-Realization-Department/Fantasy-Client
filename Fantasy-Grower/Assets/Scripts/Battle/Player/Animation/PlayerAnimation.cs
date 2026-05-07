@@ -26,12 +26,7 @@ public class PlayerAnimation : EntityAnimation
 
     protected override void OnDamaged()
     {
-        if (_takeDamageTweener != null && _takeDamageTweener.IsPlaying())
-            _takeDamageTweener.Kill();
-
-        _takeDamageTweener = _spriteRenderer
-            .DOColor(_takeDamageColor, 0.1f)
-            .SetLoops(2, LoopType.Yoyo);
+        base.OnDamaged();
     }
 
     protected override void OnDeath()

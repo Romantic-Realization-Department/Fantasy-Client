@@ -14,8 +14,7 @@ public abstract class EntityAnimation : MonoBehaviour
     [SerializeField]
     protected Entity _entity;
 
-    [SerializeField]
-    protected SpriteRenderer _spriteRenderer;
+    protected SpriteRenderer[] _spriteRenderers;
 
     [Header("Effect")]
     [SerializeField]
@@ -24,6 +23,7 @@ public abstract class EntityAnimation : MonoBehaviour
 
     protected virtual void Awake()
     {
+        _spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
         _prefabs.OverrideControllerInit();
         _entityState[gameObject].OnStateChanged += OnStateChanged;
     }
@@ -64,7 +64,15 @@ public abstract class EntityAnimation : MonoBehaviour
 
     protected virtual void OnAttack() { }
 
-    protected virtual void OnDamaged() { }
+    protected virtual void OnDamaged()
+    {
+        if (_takeDamageTweener != null && _takeDamageTweener.IsPlaying())
+            _takeDamageTweener.Complete();
+
+        _takeDamageTweener = _spriteRenderers
+            .DOColor(_takeDamageColor, 0.1f)
+            .SetLoops(2, LoopType.Yoyo);
+    }
 
     protected virtual void OnDebuff() { }
 
