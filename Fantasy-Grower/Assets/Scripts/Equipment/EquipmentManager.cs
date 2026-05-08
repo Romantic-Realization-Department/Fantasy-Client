@@ -263,12 +263,16 @@ public class EquipmentManager : MonoBehaviour
 
     public void Awakening()
     {
-        if (CheckWeaponState && currentWeapon.weaponAwakeLevel < maxAwakeLevel)
+        Debug.Log(currentWeapon != null);
+        Debug.Log(useWeaponCount > 0);
+        Debug.Log(CanUse(currentSelectID));
+        for (int i = 0; CheckWeaponState && currentWeapon.weaponAwakeLevel + i < maxAwakeLevel; i++)
         {
-            currentWeapon.weaponCount = (uint)(currentWeapon.weaponCount % useWeaponCount);
+            Debug.Log("dlskfjfkldjflsj");
+            currentWeapon.weaponCount = (uint)(currentWeapon.weaponCount - useWeaponCount);
             currentWeapon.weaponAwakeLevel++;
-            SaveSelectAwakeWeapon(currentSelectID);
         }
+        SaveSelectAwakeWeapon(currentSelectID);
     }
 
     public void GetItem(WeaponID id, uint amount)
