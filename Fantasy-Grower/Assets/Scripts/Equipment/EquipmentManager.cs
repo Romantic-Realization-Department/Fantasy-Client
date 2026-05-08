@@ -263,12 +263,8 @@ public class EquipmentManager : MonoBehaviour
 
     public void Awakening()
     {
-        Debug.Log(currentWeapon != null);
-        Debug.Log(useWeaponCount > 0);
-        Debug.Log(CanUse(currentSelectID));
-        for (int i = 0; CheckWeaponState && currentWeapon.weaponAwakeLevel + i < maxAwakeLevel; i++)
+        for (int i = 0; CheckWeaponState && currentWeapon.weaponAwakeLevel < maxAwakeLevel; i++)
         {
-            Debug.Log("dlskfjfkldjflsj");
             currentWeapon.weaponCount = (uint)(currentWeapon.weaponCount - useWeaponCount);
             currentWeapon.weaponAwakeLevel++;
         }
