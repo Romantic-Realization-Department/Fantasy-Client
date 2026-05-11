@@ -227,6 +227,7 @@ public class EquipmentManager : MonoBehaviour
         currentWeapon = GetWeapon(ID);
         for (int i = 0; i < AwakeSlots.Length; i++)
         {
+            AwakeSlots[i].HideAwakeImage();
             AwakeSlots[i].SwapImage(currentWeapon, GetIcon(ID), GetColor(ID));
             AwakeSlots[i].ShowAwakeImage(currentWeapon.weaponAwakeLevel + i);
         }

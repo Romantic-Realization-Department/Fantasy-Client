@@ -6130,7 +6130,7 @@ MonoBehaviour:
   Invens:
   - {fileID: 0}
   SmithyTab: {fileID: 0}
-  useWeaponCount: 0
+  useWeaponCount: 5
   SynthSlots:
   - {fileID: 494079899}
   - {fileID: 2084440196}
