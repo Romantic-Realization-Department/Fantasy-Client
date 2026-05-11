@@ -7,28 +7,23 @@ using UnityEngine;
 /// BattleManager가 StartAutoAttack() / StopAutoAttack()으로 제어한다.
 /// </summary>
 [RequireComponent(typeof(Player))]
-public class AutoAttackController : MonoBehaviour
+public class AutoAttackController : MonoBehaviour, IAttackEvent
 {
-    [SerializeField]
-    private WaveController waveController;
-
     private Player player;
     private Coroutine attackCoroutine;
 
     private void Awake()
     {
         player = GetComponent<Player>();
-        if (waveController == null)
-            Debug.LogError("[AutoAttackController] WaveController가 연결되지 않았습니다.", this);
     }
 
-    public void StartAutoAttack()
+    public void StartAttacking()
     {
-        StopAutoAttack();
+        StopAttacking();
         attackCoroutine = StartCoroutine(AutoAttackLoop());
     }
 
-    public void StopAutoAttack()
+    public void StopAttacking()
     {
         if (attackCoroutine != null)
         {
@@ -41,8 +36,7 @@ public class AutoAttackController : MonoBehaviour
     {
         while (true)
         {
-            if (waveController != null && waveController.GetFirstAliveEnemy() != null)
-                player.Attack(); // AttackCollider가 실제 피해를 처리
+            player.Attack(); // 플레이어가 실제 피해를 처리
 
             // AttackSpeed = 초당 공격 횟수 (예: 1.0 → 1초마다 공격)
             float interval = player.AttackSpeed > 0f ? 1f / player.AttackSpeed : 1f;

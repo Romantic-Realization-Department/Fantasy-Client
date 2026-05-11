@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: bff2bd327a55d624ca2f7aa1663dbda9
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 197984
+  packageName: Pixel Art Modular RPG Characters
+  packageVersion: 1.0
+  assetPath: Assets/Pixel Art Modular RPG Characters -Pack/Scenes/Animations/Player
+    Defend.controller
+  uploadId: 439931

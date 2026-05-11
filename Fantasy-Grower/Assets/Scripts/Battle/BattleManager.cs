@@ -20,39 +20,65 @@ public enum BattleState
 /// </summary>
 public class BattleManager : MonoBehaviour
 {
+    private static BattleManager _instance;
+    public static BattleManager Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = FindAnyObjectByType<BattleManager>();
+                if (_instance == null)
+                {
+                    Debug.LogError("[BattleManager] 씬에 BattleManager가 존재하지 않습니다.");
+                }
+            }
+            return _instance;
+        }
+    }
+
     // ─── Inspector 연결 ──────────────────────────────────────────
-    [SerializeField]
+    [SerializeField, Tooltip("플레이어 캐릭터")]
     private Player player;
 
-    [SerializeField]
-    private AutoAttackController autoAttack;
-
-    [SerializeField]
+    [SerializeField, Tooltip("웨이브 컨트롤러")]
     private WaveController waveController;
 
-    [SerializeField]
-    private Transform[] spawnPoints;
+    [Header("스폰 설정")]
+    [SerializeField, Tooltip("스폰 시작 지점")]
+    private Transform spawnPoint;
 
-    [Header("던전 데이터")]
-    [SerializeField]
-    private DungeonData dungeonData;
+    [SerializeField, Tooltip("스폰 지점 간격")]
+    private float spawnPointInterval = 1.0f;
 
     // ─── 런타임 상태 ─────────────────────────────────────────────
     private BattleState state = BattleState.Idle;
     private int currentWaveIndex;
-    private IReadOnlyCollection<Enemy> currentWaveEnemies;
     private Coroutine _delayedTransitionCoroutine;
+
+    public DungeonData DungeonData { get; set; }
 
     // ─── UI 알림 이벤트 ───────────────────────────────────────────
     /// <summary>상태가 변경될 때마다 발화된다. UI 패널 전환에 사용한다.</summary>
-    public static event Action<BattleState> OnStateChanged;
+    public event Action<BattleState> OnStateChanged;
 
     /// <summary>새 웨이브가 시작될 때 웨이브 번호(0-based)를 전달한다.</summary>
-    public static event Action<int> OnWaveChanged;
+    public event Action<int> OnWaveChanged;
+
+    /// <summary>던전이 클리어되었을 때 발화된다. 던전 번호를 전달한다.</summary>
+    public event Action OnDungeonCleared;
 
     // ─── 유니티 라이프사이클 ──────────────────────────────────────
     private void Awake()
     {
+        if (_instance != null && _instance != this)
+        {
+            Debug.LogError("[BattleManager] 씬에 BattleManager가 2개 이상 존재합니다.");
+            Destroy(this);
+            return;
+        }
+        _instance = this;
+
         WaveController.OnAllEnemiesDead += HandleAllEnemiesDead;
         player.OnDied += HandlePlayerDied;
     }
@@ -61,19 +87,24 @@ public class BattleManager : MonoBehaviour
     {
         WaveController.OnAllEnemiesDead -= HandleAllEnemiesDead;
         player.OnDied -= HandlePlayerDied;
+
+        if (_instance == this)
+        {
+            _instance = null;
+        }
     }
 
     // ─── 공개 API (UI 버튼에서 호출) ─────────────────────────────
     /// <summary>던전을 시작한다.</summary>
     public void StartDungeon()
     {
-        if (dungeonData == null)
+        if (DungeonData == null)
         {
             Debug.LogError("[BattleManager] DungeonData가 연결되지 않았습니다.");
             return;
         }
 
-        if (dungeonData.DungeonType == DungeonType.Gold)
+        if (DungeonData.DungeonType == DungeonType.Gold)
         {
             Debug.Log("[BattleManager] 골드 던전은 미니게임 씬으로 전환해야 합니다.");
             // TODO: SceneManager.LoadScene("GoldDungeonScene");
@@ -129,34 +160,20 @@ public class BattleManager : MonoBehaviour
     private void EnterWaveStart()
     {
         Debug.Log(
-            $"[BattleManager] 웨이브 {currentWaveIndex + 1} / {dungeonData.Waves.Length} 시작"
+            $"[BattleManager] 웨이브 {currentWaveIndex + 1} / {DungeonData.Waves.Length} 시작"
         );
         OnWaveChanged?.Invoke(currentWaveIndex);
 
-        WaveData wave = dungeonData.Waves[currentWaveIndex];
-        currentWaveEnemies = waveController.SpawnWave(wave, spawnPoints);
-
-        foreach (Enemy e in currentWaveEnemies)
-            e.GetComponent<EnemyAI>()?.Initialize(player);
+        WaveData wave = DungeonData.Waves[currentWaveIndex];
+        waveController.SpawnWave(wave, spawnPoint, spawnPointInterval);
 
         TransitionTo(BattleState.Fighting);
     }
 
-    private void EnterFighting()
-    {
-        autoAttack.StartAutoAttack();
-
-        foreach (Enemy e in currentWaveEnemies)
-            e.GetComponent<EnemyAI>()?.StartAttacking();
-    }
+    private void EnterFighting() { }
 
     private void HandleAllEnemiesDead()
     {
-        autoAttack.StopAutoAttack();
-
-        foreach (Enemy e in currentWaveEnemies)
-            e.GetComponent<EnemyAI>()?.StopAttacking();
-
         TransitionTo(BattleState.WaveCleared);
     }
 
@@ -164,7 +181,7 @@ public class BattleManager : MonoBehaviour
     {
         currentWaveIndex++;
 
-        if (currentWaveIndex >= dungeonData.Waves.Length)
+        if (currentWaveIndex >= DungeonData.Waves.Length)
         {
             TransitionTo(BattleState.DungeonCleared);
         }
@@ -180,13 +197,11 @@ public class BattleManager : MonoBehaviour
     {
         Debug.Log("[BattleManager] 던전 클리어!");
 
-        GoodsManager.Instance.GetGoods(GoodsType.Gold).Increase(dungeonData.BonusGoldReward);
-        GoodsManager.Instance.GetGoods(GoodsType.XP).Increase(dungeonData.BonusXpReward);
+        GoodsManager.Instance.GetGoods(GoodsType.Gold).Increase(DungeonData.BonusGoldReward);
+        GoodsManager.Instance.GetGoods(GoodsType.XP).Increase(DungeonData.BonusXpReward);
+        GoodsManager.Instance.GetGoods(GoodsType.Mithril).Increase(DungeonData.MithrilRewardAmount);
 
-        if (dungeonData.DungeonType == DungeonType.Boss)
-            GoodsManager
-                .Instance.GetGoods(GoodsType.Mithril)
-                .Increase(dungeonData.MithrilRewardAmount);
+        OnDungeonCleared?.Invoke();
     }
 
     private void HandlePlayerDied(Entity entity)
@@ -194,7 +209,6 @@ public class BattleManager : MonoBehaviour
         if (entity != player)
             return;
 
-        autoAttack.StopAutoAttack();
         waveController.Clear();
         TransitionTo(BattleState.PlayerDead);
     }
@@ -208,7 +222,7 @@ public class BattleManager : MonoBehaviour
     // ─── 내부 유틸 ────────────────────────────────────────────────
     private IEnumerator DelayedTransition(BattleState next, float delay)
     {
-        yield return new WaitForSeconds(delay);
+        yield return YieldInstructionCache.WaitForSeconds(delay);
         TransitionTo(next);
     }
 }

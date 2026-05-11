@@ -1,32 +1,30 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Player : Entity
 {
-    private AttackCollider col;
-
-    protected override void Awake()
-    {
-        base.Awake();
-        col = GetComponentInChildren<AttackCollider>();
-        col.gameObject.SetActive(false);
-    }
-
-    private bool isAttacking;
+    [SerializeField, Header("공격 설정")]
+    protected AttackTargetsSensing targets;
 
     public override void Attack()
     {
-        if (isAttacking)
-            return;
-        StartCoroutine(AttackCoroutine());
+        entityState[gameObject].State = PlayerState.ATTACK; // 공격 상태로 전환하여 애니메이션과 공격 로직이 실행되도록 함
     }
 
-    private IEnumerator AttackCoroutine()
+    public override void Death()
     {
-        isAttacking = true;
-        col.gameObject.SetActive(true);
-        yield return new WaitForSeconds(0.2f); // 히트 판정 윈도우 (고정)
-        col.gameObject.SetActive(false);
-        isAttacking = false;
+        base.Death();
+
+        entityState[gameObject].State = PlayerState.DEATH; // 사망 상태로 전환하여 애니메이션과 사망 로직이 실행되도록 함
+    }
+
+    protected override void OnValidate()
+    {
+        if (!targets)
+            Debug.LogError(
+                "[Entity] Targets 필드에 AttackTargetsSensing 컴포넌트를 할당해주세요.",
+                this
+            );
+
+        base.OnValidate();
     }
 }

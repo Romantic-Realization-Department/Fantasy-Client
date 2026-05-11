@@ -16,15 +16,73 @@ public enum DungeonType
 public class DungeonData : ScriptableObject
 {
     [Header("던전 유형")]
-    public DungeonType DungeonType;
+    [SerializeField]
+    private DungeonType _dungeonType;
 
     [Header("웨이브 목록 (순서대로 진행)")]
-    public WaveData[] Waves;
+    [SerializeField]
+    private WaveData[] _waves;
 
     [Header("던전 클리어 보너스 보상")]
-    public uint BonusGoldReward;
-    public uint BonusXpReward;
+    [SerializeField]
+    private uint _bonusGoldReward;
+
+    [SerializeField]
+    private uint _bonusXpReward;
 
     [Header("보스 던전 전용 보상")]
-    public uint MithrilRewardAmount;
+    [SerializeField]
+    private uint _mithrilRewardAmount;
+
+    public DungeonType DungeonType => _dungeonType;
+
+    public WaveData[] Waves => _waves;
+
+    public uint BonusGoldReward
+    {
+        get => _bonusGoldReward;
+        set
+        {
+            if (!IsChangeable)
+            {
+                Debug.LogWarning($"던전 '{name}'의 보너스 골드 보상이 변경 불가능한 던전입니다.");
+                return;
+            }
+
+            _bonusGoldReward = value;
+        }
+    }
+    public uint BonusXpReward
+    {
+        get => _bonusXpReward;
+        set
+        {
+            if (!IsChangeable)
+            {
+                Debug.LogWarning($"던전 '{name}'의 보너스 경험치 보상이 변경 불가능한 던전입니다.");
+                return;
+            }
+            _bonusXpReward = value;
+        }
+    }
+
+    public uint MithrilRewardAmount
+    {
+        get => _mithrilRewardAmount;
+        set
+        {
+            if (!IsChangeable)
+            {
+                Debug.LogWarning($"던전 '{name}'의 미스릴 보상이 변경 불가능한 던전입니다.");
+                return;
+            }
+            _mithrilRewardAmount = value;
+        }
+    }
+
+    [field: SerializeField]
+    public bool IsExistEnd { get; private set; }
+
+    [field: SerializeField]
+    public bool IsChangeable { get; private set; } // 골드 던전과 같이 성과에 따라 보상이 달라지는 던전은 true로 설정하여 보상 변경을 허용한다.
 }
