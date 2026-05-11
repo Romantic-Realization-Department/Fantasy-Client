@@ -8,11 +8,17 @@ public class HitEffectObjPool : MonoBehaviour
     [SerializeField] private GameObject spawnObject;
     [SerializeField] private int poolSize = 10;
 
-    private readonly Queue<GameObject> pool = new Queue<GameObject>();
+    private readonly Queue<HitEffectAutoDespawn> pool = new Queue<HitEffectAutoDespawn>();
 
     private void Awake()
     {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
         instance = this;
+
 
         CreatePool(poolSize);
     }
@@ -22,36 +28,43 @@ public class HitEffectObjPool : MonoBehaviour
         for (int i = 0; i < size; i++)
         {
             GameObject obj = Instantiate(spawnObject, transform);
+
+            if (!obj.TryGetComponent(out HitEffectAutoDespawn effect))
+            {
+                Debug.LogError($"{spawnObject.name} 프리팹에 HitEffectAutoDespawn이 없습니다.");
+                Destroy(obj);
+                continue;
+            }
+
             obj.SetActive(false);
-            pool.Enqueue(obj);
+            pool.Enqueue(effect);
         }
     }
 
+
     public static GameObject Spawn(Vector3 position, Quaternion rotation)
     {
+        if (instance == null) return null;
+
         if (instance.pool.Count <= 0)
         {
             instance.CreatePool(1);
         }
 
-        GameObject obj = instance.pool.Dequeue();
+        HitEffectAutoDespawn effect = instance.pool.Dequeue();
 
-        obj.transform.SetPositionAndRotation(position, rotation);
-        obj.SetActive(true);
+        effect.transform.SetPositionAndRotation(position, rotation);
+        effect.gameObject.SetActive(true);
+        effect.Play(instance);
 
-        if (obj.TryGetComponent<HitEffectAutoDespawn>(out HitEffectAutoDespawn autoDespawn))
-        {
-            autoDespawn.Play(instance);
-        }
-
-        return obj;
+        return effect.gameObject;
     }
 
-    public void Despawn(GameObject obj)
+    public void Despawn(HitEffectAutoDespawn effect)
     {
-        if (obj == null) return;
+        if (effect == null) return;
 
-        obj.SetActive(false);
-        pool.Enqueue(obj);
+        effect.gameObject.SetActive(false);
+        pool.Enqueue(effect);
     }
 }

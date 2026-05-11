@@ -4,12 +4,12 @@ using UnityEngine;
 public class HitEffectAutoDespawn : MonoBehaviour
 {
     private HitEffectObjPool pool;
-    private ParticleSystem[] particleSystems;
+    private ParticleSystem particleSystem;
     private Coroutine despawnCoroutine;
 
     private void Awake()
     {
-        particleSystems = GetComponentsInChildren<ParticleSystem>(true);
+        particleSystem = GetComponent<ParticleSystem>();
     }
 
     public void Play(HitEffectObjPool pool)
@@ -21,11 +21,8 @@ public class HitEffectAutoDespawn : MonoBehaviour
             StopCoroutine(despawnCoroutine);
         }
 
-        for (int i = 0; i < particleSystems.Length; i++)
-        {
-            particleSystems[i].Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
-            particleSystems[i].Play(true);
-        }
+        particleSystem.Stop(false, ParticleSystemStopBehavior.StopEmittingAndClear);
+        particleSystem.Play(false);
 
         despawnCoroutine = StartCoroutine(WaitForParticleEnd());
     }
@@ -34,24 +31,11 @@ public class HitEffectAutoDespawn : MonoBehaviour
     {
         yield return null;
 
-        while (IsAnyParticleAlive())
+        while (particleSystem.IsAlive(false))
         {
             yield return null;
         }
 
-        pool.Despawn(gameObject);
-    }
-
-    private bool IsAnyParticleAlive()
-    {
-        for (int i = 0; i < particleSystems.Length; i++)
-        {
-            if (particleSystems[i].IsAlive(true))
-            {
-                return true;
-            }
-        }
-
-        return false;
+        pool.Despawn(this);
     }
 }
