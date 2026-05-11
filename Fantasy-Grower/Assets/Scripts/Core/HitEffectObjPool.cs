@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 
 public class HitEffectObjPool : MonoBehaviour
@@ -33,7 +33,7 @@ public class HitEffectObjPool : MonoBehaviour
 
             if (!obj.TryGetComponent(out HitEffectAutoDespawn effect))
             {
-                Debug.LogError($"{spawnObject.name} ÇÁ¸®ÆÕ¿¡ HitEffectAutoDespawnÀÌ ¾ø½À´Ï´Ù.");
+                Debug.LogError($"{spawnObject.name} í”„ë¦¬íŒ¹ì— HitEffectAutoDespawnì´ ì—†ìŠµë‹ˆë‹¤.");
                 Destroy(obj);
                 continue;
             }
