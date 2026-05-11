@@ -5,8 +5,11 @@ public class HitEffectObjPool : MonoBehaviour
 {
     private static HitEffectObjPool instance;
 
-    [SerializeField] private GameObject spawnObject;
-    [SerializeField] private int poolSize = 10;
+    [SerializeField]
+    private GameObject spawnObject;
+
+    [SerializeField]
+    private int poolSize = 10;
 
     private readonly Queue<HitEffectAutoDespawn> pool = new Queue<HitEffectAutoDespawn>();
 
@@ -18,7 +21,6 @@ public class HitEffectObjPool : MonoBehaviour
             return;
         }
         instance = this;
-
 
         CreatePool(poolSize);
     }
@@ -41,10 +43,10 @@ public class HitEffectObjPool : MonoBehaviour
         }
     }
 
-
     public static GameObject Spawn(Vector3 position, Quaternion rotation)
     {
-        if (instance == null) return null;
+        if (instance == null)
+            return null;
 
         if (instance.pool.Count <= 0)
         {
@@ -62,7 +64,8 @@ public class HitEffectObjPool : MonoBehaviour
 
     public void Despawn(HitEffectAutoDespawn effect)
     {
-        if (effect == null) return;
+        if (effect == null)
+            return;
 
         effect.gameObject.SetActive(false);
         pool.Enqueue(effect);
