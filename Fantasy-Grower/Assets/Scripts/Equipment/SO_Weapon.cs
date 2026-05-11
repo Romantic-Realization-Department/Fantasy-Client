@@ -23,6 +23,10 @@ public class SO_Weapon : ScriptableObject
     private WeaponID _weaponID;
     public WeaponID WeaponID => _weaponID;
 
+    [SerializeField]
+    private WeaponID _nextWeaponID;
+    public WeaponID NextWeaponID => _nextWeaponID;
+
     [Header("무기 정보")]
     public string weaponName;
 

@@ -52,7 +52,8 @@ public class AnvilSlot : MonoBehaviour, IPointerClickHandler
 
     public void ShowAwakeImage(int awakeLevel)
     {
-        for (int i = 0; i < awakeLevel; i++)
+        int limit = Mathf.Min(awakeLevel, AwakeImage.Length);
+        for (int i = 0; i < limit; i++)
         {
             AwakeImage[i]?.SetActive(true);
         }
@@ -60,9 +61,12 @@ public class AnvilSlot : MonoBehaviour, IPointerClickHandler
 
     public void HideAwakeImage()
     {
-        for (int i = 0; i < AwakeImage.Length; i++)
+        if (isAwake)
         {
-            AwakeImage[i]?.SetActive(false);
+            for (int i = 0; i < AwakeImage.Length; i++)
+            {
+                AwakeImage[i]?.SetActive(false);
+            }
         }
     }
 

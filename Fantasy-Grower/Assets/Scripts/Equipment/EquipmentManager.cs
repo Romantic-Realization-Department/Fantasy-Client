@@ -116,6 +116,7 @@ public class EquipmentManager : MonoBehaviour
         AssignIcon();
     }
 
+    [System.Diagnostics.Conditional("UNITY_EDITOR")]
     public void TestButton()
     {
         for (int i = 0; i < weaponMap.Count; i++)
@@ -257,17 +258,21 @@ public class EquipmentManager : MonoBehaviour
         {
             uint synthAmount = (uint)(currentWeapon.weaponCount / useWeaponCount);
             currentWeapon.weaponCount = (uint)(currentWeapon.weaponCount % useWeaponCount);
-            GetWeapon((WeaponID)(currentSelectID - 2)).weaponCount += synthAmount;
+            GetWeapon(currentWeapon.NextWeaponID).weaponCount += synthAmount;
             SaveSelectSynthWeapon(currentSelectID);
         }
     }
 
     public void Awakening()
     {
-        for (int i = 0; CheckWeaponState && currentWeapon.weaponAwakeLevel < maxAwakeLevel; i++)
+        if (CheckWeaponState && currentWeapon.weaponAwakeLevel < maxAwakeLevel)
         {
-            currentWeapon.weaponCount = (uint)(currentWeapon.weaponCount - useWeaponCount);
-            currentWeapon.weaponAwakeLevel++;
+            int possibleAwakeCount = (int)(currentWeapon.weaponAwakeLevel / (int)useWeaponCount);
+            int remainingAwakeLevel = maxAwakeLevel - currentWeapon.weaponAwakeLevel;
+            int actualAwakeCount = Mathf.Min(possibleAwakeCount, remainingAwakeLevel);
+
+            currentWeapon.weaponCount -= (uint)(actualAwakeCount * useWeaponCount);
+            currentWeapon.weaponAwakeLevel += actualAwakeCount;
         }
         SaveSelectAwakeWeapon(currentSelectID);
     }
