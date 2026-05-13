@@ -28,7 +28,9 @@ public class AnvilSlot : MonoBehaviour, IPointerClickHandler
     private GameObject[] SelectSlots;
 
     [Header("재료와 결과 분리")]
-    public bool isSelectSlot;
+    [SerializeField]
+    private bool isSelectSlot;
+    public bool _isSelectSlot => isSelectSlot;
 
     private void OnEnable()
     {

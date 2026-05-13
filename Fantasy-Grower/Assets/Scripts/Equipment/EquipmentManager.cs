@@ -30,9 +30,9 @@ public class EquipmentManager : MonoBehaviour
     {
         get
         {
-            _instance = FindAnyObjectByType<EquipmentManager>();
             if (_instance == null)
             {
+                _instance = FindAnyObjectByType<EquipmentManager>();
                 Debug.LogError("씬에 스크립트를 참조한 오브젝트가 없습니다");
             }
             return _instance;
@@ -206,7 +206,7 @@ public class EquipmentManager : MonoBehaviour
             return;
         for (int i = 0; i < SynthSlots.Length; i++)
         {
-            if (SynthSlots[i].isSelectSlot)
+            if (SynthSlots[i]._isSelectSlot)
             {
                 currentSelectID = ID;
                 SO_Weapon temp = GetWeapon(ID);

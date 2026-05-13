@@ -33,7 +33,7 @@ public class SelectSlot : MonoBehaviour, IPointerClickHandler
 
     private void OnEnable()
     {
-        if (!_Weapon.isUnlock || !EquipmentManager.Instance.CanUse(ID))
+        if (!(_Weapon.isUnlock && EquipmentManager.Instance.CanUse(ID)))
             gameObject.SetActive(false);
     }
 
