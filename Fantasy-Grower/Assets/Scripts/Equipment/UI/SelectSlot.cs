@@ -2,6 +2,12 @@
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+public enum SelectSlotType
+{
+    Synth,
+    Awake,
+}
+
 public class SelectSlot : MonoBehaviour, IPointerClickHandler
 {
     [Header("무기")]
@@ -18,11 +24,11 @@ public class SelectSlot : MonoBehaviour, IPointerClickHandler
     private Image BGImage;
 
     [SerializeField]
-    private bool isSynth;
+    private SelectSlotType selectSlotType;
 
     private void Awake()
     {
-        if (isSynth && ID <= WeaponID.S2)
+        if (selectSlotType == SelectSlotType.Synth && ID <= WeaponID.S2)
         {
             return;
         }
@@ -39,6 +45,6 @@ public class SelectSlot : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        EquipmentManager.Instance.SaveSelectWeapon(ID, isSynth);
+        EquipmentManager.Instance.SaveSelectWeapon(ID, selectSlotType);
     }
 }

@@ -28,9 +28,8 @@ public class AnvilSlot : MonoBehaviour, IPointerClickHandler
     private GameObject[] SelectSlots;
 
     [Header("재료와 결과 분리")]
-    [SerializeField]
-    private bool isSelectSlot;
-    public bool _isSelectSlot => isSelectSlot;
+    [field: SerializeField]
+    public bool IsSelectSlot { get; private set; }
 
     private void OnEnable()
     {
@@ -39,7 +38,7 @@ public class AnvilSlot : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (isSelectSlot)
+        if (IsSelectSlot)
         {
             ShowSelectUI();
         }

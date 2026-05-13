@@ -192,12 +192,17 @@ public class EquipmentManager : MonoBehaviour
         }
     }
 
-    public void SaveSelectWeapon(WeaponID ID, bool isSynth)
+    public void SaveSelectWeapon(WeaponID ID, SelectSlotType _SelectSlotType)
     {
-        if (isSynth)
-            SaveSelectSynthWeapon(ID);
-        else
-            SaveSelectAwakeWeapon(ID);
+        switch (_SelectSlotType)
+        {
+            case SelectSlotType.Synth:
+                SaveSelectSynthWeapon(ID);
+                break;
+            case SelectSlotType.Awake:
+                SaveSelectAwakeWeapon(ID);
+                break;
+        }
     }
 
     public void SaveSelectSynthWeapon(WeaponID ID)
@@ -206,7 +211,7 @@ public class EquipmentManager : MonoBehaviour
             return;
         for (int i = 0; i < SynthSlots.Length; i++)
         {
-            if (SynthSlots[i]._isSelectSlot)
+            if (SynthSlots[i].IsSelectSlot)
             {
                 currentSelectID = ID;
                 SO_Weapon temp = GetWeapon(ID);
