@@ -10,6 +10,7 @@ public enum PlayerClass
 
 public class PlayerAnimation : EntityAnimation
 {
+    [Header("Player Setting")]
     [SerializeField]
     private PlayerClass _playerClass;
 
