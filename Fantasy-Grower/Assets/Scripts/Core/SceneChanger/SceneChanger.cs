@@ -14,7 +14,7 @@ public class SceneChanger : MonoBehaviour
 {
     private static SceneChanger _instance;
 
-    [System.Serializable]
+    [Serializable]
     public struct TypeToAction
     {
         public SceneChangeType Key;
@@ -43,6 +43,7 @@ public class SceneChanger : MonoBehaviour
 
         _instance = this;
         DontDestroyOnLoad(gameObject);
+        gameObject.SetActive(true);
 
         // Dictionary 초기화
         foreach (var pair in _sceneChangePairs)
