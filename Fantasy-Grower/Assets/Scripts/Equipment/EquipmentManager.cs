@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -30,9 +30,9 @@ public class EquipmentManager : MonoBehaviour
     {
         get
         {
-            _instance = FindAnyObjectByType<EquipmentManager>();
             if (_instance == null)
             {
+                _instance = FindAnyObjectByType<EquipmentManager>();
                 Debug.LogError("씬에 스크립트를 참조한 오브젝트가 없습니다");
             }
             return _instance;
@@ -84,12 +84,16 @@ public class EquipmentManager : MonoBehaviour
 
     [Header("대장간 변수")]
     public GameObject SmithyTab;
+    public int useWeaponCount;
 
     [Header("합성")]
-    public int SynthCount;
-    public SynthSlot[] SynthSlots;
+    public AnvilSlot[] SynthSlots;
 
-    private WeaponID synthID;
+    [Header("각성")]
+    public AnvilSlot[] AwakeSlots;
+    public int maxAwakeLevel;
+
+    private WeaponID currentSelectID;
 
     private SO_Weapon currentWeapon;
 
@@ -112,11 +116,20 @@ public class EquipmentManager : MonoBehaviour
         AssignIcon();
     }
 
+    [System.Diagnostics.Conditional("UNITY_EDITOR")]
+    public void TestButton()
+    {
+        for (int i = 0; i < weaponMap.Count; i++)
+        {
+            weaponMap[(WeaponID)i].weaponCount = 100;
+        }
+    }
+
     private void ResetWeaponDicionary()
     {
-        for (int i = 0; i < (int)WeaponID.D2 + 1; i++)
+        for (int i = 0; i <= (int)WeaponID.D2; i++)
         {
-            weaponBGColorMap.Add((WeaponID)i, weaponLevelColor[i < 4 ? i / 2 : (i / 2) + 1]);
+            weaponBGColorMap.Add((WeaponID)i, weaponLevelColor[i / 2]);
             weaponMap.Add((WeaponID)i, weapons[(int)career].weapon[i]);
         }
     } //무기의 종류가 2개일 경우만 해당, 3개 이상이 되면 수정 필요
@@ -179,15 +192,28 @@ public class EquipmentManager : MonoBehaviour
         }
     }
 
-    public void SaveSynthWeapon(WeaponID ID)
+    public void SaveSelectWeapon(WeaponID ID, SelectSlotType _SelectSlotType)
+    {
+        switch (_SelectSlotType)
+        {
+            case SelectSlotType.Synth:
+                SaveSelectSynthWeapon(ID);
+                break;
+            case SelectSlotType.Awake:
+                SaveSelectAwakeWeapon(ID);
+                break;
+        }
+    }
+
+    public void SaveSelectSynthWeapon(WeaponID ID)
     {
         if (ID < WeaponID.A2)
             return;
         for (int i = 0; i < SynthSlots.Length; i++)
         {
-            if (SynthSlots[i].isSelectSlot)
+            if (SynthSlots[i].IsSelectSlot)
             {
-                synthID = ID;
+                currentSelectID = ID;
                 SO_Weapon temp = GetWeapon(ID);
                 currentWeapon = temp;
                 SynthSlots[i].SwapImage(temp, GetIcon(ID), GetColor(ID));
@@ -198,6 +224,18 @@ public class EquipmentManager : MonoBehaviour
                 SynthSlots[i]
                     .SwapImage(GetWeapon(nextWeaponID), GetIcon(ID), GetColor(nextWeaponID));
             }
+        }
+    }
+
+    public void SaveSelectAwakeWeapon(WeaponID ID)
+    {
+        currentSelectID = ID;
+        currentWeapon = GetWeapon(ID);
+        for (int i = 0; i < AwakeSlots.Length; i++)
+        {
+            AwakeSlots[i].HideAwakeImage();
+            AwakeSlots[i].SwapImage(currentWeapon, GetIcon(ID), GetColor(ID));
+            AwakeSlots[i].ShowAwakeImage(currentWeapon.weaponAwakeLevel + i);
         }
     }
 
@@ -215,17 +253,33 @@ public class EquipmentManager : MonoBehaviour
         return _color;
     }
 
-    public bool CanSynth(WeaponID ID) => weaponMap[ID].weaponCount >= SynthCount;
+    public bool CanUse(WeaponID ID) => weaponMap[ID].weaponCount >= useWeaponCount;
+
+    bool CheckWeaponState => currentWeapon != null && useWeaponCount > 0 && CanUse(currentSelectID);
 
     public void Synthesis()
     {
-        if (currentWeapon != null && SynthCount > 0 && synthID >= WeaponID.A1 && CanSynth(synthID))
+        if (CheckWeaponState && currentSelectID >= WeaponID.A1)
         {
-            uint synthAmount = (uint)(currentWeapon.weaponCount / SynthCount);
-            currentWeapon.weaponCount = (uint)(currentWeapon.weaponCount % SynthCount);
-            GetWeapon((WeaponID)(synthID - 2)).weaponCount += synthAmount;
-            SaveSynthWeapon(synthID);
+            uint synthAmount = (uint)(currentWeapon.weaponCount / useWeaponCount);
+            currentWeapon.weaponCount = (uint)(currentWeapon.weaponCount % useWeaponCount);
+            GetWeapon(currentWeapon.NextWeaponID).weaponCount += synthAmount;
+            SaveSelectSynthWeapon(currentSelectID);
         }
+    }
+
+    public void Awakening()
+    {
+        if (CheckWeaponState && currentWeapon.weaponAwakeLevel < maxAwakeLevel)
+        {
+            int possibleAwakeCount = (int)(currentWeapon.weaponAwakeLevel / (int)useWeaponCount);
+            int remainingAwakeLevel = maxAwakeLevel - currentWeapon.weaponAwakeLevel;
+            int actualAwakeCount = Mathf.Min(possibleAwakeCount, remainingAwakeLevel);
+
+            currentWeapon.weaponCount -= (uint)(actualAwakeCount * useWeaponCount);
+            currentWeapon.weaponAwakeLevel += actualAwakeCount;
+        }
+        SaveSelectAwakeWeapon(currentSelectID);
     }
 
     public void GetItem(WeaponID id, uint amount)

@@ -1,8 +1,8 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class SynthSlot : MonoBehaviour, IPointerClickHandler
+public class AnvilSlot : MonoBehaviour, IPointerClickHandler
 {
     [Header("SlotUI속성")]
     [SerializeField]
@@ -14,19 +14,31 @@ public class SynthSlot : MonoBehaviour, IPointerClickHandler
     [SerializeField]
     private Text WeaponCountText; //TMP로 바뀔 예정
 
+    [SerializeField]
+    private GameObject[] AwakeImage;
+
+    [SerializeField]
+    private bool isAwake;
+
     [Header("선택 UI 속성")]
     [SerializeField]
     private GameObject SelectUI;
 
     [SerializeField]
-    private GameObject[] SelectSlots; //전용 클래스 생성으로 변환
+    private GameObject[] SelectSlots;
 
     [Header("재료와 결과 분리")]
-    public bool isSelectSlot;
+    [field: SerializeField]
+    public bool IsSelectSlot { get; private set; }
+
+    private void OnEnable()
+    {
+        HideAwakeImage();
+    }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (isSelectSlot)
+        if (IsSelectSlot)
         {
             ShowSelectUI();
         }
@@ -37,6 +49,26 @@ public class SynthSlot : MonoBehaviour, IPointerClickHandler
         for (int i = 0; i < SelectSlots.Length; i++)
             SelectSlots[i].SetActive(true);
         SelectUI.SetActive(true);
+    }
+
+    public void ShowAwakeImage(int awakeLevel)
+    {
+        int limit = Mathf.Min(awakeLevel, AwakeImage.Length);
+        for (int i = 0; i < limit; i++)
+        {
+            AwakeImage[i]?.SetActive(true);
+        }
+    }
+
+    public void HideAwakeImage()
+    {
+        if (isAwake)
+        {
+            for (int i = 0; i < AwakeImage.Length; i++)
+            {
+                AwakeImage[i]?.SetActive(false);
+            }
+        }
     }
 
     public void SwapImage(SO_Weapon weapon, Sprite icon, Color _color)
