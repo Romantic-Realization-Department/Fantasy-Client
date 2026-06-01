@@ -19,4 +19,4 @@ MonoBehaviour:
   getDamage: 0
   weaponLevel: 0
   weaponAwakeLevel: 0
-  isUnlock: 0
+  isUnlock: 1
