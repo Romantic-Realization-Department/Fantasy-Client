@@ -81,8 +81,5 @@ public class DungeonData : ScriptableObject
     }
 
     [field: SerializeField]
-    public bool IsExistEnd { get; private set; }
-
-    [field: SerializeField]
     public bool IsChangeable { get; private set; } // 골드 던전과 같이 성과에 따라 보상이 달라지는 던전은 true로 설정하여 보상 변경을 허용한다.
 }
