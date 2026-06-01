@@ -45,6 +45,13 @@ public class Enemy : Entity
         entityState[gameObject].State = PlayerState.ATTACK; // 공격 상태로 전환하여 애니메이션과 공격 로직이 실행되도록 함
     }
 
+    public override void TakeDamage(int damage)
+    {
+        base.TakeDamage(damage);
+
+        HitEffectObjPool.Spawn(transform.position, Quaternion.identity);
+    }
+
     public override void Death()
     {
         base.Death(); // OnDied 이벤트 발화 (WaveController가 구독 중)
