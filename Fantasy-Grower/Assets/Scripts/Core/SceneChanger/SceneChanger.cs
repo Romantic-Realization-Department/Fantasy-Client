@@ -54,8 +54,12 @@ public class SceneChanger : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        // 씬이 로드된 후, 현재 진행 중인 씬 전환 액션이 있다면 AfterChange를 실행하고, 그렇지 않다면 방금 실행한 상태이므로 바로 SceneLoaded 이벤트를 발생시킵니다.
         if (!_currentSceneChangeAction)
+        {
+            SceneLoaded?.Invoke(); // 첫 씬이 로드된 후 바로 이벤트를 발생시킴
             return;
+        }
 
         _currentSceneChangeAction.AfterChange().OnComplete(() => SceneLoaded?.Invoke());
         _currentSceneChangeAction = null;

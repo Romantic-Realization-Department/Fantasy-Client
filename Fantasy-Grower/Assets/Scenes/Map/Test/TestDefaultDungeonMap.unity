@@ -177,6 +177,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SceneChanger
       objectReference: {fileID: 0}
+    - target: {fileID: 917217434869733267, guid: c3eca6daffa49e84cace3d3308a63e74, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4552381251772020491, guid: c3eca6daffa49e84cace3d3308a63e74, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -395,7 +399,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _stages:
-  - {fileID: 11400000, guid: 0a0276ae91b1a0c40a8184ce9a87f3be, type: 2}
+  - {fileID: 11400000, guid: 635ef04d299ddac45adb3bfc63bc5a88, type: 2}
+  - {fileID: 11400000, guid: 635ef04d299ddac45adb3bfc63bc5a88, type: 2}
+  - {fileID: 11400000, guid: 635ef04d299ddac45adb3bfc63bc5a88, type: 2}
   _currentStageIndex: 0
 --- !u!4 &588525491
 Transform:
@@ -441,10 +447,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c944bded2de69ce47982eaff981c54e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1028698800}
-  waveController: {fileID: 1195712911}
-  spawnPoint: {fileID: 2117323882}
-  spawnPointInterval: 2.5
+  _player: {fileID: 1028698800}
+  _waveController: {fileID: 1195712911}
+  _basicDungeonData: {fileID: 11400000, guid: 635ef04d299ddac45adb3bfc63bc5a88, type: 2}
+  _spawnPoint: {fileID: 2117323882}
+  _spawnPointInterval: 1
 --- !u!4 &654281929
 Transform:
   m_ObjectHideFlags: 0
