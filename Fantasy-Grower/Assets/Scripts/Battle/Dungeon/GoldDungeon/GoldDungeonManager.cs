@@ -9,7 +9,7 @@ public interface ITimeLimitedDungeon
     bool IsTimeLimited { get; }
 
     /// <summary>
-    /// 남은 시간을 반환합니다. (초 단위)
+    /// 던전 시간을 반환합니다. (초 단위)
     /// </summary>
     float GetTimeLimitSeconds();
 
@@ -19,18 +19,18 @@ public interface ITimeLimitedDungeon
     void OnTimeFinished();
 }
 
-public interface IVariableRewardDungeon
+public interface IDungeonRewardProvider
 {
     /// <summary>
     /// 현재 던전 진행 상황에 따른 보상을 계산하여 반환합니다.
     /// </summary>
-    DungeonClearReward GetCurrentReward();
+    DungeonClearReward GetReward();
 }
 
 public class GoldDungeonManager
     : DungeonManager<GoldDungeonData>,
         ITimeLimitedDungeon,
-        IVariableRewardDungeon
+        IDungeonRewardProvider
 {
     // ─── ITimeLimitedDungeon 구현 ─────────────────────────────────────────────
     public bool IsTimeLimited => _currentDungeonData.HasTimeLimit;
@@ -58,17 +58,17 @@ public class GoldDungeonManager
     private uint _goldInitialValue;
     private uint _mithrilInitialValue;
 
-    public DungeonClearReward GetCurrentReward()
+    public DungeonClearReward GetReward()
     {
         uint goldReward = GoodsManager.Instance.GetGoods(GoodsType.Gold).Get() - _goldInitialValue;
         uint mithrilReward =
             GoodsManager.Instance.GetGoods(GoodsType.Mithril).Get() - _mithrilInitialValue;
-        return new DungeonClearReward
-        {
-            GoldReward = goldReward,
-            XpReward = 0, // 골드 던전은 경험치 보상이 없다고 가정
-            MithrilReward = mithrilReward,
-        };
+        DungeonClearReward dungeonClearReward = new DungeonClearReward();
+
+        dungeonClearReward[GoodsType.Gold] = goldReward;
+        dungeonClearReward[GoodsType.Mithril] = mithrilReward;
+
+        return dungeonClearReward;
     }
 
     protected override void Init()

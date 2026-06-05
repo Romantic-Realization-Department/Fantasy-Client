@@ -4,17 +4,14 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Button))]
 public class SceneChangeButtonEvent : MonoBehaviour
 {
-    private Button _button;
-
     [SerializeField]
-    private string _sceneName;
+    private SceneNameRef _sceneName;
 
     [SerializeField]
     private SceneChangeType _type;
 
-    private void Awake()
+    public void LoadScene()
     {
-        _button = GetComponent<Button>();
-        _button.onClick.AddListener(() => SceneChanger.LoadScene(_sceneName, _type));
+        SceneChanger.LoadScene(_sceneName.SceneName, _type);
     }
 }

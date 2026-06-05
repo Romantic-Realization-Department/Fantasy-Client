@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8061382910a60fb42a6ab4a608266aea, type: 3}
+  m_Name: TestGoldDungeonData
+  m_EditorClassIdentifier: 
+  _dungeonType: 1
+  _hasTimeLimit: 1
+  _timeLimitSeconds: 10
+  _dungeonClearReward:
+    GoldReward: 0
+    XpReward: 0
+    MithrilReward: 0
+  _goldPerDamage: 1
+  _mithrilDropPercent: 1
+  _mithrilDropAmount: 1

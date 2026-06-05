@@ -50,7 +50,7 @@ public class PageSwap : SceneChangeAction
         Tip tip = _tips[Random.Range(0, _tips.Length)];
 
         _tipImage.sprite = tip.Image;
-        _tipText.text = tip.Text;
+        _tipText.SetText(tip.Text);
 
         return _myPanel.DOFade(1, _fadeDuration);
     }

@@ -1,4 +1,5 @@
-﻿using NaughtyAttributes;
+﻿using System.Collections.Generic;
+using NaughtyAttributes;
 using UnityEngine;
 
 public enum DungeonType
@@ -12,9 +13,39 @@ public enum DungeonType
 [System.Serializable]
 public class DungeonClearReward
 {
-    public uint GoldReward;
-    public uint XpReward;
-    public uint MithrilReward; // 보스 던전 전용 보상
+    [System.Serializable]
+    private struct RewardEachType
+    {
+        public GoodsType type;
+        public uint count;
+    }
+
+    [SerializeField]
+    private RewardEachType[] _rewardEachTypes;
+
+    private readonly Dictionary<GoodsType, uint> _rewardDic = new();
+
+    public uint this[GoodsType type]
+    {
+        get
+        {
+            if (!_rewardDic.TryGetValue(type, out uint value))
+            {
+                foreach (RewardEachType rewardEachType in _rewardEachTypes)
+                {
+                    _rewardDic[rewardEachType.type] = rewardEachType.count;
+                    if (type == rewardEachType.type)
+                    {
+                        value = rewardEachType.count;
+                        break;
+                    }
+                }
+            }
+
+            return value;
+        }
+        set => _rewardDic[type] = value;
+    }
 }
 
 /// <summary>

@@ -13,7 +13,10 @@ public interface IStageDungeon
 /// 던전 시작 → 웨이브 스폰 → 전투 → 클리어/사망 상태 전환을 관리한다.
 /// UI 레이어는 OnStateChanged / OnWaveChanged 이벤트를 구독하여 화면을 갱신한다.
 /// </summary>
-public class BasicDungeonManager : DungeonManager<BasicDungeonData>, IStageDungeon
+public class BasicDungeonManager
+    : DungeonManager<BasicDungeonData>,
+        IStageDungeon,
+        IDungeonRewardProvider
 {
     public enum BasicDungeonState
     {
@@ -166,15 +169,13 @@ public class BasicDungeonManager : DungeonManager<BasicDungeonData>, IStageDunge
     {
         Debug.Log("[BasicDungeonManager] 던전 클리어!");
 
-        GoodsManager
-            .Instance.GetGoods(GoodsType.Gold)
-            .Increase(_currentDungeonData.DungeonClearReward.GoldReward);
-        GoodsManager
-            .Instance.GetGoods(GoodsType.XP)
-            .Increase(_currentDungeonData.DungeonClearReward.XpReward);
+        DungeonClearReward dungeonClearReward = GetReward();
+
+        GoodsManager.Instance.GetGoods(GoodsType.Gold).Increase(dungeonClearReward[GoodsType.Gold]);
+        GoodsManager.Instance.GetGoods(GoodsType.XP).Increase(dungeonClearReward[GoodsType.XP]);
         GoodsManager
             .Instance.GetGoods(GoodsType.Mithril)
-            .Increase(_currentDungeonData.DungeonClearReward.MithrilReward);
+            .Increase(dungeonClearReward[GoodsType.Mithril]);
     }
 
     private void HandlePlayerDied(Entity entity)
@@ -213,4 +214,9 @@ public class BasicDungeonManager : DungeonManager<BasicDungeonData>, IStageDunge
             );
         }
     }
+
+    public DungeonClearReward GetReward() =>
+        _currentDungeonData
+            ? _currentDungeonData.DungeonClearReward
+            : _basicDungeonData.DungeonClearReward;
 }
