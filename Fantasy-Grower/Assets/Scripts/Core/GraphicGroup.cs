@@ -61,12 +61,13 @@ public class GraphicGroup : Graphic
         {
             if (targetGraphics[i] != null)
             {
-                targetGraphics[i].CrossFadeColor(
-                    GetTintedColor(i, targetColor),
-                    duration,
-                    ignoreTimeScale,
-                    useAlpha
-                );
+                targetGraphics[i]
+                    .CrossFadeColor(
+                        GetTintedColor(i, targetColor),
+                        duration,
+                        ignoreTimeScale,
+                        useAlpha
+                    );
             }
         }
     }
