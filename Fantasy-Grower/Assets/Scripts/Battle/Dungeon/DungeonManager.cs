@@ -115,6 +115,9 @@ public abstract class DungeonManager : MonoBehaviour
     // ─── 상태 머신 ────────────────────────────────────────────────
     protected void TransitionTo(DungeonState newState)
     {
+        if (IsFinished && (newState == DungeonState.Cleared || newState == DungeonState.Failed))
+            return;
+
         if (_delayedTransitionCoroutine != null)
         {
             StopCoroutine(_delayedTransitionCoroutine);
@@ -128,8 +131,8 @@ public abstract class DungeonManager : MonoBehaviour
         switch (_state)
         {
             case DungeonState.Preparing:
-                OnPrepareDungeon();
                 OnDungeonStarted?.Invoke();
+                OnPrepareDungeon();
                 break;
             case DungeonState.Running:
                 OnRunningDungeon();
