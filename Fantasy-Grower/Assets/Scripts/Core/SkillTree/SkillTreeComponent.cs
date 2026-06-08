@@ -11,7 +11,6 @@ public class SkillTreeComponent : MonoBehaviour
 {
     [SerializeField]
     private SkillTreeData treeData;
-    public SkillTreeData TreeData => treeData;
 
     // ScriptableObject를 직접 수정하지 않고 런타임 상태를 Dictionary로 격리
     private Dictionary<SkillNodeData, bool> unlockedState;
