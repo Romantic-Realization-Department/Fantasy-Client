@@ -22,6 +22,8 @@ public class EnemyAnimation : EntityAnimation
     protected override void OnDamaged()
     {
         base.OnDamaged();
+
+        HitEffectObjPool.Spawn(transform.position, Quaternion.identity);
     }
 
     protected override void OnDeath()

@@ -195,6 +195,7 @@ MonoBehaviour:
   rewardData: {fileID: 0}
   rb: {fileID: 846388253315880859}
   moveSpeed: 3
+  sensor: {fileID: 6957456049424671308}
 --- !u!1 &6637181185444963787
 GameObject:
   m_ObjectHideFlags: 0
@@ -206,8 +207,9 @@ GameObject:
   - component: {fileID: 6245523390461526167}
   - component: {fileID: 5256461534563001090}
   - component: {fileID: 9193396476829707428}
+  - component: {fileID: 6957456049424671308}
   m_Layer: 6
-  m_Name: AttackCollider
+  m_Name: Sensor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -287,3 +289,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _type: 1
+--- !u!114 &6957456049424671308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6637181185444963787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb302ca6514048a4795d4c4b82d9f259, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _myEntity: {fileID: 6811259245424818294}

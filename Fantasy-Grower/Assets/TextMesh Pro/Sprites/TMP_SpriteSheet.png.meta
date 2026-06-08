@@ -1,0 +1,1339 @@
+fileFormatVersion: 2
+guid: e6e9e500f66052d4bbfa1a68ce2e02d0
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -2098475319544490206
+    second: TMP_SpriteSheet_0
+  - first:
+      213: 4079909574880959241
+    second: TMP_SpriteSheet_1
+  - first:
+      213: -7935599701076767567
+    second: TMP_SpriteSheet_2
+  - first:
+      213: 9080341435776813112
+    second: TMP_SpriteSheet_3
+  - first:
+      213: 7691696754627175093
+    second: TMP_SpriteSheet_4
+  - first:
+      213: -6781069379173397813
+    second: TMP_SpriteSheet_5
+  - first:
+      213: -1828827846993002579
+    second: TMP_SpriteSheet_6
+  - first:
+      213: -4748993080528214730
+    second: TMP_SpriteSheet_7
+  - first:
+      213: -8557138065233461947
+    second: TMP_SpriteSheet_8
+  - first:
+      213: -849040548605536716
+    second: TMP_SpriteSheet_9
+  - first:
+      213: 3462599167599050996
+    second: TMP_SpriteSheet_10
+  - first:
+      213: -4016791024470662672
+    second: TMP_SpriteSheet_11
+  - first:
+      213: 329854077124492502
+    second: TMP_SpriteSheet_12
+  - first:
+      213: -8251125532652052405
+    second: TMP_SpriteSheet_13
+  - first:
+      213: -5725500650443791393
+    second: TMP_SpriteSheet_14
+  - first:
+      213: -5888022392760978717
+    second: TMP_SpriteSheet_15
+  - first:
+      213: -2521959770896049768
+    second: TMP_SpriteSheet_16
+  - first:
+      213: -6112827970812718912
+    second: TMP_SpriteSheet_17
+  - first:
+      213: -3678939622520952097
+    second: TMP_SpriteSheet_18
+  - first:
+      213: -4848844679299307649
+    second: TMP_SpriteSheet_19
+  - first:
+      213: 1217519954086808930
+    second: TMP_SpriteSheet_20
+  - first:
+      213: -1284601747472768763
+    second: TMP_SpriteSheet_21
+  - first:
+      213: -7855717530418930529
+    second: TMP_SpriteSheet_22
+  - first:
+      213: 8706450773365908676
+    second: TMP_SpriteSheet_23
+  - first:
+      213: 157396557550463474
+    second: TMP_SpriteSheet_24
+  - first:
+      213: -1446410565399407212
+    second: TMP_SpriteSheet_25
+  - first:
+      213: -6338667238662454420
+    second: TMP_SpriteSheet_26
+  - first:
+      213: 843214254685616620
+    second: TMP_SpriteSheet_27
+  - first:
+      213: 1795508980352883799
+    second: TMP_SpriteSheet_28
+  - first:
+      213: -7929315642369244471
+    second: TMP_SpriteSheet_29
+  - first:
+      213: 5282880206220024169
+    second: TMP_SpriteSheet_30
+  - first:
+      213: 6802094814795226855
+    second: TMP_SpriteSheet_31
+  - first:
+      213: 2504519740116522457
+    second: TMP_SpriteSheet_32
+  - first:
+      213: -1322840094282118465
+    second: TMP_SpriteSheet_33
+  - first:
+      213: 2598601096827258710
+    second: TMP_SpriteSheet_34
+  - first:
+      213: 6762889743572845275
+    second: TMP_SpriteSheet_35
+  - first:
+      213: -6757362952787760843
+    second: TMP_SpriteSheet_36
+  - first:
+      213: 2122694611773171423
+    second: TMP_SpriteSheet_37
+  - first:
+      213: 6000733039956740775
+    second: TMP_SpriteSheet_38
+  - first:
+      213: -3439162080826208783
+    second: TMP_SpriteSheet_39
+  - first:
+      213: -5472101379839272348
+    second: TMP_SpriteSheet_40
+  - first:
+      213: -1907842208939529461
+    second: TMP_SpriteSheet_41
+  - first:
+      213: 7235149795781282819
+    second: TMP_SpriteSheet_42
+  - first:
+      213: -4142457038695771735
+    second: TMP_SpriteSheet_43
+  - first:
+      213: -1438925150844732308
+    second: TMP_SpriteSheet_44
+  - first:
+      213: -5883255068551433175
+    second: TMP_SpriteSheet_45
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: TMP_SpriteSheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 198
+        width: 17
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22750a8a0d7b0e2e0800000000000000
+      internalID: -2098475319544490206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TMP_SpriteSheet_1
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 198
+        width: 18
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 90b9e7e5420ce9830800000000000000
+      internalID: 4079909574880959241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TMP_SpriteSheet_2
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 198
+        width: 18
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1bc8f91dd161fd190800000000000000
+      internalID: -7935599701076767567
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TMP_SpriteSheet_3
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 198
+        width: 18
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 838ccb61d6ad30e70800000000000000
+      internalID: 9080341435776813112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TMP_SpriteSheet_4
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 196
+        width: 18
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b2e39b22756eba60800000000000000
+      internalID: 7691696754627175093
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TMP_SpriteSheet_5
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 196
+        width: 18
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bca4719c35dc4e1a0800000000000000
+      internalID: -6781069379173397813
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TMP_SpriteSheet_6
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 196
+        width: 18
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dafb3a043c2be96e0800000000000000
+      internalID: -1828827846993002579
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TMP_SpriteSheet_7
+      rect:
+        serializedVersion: 2
+        x: 118
+        y: 196
+        width: 18
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 635e35a54ff281eb0800000000000000
+      internalID: -4748993080528214730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TMP_SpriteSheet_8
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 198
+        width: 17
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 54d39cf6440fe3980800000000000000
+      internalID: -8557138065233461947
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TMP_SpriteSheet_9
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 181
+        width: 17
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 436d6749e1a9734f0800000000000000
+      internalID: -849040548605536716
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TMP_SpriteSheet_10
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 181
+        width: 18
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f00e48e89f9d0030800000000000000
+      internalID: 3462599167599050996
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TMP_SpriteSheet_11
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 181
+        width: 18
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f1e27958dd7148c0800000000000000
+      internalID: -4016791024470662672
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TMP_SpriteSheet_12
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 181
+        width: 18
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6dc38b61980e39400800000000000000
+      internalID: 329854077124492502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TMP_SpriteSheet_13
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 179
+        width: 18
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b406e1d5b0d1e7d80800000000000000
+      internalID: -8251125532652052405
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TMP_SpriteSheet_14
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 179
+        width: 18
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd3a7015e7fea80b0800000000000000
+      internalID: -5725500650443791393
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TMP_SpriteSheet_15
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 179
+        width: 18
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e2bfe174da894ea0800000000000000
+      internalID: -5888022392760978717
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TMP_SpriteSheet_16
+      rect:
+        serializedVersion: 2
+        x: 118
+        y: 179
+        width: 18
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8995ae543f2300dd0800000000000000
+      internalID: -2521959770896049768
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TMP_SpriteSheet_17
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 181
+        width: 17
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c0d2a2095fda2ba0800000000000000
+      internalID: -6112827970812718912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TMP_SpriteSheet_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 160
+        width: 14
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fda6789b7e7c1fcc0800000000000000
+      internalID: -3678939622520952097
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TMP_SpriteSheet_19
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 160
+        width: 11
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f776257547175bcb0800000000000000
+      internalID: -4848844679299307649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TMP_SpriteSheet_20
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 160
+        width: 7
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 26d4b4292ff75e010800000000000000
+      internalID: 1217519954086808930
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TMP_SpriteSheet_21
+      rect:
+        serializedVersion: 2
+        x: 43
+        y: 160
+        width: 11
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5012a0c448d2c2ee0800000000000000
+      internalID: -1284601747472768763
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TMP_SpriteSheet_22
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 166
+        width: 16
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9c12970782eaf290800000000000000
+      internalID: -7855717530418930529
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TMP_SpriteSheet_23
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 140
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c466e089d683d870800000000000000
+      internalID: 8706450773365908676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TMP_SpriteSheet_24
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 139
+        width: 17
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f92aadc55f2f2200800000000000000
+      internalID: 157396557550463474
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TMP_SpriteSheet_25
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 140
+        width: 16
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4951ff111415debe0800000000000000
+      internalID: -1446410565399407212
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TMP_SpriteSheet_26
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 140
+        width: 17
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c634e1aeab78808a0800000000000000
+      internalID: -6338667238662454420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TMP_SpriteSheet_27
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 141
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce9f418a5e2b3bb00800000000000000
+      internalID: 843214254685616620
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TMP_SpriteSheet_28
+      rect:
+        serializedVersion: 2
+        x: 124
+        y: 142
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 75c15f497edeae810800000000000000
+      internalID: 1795508980352883799
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TMP_SpriteSheet_29
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 116
+        width: 17
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c202a04f6965f190800000000000000
+      internalID: -7929315642369244471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TMP_SpriteSheet_30
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 116
+        width: 15
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 969dfa2ce8f805940800000000000000
+      internalID: 5282880206220024169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TMP_SpriteSheet_31
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 116
+        width: 17
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ee556ce135e56e50800000000000000
+      internalID: 6802094814795226855
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TMP_SpriteSheet_32
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 116
+        width: 15
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d559922f67d1c220800000000000000
+      internalID: 2504519740116522457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TMP_SpriteSheet_33
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 115
+        width: 15
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fba8ba561f354ade0800000000000000
+      internalID: -1322840094282118465
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TMP_SpriteSheet_34
+      rect:
+        serializedVersion: 2
+        x: 123
+        y: 116
+        width: 17
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6574459fde5101420800000000000000
+      internalID: 2598601096827258710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TMP_SpriteSheet_35
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 91
+        width: 15
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd2cac4f36c9add50800000000000000
+      internalID: 6762889743572845275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TMP_SpriteSheet_36
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 92
+        width: 17
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53963bc42360932a0800000000000000
+      internalID: -6757362952787760843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TMP_SpriteSheet_37
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 92
+        width: 13
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd6206db083557d10800000000000000
+      internalID: 2122694611773171423
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TMP_SpriteSheet_38
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 92
+        width: 17
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7aa429618e2e64350800000000000000
+      internalID: 6000733039956740775
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TMP_SpriteSheet_39
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 93
+        width: 17
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1fd4c571f44a540d0800000000000000
+      internalID: -3439162080826208783
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TMP_SpriteSheet_40
+      rect:
+        serializedVersion: 2
+        x: 123
+        y: 92
+        width: 17
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 46a51c799c03f04b0800000000000000
+      internalID: -5472101379839272348
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TMP_SpriteSheet_41
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 68
+        width: 16
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0ba9a08e9bf585e0800000000000000
+      internalID: -1907842208939529461
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TMP_SpriteSheet_42
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 68
+        width: 17
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 30c8842e76a686460800000000000000
+      internalID: 7235149795781282819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TMP_SpriteSheet_43
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 67
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a1d83f55490386c0800000000000000
+      internalID: -4142457038695771735
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TMP_SpriteSheet_44
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 69
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6c3685f239e70ce0800000000000000
+      internalID: -1438925150844732308
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TMP_SpriteSheet_45
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 20
+        width: 39
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 924b9fb9faa7a5ea0800000000000000
+      internalID: -5883255068551433175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 43236a5da4a260d46aae3c60f5570424
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      TMP_SpriteSheet_0: -2098475319544490206
+      TMP_SpriteSheet_1: 4079909574880959241
+      TMP_SpriteSheet_10: 3462599167599050996
+      TMP_SpriteSheet_11: -4016791024470662672
+      TMP_SpriteSheet_12: 329854077124492502
+      TMP_SpriteSheet_13: -8251125532652052405
+      TMP_SpriteSheet_14: -5725500650443791393
+      TMP_SpriteSheet_15: -5888022392760978717
+      TMP_SpriteSheet_16: -2521959770896049768
+      TMP_SpriteSheet_17: -6112827970812718912
+      TMP_SpriteSheet_18: -3678939622520952097
+      TMP_SpriteSheet_19: -4848844679299307649
+      TMP_SpriteSheet_2: -7935599701076767567
+      TMP_SpriteSheet_20: 1217519954086808930
+      TMP_SpriteSheet_21: -1284601747472768763
+      TMP_SpriteSheet_22: -7855717530418930529
+      TMP_SpriteSheet_23: 8706450773365908676
+      TMP_SpriteSheet_24: 157396557550463474
+      TMP_SpriteSheet_25: -1446410565399407212
+      TMP_SpriteSheet_26: -6338667238662454420
+      TMP_SpriteSheet_27: 843214254685616620
+      TMP_SpriteSheet_28: 1795508980352883799
+      TMP_SpriteSheet_29: -7929315642369244471
+      TMP_SpriteSheet_3: 9080341435776813112
+      TMP_SpriteSheet_30: 5282880206220024169
+      TMP_SpriteSheet_31: 6802094814795226855
+      TMP_SpriteSheet_32: 2504519740116522457
+      TMP_SpriteSheet_33: -1322840094282118465
+      TMP_SpriteSheet_34: 2598601096827258710
+      TMP_SpriteSheet_35: 6762889743572845275
+      TMP_SpriteSheet_36: -6757362952787760843
+      TMP_SpriteSheet_37: 2122694611773171423
+      TMP_SpriteSheet_38: 6000733039956740775
+      TMP_SpriteSheet_39: -3439162080826208783
+      TMP_SpriteSheet_4: 7691696754627175093
+      TMP_SpriteSheet_40: -5472101379839272348
+      TMP_SpriteSheet_41: -1907842208939529461
+      TMP_SpriteSheet_42: 7235149795781282819
+      TMP_SpriteSheet_43: -4142457038695771735
+      TMP_SpriteSheet_44: -1438925150844732308
+      TMP_SpriteSheet_45: -5883255068551433175
+      TMP_SpriteSheet_5: -6781069379173397813
+      TMP_SpriteSheet_6: -1828827846993002579
+      TMP_SpriteSheet_7: -4748993080528214730
+      TMP_SpriteSheet_8: -8557138065233461947
+      TMP_SpriteSheet_9: -849040548605536716
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

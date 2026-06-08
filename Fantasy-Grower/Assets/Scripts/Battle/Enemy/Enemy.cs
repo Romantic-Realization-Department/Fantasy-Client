@@ -20,6 +20,16 @@ public class Enemy : Entity
     [SerializeField]
     protected float moveSpeed = 3f;
 
+    [SerializeField]
+    protected ForwardColleagueSensor sensor;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        sensor.OnBlocked += OnBlocked;
+        sensor.OnUnBlocked += OnUnBlocked;
+    }
+
     protected override void Start()
     {
         entityState[gameObject].State = PlayerState.MOVE;
@@ -40,16 +50,21 @@ public class Enemy : Entity
         OnIdle(); // 공격 중에는 움직이지 않도록 설정
     }
 
+    // 앞에 아군이 감지 되었을 때
+    private void OnBlocked()
+    {
+        entityState[gameObject].State = PlayerState.IDLE;
+    }
+
+    // 앞에 아군이 사라졌을 때
+    private void OnUnBlocked()
+    {
+        entityState[gameObject].State = PlayerState.MOVE;
+    }
+
     public override void Attack()
     {
         entityState[gameObject].State = PlayerState.ATTACK; // 공격 상태로 전환하여 애니메이션과 공격 로직이 실행되도록 함
-    }
-
-    public override void TakeDamage(int damage)
-    {
-        base.TakeDamage(damage);
-
-        HitEffectObjPool.Spawn(transform.position, Quaternion.identity);
     }
 
     public override void Death()
@@ -63,6 +78,14 @@ public class Enemy : Entity
         }
 
         Destroy(gameObject, 0.5f); // 사망 연출 시간 확보 후 제거
+    }
+
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+
+        sensor.OnBlocked -= OnBlocked;
+        sensor.OnUnBlocked -= OnUnBlocked;
     }
 
     protected override void OnValidate()
