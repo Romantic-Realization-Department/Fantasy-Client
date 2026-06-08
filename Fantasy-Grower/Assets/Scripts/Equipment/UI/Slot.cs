@@ -25,7 +25,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler
     private Image WeaponIcon;
 
     [SerializeField]
-    private Text WeaponCountText;
+    private Text WeaponNameText;
 
     protected void Start()
     {
@@ -40,11 +40,11 @@ public class Slot : MonoBehaviour, IPointerClickHandler
     public void RefreshIcon()
     {
         GetComponent<Image>().color = EquipmentManager.Instance.GetColor(ID);
+        WeaponNameText.text = GetWeapon().weaponName;
         if (GetWeapon().isUnlock)
         {
             WeaponIconWall.SetActive(false);
             WeaponIcon.color = Color.white;
-            // 무기 개수 text 필요
         }
         else
         {

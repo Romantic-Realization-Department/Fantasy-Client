@@ -121,7 +121,7 @@ public class EquipmentManager : MonoBehaviour
     {
         for (int i = 0; i < weaponMap.Count; i++)
         {
-            weaponMap[(WeaponID)i].weaponCount = 100;
+            weaponMap[(WeaponID)i].Increase(100);
         }
     }
 
@@ -253,7 +253,7 @@ public class EquipmentManager : MonoBehaviour
         return _color;
     }
 
-    public bool CanUse(WeaponID ID) => weaponMap[ID].weaponCount >= useWeaponCount;
+    public bool CanUse(WeaponID ID) => weaponMap[ID].Get() >= useWeaponCount;
 
     bool CheckWeaponState => currentWeapon != null && useWeaponCount > 0 && CanUse(currentSelectID);
 
@@ -261,9 +261,9 @@ public class EquipmentManager : MonoBehaviour
     {
         if (CheckWeaponState && currentSelectID >= WeaponID.A1)
         {
-            uint synthAmount = (uint)(currentWeapon.weaponCount / useWeaponCount);
-            currentWeapon.weaponCount = (uint)(currentWeapon.weaponCount % useWeaponCount);
-            GetWeapon(currentWeapon.NextWeaponID).weaponCount += synthAmount;
+            uint synthAmount = (uint)(currentWeapon.Get() / useWeaponCount);
+            //currentWeapon.weaponCount = (uint)(currentWeapon.Get() % useWeaponCount);
+            GetWeapon(currentWeapon.NextWeaponID).Increase(synthAmount);
             SaveSelectSynthWeapon(currentSelectID);
         }
     }
@@ -276,7 +276,7 @@ public class EquipmentManager : MonoBehaviour
             int remainingAwakeLevel = maxAwakeLevel - currentWeapon.weaponAwakeLevel;
             int actualAwakeCount = Mathf.Min(possibleAwakeCount, remainingAwakeLevel);
 
-            currentWeapon.weaponCount -= (uint)(actualAwakeCount * useWeaponCount);
+            currentWeapon.Decrease((uint)(actualAwakeCount * useWeaponCount));
             currentWeapon.weaponAwakeLevel += actualAwakeCount;
         }
         SaveSelectAwakeWeapon(currentSelectID);
@@ -284,7 +284,7 @@ public class EquipmentManager : MonoBehaviour
 
     public void GetItem(WeaponID id, uint amount)
     {
-        weaponMap[id].weaponCount += amount;
+        weaponMap[id].Increase(amount);
         RefreshSlot();
     }
 

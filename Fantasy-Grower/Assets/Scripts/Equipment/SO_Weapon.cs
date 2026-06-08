@@ -15,8 +15,16 @@ public enum WeaponID
 }
 
 [CreateAssetMenu(fileName = "SO_Equipment", menuName = "ScriptableObjects/SO_Equipment", order = 6)]
-public class SO_Weapon : ScriptableObject
+public class SO_Weapon : SO_Goods
 {
+    protected override string GoodsName => "무기";
+
+    public override void Increase(uint amount)
+    {
+        isUnlock = true;
+        base.Increase(amount);
+    }
+
     //필요한 기능에 따라 변수 및 함수가 추가될 수 있음
     [Header("필요 변수")]
     [SerializeField]
@@ -33,16 +41,6 @@ public class SO_Weapon : ScriptableObject
     [TextArea]
     public string weaponInfo;
 
-    private uint _weaponCount;
-    public uint weaponCount
-    {
-        get { return _weaponCount; }
-        set
-        {
-            _weaponCount = value;
-            isUnlock = true;
-        }
-    }
     public int equipDamage;
     public int getDamage;
     public int weaponLevel;
