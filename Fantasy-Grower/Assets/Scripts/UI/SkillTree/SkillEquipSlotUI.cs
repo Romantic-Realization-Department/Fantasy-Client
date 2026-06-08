@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,26 +8,31 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Button))]
 public class SkillEquipSlotUI : MonoBehaviour
 {
-    [SerializeField] private Text slotLabel;
-    [SerializeField] private Image background;
+    [SerializeField]
+    private TMP_Text slotLabel;
+
+    [SerializeField]
+    private Image background;
 
     private int slotIndex;
     private SkillTreePanel panel;
 
     private static readonly Color ColorFilled = Color.cyan;
-    private static readonly Color ColorEmpty  = Color.gray;
+    private static readonly Color ColorEmpty = Color.gray;
 
     public void Initialize(int index, SkillTreePanel ownerPanel)
     {
         slotIndex = index;
-        panel     = ownerPanel;
+        panel = ownerPanel;
         GetComponent<Button>().onClick.AddListener(OnClicked);
     }
 
     public void Refresh(ActiveSkillData skill)
     {
-        if (slotLabel  != null) slotLabel.text   = skill != null ? skill.SkillName : "(비어있음)";
-        if (background != null) background.color = skill != null ? ColorFilled : ColorEmpty;
+        if (slotLabel != null)
+            slotLabel.text = skill != null ? skill.SkillName : "(비어있음)";
+        if (background != null)
+            background.color = skill != null ? ColorFilled : ColorEmpty;
     }
 
     private void OnClicked() => panel?.OnEquipSlotClicked(slotIndex);

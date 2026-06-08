@@ -9,22 +9,33 @@ using UnityEngine.UI;
 public class SkillTreePanel : MonoBehaviour
 {
     [Header("스킬 트리 데이터")]
-    [SerializeField] private SkillTreeComponent skillTreeComponent;
+    [SerializeField]
+    private SkillTreeComponent skillTreeComponent;
 
     [Header("노드 버튼 생성")]
-    [SerializeField] private GameObject skillNodeButtonPrefab;
-    [SerializeField] private RectTransform nodeContainer;
+    [SerializeField]
+    private GameObject skillNodeButtonPrefab;
+
+    [SerializeField]
+    private RectTransform nodeContainer;
 
     [Header("장착 슬롯")]
-    [SerializeField] private SkillEquipSlotUI[] equipSlotUIs;
+    [SerializeField]
+    private SkillEquipSlotUI[] equipSlotUIs;
 
     [Header("텍스트")]
-    [SerializeField] private Text spText;
-    [SerializeField] private Text entityStatsText;
+    [SerializeField]
+    private Text spText;
+
+    [SerializeField]
+    private Text entityStatsText;
 
     [Header("레이아웃")]
-    [SerializeField] private float nodeSpacingX = 120f;
-    [SerializeField] private float nodeSpacingY = 100f;
+    [SerializeField]
+    private float nodeSpacingX = 120f;
+
+    [SerializeField]
+    private float nodeSpacingY = 100f;
 
     private readonly List<SkillNodeButton> nodeButtons = new();
     private ActiveSkillData selectedActiveSkill;
@@ -47,7 +58,8 @@ public class SkillTreePanel : MonoBehaviour
     private void BuildTree()
     {
         foreach (var btn in nodeButtons)
-            if (btn != null) Destroy(btn.gameObject);
+            if (btn != null)
+                Destroy(btn.gameObject);
         nodeButtons.Clear();
 
         if (skillTreeComponent == null || skillTreeComponent.TreeData == null)
@@ -57,15 +69,18 @@ public class SkillTreePanel : MonoBehaviour
         }
 
         var allNodes = skillTreeComponent.TreeData.AllNodes;
-        if (allNodes == null) return;
+        if (allNodes == null)
+            return;
 
         foreach (var node in allNodes)
         {
-            if (node == null || node.Skill == null) continue;
+            if (node == null || node.Skill == null)
+                continue;
 
-            var go  = Instantiate(skillNodeButtonPrefab, nodeContainer);
+            var go = Instantiate(skillNodeButtonPrefab, nodeContainer);
             var btn = go.GetComponent<SkillNodeButton>();
-            if (btn == null) continue;
+            if (btn == null)
+                continue;
 
             btn.Initialize(node, this);
             var rt = go.GetComponent<RectTransform>();
@@ -91,39 +106,43 @@ public class SkillTreePanel : MonoBehaviour
 
     private void RefreshSPText()
     {
-        if (spText == null) return;
+        if (spText == null)
+            return;
         var sp = GoodsManager.Instance.GetGoods(GoodsType.SP);
         spText.text = sp != null ? $"SP: {sp.Get()}" : "SP: -";
     }
 
     private void RefreshEntityStats()
     {
-        if (entityStatsText == null || skillTreeComponent == null) return;
+        if (entityStatsText == null || skillTreeComponent == null)
+            return;
         var entity = skillTreeComponent.GetComponent<Entity>();
-        if (entity == null) return;
+        if (entity == null)
+            return;
 
         entityStatsText.text =
-            $"HP: {entity.Hp} / {entity.MaxHp}\n" +
-            $"ATK: {entity.AttackPower}\n" +
-            $"ATK Speed: {entity.AttackSpeed:F2}\n" +
-            $"Crit%: {entity.CriticalPercentage:F1}";
+            $"HP: {entity.Hp} / {entity.MaxHp}\n"
+            + $"ATK: {entity.AttackPower}\n"
+            + $"ATK Speed: {entity.AttackSpeed:F2}\n"
+            + $"Crit%: {entity.CriticalPercentage:F1}";
     }
 
     private void RefreshNodeButtons()
     {
-        if (skillTreeComponent?.TreeData?.AllNodes == null) return;
+        if (skillTreeComponent?.TreeData?.AllNodes == null)
+            return;
         var allNodes = skillTreeComponent.TreeData.AllNodes;
 
         for (int i = 0; i < nodeButtons.Count && i < allNodes.Count; i++)
         {
             var node = allNodes[i];
-            var btn  = nodeButtons[i];
-            if (node == null || btn == null) continue;
+            var btn = nodeButtons[i];
+            if (node == null || btn == null)
+                continue;
 
             bool isUnlocked = skillTreeComponent.IsUnlocked(node);
-            bool canUnlock  = skillTreeComponent.CanUnlock(node);
-            bool isSelected = node.Skill is ActiveSkillData active
-                              && active == selectedActiveSkill;
+            bool canUnlock = skillTreeComponent.CanUnlock(node);
+            bool isSelected = node.Skill is ActiveSkillData active && active == selectedActiveSkill;
 
             btn.Refresh(isUnlocked, canUnlock, isSelected);
         }
@@ -131,13 +150,13 @@ public class SkillTreePanel : MonoBehaviour
 
     private void RefreshEquipSlots()
     {
-        if (equipSlotUIs == null) return;
+        if (equipSlotUIs == null)
+            return;
         var equipped = skillTreeComponent?.GetEquippedActives();
 
         for (int i = 0; i < equipSlotUIs.Length; i++)
         {
-            ActiveSkillData skill = (equipped != null && i < equipped.Count)
-                ? equipped[i] : null;
+            ActiveSkillData skill = (equipped != null && i < equipped.Count) ? equipped[i] : null;
             equipSlotUIs[i].Refresh(skill);
         }
     }
@@ -150,7 +169,8 @@ public class SkillTreePanel : MonoBehaviour
     /// </summary>
     public void OnNodeClicked(SkillNodeData node)
     {
-        if (node == null || skillTreeComponent == null) return;
+        if (node == null || skillTreeComponent == null)
+            return;
 
         if (!skillTreeComponent.IsUnlocked(node))
         {
@@ -170,7 +190,8 @@ public class SkillTreePanel : MonoBehaviour
     /// </summary>
     public void OnEquipSlotClicked(int slotIndex)
     {
-        if (selectedActiveSkill == null || skillTreeComponent == null) return;
+        if (selectedActiveSkill == null || skillTreeComponent == null)
+            return;
         skillTreeComponent.TryEquipActiveSkill(selectedActiveSkill, slotIndex);
         selectedActiveSkill = null;
         RefreshAll();
@@ -183,7 +204,8 @@ public class SkillTreePanel : MonoBehaviour
     /// </summary>
     public void AddTestSP(int amount)
     {
-        if (amount <= 0) return;
+        if (amount <= 0)
+            return;
         GoodsManager.Instance.GetGoods(GoodsType.SP)?.Increase((uint)amount);
     }
 }
