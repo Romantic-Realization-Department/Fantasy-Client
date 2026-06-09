@@ -70,6 +70,9 @@ public abstract class DungeonManager : MonoBehaviour
     /// <summary>던전이 클리어되었을 때 발화된다.</summary>
     public event Action OnDungeonCleared;
 
+    /// <summary>던전에서 패배하였을 때 발화된다.</summary>
+    public event Action OnDungeonFailed;
+
     // ─── 런타임 상태 ─────────────────────────────────────────────
     private DungeonState _state = DungeonState.Idle;
     protected Coroutine _delayedTransitionCoroutine;
@@ -77,7 +80,6 @@ public abstract class DungeonManager : MonoBehaviour
     public DungeonState State => _state;
     public bool IsRunning => _state == DungeonState.Running;
     public bool IsFinished => _state == DungeonState.Cleared || _state == DungeonState.Failed;
-    public event Action OnDungeonFailed;
 
     // ─── 유니티 라이프사이클 ──────────────────────────────────────
     protected void Awake()

@@ -1,11 +1,12 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class WeaponDungeonManager
     : DungeonManager<WeaponDungeonData>,
         IStageDungeon,
-        IDungeonRewardProvider
+        IDungeonRewardRecorder
 {
     public enum WeaponDungeonState
     {
@@ -15,25 +16,29 @@ public class WeaponDungeonManager
         WaveCleared,
     }
 
-    [SerializeField, Tooltip("Player character")]
+    [SerializeField]
     private Player _player;
 
-    [SerializeField, Tooltip("Wave controller")]
+    [SerializeField]
     private WaveController _waveController;
 
-    [SerializeField, Tooltip("Dungeon data")]
+    [SerializeField, Tooltip("던전 데이터")]
     private WeaponDungeonData _weaponDungeonData;
 
     [Header("Spawn Settings")]
-    [SerializeField, Tooltip("Spawn start point")]
+    [SerializeField, Tooltip("적이 스폰될 지점")]
     private Transform _spawnPoint;
 
-    [SerializeField, Tooltip("Spawn point interval")]
+    [SerializeField, Tooltip("적의 스폰 간격")]
     private float _spawnPointInterval = 1.0f;
 
+    // 런타임 데이터
     private WeaponDungeonState _weaponDungeonState = WeaponDungeonState.Idle;
     private int _currentWaveIndex;
+    private uint _upgradeScrollInitialValue;
+    private uint _earnedUpgradeScrollAmount;
 
+    // 이벤트
     public event Action<WeaponDungeonState> OnWeaponDungeonStateChanged;
     public event Action<int> OnWaveChanged;
 
@@ -61,6 +66,9 @@ public class WeaponDungeonManager
     protected override void StartDungeonInternal(WeaponDungeonData dungeonData)
     {
         _currentWaveIndex = 0;
+        _upgradeScrollInitialValue = GetUpgradeScrollValue();
+        _earnedUpgradeScrollAmount = 0;
+        _gottenWeapons.Clear();
     }
 
     public override void RetryDungeon()
@@ -69,6 +77,9 @@ public class WeaponDungeonManager
         if (_player != null)
             _player.ResetHp();
         _currentWaveIndex = 0;
+        _upgradeScrollInitialValue = GetUpgradeScrollValue();
+        _earnedUpgradeScrollAmount = 0;
+        _gottenWeapons.Clear();
         base.RetryDungeon();
     }
 
@@ -153,9 +164,13 @@ public class WeaponDungeonManager
 
     protected override void OnClearDungeon()
     {
-        GiveGoodsReward(GetReward());
         RollWeaponDrops();
         RollUpgradeScrollDrop();
+        uint currentUpgradeScrollValue = GetUpgradeScrollValue();
+        _earnedUpgradeScrollAmount =
+            currentUpgradeScrollValue >= _upgradeScrollInitialValue
+                ? currentUpgradeScrollValue - _upgradeScrollInitialValue
+                : 0;
         Debug.Log("[WeaponDungeonManager] Dungeon cleared.");
     }
 
@@ -179,8 +194,12 @@ public class WeaponDungeonManager
         TransitionTo(next);
     }
 
+    private readonly Dictionary<WeaponID, uint> _gottenWeapons = new();
+
     private void RollWeaponDrops()
     {
+        _gottenWeapons.Clear();
+
         if (_currentDungeonData.WeaponDrops == null)
             return;
 
@@ -194,7 +213,17 @@ public class WeaponDungeonManager
                 continue;
 
             if (UnityEngine.Random.Range(0f, 100f) <= drop.DropChance)
+            {
                 equipmentManager.GetItem(drop.WeaponID, drop.Amount);
+                if (_gottenWeapons.TryGetValue(drop.WeaponID, out uint value))
+                {
+                    _gottenWeapons[drop.WeaponID] = value + drop.Amount;
+                }
+                else
+                {
+                    _gottenWeapons[drop.WeaponID] = drop.Amount;
+                }
+            }
         }
     }
 
@@ -211,11 +240,10 @@ public class WeaponDungeonManager
             .Increase(_currentDungeonData.UpgradeScrollDropAmount);
     }
 
-    private static void GiveGoodsReward(DungeonClearReward reward)
+    private static uint GetUpgradeScrollValue()
     {
-        GoodsManager.Instance.GetGoods(GoodsType.Gold).Increase(reward[GoodsType.Gold]);
-        GoodsManager.Instance.GetGoods(GoodsType.XP).Increase(reward[GoodsType.XP]);
-        GoodsManager.Instance.GetGoods(GoodsType.Mithril).Increase(reward[GoodsType.Mithril]);
+        var upgradeScroll = GoodsManager.Instance.GetGoods(GoodsType.UpgradeScroll);
+        return upgradeScroll != null ? upgradeScroll.Get() : 0;
     }
 
     public void SetStage(DungeonData dungeonData)
@@ -238,8 +266,21 @@ public class WeaponDungeonManager
         }
     }
 
-    public DungeonClearReward GetReward() =>
-        _currentDungeonData
-            ? _currentDungeonData.DungeonClearReward
-            : _weaponDungeonData.DungeonClearReward;
+    private readonly List<RewardDisplayItem> _rewards = new();
+
+    public IReadOnlyList<RewardDisplayItem> GetRewardItems()
+    {
+        _rewards.Clear();
+
+        foreach (var weapon in _gottenWeapons)
+        {
+            _rewards.Add(RewardDisplayItemFactory.Weapon(weapon.Key, weapon.Value));
+        }
+
+        _rewards.Add(
+            RewardDisplayItemFactory.Goods(GoodsType.UpgradeScroll, _earnedUpgradeScrollAmount)
+        );
+
+        return _rewards;
+    }
 }

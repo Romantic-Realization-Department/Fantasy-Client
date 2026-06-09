@@ -1,11 +1,12 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BossDungeonManager
     : DungeonManager<BossDungeonData>,
         IStageDungeon,
-        IDungeonRewardProvider
+        IDungeonRewardRecorder
 {
     public enum BossDungeonState
     {
@@ -61,6 +62,7 @@ public class BossDungeonManager
     protected override void StartDungeonInternal(BossDungeonData dungeonData)
     {
         _currentWaveIndex = 0;
+        _gottenWeapon = null;
     }
 
     public override void RetryDungeon()
@@ -69,6 +71,7 @@ public class BossDungeonManager
         if (_player != null)
             _player.ResetHp();
         _currentWaveIndex = 0;
+        _gottenWeapon = null;
         base.RetryDungeon();
     }
 
@@ -153,7 +156,12 @@ public class BossDungeonManager
 
     protected override void OnClearDungeon()
     {
-        GiveGoodsReward(GetReward());
+        GoodsManager goodsManager = GoodsManager.Instance;
+        DungeonClearReward dungeonClearReward = _currentDungeonData.DungeonClearReward;
+
+        goodsManager.GetGoods(GoodsType.Mithril).Increase(dungeonClearReward[GoodsType.Mithril]);
+        goodsManager.GetGoods(GoodsType.XP).Increase(dungeonClearReward[GoodsType.XP]);
+
         GiveRandomAGradeWeapon();
         Debug.Log("[BossDungeonManager] Dungeon cleared.");
     }
@@ -178,6 +186,8 @@ public class BossDungeonManager
         TransitionTo(next);
     }
 
+    private KeyValuePair<WeaponID, uint>? _gottenWeapon;
+
     private void GiveRandomAGradeWeapon()
     {
         if (
@@ -198,13 +208,10 @@ public class BossDungeonManager
             _currentDungeonData.AGradeWeaponCandidates[index],
             _currentDungeonData.WeaponRewardAmount
         );
-    }
-
-    private static void GiveGoodsReward(DungeonClearReward reward)
-    {
-        GoodsManager.Instance.GetGoods(GoodsType.Gold).Increase(reward[GoodsType.Gold]);
-        GoodsManager.Instance.GetGoods(GoodsType.XP).Increase(reward[GoodsType.XP]);
-        GoodsManager.Instance.GetGoods(GoodsType.Mithril).Increase(reward[GoodsType.Mithril]);
+        _gottenWeapon = new(
+            _currentDungeonData.AGradeWeaponCandidates[index],
+            _currentDungeonData.WeaponRewardAmount
+        );
     }
 
     public void SetStage(DungeonData dungeonData)
@@ -227,8 +234,31 @@ public class BossDungeonManager
         }
     }
 
-    public DungeonClearReward GetReward() =>
-        _currentDungeonData
-            ? _currentDungeonData.DungeonClearReward
-            : _bossDungeonData.DungeonClearReward;
+    private readonly List<RewardDisplayItem> _rewardDisplayItems = new();
+
+    public IReadOnlyList<RewardDisplayItem> GetRewardItems()
+    {
+        _rewardDisplayItems.Clear();
+
+        _rewardDisplayItems.Add(
+            RewardDisplayItemFactory.Goods(
+                GoodsType.Mithril,
+                _currentDungeonData.DungeonClearReward[GoodsType.Mithril]
+            )
+        );
+        _rewardDisplayItems.Add(
+            RewardDisplayItemFactory.Goods(
+                GoodsType.XP,
+                _currentDungeonData.DungeonClearReward[GoodsType.XP]
+            )
+        );
+
+        if (_gottenWeapon.HasValue)
+        {
+            var weapon = _gottenWeapon.Value;
+            _rewardDisplayItems.Add(RewardDisplayItemFactory.Weapon(weapon.Key, weapon.Value));
+        }
+
+        return _rewardDisplayItems;
+    }
 }
