@@ -1,9 +1,8 @@
-﻿using UnityEngine;
-
-[System.Serializable]
+﻿[System.Serializable]
 public struct EntityStatModifier
 {
     public int BonusHp;
+    public float BonusHpRecovery;
     public float BonusDamageReduction;
     public int BonusAttackPower;
     public float BonusAttackSpeed;
@@ -14,6 +13,7 @@ public struct EntityStatModifier
         return new EntityStatModifier
         {
             BonusHp = a.BonusHp + b.BonusHp,
+            BonusHpRecovery = a.BonusHpRecovery + b.BonusHpRecovery,
             BonusDamageReduction = a.BonusDamageReduction + b.BonusDamageReduction,
             BonusAttackPower = a.BonusAttackPower + b.BonusAttackPower,
             BonusAttackSpeed = a.BonusAttackSpeed + b.BonusAttackSpeed,

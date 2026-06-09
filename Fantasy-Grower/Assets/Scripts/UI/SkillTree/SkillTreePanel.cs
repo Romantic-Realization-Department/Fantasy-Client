@@ -122,6 +122,7 @@ public class SkillTreePanel : MonoBehaviour
 
         entityStatsText.text =
             $"HP: {entity.Hp} / {entity.MaxHp}\n"
+            + $"HP Regen: {entity.HpRecovery:F1}\n"
             + $"ATK: {entity.AttackPower}\n"
             + $"ATK Speed: {entity.AttackSpeed:F2}\n"
             + $"Crit%: {entity.CriticalPercentage:F1}";

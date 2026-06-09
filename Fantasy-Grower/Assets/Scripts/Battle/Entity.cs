@@ -11,6 +11,7 @@ public abstract class Entity : MonoBehaviour
 {
     public int Hp { get; private set; }
     public int MaxHp { get; private set; }
+    public float HpRecovery { get; private set; }
     public float DamageReduction { get; private set; }
     public int AttackPower { get; private set; }
     public float AttackSpeed { get; private set; }
@@ -37,6 +38,7 @@ public abstract class Entity : MonoBehaviour
 
         Hp = statData.Hp;
         MaxHp = statData.Hp;
+        HpRecovery = statData.HpRecovery;
         DamageReduction = statData.DamageReduction;
         AttackPower = statData.AttackPower;
         AttackSpeed = statData.AttackSpeed;
@@ -137,6 +139,7 @@ public abstract class Entity : MonoBehaviour
         MaxHp = statData.Hp + modifier.BonusHp;
         Hp = Mathf.RoundToInt(MaxHp * hpRatio);
 
+        HpRecovery = statData.HpRecovery + modifier.BonusHpRecovery;
         DamageReduction = statData.DamageReduction + modifier.BonusDamageReduction;
         AttackPower = statData.AttackPower + modifier.BonusAttackPower;
         AttackSpeed = statData.AttackSpeed + modifier.BonusAttackSpeed;

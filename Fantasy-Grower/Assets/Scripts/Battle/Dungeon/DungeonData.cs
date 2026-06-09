@@ -31,6 +31,12 @@ public class DungeonClearReward
         {
             if (!_rewardDic.TryGetValue(type, out uint value))
             {
+                if (_rewardEachTypes == null)
+                {
+                    Debug.LogError("RewardEachTypes가 할당되지 않았습니다!!!");
+                    return 0;
+                }
+
                 foreach (RewardEachType rewardEachType in _rewardEachTypes)
                 {
                     _rewardDic[rewardEachType.type] = rewardEachType.count;
