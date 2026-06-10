@@ -9,11 +9,11 @@ public enum EntityType
 
 public abstract class Entity : MonoBehaviour
 {
-    public int Hp { get; private set; }
-    public int MaxHp { get; private set; }
+    public float Hp { get; private set; }
+    public float MaxHp { get; private set; }
     public float HpRecovery { get; private set; } // TODO : HpRecovery스탯을 이용하여 체력 회복 구현
     public float DamageReduction { get; private set; }
-    public int AttackPower { get; private set; }
+    public float AttackPower { get; private set; }
     public float AttackSpeed { get; private set; }
     public float CriticalPercentage { get; private set; }
 
@@ -27,6 +27,9 @@ public abstract class Entity : MonoBehaviour
 
     /// <summary>HP가 0이 되어 Death()가 호출될 때 발화된다.</summary>
     public event Action<Entity> OnDied;
+
+    /// <summary>Update문이 호출될 때 발화된다.</summary>
+    protected event Action OnUpdated;
 
     protected virtual void Awake()
     {
@@ -49,6 +52,15 @@ public abstract class Entity : MonoBehaviour
     protected virtual void Start()
     {
         entityState[gameObject].State = PlayerState.IDLE;
+    }
+
+    protected void Update()
+    {
+        // 불변 영역(엔티티 기본 체력 회복)
+        Hp = Mathf.MoveTowards(Hp, MaxHp, HpRecovery * Time.deltaTime);
+
+        // 가변 영역
+        OnUpdated?.Invoke();
     }
 
     private void OnStateChanged(PlayerState state)
@@ -111,7 +123,7 @@ public abstract class Entity : MonoBehaviour
         OnDied?.Invoke(this);
     }
 
-    public virtual void TakeDamage(int damage)
+    public virtual void TakeDamage(float damage)
     {
         if (Hp <= 0)
             return; // 이미 사망 — 중복 호출 무시

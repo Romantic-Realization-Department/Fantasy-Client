@@ -13,15 +13,15 @@ public static class DamageCalculator
     /// <param name="targetDamageReduction">피격자의 피해 감소율 (0.0 ~ 1.0, 예: 0.2 = 20% 감소)</param>
     /// <param name="attackerCriticalPercentage">공격자의 크리티컬 확률 (0 ~ 100, 예: 25f = 25%)</param>
     /// <returns>(최종 데미지, 크리티컬 여부)</returns>
-    public static (int damage, bool isCritical) Calculate(
-        int rawAttackPower,
+    public static (float damage, bool isCritical) Calculate(
+        float rawAttackPower,
         float targetDamageReduction,
         float attackerCriticalPercentage
     )
     {
-        int reduced = Mathf.Max(1, Mathf.RoundToInt(rawAttackPower * (1f - targetDamageReduction)));
+        float reduced = Mathf.Max(1, rawAttackPower * (1f - targetDamageReduction));
         bool isCritical = Random.value * 100f < attackerCriticalPercentage;
-        int finalDamage = isCritical ? reduced * 2 : reduced;
+        float finalDamage = isCritical ? reduced * 2 : reduced;
         return (finalDamage, isCritical);
     }
 }
