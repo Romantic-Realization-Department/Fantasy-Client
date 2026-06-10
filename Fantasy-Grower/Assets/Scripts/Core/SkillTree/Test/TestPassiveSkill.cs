@@ -8,26 +8,10 @@ using UnityEngine;
 public class TestPassiveSkill : PassiveSkillData
 {
     [SerializeField]
-    private int bonusAttackPower;
-
-    [SerializeField]
-    private int bonusHp;
-
-    [SerializeField]
-    private float bonusHpRecovery;
-
-    [SerializeField]
-    private float bonusCriticalPercentage;
-
-    [SerializeField]
-    private float bonusAttackSpeed;
+    private EntityStatModifier bonusStat;
 
     public override void ApplyPassive(ref EntityStatModifier modifier)
     {
-        modifier.BonusAttackPower += bonusAttackPower;
-        modifier.BonusHp += bonusHp;
-        modifier.BonusHpRecovery += bonusHpRecovery;
-        modifier.BonusCriticalPercentage += bonusCriticalPercentage;
-        modifier.BonusAttackSpeed += bonusAttackSpeed;
+        modifier += bonusStat;
     }
 }

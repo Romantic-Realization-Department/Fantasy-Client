@@ -1,10 +1,10 @@
 ﻿[System.Serializable]
 public struct EntityStatModifier
 {
-    public int BonusHp;
+    public float BonusHp;
     public float BonusHpRecovery;
     public float BonusDamageReduction;
-    public int BonusAttackPower;
+    public float BonusAttackPower;
     public float BonusAttackSpeed;
     public float BonusCriticalPercentage;
 
