@@ -2,21 +2,12 @@
 using System.Collections;
 using UnityEngine;
 
-// TODO : IStageDungeon 인터페이스로 확장
-public interface IStageDungeon
-{
-    void SetStage(DungeonData dungeonData);
-}
-
 /// <summary>
 /// 전투 루프의 중심 오케스트레이터.
 /// 던전 시작 → 웨이브 스폰 → 전투 → 클리어/사망 상태 전환을 관리한다.
 /// UI 레이어는 OnStateChanged / OnWaveChanged 이벤트를 구독하여 화면을 갱신한다.
 /// </summary>
-public class BasicDungeonManager
-    : DungeonManager<BasicDungeonData>,
-        IStageDungeon,
-        IDungeonRewardProvider
+public class BasicDungeonManager : DungeonManager<BasicDungeonData>, IStageDungeon
 {
     public enum BasicDungeonState
     {
@@ -169,7 +160,10 @@ public class BasicDungeonManager
     {
         Debug.Log("[BasicDungeonManager] 던전 클리어!");
 
-        DungeonClearReward dungeonClearReward = GetReward();
+        DungeonClearReward dungeonClearReward =
+            _currentDungeonData != null
+                ? _currentDungeonData.DungeonClearReward
+                : _basicDungeonData.DungeonClearReward;
 
         GoodsManager.Instance.GetGoods(GoodsType.Gold).Increase(dungeonClearReward[GoodsType.Gold]);
         GoodsManager.Instance.GetGoods(GoodsType.XP).Increase(dungeonClearReward[GoodsType.XP]);
@@ -214,9 +208,4 @@ public class BasicDungeonManager
             );
         }
     }
-
-    public DungeonClearReward GetReward() =>
-        _currentDungeonData
-            ? _currentDungeonData.DungeonClearReward
-            : _basicDungeonData.DungeonClearReward;
 }

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3ca8f404c69064499e52f2344426d58, type: 3}
+  m_Name: QuickStone
+  m_EditorClassIdentifier: 
+  SkillName: QuickStone
+  SkillIcon: {fileID: 0}
+  SkillDescription: 
+  Cooldown: 0
+  Damage: 0
+  Category: 1
+  SPCost: 2
+  bonusAttackPower: 0
+  bonusHp: 0
+  bonusCriticalPercentage: 0
+  bonusAttackSpeed: 0.2

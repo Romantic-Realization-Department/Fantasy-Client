@@ -1,36 +1,11 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
-
-public interface ITimeLimitedDungeon
-{
-    /// <summary>
-    /// 던전이 시간 제한이 있는 던전인지 여부를 반환합니다.
-    /// </summary>
-    bool IsTimeLimited { get; }
-
-    /// <summary>
-    /// 던전 시간을 반환합니다. (초 단위)
-    /// </summary>
-    float GetTimeLimitSeconds();
-
-    /// <summary>
-    /// 시간이 다 되었을 때 호출됩니다.
-    /// </summary>
-    void OnTimeFinished();
-}
-
-public interface IDungeonRewardProvider
-{
-    /// <summary>
-    /// 현재 던전 진행 상황에 따른 보상을 계산하여 반환합니다.
-    /// </summary>
-    DungeonClearReward GetReward();
-}
 
 public class GoldDungeonManager
     : DungeonManager<GoldDungeonData>,
         ITimeLimitedDungeon,
-        IDungeonRewardProvider
+        IDungeonRewardRecorder
 {
     // ─── ITimeLimitedDungeon 구현 ─────────────────────────────────────────────
     public bool IsTimeLimited => _currentDungeonData.HasTimeLimit;
@@ -51,24 +26,21 @@ public class GoldDungeonManager
     [SerializeField]
     private GoldOre _goldOre;
 
-    [SerializeField]
-    private GameObject _dungeonClearUI;
-
     // ─── 런타임 데이터 ──────────────────────────────────────────────
     private uint _goldInitialValue;
     private uint _mithrilInitialValue;
 
-    public DungeonClearReward GetReward()
+    public IReadOnlyList<RewardDisplayItem> GetRewardItems()
     {
         uint goldReward = GoodsManager.Instance.GetGoods(GoodsType.Gold).Get() - _goldInitialValue;
         uint mithrilReward =
             GoodsManager.Instance.GetGoods(GoodsType.Mithril).Get() - _mithrilInitialValue;
-        DungeonClearReward dungeonClearReward = new DungeonClearReward();
 
-        dungeonClearReward[GoodsType.Gold] = goldReward;
-        dungeonClearReward[GoodsType.Mithril] = mithrilReward;
-
-        return dungeonClearReward;
+        return new[]
+        {
+            RewardDisplayItemFactory.Goods(GoodsType.Gold, goldReward),
+            RewardDisplayItemFactory.Goods(GoodsType.Mithril, mithrilReward),
+        };
     }
 
     protected override void Init()
@@ -100,11 +72,6 @@ public class GoldDungeonManager
     protected override void OnPrepareDungeon()
     {
         TransitionTo(DungeonState.Running);
-    }
-
-    protected override void OnClearDungeon()
-    {
-        _dungeonClearUI.SetActive(true);
     }
 
     protected override void Clear()

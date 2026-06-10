@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: WarriorStat
   m_EditorClassIdentifier: 
   Hp: 200
+  HpRecovery: 100
   DamageReduction: 0
-  AttackPower: 20
-  AttackSpeed: 1
+  AttackPower: 1000
+  AttackSpeed: 5
   CriticalPercentage: 0

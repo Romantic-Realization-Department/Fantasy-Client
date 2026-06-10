@@ -16,7 +16,7 @@ public class GoldOre : MonoBehaviour
         _goldDungeonData = goldDungeonData;
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         _gold.Increase((uint)(damage * _goldDungeonData.GoldPerDamage));
 
