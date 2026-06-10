@@ -31,37 +31,37 @@ public class AutoExecuteButtonAction : MonoBehaviour
     {
         set
         {
-            if (_displayValue != value)
+            if (_displayValue == value)
+                return;
+
+            _displayValue = value;
+
+            if (_displayValue > _activeTime)
+                return;
+
+            Span<char> charSpan = _buffer;
+            int offset = 0;
+
+            if (!_displayValue.TryFormat(charSpan[offset..], out int charsWritten))
+                return;
+            offset += charsWritten;
+
+            if (
+                !charSpan.TryAppend(ref offset, "초 뒤에 자동으로 ".AsSpan())
+                || !charSpan.TryAppend(ref offset, _actionSentence.AsSpan())
+                || !charSpan.TryAppend(ref offset, "...".AsSpan())
+            )
+                return;
+
+            _noticeText.SetCharArray(_buffer, 0, offset);
+            _noticeText.gameObject.SetActive(true);
+
+            if (_displayValue <= 0)
             {
-                _displayValue = value;
+                _displayValue = 0;
+                _reminingTime = 0;
 
-                if (_displayValue > _activeTime)
-                    return;
-
-                Span<char> charSpan = _buffer;
-                int offset = 0;
-
-                if (!_displayValue.TryFormat(charSpan[offset..], out int charsWritten))
-                    return;
-                offset += charsWritten;
-
-                if (
-                    !charSpan.TryAppend(ref offset, "초 뒤에 자동으로 ".AsSpan())
-                    || !charSpan.TryAppend(ref offset, _actionSentence.AsSpan())
-                    || !charSpan.TryAppend(ref offset, "...".AsSpan())
-                )
-                    return;
-
-                _noticeText.SetCharArray(_buffer, 0, offset);
-                _noticeText.gameObject.SetActive(true);
-
-                if (_displayValue <= 0)
-                {
-                    _displayValue = 0;
-                    _reminingTime = 0;
-
-                    _onTimeout.Invoke();
-                }
+                _onTimeout.Invoke();
             }
         }
     }
@@ -70,11 +70,13 @@ public class AutoExecuteButtonAction : MonoBehaviour
     {
         _reminingTime = _waitTime;
         _noticeText.gameObject.SetActive(false);
-        Debug.Log("켜짐");
     }
 
     private void Update()
     {
+        if (_reminingTime < 0)
+            return;
+
         _reminingTime -= Time.deltaTime;
         DisplayValue = Mathf.CeilToInt(_reminingTime);
     }

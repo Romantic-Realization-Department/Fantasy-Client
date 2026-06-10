@@ -11,6 +11,7 @@ public class AutoAttackController : MonoBehaviour, IAttackEvent
 {
     private Player player;
     private bool isAttacking;
+    private Coroutine attackCoroutine;
 
     private void Awake()
     {
@@ -21,10 +22,19 @@ public class AutoAttackController : MonoBehaviour, IAttackEvent
     {
         StopAttacking();
         isAttacking = true;
-        StartCoroutine(AutoAttackLoop());
+        attackCoroutine = StartCoroutine(AutoAttackLoop());
     }
 
-    public void StopAttacking() => isAttacking = false;
+    public void StopAttacking()
+    {
+        isAttacking = false;
+
+        if (attackCoroutine != null)
+        {
+            StopCoroutine(attackCoroutine);
+            attackCoroutine = null;
+        }
+    }
 
     private IEnumerator AutoAttackLoop()
     {
