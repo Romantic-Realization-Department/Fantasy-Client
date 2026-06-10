@@ -35,7 +35,6 @@ public class WeaponDungeonManager
     // 런타임 데이터
     private WeaponDungeonState _weaponDungeonState = WeaponDungeonState.Idle;
     private int _currentWaveIndex;
-    private uint _upgradeScrollInitialValue;
     private uint _earnedUpgradeScrollAmount;
 
     // 이벤트
@@ -66,7 +65,6 @@ public class WeaponDungeonManager
     protected override void StartDungeonInternal(WeaponDungeonData dungeonData)
     {
         _currentWaveIndex = 0;
-        _upgradeScrollInitialValue = GetUpgradeScrollValue();
         _earnedUpgradeScrollAmount = 0;
         _gottenWeapons.Clear();
     }
@@ -77,7 +75,6 @@ public class WeaponDungeonManager
         if (_player != null)
             _player.ResetHp();
         _currentWaveIndex = 0;
-        _upgradeScrollInitialValue = GetUpgradeScrollValue();
         _earnedUpgradeScrollAmount = 0;
         _gottenWeapons.Clear();
         base.RetryDungeon();
@@ -166,11 +163,6 @@ public class WeaponDungeonManager
     {
         RollWeaponDrops();
         RollUpgradeScrollDrop();
-        uint currentUpgradeScrollValue = GetUpgradeScrollValue();
-        _earnedUpgradeScrollAmount =
-            currentUpgradeScrollValue >= _upgradeScrollInitialValue
-                ? currentUpgradeScrollValue - _upgradeScrollInitialValue
-                : 0;
         Debug.Log("[WeaponDungeonManager] Dungeon cleared.");
     }
 
@@ -238,13 +230,11 @@ public class WeaponDungeonManager
         SO_Goods upgradeScroll = GoodsManager.Instance.GetGoods(GoodsType.UpgradeScroll);
 
         if (upgradeScroll != null)
+        {
             upgradeScroll.Increase(_currentDungeonData.UpgradeScrollDropAmount);
-    }
 
-    private static uint GetUpgradeScrollValue()
-    {
-        var upgradeScroll = GoodsManager.Instance.GetGoods(GoodsType.UpgradeScroll);
-        return upgradeScroll != null ? upgradeScroll.Get() : 0;
+            _earnedUpgradeScrollAmount += _currentDungeonData.UpgradeScrollDropAmount;
+        }
     }
 
     public void SetStage(DungeonData dungeonData)

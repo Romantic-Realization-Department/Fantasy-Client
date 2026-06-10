@@ -11,7 +11,7 @@ public abstract class Entity : MonoBehaviour
 {
     public float Hp { get; private set; }
     public float MaxHp { get; private set; }
-    public float HpRecovery { get; private set; } // TODO : HpRecovery스탯을 이용하여 체력 회복 구현
+    public float HpRecovery { get; private set; }
     public float DamageReduction { get; private set; }
     public float AttackPower { get; private set; }
     public float AttackSpeed { get; private set; }
