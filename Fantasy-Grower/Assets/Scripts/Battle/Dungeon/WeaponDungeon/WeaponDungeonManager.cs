@@ -200,7 +200,7 @@ public class WeaponDungeonManager
     {
         _gottenWeapons.Clear();
 
-        if (_currentDungeonData.WeaponDrops == null)
+        if (_currentDungeonData == null || _currentDungeonData.WeaponDrops == null)
             return;
 
         var equipmentManager = EquipmentManager.Instance;
@@ -235,9 +235,10 @@ public class WeaponDungeonManager
         if (UnityEngine.Random.Range(0f, 100f) > _currentDungeonData.UpgradeScrollDropChance)
             return;
 
-        GoodsManager
-            .Instance.GetGoods(GoodsType.UpgradeScroll)
-            .Increase(_currentDungeonData.UpgradeScrollDropAmount);
+        SO_Goods upgradeScroll = GoodsManager.Instance.GetGoods(GoodsType.UpgradeScroll);
+
+        if (upgradeScroll != null)
+            upgradeScroll.Increase(_currentDungeonData.UpgradeScrollDropAmount);
     }
 
     private static uint GetUpgradeScrollValue()

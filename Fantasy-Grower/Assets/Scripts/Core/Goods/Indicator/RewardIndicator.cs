@@ -7,7 +7,7 @@ public class RewardIndicator : MonoBehaviour
 {
     private TMP_Text _rewardText;
 
-    private readonly char[] _rewardTextChar = new char[128];
+    private readonly char[] _rewardTextChar = new char[256];
 
     private void Awake()
     {

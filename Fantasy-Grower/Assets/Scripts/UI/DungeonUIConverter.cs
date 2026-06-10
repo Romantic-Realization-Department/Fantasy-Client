@@ -87,10 +87,12 @@ public class DungeonUIConverter : MonoBehaviour
         )
             return;
 
+        curPanel.DOComplete();
         curPanel
             .DOAnchorPosX(_width * -compare, _convertDuration)
             .SetEase(Ease.OutQuint)
             .OnComplete(() => curPanel.gameObject.SetActive(false));
+        newPanel.DOComplete();
         newPanel.gameObject.SetActive(true);
         newPanel
             .DOAnchorPosX(0, _convertDuration)

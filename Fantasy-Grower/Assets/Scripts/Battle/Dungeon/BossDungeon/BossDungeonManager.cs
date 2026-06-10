@@ -157,6 +157,10 @@ public class BossDungeonManager
     protected override void OnClearDungeon()
     {
         GoodsManager goodsManager = GoodsManager.Instance;
+
+        if (_currentDungeonData == null)
+            return;
+
         DungeonClearReward dungeonClearReward = _currentDungeonData.DungeonClearReward;
 
         goodsManager.GetGoods(GoodsType.Mithril).Increase(dungeonClearReward[GoodsType.Mithril]);
@@ -191,13 +195,12 @@ public class BossDungeonManager
     private void GiveRandomAGradeWeapon()
     {
         if (
-            _currentDungeonData.AGradeWeaponCandidates == null
+            _currentDungeonData == null
+            || _currentDungeonData.AGradeWeaponCandidates == null
             || _currentDungeonData.AGradeWeaponCandidates.Length == 0
             || _currentDungeonData.WeaponRewardAmount == 0
         )
-        {
             return;
-        }
 
         var equipmentManager = EquipmentManager.Instance;
         if (equipmentManager == null)

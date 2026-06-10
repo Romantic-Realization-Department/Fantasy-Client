@@ -44,7 +44,7 @@ public class SkillTreePanel : MonoBehaviour
     {
         var sp = GoodsManager.Instance.GetGoods(GoodsType.SP);
         if (sp != null)
-            sp.OnValueChange += _ => RefreshAll();
+            sp.OnValueChange += OnSPChanged;
 
         for (int i = 0; i < equipSlotUIs.Length; i++)
             equipSlotUIs[i].Initialize(i, this);
@@ -52,6 +52,15 @@ public class SkillTreePanel : MonoBehaviour
         BuildTree();
         RefreshAll();
     }
+
+    private void OnDestroy()
+    {
+        var sp = GoodsManager.Instance.GetGoods(GoodsType.SP);
+        if (sp != null)
+            sp.OnValueChange -= OnSPChanged;
+    }
+
+    private void OnSPChanged(uint value) => RefreshAll();
 
     // ─── 트리 구축 ───────────────────────────────────────────────────
 
