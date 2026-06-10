@@ -62,7 +62,6 @@ public class AutoExecuteButtonAction : MonoBehaviour
                 _reminingTime = 0;
 
                 _onTimeout.Invoke();
-                enabled = false;
             }
         }
     }
@@ -80,15 +79,6 @@ public class AutoExecuteButtonAction : MonoBehaviour
 
         _reminingTime -= Time.deltaTime;
         DisplayValue = Mathf.CeilToInt(_reminingTime);
-    }
-
-    private void OnDisable()
-    {
-        if (!gameObject.activeInHierarchy)
-        {
-            enabled = true;
-            return;
-        }
     }
 
     private void OnValidate()
