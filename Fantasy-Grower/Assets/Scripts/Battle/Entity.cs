@@ -57,7 +57,10 @@ public abstract class Entity : MonoBehaviour
     protected void Update()
     {
         // 불변 영역(엔티티 기본 체력 회복)
-        Hp = Mathf.MoveTowards(Hp, MaxHp, HpRecovery * Time.deltaTime);
+        if (Hp > 0)
+        {
+            Hp = Mathf.MoveTowards(Hp, MaxHp, HpRecovery * Time.deltaTime);
+        }
 
         // 가변 영역
         OnUpdated?.Invoke();
