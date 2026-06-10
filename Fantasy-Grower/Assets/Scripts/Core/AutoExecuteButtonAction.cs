@@ -60,17 +60,17 @@ public class AutoExecuteButtonAction : MonoBehaviour
                     _displayValue = 0;
                     _reminingTime = 0;
 
-                    enabled = false;
                     _onTimeout.Invoke();
                 }
             }
         }
     }
 
-    private void Awake()
+    private void OnEnable()
     {
         _reminingTime = _waitTime;
         _noticeText.gameObject.SetActive(false);
+        Debug.Log("켜짐");
     }
 
     private void Update()

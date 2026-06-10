@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: f0b4c8ab5eb0ab14eb62f97145aad6a6
+guid: 1f33e45a5618f4349aca28f321cc7566
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -492483837151106502
-    second: GoldDungeonBackground_0
+      213: 5945679029697328416
+    second: BossDungeonBackground_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: GoldDungeonBackground_0
+      name: BossDungeonBackground_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 941
-        height: 1672
+        width: 1536
+        height: 1024
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a3aacf43f885a29f0800000000000000
-      internalID: -492483837151106502
+      spriteID: 0253991739b438250800000000000000
+      internalID: 5945679029697328416
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      GoldDungeonBackground_0: -492483837151106502
+      BossDungeonBackground_0: 5945679029697328416
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

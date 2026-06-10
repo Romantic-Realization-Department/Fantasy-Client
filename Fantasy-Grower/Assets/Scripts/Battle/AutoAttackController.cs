@@ -10,7 +10,7 @@ using UnityEngine;
 public class AutoAttackController : MonoBehaviour, IAttackEvent
 {
     private Player player;
-    private Coroutine attackCoroutine;
+    private bool isAttacking;
 
     private void Awake()
     {
@@ -20,23 +20,20 @@ public class AutoAttackController : MonoBehaviour, IAttackEvent
     public void StartAttacking()
     {
         StopAttacking();
-        attackCoroutine = StartCoroutine(AutoAttackLoop());
+        isAttacking = true;
+        StartCoroutine(AutoAttackLoop());
     }
 
-    public void StopAttacking()
-    {
-        if (attackCoroutine != null)
-        {
-            StopCoroutine(attackCoroutine);
-            attackCoroutine = null;
-        }
-    }
+    public void StopAttacking() => isAttacking = false;
 
     private IEnumerator AutoAttackLoop()
     {
-        while (true)
+        while (isAttacking)
         {
             player.Attack(); // 플레이어가 실제 피해를 처리
+
+            if (!isAttacking)
+                yield break;
 
             // AttackSpeed = 초당 공격 횟수 (예: 1.0 → 1초마다 공격)
             float interval = player.AttackSpeed > 0f ? 1f / player.AttackSpeed : 1f;

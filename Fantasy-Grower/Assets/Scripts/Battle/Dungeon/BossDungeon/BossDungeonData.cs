@@ -4,7 +4,7 @@ using UnityEngine;
 public class BossDungeonData : DungeonData
 {
     [SerializeField]
-    private WaveData[] _waves;
+    private WaveData[] _waves; // 한 웨이브에 여러 보스를 넣는 것은 권장하지 않습니다.
 
     [SerializeField]
     private float _nextWaveDelay = 1.5f;
