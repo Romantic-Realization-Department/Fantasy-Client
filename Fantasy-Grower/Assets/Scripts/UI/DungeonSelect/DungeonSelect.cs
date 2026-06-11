@@ -39,7 +39,7 @@ public class DungeonSelect : MonoBehaviour
 
     private void OnValidate()
     {
-        if (_dungeonSelectButtons != null || _dungeonSelectButtons.Length == 0)
+        if (_dungeonSelectButtons == null || _dungeonSelectButtons.Length == 0)
         {
             Debug.Log("DungeonSelectOnUI가 할당되지 않았습니다!!!", this);
         }
