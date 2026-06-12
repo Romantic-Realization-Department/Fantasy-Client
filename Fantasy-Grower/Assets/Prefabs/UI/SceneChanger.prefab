@@ -452,7 +452,7 @@ MonoBehaviour:
   _tipImage: {fileID: 1798939492379417348}
   _tipText: {fileID: 1532806411660625758}
   _tips:
-  - Image: {fileID: -3696457344034117438, guid: 4400d3ff841cde84da2f6624a998d48c, type: 3}
+  - Image: {fileID: 21300000, guid: 4400d3ff841cde84da2f6624a998d48c, type: 3}
     Text: 'Tip: Combat in Basic Dungeons is automatic. Defeat all waves to clear
       the stage.'
   _fadeDuration: 0.3
