@@ -50,28 +50,6 @@ public class EquipmentManager : MonoBehaviour
     [SerializeField]
     private WeaponIcon[] WeaponIcons = new WeaponIcon[3];
 
-    [SerializeField]
-    private GameObject WeaponInfoObject;
-
-    [Header("강화")]
-    [SerializeField]
-    private Image WeaponIconImage;
-
-    [SerializeField]
-    private Image WeaponBGImage;
-
-    [SerializeField]
-    private Text WeaponLevelText;
-
-    [SerializeField]
-    private Text EquipInfoText;
-
-    [SerializeField]
-    private Text GetInfoText;
-
-    [SerializeField]
-    private GameObject[] AwakeObject;
-
     [Space(20f)]
     [SerializeField]
     private int _maxUpgradeLevel;
@@ -83,14 +61,7 @@ public class EquipmentManager : MonoBehaviour
     public Slot[] Invens;
 
     [Header("대장간 변수")]
-    public GameObject SmithyTab;
     public int useWeaponCount;
-
-    [Header("합성")]
-    public AnvilSlot[] SynthSlots;
-
-    [Header("각성")]
-    public AnvilSlot[] AwakeSlots;
     public int maxAwakeLevel;
 
     private WeaponID currentSelectID;
@@ -163,25 +134,27 @@ public class EquipmentManager : MonoBehaviour
     public void OpenItemInfoPage(Slot inven)
     {
         currentWeapon = GetWeapon(inven.ID);
-        WeaponIconImage.sprite = GetIcon(inven.ID);
+        EquipmentUIManager.Instance.WeaponIconImage.sprite = GetIcon(inven.ID);
         //WeaponBGImage.color =
 
-        WeaponInfoObject.SetActive(true);
+        EquipmentUIManager.Instance.WeaponInfoObject.SetActive(true);
     }
 
     void RefreshInfo()
     {
         if (currentWeapon.weaponLevel > 0)
         {
-            WeaponLevelText.text = "+" + currentWeapon.weaponLevel.ToString("0");
+            EquipmentUIManager.Instance.WeaponLevelText.text =
+                "+" + currentWeapon.weaponLevel.ToString("0");
         }
         else
         {
-            WeaponLevelText.text = "";
+            EquipmentUIManager.Instance.WeaponLevelText.text = "";
         }
 
-        EquipInfoText.text = "공격력: " + (currentWeapon.equipDamage * 100f).ToString("0") + "%";
-        GetInfoText.text = currentWeapon.weaponInfo;
+        EquipmentUIManager.Instance.EquipInfoText.text =
+            "공격력: " + (currentWeapon.equipDamage * 100f).ToString("0") + "%";
+        EquipmentUIManager.Instance.GetInfoText.text = currentWeapon.weaponInfo;
     }
 
     public void RefreshSlot()
@@ -209,19 +182,22 @@ public class EquipmentManager : MonoBehaviour
     {
         if (ID < WeaponID.A2)
             return;
-        for (int i = 0; i < SynthSlots.Length; i++)
+        for (int i = 0; i < EquipmentUIManager.Instance.SynthSlots.Length; i++)
         {
-            if (SynthSlots[i].IsSelectSlot)
+            if (EquipmentUIManager.Instance.SynthSlots[i].IsSelectSlot)
             {
                 currentSelectID = ID;
                 SO_Weapon temp = GetWeapon(ID);
                 currentWeapon = temp;
-                SynthSlots[i].SwapImage(temp, GetIcon(ID), GetColor(ID));
+                EquipmentUIManager
+                    .Instance.SynthSlots[i]
+                    .SwapImage(temp, GetIcon(ID), GetColor(ID));
             }
             else
             {
                 WeaponID nextWeaponID = (WeaponID)(ID - 2);
-                SynthSlots[i]
+                EquipmentUIManager
+                    .Instance.SynthSlots[i]
                     .SwapImage(GetWeapon(nextWeaponID), GetIcon(ID), GetColor(nextWeaponID));
             }
         }
@@ -231,11 +207,15 @@ public class EquipmentManager : MonoBehaviour
     {
         currentSelectID = ID;
         currentWeapon = GetWeapon(ID);
-        for (int i = 0; i < AwakeSlots.Length; i++)
+        for (int i = 0; i < EquipmentUIManager.Instance.AwakeSlots.Length; i++)
         {
-            AwakeSlots[i].HideAwakeImage();
-            AwakeSlots[i].SwapImage(currentWeapon, GetIcon(ID), GetColor(ID));
-            AwakeSlots[i].ShowAwakeImage(currentWeapon.weaponAwakeLevel + i);
+            EquipmentUIManager.Instance.AwakeSlots[i].HideAwakeImage();
+            EquipmentUIManager
+                .Instance.AwakeSlots[i]
+                .SwapImage(currentWeapon, GetIcon(ID), GetColor(ID));
+            EquipmentUIManager
+                .Instance.AwakeSlots[i]
+                .ShowAwakeImage(currentWeapon.weaponAwakeLevel + i);
         }
     }
 
