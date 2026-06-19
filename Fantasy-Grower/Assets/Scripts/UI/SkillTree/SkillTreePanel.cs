@@ -5,6 +5,7 @@ using UnityEngine.UI;
 /// <summary>
 /// 스킬 트리 전체 UI를 조율하는 패널.
 /// BuildTree()로 노드 버튼을 동적 생성하고 RefreshAll()로 상태를 동기화한다.
+/// 액티브/패시브 장착 슬롯을 각각 관리한다.
 /// </summary>
 public class SkillTreePanel : MonoBehaviour
 {
@@ -21,7 +22,10 @@ public class SkillTreePanel : MonoBehaviour
 
     [Header("장착 슬롯")]
     [SerializeField]
-    private SkillEquipSlotUI[] equipSlotUIs;
+    private SkillEquipSlotUI[] activeEquipSlotUIs;
+
+    [SerializeField]
+    private SkillEquipSlotUI[] passiveEquipSlotUIs;
 
     [Header("텍스트")]
     [SerializeField]
@@ -38,7 +42,10 @@ public class SkillTreePanel : MonoBehaviour
     private float nodeSpacingY = 100f;
 
     private readonly List<SkillNodeButton> nodeButtons = new();
+
+    // 장착 대기로 선택된 스킬 (카테고리별로 하나씩)
     private ActiveSkillData selectedActiveSkill;
+    private PassiveSkillData selectedPassiveSkill;
 
     private void Start()
     {
@@ -46,8 +53,10 @@ public class SkillTreePanel : MonoBehaviour
         if (sp != null)
             sp.OnValueChange += OnSPChanged;
 
-        for (int i = 0; i < equipSlotUIs.Length; i++)
-            equipSlotUIs[i].Initialize(i, this);
+        for (int i = 0; i < activeEquipSlotUIs.Length; i++)
+            activeEquipSlotUIs[i].Initialize(i, this);
+        for (int i = 0; i < passiveEquipSlotUIs.Length; i++)
+            passiveEquipSlotUIs[i].Initialize(i, this);
 
         BuildTree();
         RefreshAll();
@@ -152,22 +161,36 @@ public class SkillTreePanel : MonoBehaviour
 
             bool isUnlocked = skillTreeComponent.IsUnlocked(node);
             bool canUnlock = skillTreeComponent.CanUnlock(node);
-            bool isSelected = node.Skill is ActiveSkillData active && active == selectedActiveSkill;
+            bool isSelected = IsNodeSelected(node);
 
             btn.Refresh(isUnlocked, canUnlock, isSelected);
         }
     }
 
+    private bool IsNodeSelected(SkillNodeData node)
+    {
+        return node.Skill switch
+        {
+            ActiveSkillData active   => active == selectedActiveSkill,
+            PassiveSkillData passive => passive == selectedPassiveSkill,
+            _ => false,
+        };
+    }
+
     private void RefreshEquipSlots()
     {
-        if (equipSlotUIs == null)
-            return;
-        var equipped = skillTreeComponent?.GetEquippedActives();
-
-        for (int i = 0; i < equipSlotUIs.Length; i++)
+        var actives = skillTreeComponent?.GetEquippedActives();
+        for (int i = 0; i < activeEquipSlotUIs.Length; i++)
         {
-            ActiveSkillData skill = (equipped != null && i < equipped.Count) ? equipped[i] : null;
-            equipSlotUIs[i].Refresh(skill);
+            SkillData skill = (actives != null && i < actives.Count) ? actives[i] : null;
+            activeEquipSlotUIs[i].Refresh(skill);
+        }
+
+        var passives = skillTreeComponent?.GetEquippedPassives();
+        for (int i = 0; i < passiveEquipSlotUIs.Length; i++)
+        {
+            SkillData skill = (passives != null && i < passives.Count) ? passives[i] : null;
+            passiveEquipSlotUIs[i].Refresh(skill);
         }
     }
 
@@ -175,7 +198,7 @@ public class SkillTreePanel : MonoBehaviour
 
     /// <summary>
     /// SkillNodeButton 클릭 시 호출된다.
-    /// 미해금 → TryUnlockNode. 해금된 액티브 → 장착 대기 선택/해제.
+    /// 미해금 → TryUnlockNode. 해금된 스킬 → 카테고리별 장착 대기 선택/해제.
     /// </summary>
     public void OnNodeClicked(SkillNodeData node)
     {
@@ -189,6 +212,12 @@ public class SkillTreePanel : MonoBehaviour
         else if (node.Skill is ActiveSkillData activeSkill)
         {
             selectedActiveSkill = selectedActiveSkill == activeSkill ? null : activeSkill;
+            selectedPassiveSkill = null;
+        }
+        else if (node.Skill is PassiveSkillData passiveSkill)
+        {
+            selectedPassiveSkill = selectedPassiveSkill == passiveSkill ? null : passiveSkill;
+            selectedActiveSkill = null;
         }
 
         RefreshAll();
@@ -196,14 +225,28 @@ public class SkillTreePanel : MonoBehaviour
 
     /// <summary>
     /// SkillEquipSlotUI 클릭 시 호출된다.
-    /// 선택된 액티브 스킬이 있으면 해당 슬롯에 장착하고 선택을 초기화한다.
+    /// 슬롯 카테고리에 맞는 선택 스킬이 있으면 장착하고 선택을 초기화한다.
     /// </summary>
-    public void OnEquipSlotClicked(int slotIndex)
+    public void OnEquipSlotClicked(int slotIndex, SkillCategory category)
     {
-        if (selectedActiveSkill == null || skillTreeComponent == null)
+        if (skillTreeComponent == null)
             return;
-        skillTreeComponent.TryEquipActiveSkill(selectedActiveSkill, slotIndex);
-        selectedActiveSkill = null;
+
+        if (category == SkillCategory.Active)
+        {
+            if (selectedActiveSkill == null)
+                return;
+            skillTreeComponent.TryEquipActiveSkill(selectedActiveSkill, slotIndex);
+            selectedActiveSkill = null;
+        }
+        else // Passive
+        {
+            if (selectedPassiveSkill == null)
+                return;
+            skillTreeComponent.TryEquipPassiveSkill(selectedPassiveSkill, slotIndex);
+            selectedPassiveSkill = null;
+        }
+
         RefreshAll();
     }
 

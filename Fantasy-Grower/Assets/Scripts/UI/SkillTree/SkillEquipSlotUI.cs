@@ -3,11 +3,15 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// 액티브 스킬 장착 슬롯 UI. 클릭 시 SkillTreePanel에 장착 요청을 전달한다.
+/// 스킬 장착 슬롯 UI. 액티브/패시브 카테고리를 구분하여 동작한다.
+/// 클릭 시 SkillTreePanel에 카테고리와 함께 장착 요청을 전달한다.
 /// </summary>
 [RequireComponent(typeof(Button))]
 public class SkillEquipSlotUI : MonoBehaviour
 {
+    [SerializeField]
+    private SkillCategory category = SkillCategory.Active;
+
     [SerializeField]
     private TMP_Text slotLabel;
 
@@ -20,6 +24,8 @@ public class SkillEquipSlotUI : MonoBehaviour
     private static readonly Color ColorFilled = Color.cyan;
     private static readonly Color ColorEmpty = Color.gray;
 
+    public SkillCategory Category => category;
+
     public void Initialize(int index, SkillTreePanel ownerPanel)
     {
         slotIndex = index;
@@ -27,7 +33,7 @@ public class SkillEquipSlotUI : MonoBehaviour
         GetComponent<Button>().onClick.AddListener(OnClicked);
     }
 
-    public void Refresh(ActiveSkillData skill)
+    public void Refresh(SkillData skill)
     {
         if (slotLabel != null)
             slotLabel.text = skill != null ? skill.SkillName : "(비어있음)";
@@ -35,5 +41,5 @@ public class SkillEquipSlotUI : MonoBehaviour
             background.color = skill != null ? ColorFilled : ColorEmpty;
     }
 
-    private void OnClicked() => panel?.OnEquipSlotClicked(slotIndex);
+    private void OnClicked() => panel?.OnEquipSlotClicked(slotIndex, category);
 }

@@ -1,23 +1,27 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 /// <summary>
 /// 플레이어의 스킬 트리 런타임 상태를 관리하는 컴포넌트.
 /// 해금 상태를 Dictionary로 보관하여 ScriptableObject 에셋 오염을 방지한다.
+/// 트리 데이터는 GameManager의 선택된 직업을 우선 사용하고,
+/// GameManager가 없으면 직렬화된 treeData로 폴백한다(테스트 씬 호환).
 /// </summary>
 [RequireComponent(typeof(Player))]
 public class SkillTreeComponent : MonoBehaviour
 {
     [SerializeField]
+    [Tooltip("GameManager가 없을 때 사용할 폴백 스킬 트리(테스트용)")]
     private SkillTreeData treeData;
     public SkillTreeData TreeData => treeData;
 
     // ScriptableObject를 직접 수정하지 않고 런타임 상태를 Dictionary로 격리
     private Dictionary<SkillNodeData, bool> unlockedState;
 
-    // 장착된 액티브 스킬 슬롯 (null = 비어있음)
+    // 장착된 스킬 슬롯 (null = 비어있음)
     private List<ActiveSkillData> equippedActives;
+    private List<PassiveSkillData> equippedPassives;
 
     private ISkillTreeStrategy strategy;
     private Entity entity;
@@ -26,10 +30,15 @@ public class SkillTreeComponent : MonoBehaviour
     {
         entity = GetComponent<Entity>();
         unlockedState = new Dictionary<SkillNodeData, bool>();
+
+        ResolveTreeData();
+
         strategy = treeData != null ? treeData.CreateStrategy() : null;
 
-        int slotCount = treeData != null ? treeData.MaxActiveSkillSlots : 3;
-        equippedActives = new List<ActiveSkillData>(new ActiveSkillData[slotCount]);
+        int activeSlots  = treeData != null ? treeData.MaxActiveSkillSlots  : 5;
+        int passiveSlots = treeData != null ? treeData.MaxPassiveSkillSlots : 3;
+        equippedActives  = new List<ActiveSkillData>(new ActiveSkillData[activeSlots]);
+        equippedPassives = new List<PassiveSkillData>(new PassiveSkillData[passiveSlots]);
 
         if (treeData == null)
             Debug.LogWarning("[SkillTreeComponent] SkillTreeData가 비어 있습니다!");
@@ -40,6 +49,21 @@ public class SkillTreeComponent : MonoBehaviour
             foreach (var node in treeData.AllNodes)
                 unlockedState[node] = false;
         }
+    }
+
+    /// <summary>
+    /// 트리 데이터를 결정한다. GameManager가 존재하고 선택된 직업의 트리가
+    /// 등록되어 있으면 그것을 사용하고, 아니면 직렬화된 treeData를 유지한다.
+    /// </summary>
+    private void ResolveTreeData()
+    {
+        var gm = GameManager.InstanceOrNull;
+        if (gm == null)
+            return;
+
+        var selectedTree = gm.CurrentSkillTreeData;
+        if (selectedTree != null)
+            treeData = selectedTree;
     }
 
     // ─── 해금 흐름 ───────────────────────────────────────────────
@@ -71,23 +95,20 @@ public class SkillTreeComponent : MonoBehaviour
         strategy.OnNodeUnlocked(node, unlockedState);
 
         Debug.Log($"[SkillTree] {node.Skill?.SkillName} 해금 완료.");
-
-        RecalculatePassives();
         return true;
     }
 
     /// <summary>
-    /// 해금된 모든 패시브 스킬 효과를 재계산하여 Entity 스탯에 반영한다.
+    /// 장착된 패시브 스킬 효과만 재계산하여 Entity 스탯에 반영한다.
+    /// (해금만으로는 효과가 적용되지 않으며, 슬롯에 장착해야 적용된다.)
     /// </summary>
     private void RecalculatePassives()
     {
         var modifier = EntityStatModifier.Zero;
 
-        foreach (var kv in unlockedState)
+        foreach (var passive in equippedPassives)
         {
-            if (!kv.Value)
-                continue;
-            if (kv.Key.Skill is PassiveSkillData passive)
+            if (passive != null)
                 passive.ApplyPassive(ref modifier);
         }
 
@@ -120,12 +141,53 @@ public class SkillTreeComponent : MonoBehaviour
             equippedActives[slotIndex] = null;
     }
 
-    public ActiveSkillData GetEquippedSkill(int slotIndex)
+    public ActiveSkillData GetEquippedActive(int slotIndex)
     {
         if (slotIndex < 0 || slotIndex >= equippedActives.Count)
             return null;
         return equippedActives[slotIndex];
     }
+
+    public IReadOnlyList<ActiveSkillData> GetEquippedActives() => equippedActives.AsReadOnly();
+
+    // ─── 패시브 스킬 장착 ─────────────────────────────────────────
+
+    /// <summary>
+    /// 해금된 패시브 스킬을 지정 슬롯에 장착하고 스탯에 반영한다.
+    /// </summary>
+    public bool TryEquipPassiveSkill(PassiveSkillData skill, int slotIndex)
+    {
+        if (skill == null || slotIndex < 0 || slotIndex >= equippedPassives.Count)
+            return false;
+
+        if (!IsUnlocked(FindNodeBySkill(skill)))
+        {
+            Debug.Log($"[SkillTree] {skill.SkillName}이 해금되지 않았습니다.");
+            return false;
+        }
+
+        equippedPassives[slotIndex] = skill;
+        RecalculatePassives();
+        return true;
+    }
+
+    public void UnequipPassiveSkill(int slotIndex)
+    {
+        if (slotIndex >= 0 && slotIndex < equippedPassives.Count)
+        {
+            equippedPassives[slotIndex] = null;
+            RecalculatePassives();
+        }
+    }
+
+    public PassiveSkillData GetEquippedPassive(int slotIndex)
+    {
+        if (slotIndex < 0 || slotIndex >= equippedPassives.Count)
+            return null;
+        return equippedPassives[slotIndex];
+    }
+
+    public IReadOnlyList<PassiveSkillData> GetEquippedPassives() => equippedPassives.AsReadOnly();
 
     // ─── 조회 ────────────────────────────────────────────────────
 
@@ -146,8 +208,6 @@ public class SkillTreeComponent : MonoBehaviour
             return false;
         return strategy.CanUnlock(node, unlockedState);
     }
-
-    public IReadOnlyList<ActiveSkillData> GetEquippedActives() => equippedActives.AsReadOnly();
 
     // ─── 내부 유틸 ────────────────────────────────────────────────
 

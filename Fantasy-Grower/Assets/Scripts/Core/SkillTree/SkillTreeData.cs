@@ -24,8 +24,9 @@ public class SkillTreeData : ScriptableObject
     [Header("노드 목록")]
     public List<SkillNodeData> AllNodes;
 
-    [Header("액티브 슬롯 제한")]
-    public int MaxActiveSkillSlots = 3;
+    [Header("장착 슬롯 제한")]
+    public int MaxActiveSkillSlots = 5;  // 액티브 스킬 최대 장착 수
+    public int MaxPassiveSkillSlots = 3; // 패시브 스킬 최대 장착 수
 
     /// <summary>
     /// StrategyType에 맞는 전략 인스턴스를 생성한다.
