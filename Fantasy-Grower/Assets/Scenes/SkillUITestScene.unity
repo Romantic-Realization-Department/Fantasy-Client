@@ -1130,10 +1130,11 @@ MonoBehaviour:
   skillTreeComponent: {fileID: 695998551}
   skillNodeButtonPrefab: {fileID: 7657851272068659580, guid: c612bb9b8094f484b976e5e8494cf7d6, type: 3}
   nodeContainer: {fileID: 848310862}
-  equipSlotUIs:
+  activeEquipSlotUIs:
   - {fileID: 1226624409}
   - {fileID: 1821015446}
   - {fileID: 527535257}
+  passiveEquipSlotUIs: []
   spText: {fileID: 1444170316}
   entityStatsText: {fileID: 1452858422}
   nodeSpacingX: 120
