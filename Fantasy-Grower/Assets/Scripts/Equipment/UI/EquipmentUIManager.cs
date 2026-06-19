@@ -50,4 +50,12 @@ public class EquipmentUIManager : MonoBehaviour
     [Header("각성")]
     [field: SerializeField]
     public AnvilSlot[] AwakeSlots { get; set; }
+
+    public void Equip() => EquipmentManager.Instance.Equip(); //버튼 추가 형
+
+    public void UpgradeWeapon() => EquipmentManager.Instance.UpgradeWeapon(); //버튼 추가 형
+
+    public void Synthesis() => EquipmentManager.Instance.Synthesis(); //버튼 추가 형
+
+    public void Awakening() => EquipmentManager.Instance.Awakening(); //버튼 추가 형
 }

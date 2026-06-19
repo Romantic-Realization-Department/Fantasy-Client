@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public enum Career
 {
@@ -58,7 +57,6 @@ public class EquipmentManager : MonoBehaviour
 
     [Header("인벤토리")]
     public Weapon[] weapons = new Weapon[(int)Career.Wizard + 1];
-    public Slot[] Invens;
 
     [Header("대장간 변수")]
     public int useWeaponCount;
@@ -116,7 +114,7 @@ public class EquipmentManager : MonoBehaviour
     public void Equip()
     {
         EquipWeapon = currentWeapon;
-    }
+    } //버튼 추가 형
 
     public void UpgradeWeapon()
     {
@@ -129,7 +127,7 @@ public class EquipmentManager : MonoBehaviour
                 RefreshInfo();
             }
         }
-    }
+    } //버튼 추가 형
 
     public void OpenItemInfoPage(Slot inven)
     {
@@ -155,14 +153,6 @@ public class EquipmentManager : MonoBehaviour
         EquipmentUIManager.Instance.EquipInfoText.text =
             "공격력: " + (currentWeapon.equipDamage * 100f).ToString("0") + "%";
         EquipmentUIManager.Instance.GetInfoText.text = currentWeapon.weaponInfo;
-    }
-
-    public void RefreshSlot()
-    {
-        for (int i = 0; i < Invens.Length; i++)
-        {
-            Invens[i].RefreshIcon();
-        }
     }
 
     public void SaveSelectWeapon(WeaponID ID, SelectSlotType _SelectSlotType)
@@ -242,11 +232,13 @@ public class EquipmentManager : MonoBehaviour
         if (CheckWeaponState && currentSelectID >= WeaponID.A1)
         {
             uint synthAmount = (uint)(currentWeapon.Get() / useWeaponCount);
-            //currentWeapon.weaponCount = (uint)(currentWeapon.Get() % useWeaponCount);
+            currentWeapon.Decrease(
+                (uint)(currentWeapon.Get() - (currentWeapon.Get() % useWeaponCount))
+            );
             GetWeapon(currentWeapon.NextWeaponID).Increase(synthAmount);
             SaveSelectSynthWeapon(currentSelectID);
         }
-    }
+    } //버튼 추가 형
 
     public void Awakening()
     {
@@ -260,13 +252,7 @@ public class EquipmentManager : MonoBehaviour
             currentWeapon.weaponAwakeLevel += actualAwakeCount;
         }
         SaveSelectAwakeWeapon(currentSelectID);
-    }
-
-    public void GetItem(WeaponID id, uint amount)
-    {
-        weaponMap[id].Increase(amount);
-        RefreshSlot();
-    }
+    } //버튼 추가 형
 
     public void ResetWeapon() => currentWeapon = null;
 }
