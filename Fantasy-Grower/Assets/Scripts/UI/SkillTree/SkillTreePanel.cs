@@ -171,7 +171,7 @@ public class SkillTreePanel : MonoBehaviour
     {
         return node.Skill switch
         {
-            ActiveSkillData active   => active == selectedActiveSkill,
+            ActiveSkillData active => active == selectedActiveSkill,
             PassiveSkillData passive => passive == selectedPassiveSkill,
             _ => false,
         };

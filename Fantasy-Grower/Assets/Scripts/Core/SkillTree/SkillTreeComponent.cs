@@ -35,9 +35,9 @@ public class SkillTreeComponent : MonoBehaviour
 
         strategy = treeData != null ? treeData.CreateStrategy() : null;
 
-        int activeSlots  = treeData != null ? treeData.MaxActiveSkillSlots  : 5;
+        int activeSlots = treeData != null ? treeData.MaxActiveSkillSlots : 5;
         int passiveSlots = treeData != null ? treeData.MaxPassiveSkillSlots : 3;
-        equippedActives  = new List<ActiveSkillData>(new ActiveSkillData[activeSlots]);
+        equippedActives = new List<ActiveSkillData>(new ActiveSkillData[activeSlots]);
         equippedPassives = new List<PassiveSkillData>(new PassiveSkillData[passiveSlots]);
 
         if (treeData == null)

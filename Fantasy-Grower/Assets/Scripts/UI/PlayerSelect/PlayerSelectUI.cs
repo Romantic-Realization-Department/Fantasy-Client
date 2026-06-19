@@ -22,11 +22,15 @@ public class PlayerSelectUI : MonoBehaviour
     }
 
     [Header("직업 버튼")]
-    [SerializeField] private JobButton[] jobButtons;
+    [SerializeField]
+    private JobButton[] jobButtons;
 
     [Header("확정")]
-    [SerializeField] private Button confirmButton;
-    [SerializeField] private string nextSceneName;
+    [SerializeField]
+    private Button confirmButton;
+
+    [SerializeField]
+    private string nextSceneName;
 
     private Career selectedJob;
 
@@ -38,7 +42,8 @@ public class PlayerSelectUI : MonoBehaviour
 
         foreach (var entry in jobButtons)
         {
-            if (entry.button == null) continue;
+            if (entry.button == null)
+                continue;
             Career job = entry.job; // 클로저 캡처용 지역 변수
             entry.button.onClick.AddListener(() => OnJobSelected(job));
         }
@@ -62,7 +67,8 @@ public class PlayerSelectUI : MonoBehaviour
     private void OnConfirm()
     {
         var gm = GameManager.Instance;
-        if (gm == null) return;
+        if (gm == null)
+            return;
 
         gm.SelectJob(selectedJob);
 
