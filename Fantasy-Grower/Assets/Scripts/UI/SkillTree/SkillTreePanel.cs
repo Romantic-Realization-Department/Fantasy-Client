@@ -179,18 +179,19 @@ public class SkillTreePanel : MonoBehaviour
 
     private void RefreshEquipSlots()
     {
-        var actives = skillTreeComponent?.GetEquippedActives();
-        for (int i = 0; i < activeEquipSlotUIs.Length; i++)
-        {
-            SkillData skill = (actives != null && i < actives.Count) ? actives[i] : null;
-            activeEquipSlotUIs[i].Refresh(skill);
-        }
+        RefreshSlotCategory(activeEquipSlotUIs, skillTreeComponent?.GetEquippedActives());
+        RefreshSlotCategory(passiveEquipSlotUIs, skillTreeComponent?.GetEquippedPassives());
+    }
 
-        var passives = skillTreeComponent?.GetEquippedPassives();
-        for (int i = 0; i < passiveEquipSlotUIs.Length; i++)
+    private void RefreshSlotCategory(
+        IReadOnlyList<SkillEquipSlotUI> slots,
+        IReadOnlyList<SkillData> skills
+    )
+    {
+        for (int i = 0; i < slots.Count; i++)
         {
-            SkillData skill = (passives != null && i < passives.Count) ? passives[i] : null;
-            passiveEquipSlotUIs[i].Refresh(skill);
+            SkillData skill = (skills != null && i < skills.Count) ? skills[i] : null;
+            slots[i].Refresh(skill);
         }
     }
 
