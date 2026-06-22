@@ -38,9 +38,6 @@ public class SO_Weapon : SO_Goods
     [Header("무기 정보")]
     public string weaponName;
 
-    [TextArea]
-    public string weaponInfo;
-
     public int equipDamage;
     public int getDamage;
     public int weaponLevel;

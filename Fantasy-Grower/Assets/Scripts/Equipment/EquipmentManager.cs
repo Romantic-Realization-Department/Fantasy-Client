@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public enum Career
@@ -53,7 +54,7 @@ public class EquipmentManager : MonoBehaviour
     [SerializeField]
     private int _maxUpgradeLevel;
     public int maxUpgradeLevel => _maxUpgradeLevel;
-    private SO_Weapon EquipWeapon;
+    public SO_Weapon EquipWeapon { get; private set; }
 
     [Header("인벤토리")]
     public Weapon[] weapons = new Weapon[(int)Career.Wizard + 1];
@@ -119,12 +120,13 @@ public class EquipmentManager : MonoBehaviour
     public void UpgradeWeapon()
     {
         //재화 관리 매니저에서 강화스크롤 비교 후 사용 메서드 활용하여 재화 사용
-        if (true && currentWeapon != null)
+        if (currentWeapon != null && true)
         {
             if (maxUpgradeLevel > currentWeapon.weaponLevel)
             {
                 currentWeapon.weaponLevel++;
                 RefreshInfo();
+                RefreshInfoInUpgradeTab();
             }
         }
     } //버튼 추가 형
@@ -152,7 +154,33 @@ public class EquipmentManager : MonoBehaviour
 
         EquipmentUIManager.Instance.EquipInfoText.text =
             "공격력: " + (currentWeapon.equipDamage * 100f).ToString("0") + "%";
-        EquipmentUIManager.Instance.GetInfoText.text = currentWeapon.weaponInfo;
+        EquipmentUIManager.Instance.GetInfoText.text =
+            "공격력: " + (currentWeapon.getDamage * 100f).ToString("0") + "%";
+    }
+
+    void RefreshInfoInUpgradeTab()
+    {
+        if (currentWeapon.weaponLevel > 0)
+        {
+            EquipmentUIManager.Instance.UpgradeWeaponLevelText.text =
+                "+" + currentWeapon.weaponLevel.ToString("0");
+            if (currentWeapon.weaponLevel >= maxUpgradeLevel)
+            {
+                EquipmentUIManager.Instance.UpgradeWeaponLevelUpText.text = "";
+            }
+        }
+        else
+        {
+            EquipmentUIManager.Instance.WeaponLevelText.text = "";
+        }
+
+        string EquipUpPercent = "";
+        string GetUpPercent = "";
+
+        EquipmentUIManager.Instance.EquipInfoText.text =
+            "공격력: " + (currentWeapon.equipDamage * 100f).ToString("0") + EquipUpPercent + "%";
+        EquipmentUIManager.Instance.GetInfoText.text =
+            "공격력: " + (currentWeapon.getDamage * 100f).ToString("0") + GetUpPercent + "%";
     }
 
     public void SaveSelectWeapon(WeaponID ID, SelectSlotType _SelectSlotType)

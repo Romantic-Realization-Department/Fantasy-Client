@@ -20,36 +20,57 @@ public class EquipmentUIManager : MonoBehaviour
     [field: SerializeField]
     public GameObject WeaponInfoObject;
 
+    [field: SerializeField]
+    public Image WeaponIconImage { get; private set; }
+
+    [field: SerializeField]
+    public Image WeaponBGImage { get; private set; }
+
+    [field: SerializeField]
+    public Text WeaponLevelText { get; private set; }
+
+    [field: SerializeField]
+    public Text EquipInfoText { get; private set; }
+
+    [field: SerializeField]
+    public Text GetInfoText { get; private set; }
+
+    [field: SerializeField]
+    public GameObject[] AwakeObject { get; private set; }
+
     [Header("강화")]
     [field: SerializeField]
-    public Image WeaponIconImage { get; set; }
+    public Image UpgradeWeaponIconImage { get; private set; }
 
     [field: SerializeField]
-    public Image WeaponBGImage { get; set; }
+    public Image UpgradeWeaponBGImage { get; private set; }
 
     [field: SerializeField]
-    public Text WeaponLevelText { get; set; }
+    public Text UpgradeWeaponLevelText { get; private set; }
 
     [field: SerializeField]
-    public Text EquipInfoText { get; set; }
+    public Text UpgradeWeaponLevelUpText { get; private set; }
 
     [field: SerializeField]
-    public Text GetInfoText { get; set; }
+    public Text UpgradeEquipInfoText { get; private set; }
 
     [field: SerializeField]
-    public GameObject[] AwakeObject { get; set; }
+    public Text UpgradeGetInfoText { get; private set; }
+
+    [field: SerializeField]
+    public GameObject[] UpgradeAwakeObject { get; private set; }
 
     [Header("대장간 변수")]
     [field: SerializeField]
-    public GameObject SmithyTab { get; set; }
+    public GameObject SmithyTab { get; private set; }
 
     [Header("합성")]
     [field: SerializeField]
-    public AnvilSlot[] SynthSlots { get; set; }
+    public AnvilSlot[] SynthSlots { get; private set; }
 
     [Header("각성")]
     [field: SerializeField]
-    public AnvilSlot[] AwakeSlots { get; set; }
+    public AnvilSlot[] AwakeSlots { get; private set; }
 
     public void Equip() => EquipmentManager.Instance.Equip(); //버튼 추가 형
 
