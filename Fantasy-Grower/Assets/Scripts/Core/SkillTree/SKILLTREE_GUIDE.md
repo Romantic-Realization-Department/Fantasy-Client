@@ -135,8 +135,18 @@ skillTree.TryEquipActiveSkill(whirlSlashData, slotIndex: 0);
 skillTree.UnequipActiveSkill(slotIndex: 0);
 
 // 현재 장착된 스킬 조회
-ActiveSkillData equipped = skillTree.GetEquippedSkill(0);
+ActiveSkillData equipped = skillTree.GetEquippedActive(0);
 equipped?.UseSkill();
+```
+
+### 4-2-1. 패시브 스킬 장착
+
+```csharp
+// 패시브는 장착해야 스탯에 적용된다 (해금만으로는 효과 없음)
+skillTree.TryEquipPassiveSkill(clothArmorData, slotIndex: 0);
+skillTree.UnequipPassiveSkill(slotIndex: 0);
+
+PassiveSkillData equippedPassive = skillTree.GetEquippedPassive(0);
 ```
 
 ### 4-3. 전투 루프에서 스킬 발동

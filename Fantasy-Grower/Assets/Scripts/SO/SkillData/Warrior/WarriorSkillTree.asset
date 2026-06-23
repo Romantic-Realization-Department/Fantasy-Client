@@ -19,4 +19,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ba99be6ba40b12e42a62b868423d6ff0, type: 2}
   - {fileID: 11400000, guid: b4d970a61f8022240a48715848c588f8, type: 2}
   - {fileID: 11400000, guid: 28ec52036fc467745b68f4bf1f08ef21, type: 2}
-  MaxActiveSkillSlots: 3
+  MaxActiveSkillSlots: 5
+  MaxPassiveSkillSlots: 3

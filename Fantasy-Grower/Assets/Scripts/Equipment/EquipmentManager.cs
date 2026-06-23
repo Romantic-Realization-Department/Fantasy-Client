@@ -2,13 +2,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum Career
-{
-    Warrior,
-    Archer,
-    Wizard,
-}
-
 [System.Serializable]
 public struct WeaponIcon
 {
