@@ -9,6 +9,8 @@ public class Wizard : Player
 
         // 공격 범위 내의 적을 감지하여 데미지를 입히는 로직
         Entity target = targets.GetFirstTarget();
+        if (target == null)
+            return;
 
         var (damage, _) = DamageCalculator.Calculate(
             AttackPower,
