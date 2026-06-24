@@ -287,7 +287,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _version: 188
   EditChk: 0
-  _code: SPUM_20260512194453148
+  _code: SPUM_Miner
   _anim: {fileID: 7677604904427932818}
   OverrideController: {fileID: 0}
   UnitType: Unit
