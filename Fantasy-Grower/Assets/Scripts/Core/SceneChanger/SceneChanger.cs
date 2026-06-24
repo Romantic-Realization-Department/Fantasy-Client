@@ -43,7 +43,6 @@ public class SceneChanger : MonoBehaviour
 
         _instance = this;
         DontDestroyOnLoad(gameObject);
-        gameObject.SetActive(true);
 
         // Dictionary 초기화
         foreach (var pair in _sceneChangePairs)

@@ -396,10 +396,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerSelectCanvas
       objectReference: {fileID: 0}
-    - target: {fileID: 8123504267109594063, guid: d32b4de913a1fa244a96bfd4e970ebc0, type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 1955654684}
     - target: {fileID: 8863062576265238404, guid: d32b4de913a1fa244a96bfd4e970ebc0, type: 3}
       propertyPath: m_Pivot.x
       value: 0
