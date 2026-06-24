@@ -1,4 +1,6 @@
-﻿public class Warrior : Player
+using UnityEngine;
+
+public class Wizard : Player
 {
     public override void Attack()
     {

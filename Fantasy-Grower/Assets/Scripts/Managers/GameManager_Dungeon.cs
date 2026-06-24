@@ -14,7 +14,7 @@ public partial class GameManager
         if (!_dungeonRecords.ContainsKey(type) || record > _dungeonRecords[type])
         {
             _dungeonRecords[type] = record;
-            
+
             // TODO: 추후 PlayerPrefs 또는 백엔드(서버) 저장 로직 추가
         }
     }
