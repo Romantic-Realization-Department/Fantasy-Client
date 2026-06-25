@@ -50,4 +50,12 @@ public partial class GameManager
     {
         return GetPlayerPrefab(selectedJob);
     }
+
+    private void OnValidate()
+    {
+        if (jobPrefabs == null || jobPrefabs.Length == 0)
+        {
+            Debug.LogError("[GameManager] Job Prefabs가 설정되지 않았습니다.", this);
+        }
+    }
 }

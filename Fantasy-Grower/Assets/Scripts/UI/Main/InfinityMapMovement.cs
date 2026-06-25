@@ -40,4 +40,16 @@ public class InfinityMapMovement : MonoBehaviour
             );
         }
     }
+
+    private void OnValidate()
+    {
+        if (_firstMap == null)
+        {
+            Debug.LogError("[InfinityMapMovement] First Map이 지정되지 않았습니다.", this);
+        }
+        if (_secondMap == null)
+        {
+            Debug.LogError("[InfinityMapMovement] Second Map이 지정되지 않았습니다.", this);
+        }
+    }
 }

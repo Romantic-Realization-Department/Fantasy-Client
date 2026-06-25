@@ -1,20 +1,44 @@
-# 프로젝트 전용 AI 규칙 (AGENTS.md)
+# Project AI Rules (AGENTS.md)
 
-## 1. C# 네이밍 컨벤션 (Naming Conventions)
-- **Private 필드**: 반드시 언더바(`_`)로 시작하는 카멜 케이스(camelCase)를 사용한다. (예: `private int _myVariable;`)
-- **Public 필드, 클래스, 구조체, 메서드, 프로퍼티**: 반드시 파스칼 케이스(PascalCase)를 사용한다. (예: `public class MyClass`, `public void MyMethod()`)
+## 1. C# Naming Conventions
+- **Private Fields, Locals, Parameters**: Strictly use `camelCase`. **NEVER** use Hungarian notation or prefixes like `_` or `m_` (e.g., use `private int attackPower;`).
+- **Public Fields, Classes, Structs, Methods, Properties**: Strictly use `PascalCase` (e.g., `public class MyClass`, `public void MyMethod()`).
+- **ScriptableObjects**: Strictly use `PascalCase` with NO prefixes. (e.g., `GoodsBase`. NEVER use `SO_Goods`).
 
-## 2. 유니티 컴포넌트 검증 (Unity Development)
-- **에디터 세팅 검증**: 기획자나 개발자의 인스펙터(Inspector) 세팅 누락 및 설정 오류로 인해 발생할 수 있는 잠재적 에러를 방지하기 위해, 하드코딩으로 예외 처리를 하기보다는 가급적 `OnValidate()` 메서드를 작성하여 에디터 콘솔에 명확하게 에러 로그(`Debug.LogError` 등)를 띄운다.
+## 2. Unity Component Validation
+- Use `OnValidate()` to catch missing Inspector references or setup errors, and log explicit `Debug.LogError` messages. Do not use hardcoded workarounds for missing references.
 
-## 3. 코드 주석 (Code Documentation)
-- **변경점 주석 작성**: 코드를 수정하거나 새로운 로직(특히 아키텍처나 핵심 API 변경점)을 적용할 때는, 해당 로직의 목적과 동작 원리를 이해하기 쉽도록 C# 코드 내에 한글로 상세히 주석을 작성한다.
+## 3. Code Documentation
+- Write detailed comments in **Korean** when adding or modifying logic (especially architecture or core APIs) so human developers can easily understand the intent.
 
-## 4. 확장성 및 SOLID 원칙 엄수 (Scalability & SOLID)
-- **SOLID 원칙 기반의 아키텍처 설계**: 아키텍처를 설계하거나 로직을 수정할 때, 단순히 현재 기능만 작동하게 만드는 하드코딩이나 임시방편(Workaround)을 절대 지양한다.
-- **최고의 확장성 지향**: 단일 책임 원칙(SRP), 개방-폐쇄 원칙(OCP) 등 객체 지향의 핵심 원칙을 철저히 준수하여, 추후 수많은 스킬이나 아이템이 추가되더라도 기존 코드의 수정을 최소화하며 수용할 수 있는 가장 **확장성이 높고 모듈화된 방향**을 최우선으로 선택한다.
+## 4. Scalability & SOLID Principles
+- Strictly adhere to SOLID principles (especially SRP and OCP).
+- Avoid temporary workarounds or hardcoding. Design modular, highly scalable architectures to accommodate massive numbers of future skills/items with minimal code changes.
 
-## 5. 프로젝트 장르 및 특성 (Project Genre & Characteristics)
-- **장르 요약**: 이 프로젝트는 유니티 엔진 기반의 **'픽셀 아트 판타지 방치형 RPG 키우기'** 게임이다.
-- **핵심 아키텍처**: `GameManager`를 통한 전역 스킬/직업 관리와, `Entity` 및 상태 머신(FSM)을 활용한 자동 전투 기반 시스템으로 구성되어 있다.
-- **로직 구현 방향성**: 방치형 게임 특성상 무수히 늘어날 수 있는 스탯, 스킬, 장비, 그리고 패시브 수치들을 동적이고 확장성 있게 처리하는 것이 이 프로젝트의 핵심 가치임을 인지하고 코드를 설계한다.
+## 5. Project Characteristics (Idle RPG)
+- **Genre**: 2D Pixel Art Fantasy Idle RPG (Unity 6.0.0+, URP 2D, New Input System).
+- **Core Loop**: Auto-combat driven by FSM-based `Entity` components and a global `GameManager`.
+- **Direction**: Code must dynamically handle practically infinite scaling of stats, skills, equipment, and passives.
+
+## 6. Combat Architecture
+- **Hit Detection**: Must be executed using 2D Triggers via the `AttackCollider` component.
+- **Friendly Fire**: Strictly use the `EntityType` Enum (`Player` vs `Enemy`) to prevent friendly fire.
+- **Damage**: Apply the attacker's `AttackPower` directly into the target's `TakeDamage()` method.
+
+## 7. Currency System Constraints
+- **XP Modification**: Never call `Decrease()` on XP currency (it is marked `[Obsolete]`).
+- **Overspending**: Always perform a Range Check (balance validation) before consuming any currency to prevent negative balances.
+
+## 8. Workflow & Environment
+- **NO CLI Builds**: Do not use command-line build scripting. Perform all testing and running exclusively inside the Unity Editor (Play button, Test Runner).
+
+## 9. GDD (Game Design) Context
+- **Skill Trees**:
+  - Warrior: Free branching tree.
+  - Archer: TFT-style "Pick 1 of 3" per row.
+  - Mage: Linear tree separated by elements (Fire, Ice, Wind).
+- **Dungeons**:
+  - Basic: Idle wave auto-combat.
+  - Gold: 30~60s click/tap mining minigame. DO NOT implement standard combat here.
+  - Weapon/Boss: Specialized reward pools (C-grade weapons vs Mithril + A-grade weapons).
+- **Weapon Grades**: S > A > B > C. The highest 'S' grade cannot be dropped; it is ONLY craftable via the Synthesis system using Mithril.

@@ -24,6 +24,10 @@ public class BasicDungeonManager
 
     public void InjectPlayer(Player player)
     {
+        if (_player != null)
+        {
+            _player.OnDied -= HandlePlayerDied;
+        }
         _player = player;
         if (_player != null)
         {

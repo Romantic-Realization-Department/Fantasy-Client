@@ -34,4 +34,19 @@ public class GameStartAction : MonoBehaviour
             SceneChanger.LoadScene(_basicDungeon.SceneName, SceneChangeType.PageSwap);
         }
     }
+
+    private void OnValidate()
+    {
+        if (_playerSelectUI == null)
+        {
+            Debug.LogError("[GameStartAction] Player Select UI가 지정되지 않았습니다.", this);
+        }
+        if (_basicDungeon == null)
+        {
+            Debug.LogError(
+                "[GameStartAction] Basic Dungeon SceneNameRef가 지정되지 않았습니다.",
+                this
+            );
+        }
+    }
 }

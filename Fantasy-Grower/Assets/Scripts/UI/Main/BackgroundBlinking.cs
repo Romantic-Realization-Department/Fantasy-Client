@@ -64,4 +64,12 @@ public class BackgroundBlinking : MonoBehaviour
         _slowBlinkTween?.Kill();
         _fastBlinkTween?.Kill();
     }
+
+    private void OnValidate()
+    {
+        if (_background == null)
+        {
+            Debug.LogError("[BackgroundBlinking] Background Image가 지정되지 않았습니다.", this);
+        }
+    }
 }

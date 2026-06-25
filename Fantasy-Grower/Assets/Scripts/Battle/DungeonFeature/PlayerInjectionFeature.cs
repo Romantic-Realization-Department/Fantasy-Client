@@ -56,4 +56,15 @@ public class PlayerInjectionFeature : MonoBehaviour
             );
         }
     }
+
+    private void OnValidate()
+    {
+        if (_playerSpawnPoint == null)
+        {
+            Debug.LogError(
+                "[PlayerInjectionFeature] Player Spawn Point가 지정되지 않았습니다.",
+                this
+            );
+        }
+    }
 }
