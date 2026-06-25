@@ -42,3 +42,6 @@
   - Gold: 30~60s click/tap mining minigame. DO NOT implement standard combat here.
   - Weapon/Boss: Specialized reward pools (C-grade weapons vs Mithril + A-grade weapons).
 - **Weapon Grades**: S > A > B > C. The highest 'S' grade cannot be dropped; it is ONLY craftable via the Synthesis system using Mithril.
+
+## 10. Code Formatting
+- **CSharpier**: All C# code must be formatted strictly following the **CSharpier** formatting style. Do not use custom formatting or spacing that contradicts CSharpier conventions.
