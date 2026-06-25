@@ -5,11 +5,6 @@ public class Player : Entity
     [SerializeField, Header("공격 설정")]
     protected AttackTargetsSensing targets;
 
-    public override void Attack()
-    {
-        entityState[gameObject].State = PlayerState.ATTACK; // 공격 상태로 전환하여 애니메이션과 공격 로직이 실행되도록 함
-    }
-
     public override void Death()
     {
         base.Death();

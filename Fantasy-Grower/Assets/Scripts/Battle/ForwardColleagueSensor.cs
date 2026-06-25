@@ -16,8 +16,9 @@ public class ForwardColleagueSensor : MonoBehaviour
     {
         if (
             other.TryGetComponent(out Entity entity)
-            && entity != _myEntity
-            && entity.EntityType == _myEntity.EntityType
+            && entity != _myEntity // 자기 자신을 감지했으면 추가하지 않음
+            && entity.EntityType == _myEntity.EntityType // 적군이면 추가하지 않음
+            && EntityState.Instance[entity.gameObject].State != PlayerState.DEATH // 이미 죽은 상태라면 추가하지 않음
         )
         {
             Add(entity);

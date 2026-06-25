@@ -47,11 +47,14 @@ public class BackgroundBlinking : MonoBehaviour
             _slowBlinkTween.SetLoops(Random.Range(2, 6), LoopType.Yoyo);
             _slowBlinkTween.Restart();
 
-            // 시퀀스 없이 트윈 자체를 yield하여 대기
-            yield return _slowBlinkTween.WaitForCompletion();
+            // GC 할당 제로(Zero)를 위한 while 대기
+            while (_slowBlinkTween.IsPlaying())
+                yield return null;
 
             _fastBlinkTween.Restart();
-            yield return _fastBlinkTween.WaitForCompletion();
+            
+            while (_fastBlinkTween.IsPlaying())
+                yield return null;
         }
     }
 

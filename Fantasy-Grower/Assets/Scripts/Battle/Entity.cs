@@ -113,7 +113,10 @@ public abstract class Entity : MonoBehaviour
     #endregion
 
     // 애니메이션의 특정 시점에서 호출하고 싶다면, StateMachineBehaviour를 거쳐 호출하는 것을 추천합니다.
-    public virtual void Attack() { }
+    public virtual void Attack()
+    {
+        entityState[gameObject].State = PlayerState.ATTACK;
+    }
 
     /// <summary>HP를 MaxHp로 복구한다. 던전 재시도 시 사용.</summary>
     public void ResetHp()
@@ -124,6 +127,7 @@ public abstract class Entity : MonoBehaviour
     public virtual void Death()
     {
         OnDied?.Invoke(this);
+        entityState[gameObject].State = PlayerState.DEATH;
     }
 
     public virtual void TakeDamage(float damage)

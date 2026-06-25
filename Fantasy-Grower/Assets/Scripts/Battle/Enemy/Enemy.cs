@@ -50,6 +50,11 @@ public class Enemy : Entity
         OnIdle(); // 공격 중에는 움직이지 않도록 설정
     }
 
+    protected override void OnDeath()
+    {
+        rb.linearVelocityX = 0f;
+    }
+
     // 앞에 아군이 감지 되었을 때
     private void OnBlocked()
     {
@@ -60,11 +65,6 @@ public class Enemy : Entity
     private void OnUnBlocked()
     {
         entityState[gameObject].State = PlayerState.MOVE;
-    }
-
-    public override void Attack()
-    {
-        entityState[gameObject].State = PlayerState.ATTACK; // 공격 상태로 전환하여 애니메이션과 공격 로직이 실행되도록 함
     }
 
     public override void Death()
