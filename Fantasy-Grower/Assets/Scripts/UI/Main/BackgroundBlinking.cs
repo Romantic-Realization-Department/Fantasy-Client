@@ -52,7 +52,7 @@ public class BackgroundBlinking : MonoBehaviour
                 yield return null;
 
             _fastBlinkTween.Restart();
-            
+
             while (_fastBlinkTween.IsPlaying())
                 yield return null;
         }
