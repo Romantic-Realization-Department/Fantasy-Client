@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -7,7 +7,10 @@ using UnityEngine;
 /// 던전 시작 → 웨이브 스폰 → 전투 → 클리어/사망 상태 전환을 관리한다.
 /// UI 레이어는 OnStateChanged / OnWaveChanged 이벤트를 구독하여 화면을 갱신한다.
 /// </summary>
-public class BasicDungeonManager : DungeonManager<BasicDungeonData>, IStageDungeon
+public class BasicDungeonManager
+    : DungeonManager<BasicDungeonData>,
+        IStageDungeon,
+        IPlayerInjectable
 {
     public enum BasicDungeonState
     {
@@ -17,10 +20,22 @@ public class BasicDungeonManager : DungeonManager<BasicDungeonData>, IStageDunge
         WaveCleared,
     }
 
-    // ─── Inspector 연결 ──────────────────────────────────────────
-    [SerializeField, Tooltip("플레이어 캐릭터")]
     private Player _player;
 
+    public void InjectPlayer(Player player)
+    {
+        if (_player != null)
+        {
+            _player.OnDied -= HandlePlayerDied;
+        }
+        _player = player;
+        if (_player != null)
+        {
+            _player.OnDied += HandlePlayerDied;
+        }
+    }
+
+    // ─── Inspector 연결 ──────────────────────────────────────────
     [SerializeField, Tooltip("웨이브 컨트롤러")]
     private WaveController _waveController;
 
@@ -49,7 +64,6 @@ public class BasicDungeonManager : DungeonManager<BasicDungeonData>, IStageDunge
     protected override void Init()
     {
         WaveController.OnAllEnemiesDead += HandleAllEnemiesDead;
-        _player.OnDied += HandlePlayerDied;
         SceneChanger.SceneLoaded += OnSceneLoaded;
     }
 
@@ -61,7 +75,8 @@ public class BasicDungeonManager : DungeonManager<BasicDungeonData>, IStageDunge
     protected override void Clear()
     {
         WaveController.OnAllEnemiesDead -= HandleAllEnemiesDead;
-        _player.OnDied -= HandlePlayerDied;
+        if (_player != null)
+            _player.OnDied -= HandlePlayerDied;
         SceneChanger.SceneLoaded -= OnSceneLoaded;
     }
 
@@ -78,7 +93,8 @@ public class BasicDungeonManager : DungeonManager<BasicDungeonData>, IStageDunge
     public override void RetryDungeon()
     {
         _waveController.Clear();
-        _player.ResetHp();
+        if (_player != null)
+            _player.ResetHp();
         _currentWaveIndex = 0;
         base.RetryDungeon();
     }

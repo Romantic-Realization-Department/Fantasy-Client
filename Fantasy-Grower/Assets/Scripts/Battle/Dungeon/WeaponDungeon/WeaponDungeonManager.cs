@@ -6,7 +6,8 @@ using UnityEngine;
 public class WeaponDungeonManager
     : DungeonManager<WeaponDungeonData>,
         IStageDungeon,
-        IDungeonRewardRecorder
+        IDungeonRewardRecorder,
+        IPlayerInjectable
 {
     public enum WeaponDungeonState
     {
@@ -16,8 +17,20 @@ public class WeaponDungeonManager
         WaveCleared,
     }
 
-    [SerializeField]
     private Player _player;
+
+    public void InjectPlayer(Player player)
+    {
+        if (_player != null)
+        {
+            _player.OnDied -= HandlePlayerDied;
+        }
+        _player = player;
+        if (_player != null)
+        {
+            _player.OnDied += HandlePlayerDied;
+        }
+    }
 
     [SerializeField]
     private WaveController _waveController;
@@ -44,8 +57,6 @@ public class WeaponDungeonManager
     protected override void Init()
     {
         WaveController.OnAllEnemiesDead += HandleAllEnemiesDead;
-        if (_player != null)
-            _player.OnDied += HandlePlayerDied;
         SceneChanger.SceneLoaded += OnSceneLoaded;
     }
 

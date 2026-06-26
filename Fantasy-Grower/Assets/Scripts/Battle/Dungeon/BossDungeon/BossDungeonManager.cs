@@ -6,7 +6,8 @@ using UnityEngine;
 public class BossDungeonManager
     : DungeonManager<BossDungeonData>,
         IStageDungeon,
-        IDungeonRewardRecorder
+        IDungeonRewardRecorder,
+        IPlayerInjectable
 {
     public enum BossDungeonState
     {
@@ -16,8 +17,20 @@ public class BossDungeonManager
         WaveCleared,
     }
 
-    [SerializeField, Tooltip("Player character")]
     private Player _player;
+
+    public void InjectPlayer(Player player)
+    {
+        if (_player != null)
+        {
+            _player.OnDied -= HandlePlayerDied;
+        }
+        _player = player;
+        if (_player != null)
+        {
+            _player.OnDied += HandlePlayerDied;
+        }
+    }
 
     [SerializeField, Tooltip("Wave controller")]
     private WaveController _waveController;
@@ -41,8 +54,6 @@ public class BossDungeonManager
     protected override void Init()
     {
         WaveController.OnAllEnemiesDead += HandleAllEnemiesDead;
-        if (_player != null)
-            _player.OnDied += HandlePlayerDied;
         SceneChanger.SceneLoaded += OnSceneLoaded;
     }
 

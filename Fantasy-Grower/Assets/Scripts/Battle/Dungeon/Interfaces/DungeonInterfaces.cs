@@ -30,3 +30,8 @@ public interface IDungeonRewardRecorder
     /// </summary>
     IReadOnlyList<RewardDisplayItem> GetRewardItems();
 }
+
+public interface IPlayerInjectable
+{
+    void InjectPlayer(Player player);
+}

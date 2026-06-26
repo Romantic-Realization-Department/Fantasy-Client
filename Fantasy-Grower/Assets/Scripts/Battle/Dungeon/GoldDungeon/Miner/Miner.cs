@@ -10,7 +10,7 @@ public class Miner : Entity
 
     public override void Attack()
     {
+        base.Attack();
         _goldOre.TakeDamage(AttackPower);
-        entityState[gameObject].State = PlayerState.ATTACK;
     }
 }
