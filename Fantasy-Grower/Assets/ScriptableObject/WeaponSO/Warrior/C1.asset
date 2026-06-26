@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bf84d2193e2760c4c9f107ed9dfb64cb, type: 3}
-  m_Name: testWeaponB
+  m_Name: C1
   m_EditorClassIdentifier: 
-  _weaponID: 3
-  weaponName: B
-  weaponInfo: BB
-  equipDamage: 0
-  getDamage: 0
+  value: 0
+  _weaponID: 0
+  _nextWeaponID: 0
+  weaponName: 
+  <equipDamage>k__BackingField: 0
+  <getDamage>k__BackingField: 0
   weaponLevel: 0
   weaponAwakeLevel: 0
   isUnlock: 0

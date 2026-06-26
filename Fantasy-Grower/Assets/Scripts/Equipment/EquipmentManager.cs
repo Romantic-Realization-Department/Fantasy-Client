@@ -115,6 +115,7 @@ public class EquipmentManager : MonoBehaviour
     public void Equip()
     {
         EquipWeapon = currentWeapon;
+        //hoco
     } //버튼 추가 형
 
     public void UpgradeWeapon()

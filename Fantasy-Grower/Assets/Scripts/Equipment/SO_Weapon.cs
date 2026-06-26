@@ -38,8 +38,14 @@ public class SO_Weapon : SO_Goods
     [Header("무기 정보")]
     public string weaponName;
 
-    public int equipDamage;
-    public int getDamage;
+    [field: SerializeField]
+    public int equipDamage { get; private set; }
+
+    [field: SerializeField]
+    public int getDamage { get; private set; }
+
+    public int DefaultDamage(int value) => getDamage * value * weaponLevel;
+
     public int weaponLevel;
     public int weaponAwakeLevel;
     public bool isUnlock;
