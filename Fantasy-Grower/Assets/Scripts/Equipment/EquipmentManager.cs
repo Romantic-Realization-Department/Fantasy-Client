@@ -63,6 +63,9 @@ public class EquipmentManager : MonoBehaviour
     public int useWeaponCount;
     public int maxAwakeLevel;
 
+    private int currentDefaultDamage;
+    private int currentEquipDamage;
+
     private WeaponID currentSelectID;
 
     private SO_Weapon currentWeapon;
@@ -116,8 +119,9 @@ public class EquipmentManager : MonoBehaviour
     {
         EquipWeapon = currentWeapon;
         EntityStatModifier modifier = new EntityStatModifier();
-        modifier.BonusAttackPower = EquipWeapon.DefaultDamage();
-        //todo: 플레이어와의 연결 필요
+        modifier.BonusAttackPower = EquipWeapon.DefaultDamage() - currentEquipDamage;
+        currentEquipDamage = EquipWeapon.DefaultDamage();
+        //gamemanager클래스 코드 추가 필요
     } //버튼 추가 형
 
     public void UpgradeWeapon()
@@ -290,14 +294,16 @@ public class EquipmentManager : MonoBehaviour
     private void applyStatModifier()
     {
         EntityStatModifier modifier = new EntityStatModifier();
+        int damage = 0;
 
         foreach (var weapon in weapons[(int)career].weapon)
         {
             if (weapon.isUnlock)
-                modifier.BonusAttackPower += weapon.EquipDamage();
+                damage += weapon.EquipDamage();
         }
 
-        Debug.Log($"획득 능력치 {modifier.BonusAttackPower}증가");
+        //gamemanager코드 추가 필요
+        currentEquipDamage = damage;
     }
 
     public void ResetWeapon() => currentWeapon = null;
