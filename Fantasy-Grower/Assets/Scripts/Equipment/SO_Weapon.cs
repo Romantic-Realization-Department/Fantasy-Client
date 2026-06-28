@@ -44,9 +44,19 @@ public class SO_Weapon : SO_Goods
     [field: SerializeField]
     public int getDamage { get; private set; }
 
-    public int DefaultDamage(int value) => getDamage * value * weaponLevel;
+    public int DefaultDamage() => Mathf.RoundToInt(getDamage * levelAmount * AwakeAmount);
+
+    public int EquipDamage() => Mathf.RoundToInt(equipDamage * levelAmount * AwakeAmount);
 
     public int weaponLevel;
+    private float levelAmount
+    {
+        get => 1 + (weaponLevel * .04f);
+    }
     public int weaponAwakeLevel;
+    private float AwakeAmount
+    {
+        get => Mathf.Pow(1.3f, weaponAwakeLevel);
+    }
     public bool isUnlock;
 }
