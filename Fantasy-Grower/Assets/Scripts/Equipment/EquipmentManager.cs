@@ -113,7 +113,7 @@ public class EquipmentManager : MonoBehaviour
         EntityStatModifier modifier = new EntityStatModifier();
         modifier.BonusAttackPower = EquipWeapon.DefaultDamage() - currentEquipDamage;
         currentEquipDamage = EquipWeapon.DefaultDamage();
-        //gamemanager클래스 코드 추가 필요
+        GameManager.Instance.GetPlayer().ApplyStatModifier(modifier);
     } //버튼 추가 형
 
     public void UpgradeWeapon()
@@ -296,8 +296,8 @@ public class EquipmentManager : MonoBehaviour
 
         if (damage == currentEquipDamage)
             return;
-
-        //gamemanager코드 추가 필요
+        modifier.BonusAttackPower += damage - currentEquipDamage;
+        GameManager.Instance.GetPlayer().ApplyStatModifier(modifier);
         currentEquipDamage = damage;
     }
 
