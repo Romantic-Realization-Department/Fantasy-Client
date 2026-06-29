@@ -24,6 +24,9 @@ public class SelectSlot : MonoBehaviour, IPointerClickHandler
     private Image BGImage;
 
     [SerializeField]
+    private GameObject CantUseWall;
+
+    [SerializeField]
     private SelectSlotType selectSlotType;
 
     private void Awake()
@@ -39,8 +42,7 @@ public class SelectSlot : MonoBehaviour, IPointerClickHandler
 
     private void OnEnable()
     {
-        if (!(_Weapon.isUnlock && EquipmentManager.Instance.CanUse(ID)))
-            gameObject.SetActive(false);
+        CantUseWall.SetActive(!(_Weapon.isUnlock && EquipmentManager.Instance.CanUse(ID)));
     }
 
     public void OnPointerClick(PointerEventData eventData)

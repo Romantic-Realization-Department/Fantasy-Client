@@ -660,6 +660,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 745ad09a46763e0449a12022ffc84c2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponLevelColor:
+  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0, g: 0, b: 0, a: 0}
   career: 0
   WeaponIcons:
   - career: 0
@@ -688,21 +694,29 @@ MonoBehaviour:
   - {fileID: 845584116}
   _maxUpgradeLevel: 20
   weapons:
-  - {fileID: 11400000, guid: 5e9d0d0c4b6357b48bf105992e9ba7ed, type: 2}
-  - {fileID: 11400000, guid: 19f5222ba29401f4da11c9fc70dbcbc4, type: 2}
-  - {fileID: 11400000, guid: 95cc1d6851f88e64a83dc265e38cffba, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - career: 0
+    weapon: []
+  - career: 0
+    weapon: []
+  - career: 0
+    weapon: []
+  - career: 0
+    weapon: []
+  - career: 0
+    weapon: []
+  - career: 0
+    weapon: []
+  - career: 0
+    weapon: []
+  - career: 0
+    weapon: []
   Invens:
   - {fileID: 306488846}
   SmithyTab: {fileID: 0}
-  WeaponBackgroundImage: []
-  WeaponSlotImage: []
-  WeaponCountText: []
-  SynthesisCountText: {fileID: 0}
+  useWeaponCount: 0
+  SynthSlots: []
+  AwakeSlots: []
+  maxAwakeLevel: 0
 --- !u!1 &328315790
 GameObject:
   m_ObjectHideFlags: 0
@@ -2311,7 +2325,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1386043714
 RectTransform:
   m_ObjectHideFlags: 0
