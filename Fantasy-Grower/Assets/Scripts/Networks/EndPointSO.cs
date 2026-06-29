@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu]
-public class EndpointSO : ScriptableObject
+public class EndPointSO : ScriptableObject
 {
     [field: SerializeField]
     public string BaseUrl { get; set; } = "http://gsmsv-1.yujun.kr:29859/api/v3/";

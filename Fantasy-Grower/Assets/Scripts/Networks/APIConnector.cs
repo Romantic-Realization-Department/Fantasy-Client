@@ -10,7 +10,7 @@ public class APIConnector : MonoBehaviour
     public static APIConnector instance;
 
     [SerializeField]
-    private EndpointSO endpointSO;
+    private EndPointSO endpointSO;
 
     private void Awake()
     {
