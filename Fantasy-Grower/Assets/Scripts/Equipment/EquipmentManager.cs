@@ -301,8 +301,18 @@ public class EquipmentManager : MonoBehaviour
                 damage += weapon.EquipDamage();
         }
 
+        if (damage == currentEquipDamage)
+            return;
+
         //gamemanager코드 추가 필요
         currentEquipDamage = damage;
+    }
+
+    public void GetItem(WeaponID id, uint amount)
+    {
+        weaponMap[id].Increase(amount);
+        RefreshInfo();
+        applyStatModifier();
     }
 
     public void ResetWeapon() => currentWeapon = null;
