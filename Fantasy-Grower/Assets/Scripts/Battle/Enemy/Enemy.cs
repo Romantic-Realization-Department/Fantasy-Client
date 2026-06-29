@@ -67,9 +67,17 @@ public class Enemy : Entity
         entityState[gameObject].State = PlayerState.MOVE;
     }
 
+    private void UnsubscribeSensorEvents()
+    {
+        sensor.OnBlocked -= OnBlocked;
+        sensor.OnUnBlocked -= OnUnBlocked;
+    }
+
     public override void Death()
     {
         base.Death(); // OnDied 이벤트 발화 (WaveController가 구독 중)
+
+        UnsubscribeSensorEvents();
 
         if (rewardData != null)
         {
@@ -84,8 +92,8 @@ public class Enemy : Entity
     {
         base.OnDestroy();
 
-        sensor.OnBlocked -= OnBlocked;
-        sensor.OnUnBlocked -= OnUnBlocked;
+        // 예외 처리(만약 적이 죽어서 파괴된 게 아니라면)
+        UnsubscribeSensorEvents();
     }
 
     protected override void OnValidate()

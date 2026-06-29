@@ -88,6 +88,7 @@ GameObject:
   - component: {fileID: 6055179298550145376}
   - component: {fileID: 3313455880565358961}
   - component: {fileID: 8219692972773876342}
+  - component: {fileID: 7385775734098027679}
   m_Layer: 5
   m_Name: ShopButton
   m_TagString: Untagged
@@ -212,6 +213,19 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
   m_EffectDistance: {x: 5, y: -5}
   m_UseGraphicAlpha: 1
+--- !u!114 &7385775734098027679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 426456973228046622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dc0afbe0c4e3bd41beb2a1beb7028f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiID: {fileID: 11400000, guid: 9956583c5399113419acb905ff21d8ff, type: 2}
 --- !u!1 &464496588827257094
 GameObject:
   m_ObjectHideFlags: 0
@@ -1009,6 +1023,7 @@ GameObject:
   - component: {fileID: 6317604988737504782}
   - component: {fileID: 3121995691204978624}
   - component: {fileID: 8551946110605421120}
+  - component: {fileID: 2837254866601858092}
   m_Layer: 5
   m_Name: BattleButton
   m_TagString: Untagged
@@ -1133,6 +1148,19 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
   m_EffectDistance: {x: 5, y: -5}
   m_UseGraphicAlpha: 1
+--- !u!114 &2837254866601858092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2096277595423981741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dc0afbe0c4e3bd41beb2a1beb7028f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiID: {fileID: 11400000, guid: c8c32e745e06df046870ace38b7ebfb7, type: 2}
 --- !u!1 &2117265630460428985
 GameObject:
   m_ObjectHideFlags: 0
@@ -2766,7 +2794,8 @@ MonoBehaviour:
   skillTreeComponent: {fileID: 0}
   skillNodeButtonPrefab: {fileID: 0}
   nodeContainer: {fileID: 0}
-  equipSlotUIs: []
+  activeEquipSlotUIs: []
+  passiveEquipSlotUIs: []
   spText: {fileID: 0}
   entityStatsText: {fileID: 0}
   nodeSpacingX: 120
@@ -3574,6 +3603,7 @@ GameObject:
   - component: {fileID: 5437658628999909274}
   - component: {fileID: 8374919635229054716}
   - component: {fileID: 4667606646356303966}
+  - component: {fileID: 2487494522425407653}
   m_Layer: 5
   m_Name: SkillButton
   m_TagString: Untagged
@@ -3698,6 +3728,19 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
   m_EffectDistance: {x: 5, y: -5}
   m_UseGraphicAlpha: 1
+--- !u!114 &2487494522425407653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6789364355618919757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dc0afbe0c4e3bd41beb2a1beb7028f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiID: {fileID: 11400000, guid: 13f0d4d257eb64c42b52bfb38f0f4a15, type: 2}
 --- !u!1 &6804572363749257046
 GameObject:
   m_ObjectHideFlags: 0
@@ -4214,6 +4257,7 @@ GameObject:
   - component: {fileID: 9051850891644584884}
   - component: {fileID: 645480872519879414}
   - component: {fileID: 819106658102981910}
+  - component: {fileID: 849967307005376930}
   m_Layer: 5
   m_Name: DungeonButton
   m_TagString: Untagged
@@ -4338,6 +4382,19 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
   m_EffectDistance: {x: 5, y: -5}
   m_UseGraphicAlpha: 1
+--- !u!114 &849967307005376930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7553836129438057894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dc0afbe0c4e3bd41beb2a1beb7028f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiID: {fileID: 11400000, guid: cd1eaac682edf4543b792bd2a1925348, type: 2}
 --- !u!1 &7822885635303352150
 GameObject:
   m_ObjectHideFlags: 0
@@ -4427,6 +4484,7 @@ GameObject:
   - component: {fileID: 1140755715059926444}
   - component: {fileID: 9126622725232464275}
   - component: {fileID: 2970704652837206282}
+  - component: {fileID: 4997020246430618414}
   m_Layer: 5
   m_Name: EquipmentButton
   m_TagString: Untagged
@@ -4551,6 +4609,19 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
   m_EffectDistance: {x: 5, y: -5}
   m_UseGraphicAlpha: 1
+--- !u!114 &4997020246430618414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8254994761239155946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dc0afbe0c4e3bd41beb2a1beb7028f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiID: {fileID: 11400000, guid: 8bfe84e7b50b64d4a801575b66ff594d, type: 2}
 --- !u!1 &8268042830737977005
 GameObject:
   m_ObjectHideFlags: 0

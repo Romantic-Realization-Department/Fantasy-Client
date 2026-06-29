@@ -29,7 +29,6 @@ public class SkillTreeComponent : MonoBehaviour
     private void Awake()
     {
         entity = GetComponent<Entity>();
-        unlockedState = new Dictionary<SkillNodeData, bool>();
 
         ResolveTreeData();
 
@@ -37,18 +36,30 @@ public class SkillTreeComponent : MonoBehaviour
 
         int activeSlots = treeData != null ? treeData.MaxActiveSkillSlots : 5;
         int passiveSlots = treeData != null ? treeData.MaxPassiveSkillSlots : 3;
-        equippedActives = new List<ActiveSkillData>(new ActiveSkillData[activeSlots]);
-        equippedPassives = new List<PassiveSkillData>(new PassiveSkillData[passiveSlots]);
+
+        var gm = GameManager.InstanceOrNull;
+        if (gm != null)
+        {
+            Career currentJob = gm.SelectedJob;
+            unlockedState = gm.GetUnlockedState(currentJob);
+            equippedActives = gm.GetEquippedActives(currentJob, activeSlots);
+            equippedPassives = gm.GetEquippedPassives(currentJob, passiveSlots);
+        }
+        else
+        {
+            // 테스트 씬 등 GameManager가 없는 경우를 위한 폴백
+            unlockedState = new Dictionary<SkillNodeData, bool>();
+            equippedActives = new List<ActiveSkillData>(new ActiveSkillData[activeSlots]);
+            equippedPassives = new List<PassiveSkillData>(new PassiveSkillData[passiveSlots]);
+        }
 
         if (treeData == null)
-            Debug.LogWarning("[SkillTreeComponent] SkillTreeData가 비어 있습니다!");
-
-        // 모든 노드를 초기 잠금 상태로 등록
-        if (treeData != null && treeData.AllNodes != null)
         {
-            foreach (var node in treeData.AllNodes)
-                unlockedState[node] = false;
+            Debug.LogWarning("[SkillTreeComponent] SkillTreeData가 비어 있습니다!");
         }
+
+        // 패시브 스탯 재생성 복구 (GameManager에서 가져온 기존 장착 데이터 적용)
+        RecalculatePassives();
     }
 
     /// <summary>
