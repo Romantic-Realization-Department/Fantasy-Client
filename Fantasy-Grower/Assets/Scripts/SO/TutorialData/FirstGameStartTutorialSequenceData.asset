@@ -33,7 +33,7 @@ MonoBehaviour:
     customDialogueSize: {x: 1000, y: 500}
     customArrowAnchoredPosition: {x: 510, y: -900}
     customArrowSize: {x: 100, y: 100}
-  - actionType: 1
+  - actionType: 0
     targetUI_ID: {fileID: 11400000, guid: 9956583c5399113419acb905ff21d8ff, type: 2}
     dialogueText: "\uC0C1\uC810 : \uACE8\uB4DC\uB97C \uC0AC\uC6A9\uD574 \uBB34\uAE30\uC640
       \uC7AC\uB8CC\uB97C \uAD6C\uC785\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4!"

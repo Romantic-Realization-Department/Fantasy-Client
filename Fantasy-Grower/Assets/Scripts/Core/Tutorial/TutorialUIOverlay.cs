@@ -69,9 +69,6 @@ public class TutorialUIOverlay : Graphic, ICanvasRaycastFilter, IPointerClickHan
         return null;
     }
 
-    /// <summary>
-    /// 타겟 영역 구멍 뚫기, 대화창 띄우기, 화살표 배치를 한 번에 수행한다.
-    /// </summary>
     public void ShowGuide(RectTransform target, TutorialStepData data)
     {
         enabled = true; // 가이드 시작 시 활성화하여 렌더링 및 터치 블락 재개
@@ -82,76 +79,84 @@ public class TutorialUIOverlay : Graphic, ICanvasRaycastFilter, IPointerClickHan
         Camera targetCam = GetCanvasCamera(targetRect);
         Camera overlayCam = GetCanvasCamera(rectTransform);
 
-        // 🚨 핵심 수정: Target UI의 피벗에 흔들리지 않도록 완벽한 기하학적 중심점(Center)을 구함
-        Vector3[] corners = new Vector3[4];
-        target.GetWorldCorners(corners);
-        Vector3 worldCenter = (corners[0] + corners[2]) * 0.5f;
-        Vector2 targetScreenPos = RectTransformUtility.WorldToScreenPoint(targetCam, worldCenter);
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            rectTransform,
-            targetScreenPos,
-            overlayCam,
-            out Vector2 localCenter
-        );
+        // 타겟이 없는 경우(DIALOGUE_ONLY 등)를 방어하기 위한 null 체크
+        Vector2 targetScreenPos = new Vector2(Screen.width / 2f, Screen.height / 2f);
+        Vector2 localCenter = Vector2.zero;
+
+        if (target != null)
+        {
+            // Target UI의 피벗에 흔들리지 않도록 완벽한 기하학적 중심점(Center)을 구함
+            Vector3[] corners = new Vector3[4];
+            target.GetWorldCorners(corners);
+            Vector3 worldCenter = (corners[0] + corners[2]) * 0.5f;
+            targetScreenPos = RectTransformUtility.WorldToScreenPoint(targetCam, worldCenter);
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                rectTransform,
+                targetScreenPos,
+                overlayCam,
+                out localCenter
+            );
+        }
 
         if (dialoguePanel != null)
         {
-            dialoguePanel.SetActive(!string.IsNullOrEmpty(data.dialogueText));
+            // dialogueText가 아예 할당되지 않았을 때(null)를 방어
+            string safeDialogueText = data.dialogueText ?? string.Empty;
+
+            dialoguePanel.SetActive(!string.IsNullOrEmpty(safeDialogueText));
             if (guideText != null)
             {
                 textTween?.Kill();
 
                 // GC 최적화: DOText(매 프레임 string 생성) 대신 maxVisibleCharacters 활용
-                guideText.text = data.dialogueText;
+                guideText.text = safeDialogueText;
                 guideText.maxVisibleCharacters = 0;
 
                 // 글자 수에 비례하여 애니메이션 시간 결정 (글자당 0.05초)
-                float duration = data.dialogueText.Length * 0.05f;
+                float duration = safeDialogueText.Length * 0.05f;
 
                 textTween = DOTween
                     .To(
                         () => guideText.maxVisibleCharacters,
                         x => guideText.maxVisibleCharacters = x,
-                        data.dialogueText.Length,
+                        safeDialogueText.Length,
                         duration
                     )
                     .SetEase(Ease.Linear)
                     .SetUpdate(true); // timeScale = 0 환경에서도 정상 동작하도록 설정
             }
 
-            if (target != null)
+            // 타겟이 없어도 대화창 패널은 화면 중앙에라도 띄워주기 위해 target != null 조건 제거
+            var panelRect = dialoguePanel.GetComponent<RectTransform>();
+
+            if (data.useCustomPosition)
             {
-                var panelRect = dialoguePanel.GetComponent<RectTransform>();
+                // 커스텀 위치 사용 시
+                panelRect.anchorMin = new Vector2(0.5f, 0.5f);
+                panelRect.anchorMax = new Vector2(0.5f, 0.5f);
+                panelRect.pivot = new Vector2(0.5f, 0.5f);
 
-                if (data.useCustomPosition)
+                panelRect.anchoredPosition = data.customDialogueAnchoredPosition;
+                panelRect.sizeDelta = data.customDialogueSize;
+            }
+            else
+            {
+                // 기존 자동 회피 로직 (타겟이 없으면 화면 중앙(screenHalf) 기준으로 위쪽(0, 150)에 배치됨)
+                float screenHalf = Screen.height / 2f;
+
+                if (targetScreenPos.y > screenHalf)
                 {
-                    // 커스텀 위치 사용 시
-                    panelRect.anchorMin = new Vector2(0.5f, 0.5f);
-                    panelRect.anchorMax = new Vector2(0.5f, 0.5f);
-                    panelRect.pivot = new Vector2(0.5f, 0.5f);
-
-                    panelRect.anchoredPosition = data.customDialogueAnchoredPosition;
-                    panelRect.sizeDelta = data.customDialogueSize;
+                    panelRect.anchorMin = new Vector2(0.5f, 0);
+                    panelRect.anchorMax = new Vector2(0.5f, 0);
+                    panelRect.pivot = new Vector2(0.5f, 0);
+                    panelRect.anchoredPosition = new Vector2(0, 150);
                 }
                 else
                 {
-                    // 기존 자동 회피 로직
-                    float screenHalf = Screen.height / 2f;
-
-                    if (targetScreenPos.y > screenHalf)
-                    {
-                        panelRect.anchorMin = new Vector2(0.5f, 0);
-                        panelRect.anchorMax = new Vector2(0.5f, 0);
-                        panelRect.pivot = new Vector2(0.5f, 0);
-                        panelRect.anchoredPosition = new Vector2(0, 150);
-                    }
-                    else
-                    {
-                        panelRect.anchorMin = new Vector2(0.5f, 1);
-                        panelRect.anchorMax = new Vector2(0.5f, 1);
-                        panelRect.pivot = new Vector2(0.5f, 1);
-                        panelRect.anchoredPosition = new Vector2(0, -150);
-                    }
+                    panelRect.anchorMin = new Vector2(0.5f, 1);
+                    panelRect.anchorMax = new Vector2(0.5f, 1);
+                    panelRect.pivot = new Vector2(0.5f, 1);
+                    panelRect.anchoredPosition = new Vector2(0, -150);
                 }
             }
         }
@@ -223,6 +228,19 @@ public class TutorialUIOverlay : Graphic, ICanvasRaycastFilter, IPointerClickHan
         // 더 이상 표시할 스텝이 없으면 컴포넌트 자체를 꺼서
         // 화면 전체를 덮는 Quad 렌더링을 중단하고 터치 블락을 해제한다.
         enabled = false;
+    }
+
+    public bool IsTextAnimating
+    {
+        get { return textTween != null && textTween.IsActive() && !textTween.IsComplete(); }
+    }
+
+    public void CompleteTextAnimation()
+    {
+        if (textTween != null && textTween.IsActive())
+        {
+            textTween.Complete();
+        }
     }
 
     private float GetRotationFromDirection(PointerDirection dir) =>

@@ -16,7 +16,7 @@ public class TutorialManager : MonoBehaviour
                 _instance = FindAnyObjectByType<TutorialManager>();
                 if (_instance == null)
                 {
-                    GameObject go = new GameObject("TutorialManager");
+                    GameObject go = new("TutorialManager");
                     _instance = go.AddComponent<TutorialManager>();
                 }
             }
@@ -24,7 +24,7 @@ public class TutorialManager : MonoBehaviour
         }
     }
 
-    private Queue<TutorialStep> tutorialQueue = new Queue<TutorialStep>();
+    private readonly Queue<TutorialStep> tutorialQueue = new();
     private TutorialStep currentStep;
     private float previousTimeScale = 1f;
 
@@ -90,6 +90,8 @@ public class TutorialManager : MonoBehaviour
         }
     }
 
+    public event System.Action OnTutorialSequenceCompleted;
+
     private void StartNextStep()
     {
         if (currentStep != null)
@@ -109,6 +111,10 @@ public class TutorialManager : MonoBehaviour
         {
             Time.timeScale = previousTimeScale;
             Debug.Log("[TutorialManager] 모든 튜토리얼 스텝이 완료되었습니다.");
+
+            // 튜토리얼 종료 이벤트 발화 (TutorialProgressManager 등에서 수신)
+            OnTutorialSequenceCompleted?.Invoke();
+
             // TODO: 세이브 데이터에 완료 플래그 저장 로직 추가 예정
         }
     }

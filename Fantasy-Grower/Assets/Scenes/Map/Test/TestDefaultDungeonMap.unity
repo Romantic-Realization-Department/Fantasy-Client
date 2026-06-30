@@ -207,6 +207,7 @@ GameObject:
   - component: {fileID: 316604149}
   - component: {fileID: 316604148}
   - component: {fileID: 316604147}
+  - component: {fileID: 316604150}
   m_Layer: 0
   m_Name: TutorialManager
   m_TagString: Untagged
@@ -258,6 +259,23 @@ Transform:
   - {fileID: 1895704756}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &316604150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 316604146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89513a00433748d4ba5094f04eaaf8f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeTriggers:
+  - tutorialID: FirstGameStart
+    condition: {fileID: 11400000, guid: 3a31799e4cb0a674e87134c43c26fc62, type: 2}
+    sequenceData: {fileID: 11400000, guid: 3c1c41878df2fe14095a452be5876e5e, type: 2}
+    isCompleted: 0
 --- !u!1001 &334810547
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -272,7 +290,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 917217434869733267, guid: c3eca6daffa49e84cace3d3308a63e74, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4552381251772020491, guid: c3eca6daffa49e84cace3d3308a63e74, type: 3}
       propertyPath: m_Pivot.x
