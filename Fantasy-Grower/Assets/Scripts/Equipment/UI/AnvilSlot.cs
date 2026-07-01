@@ -24,9 +24,6 @@ public class AnvilSlot : MonoBehaviour, IPointerClickHandler
     [SerializeField]
     private GameObject SelectUI;
 
-    [SerializeField]
-    private GameObject[] SelectSlots;
-
     [Header("재료와 결과 분리")]
     [field: SerializeField]
     public bool IsSelectSlot { get; private set; }
@@ -44,12 +41,7 @@ public class AnvilSlot : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    private void ShowSelectUI()
-    {
-        for (int i = 0; i < SelectSlots.Length; i++)
-            SelectSlots[i].SetActive(true);
-        SelectUI.SetActive(true);
-    }
+    private void ShowSelectUI() => SelectUI.SetActive(true);
 
     public void ShowAwakeImage(int awakeLevel)
     {
@@ -75,7 +67,8 @@ public class AnvilSlot : MonoBehaviour, IPointerClickHandler
     {
         SlotImage.sprite = icon;
         BGImage.color = _color;
-        WeaponCountText.text = weapon.weaponCount.ToString("0");
-        SelectUI.SetActive(false);
+        WeaponCountText.text = weapon.Get().ToString("0");
+        if (IsSelectSlot)
+            SelectUI.SetActive(false);
     }
 }

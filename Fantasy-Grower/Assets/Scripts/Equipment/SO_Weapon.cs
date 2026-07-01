@@ -15,8 +15,16 @@ public enum WeaponID
 }
 
 [CreateAssetMenu(fileName = "SO_Equipment", menuName = "ScriptableObjects/SO_Equipment", order = 6)]
-public class SO_Weapon : ScriptableObject
+public class SO_Weapon : SO_Goods
 {
+    protected override string GoodsName => "무기";
+
+    public override void Increase(uint amount)
+    {
+        isUnlock = true;
+        base.Increase(amount);
+    }
+
     //필요한 기능에 따라 변수 및 함수가 추가될 수 있음
     [Header("필요 변수")]
     [SerializeField]
@@ -30,22 +38,25 @@ public class SO_Weapon : ScriptableObject
     [Header("무기 정보")]
     public string weaponName;
 
-    [TextArea]
-    public string weaponInfo;
+    [field: SerializeField]
+    public int equipDamage { get; private set; }
 
-    private uint _weaponCount;
-    public uint weaponCount
-    {
-        get { return _weaponCount; }
-        set
-        {
-            _weaponCount = value;
-            isUnlock = true;
-        }
-    }
-    public int equipDamage;
-    public int getDamage;
+    [field: SerializeField]
+    public int getDamage { get; private set; }
+
+    public int DefaultDamage() => Mathf.RoundToInt(getDamage * levelAmount * AwakeAmount);
+
+    public int EquipDamage() => Mathf.RoundToInt(equipDamage * levelAmount * AwakeAmount);
+
     public int weaponLevel;
+    private float levelAmount
+    {
+        get => 1 + (weaponLevel * .04f);
+    }
     public int weaponAwakeLevel;
+    private float AwakeAmount
+    {
+        get => Mathf.Pow(1.3f, weaponAwakeLevel);
+    }
     public bool isUnlock;
 }
