@@ -75,6 +75,9 @@ public class WeaponDungeonManager
 
     protected override void StartDungeonInternal(WeaponDungeonData dungeonData)
     {
+        if (_waveController != null)
+            _waveController.Clear();
+
         _currentWaveIndex = 0;
         _earnedUpgradeScrollAmount = 0;
         _gottenWeapons.Clear();

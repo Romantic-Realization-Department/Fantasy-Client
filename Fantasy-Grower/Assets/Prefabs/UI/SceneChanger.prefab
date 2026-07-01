@@ -19,7 +19,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4552381251772020491
 RectTransform:
   m_ObjectHideFlags: 0
@@ -453,8 +453,9 @@ MonoBehaviour:
   _tipText: {fileID: 1532806411660625758}
   _tips:
   - Image: {fileID: 21300000, guid: 4400d3ff841cde84da2f6624a998d48c, type: 3}
-    Text: 'Tip: Combat in Basic Dungeons is automatic. Defeat all waves to clear
-      the stage.'
+    Text: "\uD301: \uAE30\uBCF8 \uB358\uC804\uC740 \uC790\uB3D9 \uC804\uD22C\uB85C
+      \uC9C4\uD589\uB429\uB2C8\uB2E4. \uBAA8\uB4E0 \uC6E8\uC774\uBE0C\uC758 \uC801\uC744
+      \uBB3C\uB9AC\uCE58\uACE0 \uC2A4\uD14C\uC774\uC9C0\uB97C \uB3CC\uD30C\uD558\uC138\uC694."
   _fadeDuration: 0.3
   _intervalDuration: 1.2
 --- !u!1 &8405293411000485652
@@ -524,8 +525,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 6a1c2ede6e2b91d429156b7bd2e2a432, type: 2}
+  m_sharedMaterial: {fileID: -4092679814482201340, guid: 6a1c2ede6e2b91d429156b7bd2e2a432, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

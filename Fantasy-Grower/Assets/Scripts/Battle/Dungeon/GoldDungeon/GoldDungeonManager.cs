@@ -78,4 +78,17 @@ public class GoldDungeonManager
     {
         SceneChanger.SceneLoaded -= OnSceneLoaded;
     }
+
+    protected override void OnClearDungeon()
+    {
+        base.OnClearDungeon();
+
+        // 획득한 골드량(점수) 기록 갱신
+        if (_currentDungeonData != null)
+        {
+            uint goldReward =
+                GoodsManager.Instance.GetGoods(GoodsType.Gold).Get() - _goldInitialValue;
+            GameManager.Instance.UpdateDungeonRecord(_currentDungeonData.DungeonType, goldReward);
+        }
+    }
 }

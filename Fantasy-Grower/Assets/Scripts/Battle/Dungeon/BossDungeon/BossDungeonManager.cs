@@ -72,6 +72,9 @@ public class BossDungeonManager
 
     protected override void StartDungeonInternal(BossDungeonData dungeonData)
     {
+        if (_waveController != null)
+            _waveController.Clear();
+
         _currentWaveIndex = 0;
         _gottenWeapon = null;
     }

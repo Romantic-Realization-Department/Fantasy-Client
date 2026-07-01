@@ -86,6 +86,9 @@ public class BasicDungeonManager
     /// <param name="dungeonData"></param>
     protected override void StartDungeonInternal(BasicDungeonData dungeonData)
     {
+        if (_waveController != null)
+            _waveController.Clear();
+
         _currentWaveIndex = 0;
     }
 
