@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: A2
   m_EditorClassIdentifier: 
   value: 0
-  _weaponID: 0
-  _nextWeaponID: 0
-  weaponName: 
-  <equipDamage>k__BackingField: 0
-  <getDamage>k__BackingField: 0
+  _weaponID: 3
+  _nextWeaponID: 1
+  weaponName: "\uAD81\uC0AC\uC758 \uC11D\uAD81"
+  <equipDamage>k__BackingField: 255
+  <getDamage>k__BackingField: 355
   weaponLevel: 0
   weaponAwakeLevel: 0
   isUnlock: 0
