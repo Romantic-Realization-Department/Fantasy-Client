@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Wizard : Player
+public class Wizard : CombatPlayer
 {
     public override void Attack()
     {

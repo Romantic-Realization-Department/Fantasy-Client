@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Archer : Player
+public class Archer : CombatPlayer
 {
     public override void Attack()
     {

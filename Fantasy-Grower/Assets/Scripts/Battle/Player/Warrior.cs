@@ -1,4 +1,4 @@
-﻿public class Warrior : Player
+public class Warrior : CombatPlayer
 {
     public override void Attack()
     {
