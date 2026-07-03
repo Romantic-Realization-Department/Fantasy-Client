@@ -22,6 +22,7 @@ public class SkillTreeComponent : MonoBehaviour
     // 장착된 스킬 슬롯 (null = 비어있음)
     private List<ActiveSkillData> equippedActives;
     private List<PassiveSkillData> equippedPassives;
+    private readonly List<EntityStatModifierHandle> passiveModifierHandles = new();
 
     private ISkillTreeStrategy strategy;
     private Entity entity;
@@ -115,15 +116,19 @@ public class SkillTreeComponent : MonoBehaviour
     /// </summary>
     private void RecalculatePassives()
     {
-        var modifier = EntityStatModifier.Zero;
+        foreach (EntityStatModifierHandle handle in passiveModifierHandles)
+            entity.RemoveStatModifier(handle);
+        passiveModifierHandles.Clear();
 
-        foreach (var passive in equippedPassives)
+        foreach (PassiveSkillData passive in equippedPassives)
         {
-            if (passive != null)
-                passive.ApplyPassive(ref modifier);
-        }
+            if (passive == null)
+                continue;
 
-        entity.ApplyStatModifier(modifier);
+            EntityStatModifier modifier = EntityStatModifier.Zero;
+            passive.ApplyPassive(ref modifier);
+            passiveModifierHandles.Add(entity.ApplyStatModifier(modifier));
+        }
     }
 
     // ─── 액티브 스킬 장착 ─────────────────────────────────────────
