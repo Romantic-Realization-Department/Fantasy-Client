@@ -37,13 +37,15 @@ public class Slot : MonoBehaviour, IPointerClickHandler
 
     protected void Start()
     {
+        MyImage = GetComponent<Image>();
         WeaponIcon.sprite = getIcon();
         RefreshIcon();
     }
 
     protected void OnEnable()
     {
-        RefreshIcon();
+        if (EquipmentManager.Instance != null && MyImage != null)
+            RefreshIcon();
     }
 
     SO_Weapon GetWeapon() => EquipmentManager.Instance.GetWeapon(ID);
@@ -54,11 +56,11 @@ public class Slot : MonoBehaviour, IPointerClickHandler
     {
         MyImage.color = EquipmentManager.Instance.GetColor(ID);
         WeaponNameText.text = GetWeapon().weaponName;
+        UpdateUpgrade();
         if (GetWeapon().isUnlock)
         {
             WeaponIconWall.SetActive(false);
             WeaponIcon.color = Color.white;
-            UpdateUpgrade();
         }
         else
         {
