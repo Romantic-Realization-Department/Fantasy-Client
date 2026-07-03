@@ -24,11 +24,6 @@ public class UI_StageDisplay : MonoBehaviour
             Debug.LogError(
                 $"[{gameObject.name} - UI_StageDisplay] _stageText가 할당되지 않았습니다!"
             );
-
-        if (_stageProviderObj == null)
-            Debug.LogError(
-                $"[{gameObject.name} - UI_StageDisplay] _stageProviderObj가 할당되지 않았습니다! IStageProvider를 구현한 객체를 넣어주세요."
-            );
     }
 
     private void Awake()

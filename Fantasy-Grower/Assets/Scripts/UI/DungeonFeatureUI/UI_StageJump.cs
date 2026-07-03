@@ -32,11 +32,6 @@ public class UI_StageJump : MonoBehaviour
             Debug.LogError(
                 $"[{gameObject.name} - UI_StageJump] _jumpButton이 할당되지 않았습니다!"
             );
-
-        if (_stageProviderObj == null)
-            Debug.LogError(
-                $"[{gameObject.name} - UI_StageJump] _stageProviderObj가 할당되지 않았습니다! IStageProvider를 구현한 객체를 넣어주세요."
-            );
     }
 
     private void Awake()
