@@ -16,15 +16,11 @@ public readonly struct EntityStatModifierHandle : System.IEquatable<EntityStatMo
 
     public override int GetHashCode() => Id;
 
-    public static bool operator ==(
-        EntityStatModifierHandle left,
-        EntityStatModifierHandle right
-    ) => left.Equals(right);
+    public static bool operator ==(EntityStatModifierHandle left, EntityStatModifierHandle right) =>
+        left.Equals(right);
 
-    public static bool operator !=(
-        EntityStatModifierHandle left,
-        EntityStatModifierHandle right
-    ) => !left.Equals(right);
+    public static bool operator !=(EntityStatModifierHandle left, EntityStatModifierHandle right) =>
+        !left.Equals(right);
 }
 
 [System.Serializable]
@@ -58,8 +54,7 @@ public struct EntityStatModifier
             BonusCriticalPercentage = a.BonusCriticalPercentage + b.BonusCriticalPercentage,
             BonusHpRate = a.BonusHpRate + b.BonusHpRate,
             BonusHpRecoveryRate = a.BonusHpRecoveryRate + b.BonusHpRecoveryRate,
-            BonusDamageReductionRate =
-                a.BonusDamageReductionRate + b.BonusDamageReductionRate,
+            BonusDamageReductionRate = a.BonusDamageReductionRate + b.BonusDamageReductionRate,
             BonusAttackPowerRate = a.BonusAttackPowerRate + b.BonusAttackPowerRate,
             BonusAttackSpeedRate = a.BonusAttackSpeedRate + b.BonusAttackSpeedRate,
             BonusCriticalPercentageRate =
