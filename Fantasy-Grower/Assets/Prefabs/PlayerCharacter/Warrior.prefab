@@ -3668,6 +3668,7 @@ GameObject:
   - component: {fileID: 6107641911005882464}
   - component: {fileID: 7728946691363144883}
   - component: {fileID: 9091531221583279582}
+  - component: {fileID: 8937113908660665095}
   m_Layer: 0
   m_Name: Warrior
   m_TagString: Untagged
@@ -6774,6 +6775,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   treeData: {fileID: 11400000, guid: c7d7b0b94d554b145beb517bf4182852, type: 2}
+--- !u!114 &8937113908660665095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6499316856751531827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688048e643ab4a0e87866f9e00fb89fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseLevel: 1
+  growthPerLevel:
+    BonusHp: 0
+    BonusHpRecovery: 0
+    BonusDamageReduction: 0
+    BonusAttackPower: 0
+    BonusAttackSpeed: 0
+    BonusCriticalPercentage: 0
+    BonusHpRate: 0.08
+    BonusHpRecoveryRate: 0.08
+    BonusDamageReductionRate: 0
+    BonusAttackPowerRate: 0.08
+    BonusAttackSpeedRate: 0
+    BonusCriticalPercentageRate: 0
+  useCompoundRate: 1
 --- !u!1 &6565987654939050122
 GameObject:
   m_ObjectHideFlags: 0

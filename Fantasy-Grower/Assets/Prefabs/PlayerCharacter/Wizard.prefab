@@ -3171,6 +3171,7 @@ GameObject:
   - component: {fileID: 4616874832124039420}
   - component: {fileID: 8025915627975768581}
   - component: {fileID: 4753827104680141411}
+  - component: {fileID: 4530378413672165486}
   m_Layer: 0
   m_Name: Wizard
   m_TagString: Untagged
@@ -6345,6 +6346,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   treeData: {fileID: 11400000, guid: 3d9a2fc6945fb2a42b53ab0150be4873, type: 2}
+--- !u!114 &4530378413672165486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6063808467322970300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688048e643ab4a0e87866f9e00fb89fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseLevel: 1
+  growthPerLevel:
+    BonusHp: 0
+    BonusHpRecovery: 0
+    BonusDamageReduction: 0
+    BonusAttackPower: 0
+    BonusAttackSpeed: 0
+    BonusCriticalPercentage: 0
+    BonusHpRate: 0.08
+    BonusHpRecoveryRate: 0.08
+    BonusDamageReductionRate: 0
+    BonusAttackPowerRate: 0.08
+    BonusAttackSpeedRate: 0
+    BonusCriticalPercentageRate: 0
+  useCompoundRate: 1
 --- !u!1 &6112082972410251313
 GameObject:
   m_ObjectHideFlags: 0
