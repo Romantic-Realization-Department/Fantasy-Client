@@ -635,7 +635,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _waveController: {fileID: 1195712911}
-  _basicDungeonData: {fileID: 11400000, guid: 635ef04d299ddac45adb3bfc63bc5a88, type: 2}
   _spawnPoint: {fileID: 2117323882}
   _spawnPointInterval: 1
 --- !u!4 &654281929
@@ -678,11 +677,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 001ed65d648fdcb4596b16295dcd9082, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _stages:
-  - {fileID: 11400000, guid: 635ef04d299ddac45adb3bfc63bc5a88, type: 2}
-  - {fileID: 11400000, guid: 635ef04d299ddac45adb3bfc63bc5a88, type: 2}
-  - {fileID: 11400000, guid: 635ef04d299ddac45adb3bfc63bc5a88, type: 2}
-  _currentStageIndex: 0
+  stageReferences:
+  - m_AssetGUID: 635ef04d299ddac45adb3bfc63bc5a88
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: 635ef04d299ddac45adb3bfc63bc5a88
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: 635ef04d299ddac45adb3bfc63bc5a88
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 0
+  currentStageIndex: 0
 --- !u!1 &836774917
 GameObject:
   m_ObjectHideFlags: 0
@@ -2018,6 +2029,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 990429572627832312, guid: 47374119cc7dac4478a751a3ccc28b98, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4972996406026445199, guid: 47374119cc7dac4478a751a3ccc28b98, type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5118770636641042503, guid: 47374119cc7dac4478a751a3ccc28b98, type: 3}

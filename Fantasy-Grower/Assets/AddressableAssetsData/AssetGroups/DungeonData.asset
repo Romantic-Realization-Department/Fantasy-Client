@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: DungeonData
+  m_EditorClassIdentifier: 
+  m_GroupName: DungeonData
+  m_GUID: a150c112990895e4380045ffd539e385
+  m_SerializeEntries:
+  - m_GUID: 27b48a63c90fbda41b1a53f2e17d957e
+    m_Address: BossDungeon/TestBossDungeonData.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - BossDungeonData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 57bdca2c2be58764d829c4da74fd0e6b
+    m_Address: WeaponDungeon/TestWeaponDungeonData.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - WeaponDungeonData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 635ef04d299ddac45adb3bfc63bc5a88
+    m_Address: BasicDungeon/TestBasicDungeonData.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - BasicDungeonData
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 89fc6e7fa654b1f4b8011a19350d4b9a, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: a4c3adfb834eb5440899f4db1977bed1, type: 2}
+    - {fileID: 11400000, guid: aa9e43e2510fa754ab295da7568fd452, type: 2}
