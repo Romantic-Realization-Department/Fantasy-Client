@@ -20,23 +20,18 @@ public class EquipmentManager : MonoBehaviour
     private static EquipmentManager _instance;
     public static EquipmentManager Instance
     {
-        get
-        {
-            if (_instance == null)
-            {
-                _instance = FindAnyObjectByType<EquipmentManager>();
-                Debug.LogError("씬에 스크립트를 참조한 오브젝트가 없습니다");
-            }
-            return _instance;
-        }
+        get => _instance;
     }
 
     [Tooltip("낮은 index일 수록 높은 등급의 색으로 해주세요")]
     [SerializeField]
     private Color[] weaponLevelColor = new Color[5];
 
-    [Header("임시 변수(실 사용 시 삭제 바람)")]
-    public Career career;
+    /// <summary>
+    /// 게임 시작 시 할당이 필요한 변수
+    /// </summary>
+    [SerializeField]
+    private Career career;
 
     [Header("장비 탭")]
     [SerializeField]
@@ -113,7 +108,7 @@ public class EquipmentManager : MonoBehaviour
         EntityStatModifier modifier = new EntityStatModifier();
         modifier.BonusAttackPower = EquipWeapon.DefaultDamage() - currentEquipDamage;
         currentEquipDamage = EquipWeapon.DefaultDamage();
-        //gamemanager클래스 코드 추가 필요
+        GameManager.Instance.GetPlayer().ApplyStatModifier(modifier);
     } //버튼 추가 형
 
     public void UpgradeWeapon()
@@ -134,7 +129,6 @@ public class EquipmentManager : MonoBehaviour
     {
         currentWeapon = GetWeapon(inven.ID);
         EquipmentUIManager.Instance.WeaponIconImage.sprite = GetIcon(inven.ID);
-        //WeaponBGImage.color =
 
         EquipmentUIManager.Instance.WeaponInfoObject.SetActive(true);
     }
@@ -294,11 +288,11 @@ public class EquipmentManager : MonoBehaviour
                 damage += weapon.EquipDamage();
         }
 
-        if (damage == currentEquipDamage)
+        if (damage == currentDefaultDamage)
             return;
-
-        //gamemanager코드 추가 필요
-        currentEquipDamage = damage;
+        modifier.BonusAttackPower += damage - currentDefaultDamage;
+        GameManager.Instance.GetPlayer().ApplyStatModifier(modifier);
+        currentDefaultDamage = damage;
     }
 
     public void GetItem(WeaponID id, uint amount)

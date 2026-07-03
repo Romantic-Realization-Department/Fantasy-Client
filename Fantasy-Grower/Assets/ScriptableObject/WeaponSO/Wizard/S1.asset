@@ -15,9 +15,9 @@ MonoBehaviour:
   value: 0
   _weaponID: 0
   _nextWeaponID: 0
-  weaponName: 
-  <equipDamage>k__BackingField: 0
-  <getDamage>k__BackingField: 0
+  weaponName: "\uCD5C\uD6C4\uC758 \uC9C0\uD321\uC774"
+  <equipDamage>k__BackingField: 430
+  <getDamage>k__BackingField: 500
   weaponLevel: 0
   weaponAwakeLevel: 0
   isUnlock: 0
