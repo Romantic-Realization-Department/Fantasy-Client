@@ -10,22 +10,39 @@ public class XPSlider : MonoBehaviour
     private const GoodsType type = GoodsType.XP;
 
     private Slider xpBar;
+    private SO_Goods xp;
 
     private void Awake()
     {
         xpBar = GetComponent<Slider>();
-        xpBar.value = GetCurrentXPRatio();
     }
 
-    private float GetCurrentXPRatio()
+    private void Start()
     {
-        var currentXP = GoodsManager.Instance.GetGoods(type).Get();
+        xp = GoodsManager.Instance.GetGoods(type);
+        if (xp == null)
+            return;
 
-        foreach (var nextLevelExp in SO_XP.NeedXpTable)
+        GetCurrentXPRatio(xp.Get());
+        xp.OnValueChange += GetCurrentXPRatio;
+    }
+
+    private void OnDestroy()
+    {
+        if (xp != null)
+            xp.OnValueChange -= GetCurrentXPRatio;
+    }
+
+    private void GetCurrentXPRatio(uint currentXP)
+    {
+        for (int level = 1; level < SO_Level.MAX_LEVEL; level++)
         {
+            uint nextLevelExp = SO_XP.NeedXpTable[level - 1];
             if (currentXP < nextLevelExp)
             {
-                return (float)currentXP / nextLevelExp;
+                // XPRatioText가 Slider.onValueChanged를 통해 갱신되므로 이벤트를 함께 발생시킵니다.
+                xpBar.value = (float)currentXP / nextLevelExp;
+                return;
             }
             else
             {
@@ -33,6 +50,6 @@ public class XPSlider : MonoBehaviour
             }
         }
 
-        return 0;
+        xpBar.value = 1f;
     }
 }
