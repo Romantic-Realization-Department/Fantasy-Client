@@ -118,6 +118,13 @@ public class Enemy : Entity
         base.OnValidate();
         ResolveAttackBehaviour();
 
+        if (sensor == null)
+        {
+            sensor = GetComponentInChildren<ForwardColleagueSensor>();
+            if (sensor == null)
+                Debug.LogError("[Enemy] ForwardColleagueSensor를 할당해주세요.", this);
+        }
+
         if (attackBehaviour == null)
             Debug.LogError("[Enemy] EntityAttackBehaviour를 할당해주세요.", this);
 
