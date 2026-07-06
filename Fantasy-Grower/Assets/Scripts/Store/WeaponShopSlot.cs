@@ -23,11 +23,17 @@ public class WeaponShopSlot : MonoBehaviour
     private TMP_Text priceText;
 
     private Button purchaseButton;
+    private WeaponShopController shopController;
     private SO_Goods gold;
     private uint currentPrice;
     private bool isPurchased;
 
     public WeaponID CurrentWeaponID { get; private set; }
+
+    public void Initialize(WeaponShopController controller)
+    {
+        shopController = controller;
+    }
 
     private void Awake()
     {
@@ -72,8 +78,15 @@ public class WeaponShopSlot : MonoBehaviour
             return;
         }
 
+        if (shopController == null)
+        {
+            Debug.LogError($"{name}: WeaponShopController가 연결되지 않았습니다.", this);
+            purchaseButton.interactable = false;
+            return;
+        }
+
         CurrentWeaponID = RollWeaponID();
-        currentPrice = GetPrice(CurrentWeaponID);
+        currentPrice = shopController.GetPrice(CurrentWeaponID);
         isPurchased = false;
 
         EquipmentManager equipmentManager = EquipmentManager.Instance;
@@ -160,36 +173,6 @@ public class WeaponShopSlot : MonoBehaviour
     private void RefreshPurchaseState()
     {
         purchaseButton.interactable = !isPurchased && gold != null && gold.Get() >= currentPrice;
-    }
-
-    private uint GetPrice(WeaponID weaponID)
-    {
-        switch (weaponID)
-        {
-            case WeaponID.D1:
-            case WeaponID.D2:
-                return 500u;
-
-            case WeaponID.C1:
-            case WeaponID.C2:
-                return 2_500u;
-
-            case WeaponID.B1:
-            case WeaponID.B2:
-                return 12_500u;
-
-            case WeaponID.A1:
-            case WeaponID.A2:
-                return 75_000u;
-
-            case WeaponID.S1:
-            case WeaponID.S2:
-                return 500_000u;
-
-            default:
-                Debug.LogError($"정의되지 않은 WeaponID입니다: {weaponID}", this);
-                return uint.MaxValue;
-        }
     }
 
     private WeaponID RollWeaponID()
