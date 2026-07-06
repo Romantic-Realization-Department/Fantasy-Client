@@ -42,10 +42,7 @@ public class APIConnector : MonoBehaviour
         bool needSession = false
     )
     {
-        UnityWebRequest request = CreateRequest(
-            endpoint,
-            UnityWebRequest.kHttpVerbGET
-        );
+        UnityWebRequest request = CreateRequest(endpoint, UnityWebRequest.kHttpVerbGET);
 
         yield return SendRequest(request, onSuccess, onError, needSession);
     }
@@ -97,11 +94,7 @@ public class APIConnector : MonoBehaviour
         bool needSession = false
     )
     {
-        UnityWebRequest request = CreateRequest(
-            endpoint,
-            "PATCH",
-            SerializeBody(body)
-        );
+        UnityWebRequest request = CreateRequest(endpoint, "PATCH", SerializeBody(body));
 
         yield return SendRequest(request, onSuccess, onError, needSession);
     }
@@ -123,10 +116,7 @@ public class APIConnector : MonoBehaviour
         bool needSession = false
     )
     {
-        UnityWebRequest request = CreateRequest(
-            endpoint,
-            UnityWebRequest.kHttpVerbDELETE
-        );
+        UnityWebRequest request = CreateRequest(endpoint, UnityWebRequest.kHttpVerbDELETE);
 
         yield return SendRequest(request, onSuccess, onError, needSession);
     }
@@ -148,24 +138,15 @@ public class APIConnector : MonoBehaviour
         }
     }
 
-    private UnityWebRequest CreateRequest(
-        string endpoint,
-        string method,
-        string json = null
-    )
+    private UnityWebRequest CreateRequest(string endpoint, string method, string json = null)
     {
-        UnityWebRequest request = new UnityWebRequest(
-            endpointSO.BaseUrl + endpoint,
-            method
-        );
+        UnityWebRequest request = new UnityWebRequest(endpointSO.BaseUrl + endpoint, method);
 
         request.downloadHandler = new DownloadHandlerBuffer();
 
         if (json != null)
         {
-            request.uploadHandler = new UploadHandlerRaw(
-                Encoding.UTF8.GetBytes(json)
-            );
+            request.uploadHandler = new UploadHandlerRaw(Encoding.UTF8.GetBytes(json));
         }
 
         return request;
@@ -183,18 +164,13 @@ public class APIConnector : MonoBehaviour
 
         if (needSession && PlayerPrefs.HasKey("sessionId"))
         {
-            request.SetRequestHeader(
-                "Session-Id",
-                PlayerPrefs.GetString("sessionId")
-            );
+            request.SetRequestHeader("Session-Id", PlayerPrefs.GetString("sessionId"));
         }
     }
 
     private string SerializeBody(object body)
     {
-        return body == null
-            ? null
-            : JsonConvert.SerializeObject(body);
+        return body == null ? null : JsonConvert.SerializeObject(body);
     }
 
     private void HandleResponse<T>(
@@ -228,9 +204,7 @@ public class APIConnector : MonoBehaviour
         }
         catch (Exception exception)
         {
-            onError?.Invoke(
-                $"{request.responseCode}\nJSON º¯È¯ ½ÇÆÐ: {exception.Message}"
-            );
+            onError?.Invoke($"{request.responseCode}\nJSON ë³€í™˜ ì‹¤íŒ¨: {exception.Message}");
         }
     }
 }
