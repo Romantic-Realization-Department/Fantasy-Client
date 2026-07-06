@@ -43,8 +43,7 @@ public class EndPointSO : ScriptableObject
     public string GoldDungeonClaimEndPoint { get; set; } = "dungeons/gold-runs/{runId}/claim";
 
     [field: SerializeField]
-    public string GoldDungeonAdRewardEndPoint { get; set; } =
-        "dungeons/gold-tickets/ad-reward";
+    public string GoldDungeonAdRewardEndPoint { get; set; } = "dungeons/gold-tickets/ad-reward";
 
     [field: SerializeField]
     public string DungeonTicketsEndPoint { get; set; } = "dungeons/tickets";
@@ -77,8 +76,7 @@ public class EndPointSO : ScriptableObject
     public string TutorialsEndPoint { get; set; } = "tutorials";
 
     [field: SerializeField]
-    public string TutorialCompleteEndPoint { get; set; } =
-        "tutorials/{tutorialId}/complete";
+    public string TutorialCompleteEndPoint { get; set; } = "tutorials/{tutorialId}/complete";
 
     [Header("Health")]
     [field: SerializeField]
