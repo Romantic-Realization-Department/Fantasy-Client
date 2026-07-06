@@ -297,8 +297,14 @@ public class EquipmentManager : MonoBehaviour
 
     public void GetItem(WeaponID id, uint amount)
     {
-        weaponMap[id].Increase(amount);
-        RefreshInfo();
+        SO_Weapon gottenWeapon = weaponMap[id];
+        gottenWeapon.Increase(amount);
+
+        if (currentWeapon == gottenWeapon && EquipmentUIManager.Instance != null)
+        {
+            RefreshInfo();
+        }
+
         applyStatModifier();
     }
 
