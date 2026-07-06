@@ -367,7 +367,7 @@ Transform:
   m_GameObject: {fileID: 729809092}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.265, y: -1.89, z: 0.0866822}
+  m_LocalPosition: {x: 5.265, y: -2.192, z: 0.0866822}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -494,52 +494,52 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stageReferences:
-  - m_AssetGUID: 27b48a63c90fbda41b1a53f2e17d957e
+  - m_AssetGUID: dd582c31b85b63c4a8a610e691d1e82a
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: 27b48a63c90fbda41b1a53f2e17d957e
+  - m_AssetGUID: 2f7dd60f014e84942bfca1dd65d7cf6f
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: 27b48a63c90fbda41b1a53f2e17d957e
+  - m_AssetGUID: 38877619c29719a4b924aaa680f89aa1
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: 27b48a63c90fbda41b1a53f2e17d957e
+  - m_AssetGUID: 1ebd326320efe9f4985b89a07ef3186a
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: 27b48a63c90fbda41b1a53f2e17d957e
+  - m_AssetGUID: 219fb46e21e6dc740ad1afe8e49670ec
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: 27b48a63c90fbda41b1a53f2e17d957e
+  - m_AssetGUID: aa61502a6d3965643bdf9129069a9383
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: 27b48a63c90fbda41b1a53f2e17d957e
+  - m_AssetGUID: 40330f0112d592144b6c5f0c430d6365
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: 27b48a63c90fbda41b1a53f2e17d957e
+  - m_AssetGUID: b2cb840e165d6c140b2cb4cfc84a219a
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: 27b48a63c90fbda41b1a53f2e17d957e
+  - m_AssetGUID: c42ebe5407a49d04690539874d9d55a7
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: 27b48a63c90fbda41b1a53f2e17d957e
+  - m_AssetGUID: 34df992b38191fa4b9d54532f67c9bbf
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 

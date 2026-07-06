@@ -133,8 +133,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7c562f92f3b8b435d98ac3b65547b755, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
 --- !u!1 &227993702369600925
 GameObject:
   m_ObjectHideFlags: 0
@@ -3669,6 +3669,7 @@ GameObject:
   - component: {fileID: 7728946691363144883}
   - component: {fileID: 9091531221583279582}
   - component: {fileID: 8937113908660665095}
+  - component: {fileID: 713001000000000002}
   m_Layer: 0
   m_Name: Warrior
   m_TagString: Untagged
@@ -6728,11 +6729,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 6499316856751531827}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 388f00d7b35e3f04b88f0364310333ef, type: 3}
+  m_Script: {fileID: 11500000, guid: daabfb68522c493d9591bd23db2d468f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   <EntityType>k__BackingField: 0
   statData: {fileID: 11400000, guid: fe352f708efa65540819d5d6bf040e6b, type: 2}
+  attackBehaviour: {fileID: 713001000000000002}
+--- !u!114 &713001000000000002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6499316856751531827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3b7ed49672542ffb6dab17fe69a176f, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
   targets: {fileID: 5115161450785208119}
 --- !u!114 &6107641911005882464
 MonoBehaviour:
@@ -6795,10 +6809,10 @@ MonoBehaviour:
     BonusAttackPower: 0
     BonusAttackSpeed: 0
     BonusCriticalPercentage: 0
-    BonusHpRate: 0.08
-    BonusHpRecoveryRate: 0.08
+    BonusHpRate: 0.21
+    BonusHpRecoveryRate: 0.27
     BonusDamageReductionRate: 0
-    BonusAttackPowerRate: 0.08
+    BonusAttackPowerRate: 0.31
     BonusAttackSpeedRate: 0
     BonusCriticalPercentageRate: 0
   useCompoundRate: 1

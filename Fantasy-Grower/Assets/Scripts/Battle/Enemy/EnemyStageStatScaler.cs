@@ -18,8 +18,9 @@ public sealed class EnemyStageStatScaler : MonoBehaviour
     [Tooltip("고정값은 스테이지마다 선형으로 더해집니다. 비율은 0.1을 입력하면 10%를 의미합니다.")]
     private EntityStatModifier growthPerStage = new()
     {
-        BonusHpRate = 0.12f,
-        BonusAttackPowerRate = 0.08f,
+        BonusHpRate = 0.3f,
+        BonusHpRecoveryRate = 0.3f,
+        BonusAttackPowerRate = 0.22f,
     };
 
     [SerializeField]
@@ -32,6 +33,8 @@ public sealed class EnemyStageStatScaler : MonoBehaviour
 
     private Enemy enemy;
     private EntityStatModifierHandle stageModifierHandle;
+
+    public int CurrentStageNumber { get; private set; } = 1;
 
     private void Awake()
     {
@@ -79,6 +82,7 @@ public sealed class EnemyStageStatScaler : MonoBehaviour
             return;
 
         int stageNumber = Mathf.Max(1, stageIndex + 1);
+        CurrentStageNumber = stageNumber;
         int growthCount = Mathf.Max(0, stageNumber - baseStage);
         EntityStatModifier modifier = EntityStatModifierCalculator.ScalePerStep(
             growthPerStage,

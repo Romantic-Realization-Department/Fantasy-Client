@@ -10,7 +10,7 @@ public class Miner : Player
 
     public override void Attack()
     {
-        base.Attack();
         _goldOre.TakeDamage(AttackPower);
+        base.Attack();
     }
 }

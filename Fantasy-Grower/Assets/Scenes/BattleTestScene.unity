@@ -718,6 +718,7 @@ GameObject:
   - component: {fileID: 1107896321}
   - component: {fileID: 1107896319}
   - component: {fileID: 1107896320}
+  - component: {fileID: 1107896323}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -805,11 +806,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 1107896316}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 388f00d7b35e3f04b88f0364310333ef, type: 3}
+  m_Script: {fileID: 11500000, guid: daabfb68522c493d9591bd23db2d468f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   <EntityType>k__BackingField: 0
   statData: {fileID: 11400000, guid: fe352f708efa65540819d5d6bf040e6b, type: 2}
+  attackBehaviour: {fileID: 1107896323}
+--- !u!114 &1107896323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1107896316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3b7ed49672542ffb6dab17fe69a176f, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
   targets: {fileID: 1553636760}
 --- !u!114 &1107896320
 MonoBehaviour:

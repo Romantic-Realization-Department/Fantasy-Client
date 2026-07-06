@@ -33,6 +33,9 @@ public abstract class Entity : MonoBehaviour
     /// <summary>HP가 0이 되어 Death()가 호출될 때 발화된다.</summary>
     public event Action<Entity> OnDied;
 
+    /// <summary>실제 피해로 HP가 감소했을 때 피해 직전과 직후의 HP를 순서대로 전달한다.</summary>
+    public event Action<float, float> OnDamageTaken;
+
     /// <summary>Update문이 호출될 때 발화된다.</summary>
     protected event Action OnUpdated;
 
@@ -111,7 +114,7 @@ public abstract class Entity : MonoBehaviour
 
     #endregion
 
-    // 애니메이션의 특정 시점에서 호출하고 싶다면, StateMachineBehaviour를 거쳐 호출하는 것을 추천합니다.
+    // 실제 공격 판정은 공격 가능한 자식 클래스가 처리하고, Entity는 공격 상태만 전환합니다.
     public virtual void Attack()
     {
         entityState[gameObject].State = PlayerState.ATTACK;
@@ -135,7 +138,12 @@ public abstract class Entity : MonoBehaviour
             return; // 이미 사망 — 중복 호출 무시
 
         Debug.Log($"데미지 받음: {damage}");
+        float previousHp = Hp;
         Hp = Mathf.Max(0, Hp - damage);
+
+        if (Hp < previousHp)
+            OnDamageTaken?.Invoke(previousHp, Hp);
+
         entityState[gameObject].State = PlayerState.DAMAGED;
 
         if (Hp <= 0)

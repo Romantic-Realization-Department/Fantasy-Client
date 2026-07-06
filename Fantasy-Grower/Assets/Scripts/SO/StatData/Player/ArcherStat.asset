@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5df7739d4b9038a4d9cb6566170314b6, type: 3}
   m_Name: ArcherStat
   m_EditorClassIdentifier: 
-  Hp: 200
-  HpRecovery: 100
-  DamageReduction: 0
-  AttackPower: 1000
-  AttackSpeed: 5
+  Hp: 30
+  HpRecovery: 15
+  DamageReduction: 0.15
+  AttackPower: 8
+  AttackSpeed: 2.3
   CriticalPercentage: 0

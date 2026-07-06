@@ -91,13 +91,15 @@ public class DungeonUIConverter : MonoBehaviour
         curPanel
             .DOAnchorPosX(_width * -compare, _convertDuration)
             .SetEase(Ease.OutQuint)
+            .SetRecyclable(true)
             .OnComplete(() => curPanel.gameObject.SetActive(false));
         newPanel.DOComplete();
         newPanel.gameObject.SetActive(true);
         newPanel
             .DOAnchorPosX(0, _convertDuration)
             .From(new Vector2(_width * compare, 0))
-            .SetEase(Ease.OutQuint);
+            .SetEase(Ease.OutQuint)
+            .SetRecyclable(true);
 
         _curUIKind = kind;
     }

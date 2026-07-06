@@ -34,6 +34,7 @@ public class GoodsIndicator : MonoBehaviour
     // 연출 최적화를 위한 캐싱용 변수
     private DOGetter<uint> _getter;
     private DOSetter<uint> _setter;
+    private TweenCallback indicateTweenKilledCallback;
 
     private void Awake()
     {
@@ -46,6 +47,7 @@ public class GoodsIndicator : MonoBehaviour
             _displayGoods = x;
             UpdateText(x);
         };
+        indicateTweenKilledCallback = ClearIndicateTween;
     }
 
     private void Start()
@@ -85,7 +87,15 @@ public class GoodsIndicator : MonoBehaviour
         }
 
         // 재화 수가 n -> m 까지 쭉 오르는 연출
-        _indicateTweener = DOTween.To(_getter, _setter, goods, _duration);
+        _indicateTweener = DOTween
+            .To(_getter, _setter, goods, _duration)
+            .SetRecyclable(true)
+            .OnKill(indicateTweenKilledCallback);
+    }
+
+    private void ClearIndicateTween()
+    {
+        _indicateTweener = null;
     }
 
     private void OnDestroy()

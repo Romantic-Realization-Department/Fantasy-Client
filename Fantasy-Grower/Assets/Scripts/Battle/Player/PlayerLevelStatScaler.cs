@@ -18,9 +18,9 @@ public sealed class PlayerLevelStatScaler : MonoBehaviour
     [Tooltip("고정값은 레벨마다 더해지고, 비율은 0.08 입력 시 레벨마다 8% 성장합니다.")]
     private EntityStatModifier growthPerLevel = new()
     {
-        BonusHpRate = 0.08f,
-        BonusHpRecoveryRate = 0.08f,
-        BonusAttackPowerRate = 0.08f,
+        BonusHpRate = 0.21f,
+        BonusHpRecoveryRate = 0.27f,
+        BonusAttackPowerRate = 0.31f,
     };
 
     [SerializeField]

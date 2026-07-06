@@ -222,6 +222,14 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 420468021}
+    - target: {fileID: 4085440962211041327, guid: 644dad8f9100e314db9dbdafb4d410b0, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4085440962211041327, guid: 644dad8f9100e314db9dbdafb4d410b0, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6426914989905618536, guid: 644dad8f9100e314db9dbdafb4d410b0, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -534,52 +542,52 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stageReferences:
-  - m_AssetGUID: 57bdca2c2be58764d829c4da74fd0e6b
+  - m_AssetGUID: e41c4dab2a215394592476029e0e6383
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: 57bdca2c2be58764d829c4da74fd0e6b
+  - m_AssetGUID: d07fd01a00de0c244b57a60300d865fe
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: 57bdca2c2be58764d829c4da74fd0e6b
+  - m_AssetGUID: ffb8c62b6cbf248458c3ec912037c979
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: 57bdca2c2be58764d829c4da74fd0e6b
+  - m_AssetGUID: ded7b5acbbae2e440908319d00ae7001
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: 57bdca2c2be58764d829c4da74fd0e6b
+  - m_AssetGUID: 8865d50c38e1fc242a3fca2fa3ec43f5
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: 57bdca2c2be58764d829c4da74fd0e6b
+  - m_AssetGUID: a6afbb505ec73bc4daac46e8f70a1fba
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: 57bdca2c2be58764d829c4da74fd0e6b
+  - m_AssetGUID: bb7799b87fc11434aae78ba95c8c75ea
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: 57bdca2c2be58764d829c4da74fd0e6b
+  - m_AssetGUID: 5130033e49f41254a95404879b05f088
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: 57bdca2c2be58764d829c4da74fd0e6b
+  - m_AssetGUID: cfe6429e837598741a5a24d4d992cb62
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: 57bdca2c2be58764d829c4da74fd0e6b
+  - m_AssetGUID: ab6da1695eff4d94f812044a144a7dad
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 
@@ -711,7 +719,7 @@ Transform:
   m_GameObject: {fileID: 1445210229}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.265, y: -1.89, z: 0.0866822}
+  m_LocalPosition: {x: 5.265, y: -2.192, z: 0.0866822}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

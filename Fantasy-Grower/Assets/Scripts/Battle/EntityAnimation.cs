@@ -20,10 +20,12 @@ public abstract class EntityAnimation : MonoBehaviour
     [SerializeField]
     protected Color _takeDamageColor;
     protected Tweener _takeDamageTweener;
+    private TweenCallback takeDamageTweenKilledCallback;
 
     protected virtual void Awake()
     {
-        _spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
+        _spriteRenderers = _prefabs._anim.GetComponentsInChildren<SpriteRenderer>();
+        takeDamageTweenKilledCallback = ClearTakeDamageTween;
         _prefabs.OverrideControllerInit();
         _entityState[gameObject].OnStateChanged += OnStateChanged;
     }
@@ -71,7 +73,14 @@ public abstract class EntityAnimation : MonoBehaviour
 
         _takeDamageTweener = _spriteRenderers
             .DOColor(_takeDamageColor, 0.1f)
-            .SetLoops(2, LoopType.Yoyo);
+            .SetLoops(2, LoopType.Yoyo)
+            .SetRecyclable(true)
+            .OnKill(takeDamageTweenKilledCallback);
+    }
+
+    private void ClearTakeDamageTween()
+    {
+        _takeDamageTweener = null;
     }
 
     protected virtual void OnDebuff() { }
@@ -84,6 +93,7 @@ public abstract class EntityAnimation : MonoBehaviour
 
     protected virtual void OnDestroy()
     {
+        _takeDamageTweener?.Kill();
         _entityState[gameObject].OnStateChanged -= OnStateChanged;
     }
 

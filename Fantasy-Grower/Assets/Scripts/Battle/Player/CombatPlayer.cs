@@ -1,24 +1,43 @@
 using UnityEngine;
 
 /// <summary>
-/// 적을 탐색하여 공격하는 일반 전투 플레이어의 공통 기반 클래스입니다.
-/// 채광처럼 공격 대상을 별도 방식으로 결정하는 Player에게는 AttackTargetsSensing을 강제하지 않습니다.
+/// 일반 전투 플레이어를 나타내는 공통 기반 클래스입니다.
+/// 실제 공격 방식은 EntityAttackBehaviour 컴포넌트 조합으로 결정합니다.
 /// </summary>
-public abstract class CombatPlayer : Player
+public class CombatPlayer : Player
 {
-    [SerializeField, Header("공격 설정")]
-    protected AttackTargetsSensing targets;
+    [SerializeField, Header("공격 방식")]
+    private EntityAttackBehaviour attackBehaviour;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        ResolveAttackBehaviour();
+    }
+
+    public override void Attack()
+    {
+        // 프로젝트 규칙에 따라 피해 판정을 먼저 완료한 뒤 공격 애니메이션을 실행합니다.
+        if (attackBehaviour == null || !attackBehaviour.TryAttack(this))
+            return;
+
+        base.Attack();
+    }
 
     protected override void OnValidate()
     {
-        if (targets == null)
-        {
-            Debug.LogError(
-                "[CombatPlayer] Targets 필드에 AttackTargetsSensing 컴포넌트를 할당해주세요.",
-                this
-            );
-        }
-
         base.OnValidate();
+        ResolveAttackBehaviour();
+
+        if (attackBehaviour == null)
+        {
+            Debug.LogError("[CombatPlayer] EntityAttackBehaviour를 할당해주세요.", this);
+        }
+    }
+
+    private void ResolveAttackBehaviour()
+    {
+        if (attackBehaviour == null)
+            attackBehaviour = GetComponent<EntityAttackBehaviour>();
     }
 }
