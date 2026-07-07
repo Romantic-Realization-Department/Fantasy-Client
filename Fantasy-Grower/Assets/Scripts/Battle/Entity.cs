@@ -36,8 +36,11 @@ public abstract class Entity : MonoBehaviour
     /// <summary>실제 피해로 HP가 감소했을 때 피해 직전과 직후의 HP를 순서대로 전달한다.</summary>
     public event Action<float, float> OnDamageTaken;
 
+    /// <summary>다른 Entity에게 피해를 입혔을 때 대상과 실제 피해량을 전달한다.</summary>
+    public event Action<Entity, float> OnDamageDealt;
+
     /// <summary>Update문이 호출될 때 발화된다.</summary>
-    protected event Action OnUpdated;
+    public event Action OnUpdated;
 
     protected virtual void Awake()
     {
@@ -148,6 +151,22 @@ public abstract class Entity : MonoBehaviour
 
         if (Hp <= 0)
             Death();
+    }
+
+    public void Heal(float amount)
+    {
+        if (amount <= 0f || Hp <= 0f)
+            return;
+
+        Hp = Mathf.Min(MaxHp, Hp + amount);
+    }
+
+    public void NotifyDamageDealt(Entity target, float damage)
+    {
+        if (target == null || damage <= 0f)
+            return;
+
+        OnDamageDealt?.Invoke(target, damage);
     }
 
     /// <summary>

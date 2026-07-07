@@ -31,6 +31,7 @@ public sealed class SingleTargetAttackBehaviour : EntityAttackBehaviour
             attacker.CriticalPercentage
         );
         target.TakeDamage(damage);
+        attacker.NotifyDamageDealt(target, damage);
         return true;
     }
 

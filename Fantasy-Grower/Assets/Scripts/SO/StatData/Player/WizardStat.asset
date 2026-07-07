@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: WizardStat
   m_EditorClassIdentifier: 
   Hp: 20
-  HpRecovery: 18
+  HpRecovery: 6
   DamageReduction: 0.08
   AttackPower: 10
   AttackSpeed: 1

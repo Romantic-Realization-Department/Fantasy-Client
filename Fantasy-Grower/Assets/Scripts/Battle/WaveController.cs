@@ -12,6 +12,9 @@ public class WaveController : MonoBehaviour
     /// <summary>현재 웨이브의 모든 적이 사망했을 때 발화된다.</summary>
     public static event Action OnAllEnemiesDead;
 
+    /// <summary>현재 웨이브에 등록된 적 하나가 사망했을 때 발화된다.</summary>
+    public static event Action<Enemy> OnEnemyDiedGlobal;
+
     private int _aliveCount;
     private readonly HashSet<Enemy> _activeEnemies = new();
 
@@ -99,6 +102,7 @@ public class WaveController : MonoBehaviour
         entity.OnDied -= OnEnemyDied;
         _activeEnemies.Remove(enemy);
         _aliveCount = Mathf.Max(0, _aliveCount - 1);
+        OnEnemyDiedGlobal?.Invoke(enemy);
 
         if (_aliveCount == 0)
             OnAllEnemiesDead?.Invoke();

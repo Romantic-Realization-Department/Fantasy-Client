@@ -23,6 +23,7 @@ public class SkillTreeComponent : MonoBehaviour
     private List<ActiveSkillData> equippedActives;
     private List<PassiveSkillData> equippedPassives;
     private readonly List<EntityStatModifierHandle> passiveModifierHandles = new();
+    private readonly List<PassiveSkillRuntime> passiveRuntimes = new();
 
     private ISkillTreeStrategy strategy;
     private Entity entity;
@@ -61,6 +62,11 @@ public class SkillTreeComponent : MonoBehaviour
 
         // 패시브 스탯 재생성 복구 (GameManager에서 가져온 기존 장착 데이터 적용)
         RecalculatePassives();
+    }
+
+    private void OnDestroy()
+    {
+        ClearPassiveEffects();
     }
 
     /// <summary>
@@ -116,9 +122,7 @@ public class SkillTreeComponent : MonoBehaviour
     /// </summary>
     private void RecalculatePassives()
     {
-        foreach (EntityStatModifierHandle handle in passiveModifierHandles)
-            entity.RemoveStatModifier(handle);
-        passiveModifierHandles.Clear();
+        ClearPassiveEffects();
 
         foreach (PassiveSkillData passive in equippedPassives)
         {
@@ -128,7 +132,42 @@ public class SkillTreeComponent : MonoBehaviour
             EntityStatModifier modifier = EntityStatModifier.Zero;
             passive.ApplyPassive(ref modifier);
             passiveModifierHandles.Add(entity.ApplyStatModifier(modifier));
+
+            PassiveSkillRuntime runtime = passive.CreateRuntime(
+                new PassiveSkillRuntimeContext(this, entity)
+            );
+            if (runtime != null)
+                passiveRuntimes.Add(runtime);
         }
+    }
+
+    public float GetActiveSkillCooldownMultiplier()
+    {
+        if (equippedPassives == null)
+            return 1f;
+
+        float reduction = 0f;
+        foreach (PassiveSkillData passive in equippedPassives)
+        {
+            if (passive is IActiveSkillCooldownModifier cooldownModifier)
+                reduction += cooldownModifier.CooldownReductionRate;
+        }
+
+        return Mathf.Max(0f, 1f - reduction);
+    }
+
+    private void ClearPassiveEffects()
+    {
+        foreach (PassiveSkillRuntime runtime in passiveRuntimes)
+            runtime.Dispose();
+        passiveRuntimes.Clear();
+
+        foreach (EntityStatModifierHandle handle in passiveModifierHandles)
+        {
+            if (entity != null)
+                entity.RemoveStatModifier(handle);
+        }
+        passiveModifierHandles.Clear();
     }
 
     // ─── 액티브 스킬 장착 ─────────────────────────────────────────
