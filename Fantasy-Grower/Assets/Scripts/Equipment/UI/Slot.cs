@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -30,10 +31,10 @@ public class Slot : MonoBehaviour, IPointerClickHandler
     private Image[] AwakeImages;
 
     [SerializeField]
-    private Text WeaponNameText;
+    private TMP_Text WeaponNameText;
 
     [SerializeField]
-    private Text WeaponUpgradeText;
+    private TMP_Text WeaponUpgradeText;
 
     protected void Start()
     {

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class EquipmentUIManager : MonoBehaviour
@@ -27,13 +28,13 @@ public class EquipmentUIManager : MonoBehaviour
     public Image WeaponBGImage { get; private set; }
 
     [field: SerializeField]
-    public Text WeaponLevelText { get; private set; }
+    public TMP_Text WeaponLevelText { get; private set; }
 
     [field: SerializeField]
-    public Text EquipInfoText { get; private set; }
+    public TMP_Text EquipInfoText { get; private set; }
 
     [field: SerializeField]
-    public Text GetInfoText { get; private set; }
+    public TMP_Text GetInfoText { get; private set; }
 
     [field: SerializeField]
     public GameObject[] AwakeObject { get; private set; }
@@ -49,16 +50,16 @@ public class EquipmentUIManager : MonoBehaviour
     public Image UpgradeWeaponBGImage { get; private set; }
 
     [field: SerializeField]
-    public Text UpgradeWeaponLevelText { get; private set; }
+    public TMP_Text UpgradeWeaponLevelText { get; private set; }
 
     [field: SerializeField]
-    public Text UpgradeWeaponLevelUpText { get; private set; }
+    public TMP_Text UpgradeWeaponLevelUpText { get; private set; }
 
     [field: SerializeField]
-    public Text UpgradeEquipInfoText { get; private set; }
+    public TMP_Text UpgradeEquipInfoText { get; private set; }
 
     [field: SerializeField]
-    public Text UpgradeGetInfoText { get; private set; }
+    public TMP_Text UpgradeGetInfoText { get; private set; }
 
     [field: SerializeField]
     public GameObject[] UpgradeAwakeObject { get; private set; }

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Net.Sockets;
 using UnityEngine;
 
 [System.Serializable]
@@ -138,7 +137,12 @@ public class EquipmentManager : MonoBehaviour
     public void UpgradeWeapon()
     {
         //재화 관리 매니저에서 강화스크롤 비교 후 사용 메서드 활용하여 재화 사용
-        if (currentWeapon != null && true)
+        if (
+            currentWeapon != null
+            && GoodsManager
+                .Instance.GetGoods(GoodsType.UpgradeScroll)
+                .Decrease((uint)useScrollAmount)
+        )
         {
             if (maxUpgradeLevel > currentWeapon.weaponLevel)
             {
@@ -164,6 +168,62 @@ public class EquipmentManager : MonoBehaviour
             GetIcon(inven.ID),
             currentWeapon
         );
+    }
+
+    private int GetRequiredScrolls(int targetLevel)
+    {
+        int L = targetLevel;
+
+        if (L < 1 || L > 20)
+            return 0; // 범위 외 예외 처리
+
+        if (L >= 1 && L <= 4)
+        {
+            return 5 * L;
+        }
+        else if (L >= 5 && L <= 12)
+        {
+            // 2.5 * L * L - 12.5 * L + 30 을 정수 연산으로 변환
+            return (5 * L * L - 25 * L + 60) / 2;
+        }
+        else // 13레벨 ~ 20레벨 구간
+        {
+            // 3차 식 통분 처리 (마지막에 3으로 나눔)
+            return (5 * L * L * L - 165 * L * L + 1915 * L - 6570) / 3;
+        }
+    }
+
+    /// <summary>
+    /// 등급별 무기 강화 스크롤 사용 배수
+    /// </summary>
+    /// <returns></returns>
+    private float GradeScrollValue()
+    {
+        return ((int)currentWeapon.WeaponID / 2) switch
+        {
+            <= 0 => 3.0f,
+            <= 1 => 2.2f,
+            <= 2 => 1.7f,
+            <= 3 => 1.3f,
+            <= 4 => 1.0f,
+            _ => 1,
+        };
+    }
+
+    public int useScrollAmount =>
+        Mathf.RoundToInt(GetRequiredScrolls(currentWeapon.weaponLevel) * GradeScrollValue());
+
+    private uint AwakeUseMithril()
+    {
+        return currentWeapon.weaponAwakeLevel switch
+        {
+            <= 0 => 50u,
+            <= 1 => 75u,
+            <= 2 => 120u,
+            <= 3 => 180u,
+            <= 4 => 300u,
+            _ => 0,
+        };
     }
 
     void RefreshInfo()
@@ -298,7 +358,11 @@ public class EquipmentManager : MonoBehaviour
 
     public void Awakening()
     {
-        if (CheckWeaponState && currentWeapon.weaponAwakeLevel < maxAwakeLevel)
+        if (
+            CheckWeaponState
+            && currentWeapon.weaponAwakeLevel < maxAwakeLevel
+            && GoodsManager.Instance.GetGoods(GoodsType.Mithril).Decrease(AwakeUseMithril())
+        )
         {
             int possibleAwakeCount = (int)(currentWeapon.Get() / (int)useWeaponCount);
             int remainingAwakeLevel = maxAwakeLevel - currentWeapon.weaponAwakeLevel;
@@ -306,7 +370,6 @@ public class EquipmentManager : MonoBehaviour
 
             currentWeapon.Decrease((uint)(actualAwakeCount * useWeaponCount));
             currentWeapon.weaponAwakeLevel += actualAwakeCount;
-            Debug.Log("slfkjsfd");
         }
         SaveSelectAwakeWeapon(currentSelectID);
         EquipmentUIManager.Instance.RefrashSlotUI();
