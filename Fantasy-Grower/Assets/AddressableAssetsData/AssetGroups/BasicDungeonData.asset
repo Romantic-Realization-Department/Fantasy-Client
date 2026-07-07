@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: DungeonData
+  m_Name: BasicDungeonData
   m_EditorClassIdentifier: 
-  m_GroupName: DungeonData
+  m_GroupName: BasicDungeonData
   m_GUID: a150c112990895e4380045ffd539e385
   m_SerializeEntries:
   - m_GUID: 00fc3a87e1c3ac942b8ea2946c2be722
@@ -33,65 +33,17 @@ MonoBehaviour:
     m_SerializedLabels:
     - BasicDungeonData
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 1ebd326320efe9f4985b89a07ef3186a
-    m_Address: Assets/Scripts/Battle/DungeonDataSO/BossDungeon/Stage 4.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - BossDungeonData
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 219fb46e21e6dc740ad1afe8e49670ec
-    m_Address: Assets/Scripts/Battle/DungeonDataSO/BossDungeon/Stage 5.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - BossDungeonData
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 244e23e7dbf40994e8fdffea1ead298e
     m_Address: Assets/Scripts/Battle/DungeonDataSO/BasicDungeon/Stage 8.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - BasicDungeonData
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 27b48a63c90fbda41b1a53f2e17d957e
-    m_Address: BossDungeon/TestBossDungeonData.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - BossDungeonData
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 2f7dd60f014e84942bfca1dd65d7cf6f
-    m_Address: Assets/Scripts/Battle/DungeonDataSO/BossDungeon/Stage 2.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - BossDungeonData
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 34df992b38191fa4b9d54532f67c9bbf
-    m_Address: Assets/Scripts/Battle/DungeonDataSO/BossDungeon/Stage 10.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - BossDungeonData
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 38877619c29719a4b924aaa680f89aa1
-    m_Address: Assets/Scripts/Battle/DungeonDataSO/BossDungeon/Stage 3.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - BossDungeonData
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3b146183762e6994293afdd16d963ed4
     m_Address: Assets/Scripts/Battle/DungeonDataSO/BasicDungeon/Stage 5.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - BasicDungeonData
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 40330f0112d592144b6c5f0c430d6365
-    m_Address: Assets/Scripts/Battle/DungeonDataSO/BossDungeon/Stage 7.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - BossDungeonData
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 5130033e49f41254a95404879b05f088
-    m_Address: Assets/Scripts/Battle/DungeonDataSO/WeaponDungeon/Stage 8.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - WeaponDungeonData
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5423023a453eb16459adad2fc0129cf9
     m_Address: Assets/Scripts/Battle/DungeonDataSO/BasicDungeon/Stage 14.asset
@@ -104,12 +56,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - BasicDungeonData
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 57bdca2c2be58764d829c4da74fd0e6b
-    m_Address: WeaponDungeon/TestWeaponDungeonData.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - WeaponDungeonData
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 635ef04d299ddac45adb3bfc63bc5a88
     m_Address: BasicDungeon/TestBasicDungeonData.asset
@@ -135,12 +81,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - BasicDungeonData
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 8865d50c38e1fc242a3fca2fa3ec43f5
-    m_Address: Assets/Scripts/Battle/DungeonDataSO/WeaponDungeon/Stage 5.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - WeaponDungeonData
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 899a9a7a6ccead44b84b24a7780bb7ec
     m_Address: Assets/Scripts/Battle/DungeonDataSO/BasicDungeon/Stage 9.asset
     m_ReadOnly: 0
@@ -153,47 +93,11 @@ MonoBehaviour:
     m_SerializedLabels:
     - BasicDungeonData
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a6afbb505ec73bc4daac46e8f70a1fba
-    m_Address: Assets/Scripts/Battle/DungeonDataSO/WeaponDungeon/Stage 6.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - WeaponDungeonData
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: aa61502a6d3965643bdf9129069a9383
-    m_Address: Assets/Scripts/Battle/DungeonDataSO/BossDungeon/Stage 6.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - BossDungeonData
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ab6da1695eff4d94f812044a144a7dad
-    m_Address: Assets/Scripts/Battle/DungeonDataSO/WeaponDungeon/Stage 10.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - WeaponDungeonData
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b2cb840e165d6c140b2cb4cfc84a219a
-    m_Address: Assets/Scripts/Battle/DungeonDataSO/BossDungeon/Stage 8.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - BossDungeonData
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: bb7799b87fc11434aae78ba95c8c75ea
-    m_Address: Assets/Scripts/Battle/DungeonDataSO/WeaponDungeon/Stage 7.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - WeaponDungeonData
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bdb07e6f3b50a234dbfbec4de975e762
     m_Address: Assets/Scripts/Battle/DungeonDataSO/BasicDungeon/Stage 18.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - BasicDungeonData
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c42ebe5407a49d04690539874d9d55a7
-    m_Address: Assets/Scripts/Battle/DungeonDataSO/BossDungeon/Stage 9.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - BossDungeonData
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c89f33f6915ae4142a146d74cbde9a0f
     m_Address: Assets/Scripts/Battle/DungeonDataSO/BasicDungeon/Stage 2.asset
@@ -207,41 +111,11 @@ MonoBehaviour:
     m_SerializedLabels:
     - BasicDungeonData
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: cfe6429e837598741a5a24d4d992cb62
-    m_Address: Assets/Scripts/Battle/DungeonDataSO/WeaponDungeon/Stage 9.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - WeaponDungeonData
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d07fd01a00de0c244b57a60300d865fe
-    m_Address: Assets/Scripts/Battle/DungeonDataSO/WeaponDungeon/Stage 2.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - WeaponDungeonData
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: dd582c31b85b63c4a8a610e691d1e82a
-    m_Address: Assets/Scripts/Battle/DungeonDataSO/BossDungeon/Stage 1.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - BossDungeonData
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ded7b5acbbae2e440908319d00ae7001
-    m_Address: Assets/Scripts/Battle/DungeonDataSO/WeaponDungeon/Stage 4.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - WeaponDungeonData
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e1ed514ab290ec04ab497b7c19a01422
     m_Address: Assets/Scripts/Battle/DungeonDataSO/BasicDungeon/Stage 3.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - BasicDungeonData
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e41c4dab2a215394592476029e0e6383
-    m_Address: Assets/Scripts/Battle/DungeonDataSO/WeaponDungeon/Stage 1.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - WeaponDungeonData
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e7fdbac66fe4b0747a9139bc2cd9de16
     m_Address: Assets/Scripts/Battle/DungeonDataSO/BasicDungeon/Stage 15.asset
@@ -266,12 +140,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - BasicDungeonData
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ffb8c62b6cbf248458c3ec912037c979
-    m_Address: Assets/Scripts/Battle/DungeonDataSO/WeaponDungeon/Stage 3.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - WeaponDungeonData
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 89fc6e7fa654b1f4b8011a19350d4b9a, type: 2}

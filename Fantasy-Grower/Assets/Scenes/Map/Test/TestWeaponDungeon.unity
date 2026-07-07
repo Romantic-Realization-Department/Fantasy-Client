@@ -542,52 +542,52 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stageReferences:
-  - m_AssetGUID: e41c4dab2a215394592476029e0e6383
+  - m_AssetGUID: 835df6237bc74e94294890a32cf83231
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: d07fd01a00de0c244b57a60300d865fe
+  - m_AssetGUID: 9d1b51144689a1b4886d0951737b07b0
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: ffb8c62b6cbf248458c3ec912037c979
+  - m_AssetGUID: ec3e77a52a2964544ac775d64c1c31b8
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: ded7b5acbbae2e440908319d00ae7001
+  - m_AssetGUID: d2bb44bc1b23cad4eb44b01b018f2ae2
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: 8865d50c38e1fc242a3fca2fa3ec43f5
+  - m_AssetGUID: 55981ac7f9e89194d9447082403e6e9f
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: a6afbb505ec73bc4daac46e8f70a1fba
+  - m_AssetGUID: 017eaae8cca7eae49a6069b9ce4d0b3d
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: bb7799b87fc11434aae78ba95c8c75ea
+  - m_AssetGUID: c431add9d7764bb4ba41f62e9ecef784
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: 5130033e49f41254a95404879b05f088
+  - m_AssetGUID: 8bca7b43f486a6741b88a90644f10841
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: cfe6429e837598741a5a24d4d992cb62
+  - m_AssetGUID: 72d7f741911f05349969d2af3eb59dd6
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: ab6da1695eff4d94f812044a144a7dad
+  - m_AssetGUID: b5280b8415237b34ba380ff198362a41
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 

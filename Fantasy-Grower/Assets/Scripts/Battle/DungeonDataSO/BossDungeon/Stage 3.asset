@@ -9,14 +9,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4558c98443aba914e85f0a2abde84537, type: 3}
+  m_Script: {fileID: 11500000, guid: 70dc57ef4e1382e49a24c3ed2678af46, type: 3}
   m_Name: Stage 3
   m_EditorClassIdentifier: 
   _dungeonType: 3
   _hasTimeLimit: 0
   _timeLimitSeconds: 0
   _dungeonClearReward:
-    _rewardEachTypes: []
+    _rewardEachTypes:
+    - type: 1
+      count: 50000
+    - type: 4
+      count: 10
   _waves:
   - {fileID: 11400000, guid: 9830dcbaa822bf0439a1f2823eb7dffb, type: 2}
   _nextWaveDelay: 1.5
+  _aGradeWeaponCandidates: 0200000003000000
+  _weaponRewardAmount: 1

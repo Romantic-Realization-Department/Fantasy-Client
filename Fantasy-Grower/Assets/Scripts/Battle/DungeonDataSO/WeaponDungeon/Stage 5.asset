@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4558c98443aba914e85f0a2abde84537, type: 3}
+  m_Script: {fileID: 11500000, guid: fe17c2e22f9316643a7becc3d1502426, type: 3}
   m_Name: Stage 5
   m_EditorClassIdentifier: 
   _dungeonType: 2
@@ -24,3 +24,18 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4a9c92f89674dbc4b9730e5bbad2e514, type: 2}
   - {fileID: 11400000, guid: 973071a0051445242a8376d8fd212fa2, type: 2}
   _nextWaveDelay: 1.5
+  _weaponDrops:
+  - WeaponID: 8
+    DropChance: 50
+    Amount: 3
+  - WeaponID: 9
+    DropChance: 50
+    Amount: 3
+  - WeaponID: 6
+    DropChance: 50
+    Amount: 1
+  - WeaponID: 7
+    DropChance: 50
+    Amount: 1
+  _upgradeScrollDropChance: 50
+  _upgradeScrollDropAmount: 3

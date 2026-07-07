@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dea69d41f90c6ea4fa55c27c1d60c145, type: 3}
-  m_Name: AddressableAssetGroupSortSettings
+  m_Script: {fileID: 11500000, guid: 5834b5087d578d24c926ce20cd31e6d6, type: 3}
+  m_Name: BossDungeonData_ContentUpdateGroupSchema
   m_EditorClassIdentifier: 
-  sortOrder:
-  - 622da8de12a1e7748b482d2d8a88fd10
-  - 388943bc3e9577a4eaa0f06166621ba5
-  - a150c112990895e4380045ffd539e385
+  m_Group: {fileID: 11400000, guid: 9f3526744ca09574a8c0b1d8b2a13a5f, type: 2}
+  m_StaticContent: 0
