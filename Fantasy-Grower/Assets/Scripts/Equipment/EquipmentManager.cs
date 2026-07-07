@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Net.Sockets;
 using UnityEngine;
 
 [System.Serializable]
@@ -70,6 +71,7 @@ public class EquipmentManager : MonoBehaviour
         if (_instance == null)
         {
             _instance = this;
+            transform.parent = null;
             DontDestroyOnLoad(gameObject);
         }
         else
@@ -144,6 +146,7 @@ public class EquipmentManager : MonoBehaviour
                 RefreshInfo();
                 RefreshInfoInUpgradeTab();
                 RefreshStatModifiers();
+                EquipmentUIManager.Instance.RefrashSlotUI();
             }
         }
     } //버튼 추가 형
@@ -151,9 +154,16 @@ public class EquipmentManager : MonoBehaviour
     public void OpenItemInfoPage(Slot inven)
     {
         currentWeapon = GetWeapon(inven.ID);
-        EquipmentUIManager.Instance.WeaponIconImage.sprite = GetIcon(inven.ID);
-
-        EquipmentUIManager.Instance.WeaponInfoObject.SetActive(true);
+        EquipmentUIManager.Instance.SettingItemInfoUI(
+            GetColor(inven.ID),
+            GetIcon(inven.ID),
+            currentWeapon
+        );
+        EquipmentUIManager.Instance.SettingUpgradeItemInfoUI(
+            GetColor(inven.ID),
+            GetIcon(inven.ID),
+            currentWeapon
+        );
     }
 
     void RefreshInfo()
@@ -281,6 +291,7 @@ public class EquipmentManager : MonoBehaviour
             );
             GetWeapon(currentWeapon.NextWeaponID).Increase(synthAmount);
             SaveSelectSynthWeapon(currentSelectID);
+            EquipmentUIManager.Instance.RefrashSlotUI();
             RefreshStatModifiers();
         }
     } //버튼 추가 형
@@ -297,6 +308,7 @@ public class EquipmentManager : MonoBehaviour
             currentWeapon.weaponAwakeLevel += actualAwakeCount;
         }
         SaveSelectAwakeWeapon(currentSelectID);
+        EquipmentUIManager.Instance.RefrashSlotUI();
         RefreshStatModifiers();
     } //버튼 추가 형
 

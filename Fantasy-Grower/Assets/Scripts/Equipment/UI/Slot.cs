@@ -52,7 +52,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler
 
     Sprite getIcon() => EquipmentManager.Instance.GetIcon(ID);
 
-    private void RefreshIcon()
+    public void RefreshIcon()
     {
         MyImage.color = EquipmentManager.Instance.GetColor(ID);
         WeaponNameText.text = GetWeapon().weaponName;

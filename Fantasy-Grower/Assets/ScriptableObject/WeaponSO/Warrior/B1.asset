@@ -20,4 +20,4 @@ MonoBehaviour:
   <getDamage>k__BackingField: 170
   weaponLevel: 0
   weaponAwakeLevel: 0
-  isUnlock: 0
+  isUnlock: 1
