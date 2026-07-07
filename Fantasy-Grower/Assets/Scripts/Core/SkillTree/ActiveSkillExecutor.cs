@@ -110,6 +110,42 @@ public sealed class ActiveSkillExecutor : MonoBehaviour
         return Mathf.Clamp01(GetCooldownRemaining(slotIndex) / cooldown);
     }
 
+    public void ReduceAllCooldowns(float seconds)
+    {
+        if (seconds <= 0f || cooldownEndTimes == null)
+            return;
+
+        for (int i = 0; i < cooldownEndTimes.Length; i++)
+            ReduceCooldown(i, seconds);
+    }
+
+    public void ReduceCooldown(int slotIndex, float seconds)
+    {
+        if (
+            seconds <= 0f
+            || cooldownEndTimes == null
+            || slotIndex < 0
+            || slotIndex >= cooldownEndTimes.Length
+        )
+        {
+            return;
+        }
+
+        cooldownEndTimes[slotIndex] = Mathf.Max(Time.time, cooldownEndTimes[slotIndex] - seconds);
+    }
+
+    public float GetActiveSkillDamageMultiplier()
+    {
+        return GetActiveSkillDamageMultiplier(null);
+    }
+
+    public float GetActiveSkillDamageMultiplier(ActiveSkillData skill)
+    {
+        return skillTreeComponent != null
+            ? skillTreeComponent.GetActiveSkillDamageMultiplier(skill)
+            : 1f;
+    }
+
     private float GetModifiedCooldown(ActiveSkillData skill)
     {
         if (skill == null || skill.Cooldown <= 0f)
@@ -173,6 +209,6 @@ public sealed class ActiveSkillExecutor : MonoBehaviour
 
     private int GetActiveSlotCount()
     {
-        return skillTreeComponent.GetEquippedActives()?.Count ?? 0;
+        return skillTreeComponent != null ? skillTreeComponent.EquippedActiveCount : 0;
     }
 }

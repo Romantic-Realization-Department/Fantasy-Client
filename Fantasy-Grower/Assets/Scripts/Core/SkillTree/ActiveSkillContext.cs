@@ -24,4 +24,12 @@ public readonly struct ActiveSkillContext
     public Entity Caster { get; }
     public ActiveSkillData Skill { get; }
     public int SlotIndex { get; }
+
+    public float GetModifiedDamage(float baseDamage)
+    {
+        if (Executor == null)
+            return baseDamage;
+
+        return baseDamage * Executor.GetActiveSkillDamageMultiplier(Skill);
+    }
 }

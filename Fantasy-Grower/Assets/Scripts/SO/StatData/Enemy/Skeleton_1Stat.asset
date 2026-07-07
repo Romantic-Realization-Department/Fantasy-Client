@@ -11,10 +11,11 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5df7739d4b9038a4d9cb6566170314b6, type: 3}
   m_Name: Skeleton_1Stat
-  m_EditorClassIdentifier:
+  m_EditorClassIdentifier: 
   Hp: 70
   HpRecovery: 0
   DamageReduction: 0.06
   AttackPower: 7
   AttackSpeed: 0.85
   CriticalPercentage: 0
+  AttackRange: 1

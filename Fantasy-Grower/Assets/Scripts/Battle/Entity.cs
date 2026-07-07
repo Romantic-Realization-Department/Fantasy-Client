@@ -16,6 +16,9 @@ public abstract class Entity : MonoBehaviour
     public float AttackPower { get; private set; }
     public float AttackSpeed { get; private set; }
     public float CriticalPercentage { get; private set; }
+    public float CriticalDamageMultiplier { get; private set; } = 2f;
+    public float AttackRange { get; private set; } = 1f;
+    public float MoveSpeedMultiplier { get; private set; } = 1f;
 
     [field: SerializeField, Header("엔티티 설정")]
     public EntityType EntityType { get; private set; }
@@ -36,11 +39,17 @@ public abstract class Entity : MonoBehaviour
     /// <summary>실제 피해로 HP가 감소했을 때 피해 직전과 직후의 HP를 순서대로 전달한다.</summary>
     public event Action<float, float> OnDamageTaken;
 
+    /// <summary>피해가 HP에 적용되기 전에 발화된다. 패시브가 피해량을 조정하거나 취소할 수 있다.</summary>
+    public event Action<IncomingDamageContext> OnBeforeDamageTaken;
+
     /// <summary>다른 Entity에게 피해를 입혔을 때 대상과 실제 피해량을 전달한다.</summary>
     public event Action<Entity, float> OnDamageDealt;
 
     /// <summary>Update문이 호출될 때 발화된다.</summary>
     public event Action OnUpdated;
+
+    /// <summary>스탯 재계산이 끝났을 때 발화된다.</summary>
+    public event Action OnStatsChanged;
 
     protected virtual void Awake()
     {
@@ -135,14 +144,22 @@ public abstract class Entity : MonoBehaviour
         entityState[gameObject].State = PlayerState.DEATH;
     }
 
-    public virtual void TakeDamage(float damage)
+    public virtual float TakeDamage(float damage, Entity attacker = null)
     {
         if (Hp <= 0)
-            return; // 이미 사망 — 중복 호출 무시
+            return 0f; // 이미 사망 — 중복 호출 무시
 
+        var damageContext = new IncomingDamageContext(this, attacker, damage);
+        OnBeforeDamageTaken?.Invoke(damageContext);
+
+        if (damageContext.IsCancelled || damageContext.Damage <= 0f)
+            return 0f;
+
+        damage = damageContext.Damage;
         Debug.Log($"데미지 받음: {damage}");
         float previousHp = Hp;
         Hp = Mathf.Max(0, Hp - damage);
+        float actualDamage = previousHp - Hp;
 
         if (Hp < previousHp)
             OnDamageTaken?.Invoke(previousHp, Hp);
@@ -151,6 +168,8 @@ public abstract class Entity : MonoBehaviour
 
         if (Hp <= 0)
             Death();
+
+        return actualDamage;
     }
 
     public void Heal(float amount)
@@ -279,6 +298,14 @@ public abstract class Entity : MonoBehaviour
             0f,
             100f
         );
+        CriticalDamageMultiplier = Mathf.Max(1f, 2f * (1f + totalModifier.BonusCriticalDamageRate));
+        AttackRange = CalculateModifiedStat(
+            statData.AttackRange,
+            0f,
+            totalModifier.BonusAttackRangeRate
+        );
+        MoveSpeedMultiplier = Mathf.Max(0f, 1f + totalModifier.BonusMoveSpeedRate);
+        OnStatsChanged?.Invoke();
     }
 
     private static float CalculateModifiedStat(

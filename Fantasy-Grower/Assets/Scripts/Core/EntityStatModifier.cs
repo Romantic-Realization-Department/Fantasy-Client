@@ -33,6 +33,9 @@ public struct EntityStatModifier
     public float BonusAttackPower;
     public float BonusAttackSpeed;
     public float BonusCriticalPercentage;
+    public float BonusCriticalDamageRate;
+    public float BonusAttackRangeRate;
+    public float BonusMoveSpeedRate;
 
     [UnityEngine.Header("비율 보정 (0.2 = 20%)")]
     public float BonusHpRate;
@@ -52,6 +55,9 @@ public struct EntityStatModifier
             BonusAttackPower = a.BonusAttackPower + b.BonusAttackPower,
             BonusAttackSpeed = a.BonusAttackSpeed + b.BonusAttackSpeed,
             BonusCriticalPercentage = a.BonusCriticalPercentage + b.BonusCriticalPercentage,
+            BonusCriticalDamageRate = a.BonusCriticalDamageRate + b.BonusCriticalDamageRate,
+            BonusAttackRangeRate = a.BonusAttackRangeRate + b.BonusAttackRangeRate,
+            BonusMoveSpeedRate = a.BonusMoveSpeedRate + b.BonusMoveSpeedRate,
             BonusHpRate = a.BonusHpRate + b.BonusHpRate,
             BonusHpRecoveryRate = a.BonusHpRecoveryRate + b.BonusHpRecoveryRate,
             BonusDamageReductionRate = a.BonusDamageReductionRate + b.BonusDamageReductionRate,

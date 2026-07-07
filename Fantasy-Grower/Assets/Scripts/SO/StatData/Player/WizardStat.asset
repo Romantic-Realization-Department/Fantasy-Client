@@ -18,3 +18,4 @@ MonoBehaviour:
   AttackPower: 10
   AttackSpeed: 1
   CriticalPercentage: 0
+  AttackRange: 2.5

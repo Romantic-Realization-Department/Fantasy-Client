@@ -72,21 +72,7 @@ public sealed class KillStackAttackPassiveSkill : PassiveSkillData
 
         private static EntityStatModifier ScaleModifier(EntityStatModifier modifier, int stack)
         {
-            return new EntityStatModifier
-            {
-                BonusHp = modifier.BonusHp * stack,
-                BonusHpRecovery = modifier.BonusHpRecovery * stack,
-                BonusDamageReduction = modifier.BonusDamageReduction * stack,
-                BonusAttackPower = modifier.BonusAttackPower * stack,
-                BonusAttackSpeed = modifier.BonusAttackSpeed * stack,
-                BonusCriticalPercentage = modifier.BonusCriticalPercentage * stack,
-                BonusHpRate = modifier.BonusHpRate * stack,
-                BonusHpRecoveryRate = modifier.BonusHpRecoveryRate * stack,
-                BonusDamageReductionRate = modifier.BonusDamageReductionRate * stack,
-                BonusAttackPowerRate = modifier.BonusAttackPowerRate * stack,
-                BonusAttackSpeedRate = modifier.BonusAttackSpeedRate * stack,
-                BonusCriticalPercentageRate = modifier.BonusCriticalPercentageRate * stack,
-            };
+            return EntityStatModifierUtility.Scale(modifier, stack);
         }
     }
 }

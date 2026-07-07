@@ -28,10 +28,25 @@ public sealed class SingleTargetAttackBehaviour : EntityAttackBehaviour
         (float damage, _) = DamageCalculator.Calculate(
             attacker.AttackPower,
             target.DamageReduction,
-            attacker.CriticalPercentage
+            attacker.CriticalPercentage,
+            attacker.CriticalDamageMultiplier
         );
-        target.TakeDamage(damage);
-        attacker.NotifyDamageDealt(target, damage);
+
+        SkillTreeComponent skillTreeComponent = null;
+        if (attacker.TryGetComponent(out SkillTreeComponent foundSkillTreeComponent))
+        {
+            skillTreeComponent = foundSkillTreeComponent;
+            damage *= skillTreeComponent.GetOutgoingDamageMultiplier();
+            damage *= skillTreeComponent.GetBasicAttackDamageMultiplier();
+        }
+
+        if (target is Enemy { IsEliteTarget: true } && skillTreeComponent != null)
+        {
+            damage *= skillTreeComponent.GetEliteDamageMultiplier();
+        }
+
+        float actualDamage = target.TakeDamage(damage, attacker);
+        attacker.NotifyDamageDealt(target, actualDamage);
         return true;
     }
 

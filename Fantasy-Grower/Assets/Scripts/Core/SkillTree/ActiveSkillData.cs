@@ -6,6 +6,11 @@ using UnityEngine;
 /// </summary>
 public abstract class ActiveSkillData : SkillData
 {
+    [SerializeField]
+    private ActiveSkillDamageCategory damageCategory = ActiveSkillDamageCategory.None;
+
+    public ActiveSkillDamageCategory DamageCategory => damageCategory;
+
     /// <summary>
     /// 기존 테스트/에디터 호출 호환용 메서드입니다.
     /// 실제 전투에서는 TryUseSkill(ActiveSkillContext)를 사용합니다.
