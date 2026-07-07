@@ -39,9 +39,6 @@ public class BasicDungeonManager
     [SerializeField, Tooltip("웨이브 컨트롤러")]
     private WaveController _waveController;
 
-    [SerializeField, Tooltip("던전 데이터")]
-    private BasicDungeonData _basicDungeonData;
-
     [Header("스폰 설정")]
     [SerializeField, Tooltip("스폰 시작 지점")]
     private Transform _spawnPoint;
@@ -64,12 +61,6 @@ public class BasicDungeonManager
     protected override void Init()
     {
         WaveController.OnAllEnemiesDead += HandleAllEnemiesDead;
-        SceneChanger.SceneLoaded += OnSceneLoaded;
-    }
-
-    private void OnSceneLoaded()
-    {
-        StartDungeon(_basicDungeonData);
     }
 
     protected override void Clear()
@@ -77,7 +68,6 @@ public class BasicDungeonManager
         WaveController.OnAllEnemiesDead -= HandleAllEnemiesDead;
         if (_player != null)
             _player.OnDied -= HandlePlayerDied;
-        SceneChanger.SceneLoaded -= OnSceneLoaded;
     }
 
     /// <summary>
@@ -86,6 +76,9 @@ public class BasicDungeonManager
     /// <param name="dungeonData"></param>
     protected override void StartDungeonInternal(BasicDungeonData dungeonData)
     {
+        if (_waveController != null)
+            _waveController.Clear();
+
         _currentWaveIndex = 0;
     }
 
@@ -176,10 +169,15 @@ public class BasicDungeonManager
     {
         Debug.Log("[BasicDungeonManager] 던전 클리어!");
 
-        DungeonClearReward dungeonClearReward =
-            _currentDungeonData != null
-                ? _currentDungeonData.DungeonClearReward
-                : _basicDungeonData.DungeonClearReward;
+        if (_currentDungeonData == null)
+        {
+            Debug.LogError(
+                "[BasicDungeonManager] 현재 DungeonData가 없어 보상을 지급할 수 없습니다."
+            );
+            return;
+        }
+
+        DungeonClearReward dungeonClearReward = _currentDungeonData.DungeonClearReward;
 
         GoodsManager.Instance.GetGoods(GoodsType.Gold).Increase(dungeonClearReward[GoodsType.Gold]);
         GoodsManager.Instance.GetGoods(GoodsType.XP).Increase(dungeonClearReward[GoodsType.XP]);

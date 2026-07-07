@@ -1,0 +1,149 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: BasicDungeonData
+  m_EditorClassIdentifier: 
+  m_GroupName: BasicDungeonData
+  m_GUID: a150c112990895e4380045ffd539e385
+  m_SerializeEntries:
+  - m_GUID: 00fc3a87e1c3ac942b8ea2946c2be722
+    m_Address: Assets/Scripts/Battle/DungeonDataSO/BasicDungeon/Stage 12.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - BasicDungeonData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 046d44e91c5b7224badf0819ab61d930
+    m_Address: Assets/Scripts/Battle/DungeonDataSO/BasicDungeon/Stage 11.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - BasicDungeonData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 06718f66701dd8f4eaaa7051d94041b2
+    m_Address: Assets/Scripts/Battle/DungeonDataSO/BasicDungeon/Stage 1.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - BasicDungeonData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 244e23e7dbf40994e8fdffea1ead298e
+    m_Address: Assets/Scripts/Battle/DungeonDataSO/BasicDungeon/Stage 8.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - BasicDungeonData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3b146183762e6994293afdd16d963ed4
+    m_Address: Assets/Scripts/Battle/DungeonDataSO/BasicDungeon/Stage 5.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - BasicDungeonData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5423023a453eb16459adad2fc0129cf9
+    m_Address: Assets/Scripts/Battle/DungeonDataSO/BasicDungeon/Stage 14.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - BasicDungeonData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5438a2cdd33286c4eb5b27944217488b
+    m_Address: Assets/Scripts/Battle/DungeonDataSO/BasicDungeon/Stage 19.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - BasicDungeonData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 635ef04d299ddac45adb3bfc63bc5a88
+    m_Address: BasicDungeon/TestBasicDungeonData.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - BasicDungeonData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6ba9d98183f7d854c9e5f2732f16d166
+    m_Address: Assets/Scripts/Battle/DungeonDataSO/BasicDungeon/Stage 20.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - BasicDungeonData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 752708d8cce79534ba95b6f535c2a6a3
+    m_Address: Assets/Scripts/Battle/DungeonDataSO/BasicDungeon/Stage 13.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - BasicDungeonData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 78a39878b3759354893a40b5474055c2
+    m_Address: Assets/Scripts/Battle/DungeonDataSO/BasicDungeon/Stage 6.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - BasicDungeonData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 899a9a7a6ccead44b84b24a7780bb7ec
+    m_Address: Assets/Scripts/Battle/DungeonDataSO/BasicDungeon/Stage 9.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - BasicDungeonData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9629e4d4f8f06a8458fdd3ae01be5fa6
+    m_Address: Assets/Scripts/Battle/DungeonDataSO/BasicDungeon/Stage 17.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - BasicDungeonData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bdb07e6f3b50a234dbfbec4de975e762
+    m_Address: Assets/Scripts/Battle/DungeonDataSO/BasicDungeon/Stage 18.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - BasicDungeonData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c89f33f6915ae4142a146d74cbde9a0f
+    m_Address: Assets/Scripts/Battle/DungeonDataSO/BasicDungeon/Stage 2.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - BasicDungeonData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c8a53443fd28b96438342f6404ecff59
+    m_Address: Assets/Scripts/Battle/DungeonDataSO/BasicDungeon/Stage 10.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - BasicDungeonData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e1ed514ab290ec04ab497b7c19a01422
+    m_Address: Assets/Scripts/Battle/DungeonDataSO/BasicDungeon/Stage 3.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - BasicDungeonData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e7fdbac66fe4b0747a9139bc2cd9de16
+    m_Address: Assets/Scripts/Battle/DungeonDataSO/BasicDungeon/Stage 15.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - BasicDungeonData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: eda9192028374bb48bf40042dc4e991c
+    m_Address: Assets/Scripts/Battle/DungeonDataSO/BasicDungeon/Stage 7.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - BasicDungeonData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f4bd4ec3e658f874e9bac41614487f6a
+    m_Address: Assets/Scripts/Battle/DungeonDataSO/BasicDungeon/Stage 4.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - BasicDungeonData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fe3609c18da082342ba264d348fd16b4
+    m_Address: Assets/Scripts/Battle/DungeonDataSO/BasicDungeon/Stage 16.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - BasicDungeonData
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 89fc6e7fa654b1f4b8011a19350d4b9a, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: a4c3adfb834eb5440899f4db1977bed1, type: 2}
+    - {fileID: 11400000, guid: aa9e43e2510fa754ab295da7568fd452, type: 2}

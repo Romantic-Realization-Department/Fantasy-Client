@@ -21,12 +21,14 @@ public class DungeonSelectButton : MonoBehaviour
 
     private RectTransform _rectTransform;
     private Tweener _tweener;
+    private TweenCallback tweenKilledCallback;
 
     private Vector2 _originSize;
 
     private void Awake()
     {
         _rectTransform = transform as RectTransform;
+        tweenKilledCallback = ClearTween;
 
         _originSize = _rectTransform.sizeDelta;
     }
@@ -40,7 +42,11 @@ public class DungeonSelectButton : MonoBehaviour
 
         _tweener?.Kill();
 
-        _tweener = _rectTransform.DOSizeDelta(_selectedSize, _tweenDuration);
+        _tweener = _rectTransform
+            .DOSizeDelta(_selectedSize, _tweenDuration)
+            .SetRecyclable(true)
+            .SetLink(gameObject)
+            .OnKill(tweenKilledCallback);
     }
 
     public void Return()
@@ -52,7 +58,21 @@ public class DungeonSelectButton : MonoBehaviour
 
         _tweener?.Kill();
 
-        _tweener = _rectTransform.DOSizeDelta(_originSize, _tweenDuration);
+        _tweener = _rectTransform
+            .DOSizeDelta(_originSize, _tweenDuration)
+            .SetRecyclable(true)
+            .SetLink(gameObject)
+            .OnKill(tweenKilledCallback);
+    }
+
+    private void ClearTween()
+    {
+        _tweener = null;
+    }
+
+    private void OnDestroy()
+    {
+        _tweener?.Kill();
     }
 
     public void MovingScene()

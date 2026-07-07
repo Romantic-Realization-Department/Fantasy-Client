@@ -35,9 +35,6 @@ public class BossDungeonManager
     [SerializeField, Tooltip("Wave controller")]
     private WaveController _waveController;
 
-    [SerializeField, Tooltip("Dungeon data")]
-    private BossDungeonData _bossDungeonData;
-
     [Header("Spawn Settings")]
     [SerializeField, Tooltip("Spawn start point")]
     private Transform _spawnPoint;
@@ -54,12 +51,6 @@ public class BossDungeonManager
     protected override void Init()
     {
         WaveController.OnAllEnemiesDead += HandleAllEnemiesDead;
-        SceneChanger.SceneLoaded += OnSceneLoaded;
-    }
-
-    private void OnSceneLoaded()
-    {
-        StartDungeon(_bossDungeonData);
     }
 
     protected override void Clear()
@@ -67,11 +58,13 @@ public class BossDungeonManager
         WaveController.OnAllEnemiesDead -= HandleAllEnemiesDead;
         if (_player != null)
             _player.OnDied -= HandlePlayerDied;
-        SceneChanger.SceneLoaded -= OnSceneLoaded;
     }
 
     protected override void StartDungeonInternal(BossDungeonData dungeonData)
     {
+        if (_waveController != null)
+            _waveController.Clear();
+
         _currentWaveIndex = 0;
         _gottenWeapon = null;
     }

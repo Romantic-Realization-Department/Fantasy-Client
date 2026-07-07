@@ -191,7 +191,7 @@ public class PlayerSelectUI : MonoBehaviour
             {
                 // 통통 튀는 느낌(OutBack)으로 부드럽게 너비/높이 변경
                 rect.DOKill(); // 기존 실행 중인 애니메이션 취소
-                rect.DOSizeDelta(targetSize, 0.2f).SetEase(Ease.OutBack);
+                rect.DOSizeDelta(targetSize, 0.2f).SetEase(Ease.OutBack).SetRecyclable(true);
             }
         }
     }

@@ -652,12 +652,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 695998548}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 388f00d7b35e3f04b88f0364310333ef, type: 3}
+  m_Script: {fileID: 11500000, guid: daabfb68522c493d9591bd23db2d468f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   <EntityType>k__BackingField: 0
   statData: {fileID: 11400000, guid: fe352f708efa65540819d5d6bf040e6b, type: 2}
-  targets: {fileID: 0}
+  attackBehaviour: {fileID: 0}
 --- !u!114 &695998551
 MonoBehaviour:
   m_ObjectHideFlags: 0

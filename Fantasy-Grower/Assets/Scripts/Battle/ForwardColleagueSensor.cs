@@ -12,6 +12,18 @@ public class ForwardColleagueSensor : MonoBehaviour
     public event Action OnBlocked;
     public event Action OnUnBlocked;
 
+    private void Reset()
+    {
+        if (!_myEntity)
+            _myEntity = GetComponentInParent<Entity>();
+    }
+
+    private void Awake()
+    {
+        if (!_myEntity)
+            _myEntity = GetComponentInParent<Entity>();
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (

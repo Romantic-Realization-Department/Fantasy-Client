@@ -11,4 +11,18 @@ public static class SpanExtension
         offset += value.Length;
         return true;
     }
+
+    public static bool TryAppend(
+        this Span<char> target,
+        ref int offset,
+        uint value,
+        ReadOnlySpan<char> format = default
+    )
+    {
+        if (!value.TryFormat(target[offset..], out int charsWritten, format))
+            return false;
+
+        offset += charsWritten;
+        return true;
+    }
 }

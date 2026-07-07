@@ -25,8 +25,16 @@ public abstract class Entity : MonoBehaviour
 
     protected EntityState entityState = EntityState.Instance;
 
+    // 패시브 슬롯, 장비, 액티브 버프 인스턴스마다 고유 Handle을 발급해 독립적으로 중첩하고 제거합니다.
+    private readonly System.Collections.Generic.Dictionary<int, EntityStatModifier> statModifiers =
+        new();
+    private int nextStatModifierId = 1;
+
     /// <summary>HP가 0이 되어 Death()가 호출될 때 발화된다.</summary>
     public event Action<Entity> OnDied;
+
+    /// <summary>실제 피해로 HP가 감소했을 때 피해 직전과 직후의 HP를 순서대로 전달한다.</summary>
+    public event Action<float, float> OnDamageTaken;
 
     /// <summary>Update문이 호출될 때 발화된다.</summary>
     protected event Action OnUpdated;
@@ -39,13 +47,7 @@ public abstract class Entity : MonoBehaviour
             return;
         }
 
-        Hp = statData.Hp;
-        MaxHp = statData.Hp;
-        HpRecovery = statData.HpRecovery;
-        DamageReduction = statData.DamageReduction;
-        AttackPower = statData.AttackPower;
-        AttackSpeed = statData.AttackSpeed;
-        CriticalPercentage = statData.CriticalPercentage;
+        RecalculateStats();
         entityState[gameObject].OnStateChanged += OnStateChanged;
     }
 
@@ -112,7 +114,7 @@ public abstract class Entity : MonoBehaviour
 
     #endregion
 
-    // 애니메이션의 특정 시점에서 호출하고 싶다면, StateMachineBehaviour를 거쳐 호출하는 것을 추천합니다.
+    // 실제 공격 판정은 공격 가능한 자식 클래스가 처리하고, Entity는 공격 상태만 전환합니다.
     public virtual void Attack()
     {
         entityState[gameObject].State = PlayerState.ATTACK;
@@ -136,7 +138,12 @@ public abstract class Entity : MonoBehaviour
             return; // 이미 사망 — 중복 호출 무시
 
         Debug.Log($"데미지 받음: {damage}");
+        float previousHp = Hp;
         Hp = Mathf.Max(0, Hp - damage);
+
+        if (Hp < previousHp)
+            OnDamageTaken?.Invoke(previousHp, Hp);
+
         entityState[gameObject].State = PlayerState.DAMAGED;
 
         if (Hp <= 0)
@@ -144,25 +151,127 @@ public abstract class Entity : MonoBehaviour
     }
 
     /// <summary>
-    /// 해금된 패시브 스킬 효과를 스탯에 반영한다.
-    /// SkillTreeComponent.RecalculatePassives()에서 패시브 집계 후 호출된다.
-    /// statData 기반값에 modifier를 합산하여 런타임 스탯을 갱신한다.
+    /// 새로운 스탯 보정값을 추가하고 해당 효과만 갱신하거나 제거할 수 있는 고유 Handle을 반환합니다.
+    /// 같은 스킬이 여러 번 사용되어도 호출마다 다른 Handle이 발급되므로 각각 독립적으로 중첩됩니다.
     /// </summary>
-    public void ApplyStatModifier(EntityStatModifier modifier)
+    public EntityStatModifierHandle ApplyStatModifier(EntityStatModifier modifier)
+    {
+        int modifierId = nextStatModifierId++;
+        if (nextStatModifierId <= 0)
+            nextStatModifierId = 1;
+
+        while (statModifiers.ContainsKey(modifierId))
+        {
+            modifierId = nextStatModifierId++;
+            if (nextStatModifierId <= 0)
+                nextStatModifierId = 1;
+        }
+
+        statModifiers[modifierId] = modifier;
+        RecalculateStats();
+        return new EntityStatModifierHandle(modifierId);
+    }
+
+    /// <summary>
+    /// 기존 Handle의 보정값을 교체합니다. 장비 강화처럼 같은 효과의 수치만 바뀔 때 사용합니다.
+    /// </summary>
+    public bool UpdateStatModifier(EntityStatModifierHandle handle, EntityStatModifier modifier)
+    {
+        if (!handle.IsValid || !statModifiers.ContainsKey(handle.Id))
+            return false;
+
+        statModifiers[handle.Id] = modifier;
+        RecalculateStats();
+        return true;
+    }
+
+    /// <summary>
+    /// Handle에 대응하는 스탯 보정값 하나만 제거합니다.
+    /// </summary>
+    public bool RemoveStatModifier(EntityStatModifierHandle handle)
+    {
+        if (!handle.IsValid || !statModifiers.Remove(handle.Id))
+            return false;
+
+        RecalculateStats();
+        return true;
+    }
+
+    /// <summary>
+    /// 모든 출처의 스탯 보정값을 제거하고 기본 스탯으로 되돌립니다.
+    /// </summary>
+    public void ClearStatModifiers()
+    {
+        if (statModifiers.Count == 0)
+            return;
+
+        statModifiers.Clear();
+        RecalculateStats();
+    }
+
+    private void RecalculateStats()
     {
         if (statData == null)
             return;
 
-        // 현재 체력 비율에 맞춰 회복
-        float hpRatio = MaxHp > 0 ? (float)Hp / MaxHp : 1f;
-        MaxHp = statData.Hp + modifier.BonusHp;
-        Hp = Mathf.RoundToInt(MaxHp * hpRatio);
+        EntityStatModifier totalModifier = EntityStatModifier.Zero;
+        foreach (EntityStatModifier modifier in statModifiers.Values)
+            totalModifier += modifier;
 
-        HpRecovery = statData.HpRecovery + modifier.BonusHpRecovery;
-        DamageReduction = statData.DamageReduction + modifier.BonusDamageReduction;
-        AttackPower = statData.AttackPower + modifier.BonusAttackPower;
-        AttackSpeed = statData.AttackSpeed + modifier.BonusAttackSpeed;
-        CriticalPercentage = statData.CriticalPercentage + modifier.BonusCriticalPercentage;
+        // 최대 체력이 바뀌어도 현재 체력의 비율은 유지합니다.
+        float hpRatio = MaxHp > 0f ? Mathf.Clamp01(Hp / MaxHp) : 1f;
+
+        MaxHp = CalculateModifiedStat(
+            statData.Hp,
+            totalModifier.BonusHp,
+            totalModifier.BonusHpRate,
+            1f
+        );
+        Hp = Mathf.Clamp(MaxHp * hpRatio, 0f, MaxHp);
+
+        HpRecovery = CalculateModifiedStat(
+            statData.HpRecovery,
+            totalModifier.BonusHpRecovery,
+            totalModifier.BonusHpRecoveryRate
+        );
+        DamageReduction = Mathf.Clamp01(
+            CalculateModifiedStat(
+                statData.DamageReduction,
+                totalModifier.BonusDamageReduction,
+                totalModifier.BonusDamageReductionRate
+            )
+        );
+        AttackPower = CalculateModifiedStat(
+            statData.AttackPower,
+            totalModifier.BonusAttackPower,
+            totalModifier.BonusAttackPowerRate
+        );
+        AttackSpeed = CalculateModifiedStat(
+            statData.AttackSpeed,
+            totalModifier.BonusAttackSpeed,
+            totalModifier.BonusAttackSpeedRate
+        );
+        CriticalPercentage = Mathf.Clamp(
+            CalculateModifiedStat(
+                statData.CriticalPercentage,
+                totalModifier.BonusCriticalPercentage,
+                totalModifier.BonusCriticalPercentageRate
+            ),
+            0f,
+            100f
+        );
+    }
+
+    private static float CalculateModifiedStat(
+        float baseValue,
+        float flatBonus,
+        float bonusRate,
+        float minimumValue = 0f
+    )
+    {
+        // 모든 고정값을 먼저 더한 뒤 비율 보정끼리 합산해 곱합니다.
+        // 예: 기본 100 + 고정 20, 비율 0.1 + 0.2 => 120 * 1.3 = 156
+        return Mathf.Max(minimumValue, (baseValue + flatBonus) * (1f + bonusRate));
     }
 
     protected virtual void OnDestroy()

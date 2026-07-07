@@ -50,8 +50,10 @@ public class EquipmentManager : MonoBehaviour
     public int useWeaponCount;
     public int maxAwakeLevel;
 
-    private int currentDefaultDamage;
-    private int currentEquipDamage;
+    // 장착 효과와 보유 효과는 서로 다른 출처이므로 각각의 핸들을 유지합니다.
+    private Entity modifierTarget;
+    private EntityStatModifierHandle equippedWeaponModifierHandle;
+    private EntityStatModifierHandle ownedWeaponModifierHandle;
 
     private WeaponID currentSelectID;
 
@@ -71,9 +73,29 @@ public class EquipmentManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
         else
+        {
             Destroy(gameObject);
+            return;
+        }
+
         ResetWeaponDicionary();
         AssignIcon();
+        SceneChanger.SceneLoaded += HandleSceneLoaded;
+    }
+
+    private void Start()
+    {
+        RefreshStatModifiers();
+    }
+
+    private void OnDestroy()
+    {
+        if (_instance != this)
+            return;
+
+        SceneChanger.SceneLoaded -= HandleSceneLoaded;
+        RemoveStatModifiers();
+        _instance = null;
     }
 
     [System.Diagnostics.Conditional("UNITY_EDITOR")]
@@ -104,11 +126,11 @@ public class EquipmentManager : MonoBehaviour
 
     public void Equip()
     {
+        if (currentWeapon == null)
+            return;
+
         EquipWeapon = currentWeapon;
-        EntityStatModifier modifier = new EntityStatModifier();
-        modifier.BonusAttackPower = EquipWeapon.DefaultDamage() - currentEquipDamage;
-        currentEquipDamage = EquipWeapon.DefaultDamage();
-        GameManager.Instance.GetPlayer().ApplyStatModifier(modifier);
+        RefreshStatModifiers();
     } //버튼 추가 형
 
     public void UpgradeWeapon()
@@ -121,6 +143,7 @@ public class EquipmentManager : MonoBehaviour
                 currentWeapon.weaponLevel++;
                 RefreshInfo();
                 RefreshInfoInUpgradeTab();
+                RefreshStatModifiers();
             }
         }
     } //버튼 추가 형
@@ -258,7 +281,7 @@ public class EquipmentManager : MonoBehaviour
             );
             GetWeapon(currentWeapon.NextWeaponID).Increase(synthAmount);
             SaveSelectSynthWeapon(currentSelectID);
-            applyStatModifier();
+            RefreshStatModifiers();
         }
     } //버튼 추가 형
 
@@ -274,32 +297,100 @@ public class EquipmentManager : MonoBehaviour
             currentWeapon.weaponAwakeLevel += actualAwakeCount;
         }
         SaveSelectAwakeWeapon(currentSelectID);
-        applyStatModifier();
+        RefreshStatModifiers();
     } //버튼 추가 형
 
-    private void applyStatModifier()
+    /// <summary>
+    /// 현재 플레이어에게 장착 무기 효과와 해금 무기 보유 효과를 각각 갱신합니다.
+    /// 플레이어가 교체되면 이전 플레이어의 핸들은 재사용할 수 없으므로 새로 발급받습니다.
+    /// </summary>
+    private void RefreshStatModifiers()
     {
-        EntityStatModifier modifier = new EntityStatModifier();
-        int damage = 0;
+        Entity player = GameManager.Instance != null ? GameManager.Instance.GetPlayer() : null;
+        if (player == null)
+            return;
 
-        foreach (var weapon in weapons[(int)career].weapon)
+        BindModifierTarget(player);
+
+        EntityStatModifier ownedWeaponModifier = new EntityStatModifier
         {
-            if (weapon.isUnlock)
-                damage += weapon.EquipDamage();
+            BonusAttackPower = CalculateOwnedWeaponDamage(),
+        };
+        ApplyOrUpdateModifier(ref ownedWeaponModifierHandle, ownedWeaponModifier);
+
+        if (EquipWeapon == null)
+        {
+            RemoveModifier(ref equippedWeaponModifierHandle);
+            return;
         }
 
-        if (damage == currentDefaultDamage)
+        EntityStatModifier equippedWeaponModifier = new EntityStatModifier
+        {
+            BonusAttackPower = EquipWeapon.EquipDamage(),
+        };
+        ApplyOrUpdateModifier(ref equippedWeaponModifierHandle, equippedWeaponModifier);
+    }
+
+    private int CalculateOwnedWeaponDamage()
+    {
+        int damage = 0;
+
+        foreach (SO_Weapon weapon in weapons[(int)career].weapon)
+        {
+            if (weapon.isUnlock)
+                damage += weapon.DefaultDamage();
+        }
+
+        return damage;
+    }
+
+    private void BindModifierTarget(Entity player)
+    {
+        if (modifierTarget == player)
             return;
-        modifier.BonusAttackPower += damage - currentDefaultDamage;
-        GameManager.Instance.GetPlayer().ApplyStatModifier(modifier);
-        currentDefaultDamage = damage;
+
+        RemoveStatModifiers();
+        modifierTarget = player;
+    }
+
+    private void ApplyOrUpdateModifier(
+        ref EntityStatModifierHandle handle,
+        EntityStatModifier modifier
+    )
+    {
+        if (handle.IsValid && modifierTarget.UpdateStatModifier(handle, modifier))
+            return;
+
+        handle = modifierTarget.ApplyStatModifier(modifier);
+    }
+
+    private void RemoveStatModifiers()
+    {
+        RemoveModifier(ref equippedWeaponModifierHandle);
+        RemoveModifier(ref ownedWeaponModifierHandle);
+        modifierTarget = null;
+    }
+
+    private void RemoveModifier(ref EntityStatModifierHandle handle)
+    {
+        if (modifierTarget != null && handle.IsValid)
+            modifierTarget.RemoveStatModifier(handle);
+
+        handle = default;
+    }
+
+    private void HandleSceneLoaded()
+    {
+        RefreshStatModifiers();
     }
 
     public void GetItem(WeaponID id, uint amount)
     {
         weaponMap[id].Increase(amount);
-        RefreshInfo();
-        applyStatModifier();
+        if (EquipmentUIManager.Instance != null && currentWeapon != null)
+            RefreshInfo();
+
+        RefreshStatModifiers();
     }
 
     public void ResetWeapon() => currentWeapon = null;

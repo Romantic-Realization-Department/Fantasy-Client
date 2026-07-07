@@ -21,5 +21,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Map/Test/TestBossDungeon.unity
     guid: c0c3ba6fa807eba48ba17c2745d6f88e
   m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: 73c4e31d07eff344cbc35929156771e8, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

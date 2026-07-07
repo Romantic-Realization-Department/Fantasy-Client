@@ -1,0 +1,89 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: WeaponDungeonData
+  m_EditorClassIdentifier: 
+  m_GroupName: WeaponDungeonData
+  m_GUID: 388943bc3e9577a4eaa0f06166621ba5
+  m_SerializeEntries:
+  - m_GUID: 017eaae8cca7eae49a6069b9ce4d0b3d
+    m_Address: Assets/Scripts/Battle/DungeonDataSO/WeaponDungeon/Stage 6.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - WeaponDungeonData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 55981ac7f9e89194d9447082403e6e9f
+    m_Address: Assets/Scripts/Battle/DungeonDataSO/WeaponDungeon/Stage 5.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - WeaponDungeonData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 57bdca2c2be58764d829c4da74fd0e6b
+    m_Address: WeaponDungeon/TestWeaponDungeonData.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - WeaponDungeonData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 72d7f741911f05349969d2af3eb59dd6
+    m_Address: Assets/Scripts/Battle/DungeonDataSO/WeaponDungeon/Stage 9.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - WeaponDungeonData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 835df6237bc74e94294890a32cf83231
+    m_Address: Assets/Scripts/Battle/DungeonDataSO/WeaponDungeon/Stage 1.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - WeaponDungeonData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8bca7b43f486a6741b88a90644f10841
+    m_Address: Assets/Scripts/Battle/DungeonDataSO/WeaponDungeon/Stage 8.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - WeaponDungeonData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9d1b51144689a1b4886d0951737b07b0
+    m_Address: Assets/Scripts/Battle/DungeonDataSO/WeaponDungeon/Stage 2.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - WeaponDungeonData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b5280b8415237b34ba380ff198362a41
+    m_Address: Assets/Scripts/Battle/DungeonDataSO/WeaponDungeon/Stage 10.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - WeaponDungeonData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c431add9d7764bb4ba41f62e9ecef784
+    m_Address: Assets/Scripts/Battle/DungeonDataSO/WeaponDungeon/Stage 7.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - WeaponDungeonData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d2bb44bc1b23cad4eb44b01b018f2ae2
+    m_Address: Assets/Scripts/Battle/DungeonDataSO/WeaponDungeon/Stage 4.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - WeaponDungeonData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ec3e77a52a2964544ac775d64c1c31b8
+    m_Address: Assets/Scripts/Battle/DungeonDataSO/WeaponDungeon/Stage 3.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - WeaponDungeonData
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 89fc6e7fa654b1f4b8011a19350d4b9a, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 7a989c27e0473f44797919963ba34bcf, type: 2}
+    - {fileID: 11400000, guid: b061e1ec144ca8b4b820e6d9d2c532c4, type: 2}

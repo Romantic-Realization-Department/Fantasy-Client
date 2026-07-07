@@ -35,9 +35,6 @@ public class WeaponDungeonManager
     [SerializeField]
     private WaveController _waveController;
 
-    [SerializeField, Tooltip("던전 데이터")]
-    private WeaponDungeonData _weaponDungeonData;
-
     [Header("Spawn Settings")]
     [SerializeField, Tooltip("적이 스폰될 지점")]
     private Transform _spawnPoint;
@@ -57,12 +54,6 @@ public class WeaponDungeonManager
     protected override void Init()
     {
         WaveController.OnAllEnemiesDead += HandleAllEnemiesDead;
-        SceneChanger.SceneLoaded += OnSceneLoaded;
-    }
-
-    private void OnSceneLoaded()
-    {
-        StartDungeon(_weaponDungeonData);
     }
 
     protected override void Clear()
@@ -70,11 +61,13 @@ public class WeaponDungeonManager
         WaveController.OnAllEnemiesDead -= HandleAllEnemiesDead;
         if (_player != null)
             _player.OnDied -= HandlePlayerDied;
-        SceneChanger.SceneLoaded -= OnSceneLoaded;
     }
 
     protected override void StartDungeonInternal(WeaponDungeonData dungeonData)
     {
+        if (_waveController != null)
+            _waveController.Clear();
+
         _currentWaveIndex = 0;
         _earnedUpgradeScrollAmount = 0;
         _gottenWeapons.Clear();

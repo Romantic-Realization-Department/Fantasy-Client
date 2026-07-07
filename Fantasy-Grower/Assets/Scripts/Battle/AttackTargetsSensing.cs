@@ -32,7 +32,11 @@ public class AttackTargetsSensing : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.TryGetComponent<Entity>(out var entity) && entity.EntityType != _type)
+        if (
+            other.TryGetComponent<Entity>(out var entity)
+            && entity.EntityType != _type
+            && EntityState.Instance[entity.gameObject].State != PlayerState.DEATH // 이미 죽은 상태라면 추가하지 않음
+        )
         {
             if (!_targets.Contains(entity))
             {
