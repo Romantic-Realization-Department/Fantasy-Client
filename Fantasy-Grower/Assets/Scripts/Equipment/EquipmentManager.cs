@@ -300,12 +300,13 @@ public class EquipmentManager : MonoBehaviour
     {
         if (CheckWeaponState && currentWeapon.weaponAwakeLevel < maxAwakeLevel)
         {
-            int possibleAwakeCount = (int)(currentWeapon.weaponAwakeLevel / (int)useWeaponCount);
+            int possibleAwakeCount = (int)(currentWeapon.Get() / (int)useWeaponCount);
             int remainingAwakeLevel = maxAwakeLevel - currentWeapon.weaponAwakeLevel;
             int actualAwakeCount = Mathf.Min(possibleAwakeCount, remainingAwakeLevel);
 
             currentWeapon.Decrease((uint)(actualAwakeCount * useWeaponCount));
             currentWeapon.weaponAwakeLevel += actualAwakeCount;
+            Debug.Log("slfkjsfd");
         }
         SaveSelectAwakeWeapon(currentSelectID);
         EquipmentUIManager.Instance.RefrashSlotUI();
