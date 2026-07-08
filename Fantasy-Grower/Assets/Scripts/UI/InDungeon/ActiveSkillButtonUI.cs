@@ -25,7 +25,7 @@ public sealed class ActiveSkillButtonUI : MonoBehaviour
     [SerializeField]
     private GameObject emptySlotObject;
 
-    private static ActiveSkillExecutor cachedExecutor;
+    private ActiveSkillExecutor cachedExecutor;
 
     private Button button;
     private ActiveSkillData currentSkill;
@@ -68,7 +68,7 @@ public sealed class ActiveSkillButtonUI : MonoBehaviour
         Refresh(true);
     }
 
-    private static ActiveSkillExecutor ResolveExecutor()
+    private ActiveSkillExecutor ResolveExecutor()
     {
         if (cachedExecutor == null)
             cachedExecutor = FindAnyObjectByType<ActiveSkillExecutor>();

@@ -52,12 +52,7 @@ public sealed class SingleTargetAttackBehaviour : EntityAttackBehaviour
                 (attacker.AttackRange > 0f ? attacker.AttackRange : 0f)
                 + basicAttack.ExtensionRange * attackAreaMultiplier;
             WaveController.TryCollectActiveEnemies(extensionTargetBuffer);
-            for (int j = extensionTargetBuffer.Count - 1; j >= 0; j--)
-            {
-                Entity e = extensionTargetBuffer[j];
-                if (e == null || e.Hp <= 0f)
-                    extensionTargetBuffer.RemoveAt(j);
-            }
+
             CollectNearestInRange(
                 extensionTargetBuffer,
                 attacker.transform.position,
@@ -137,7 +132,7 @@ public sealed class SingleTargetAttackBehaviour : EntityAttackBehaviour
     {
         results.Clear();
         float rangeSqr = totalRange * totalRange;
-        int k = maxTargets > 0 ? maxTargets : int.MaxValue;
+        int k = Mathf.Max(0, maxTargets);
 
         for (int i = 0; i < candidates.Count; i++)
         {

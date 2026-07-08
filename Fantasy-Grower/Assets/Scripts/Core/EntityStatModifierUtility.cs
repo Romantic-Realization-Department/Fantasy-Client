@@ -17,7 +17,8 @@ public static class EntityStatModifierUtility
             && modifier.BonusDamageReductionRate == 0f
             && modifier.BonusAttackPowerRate == 0f
             && modifier.BonusAttackSpeedRate == 0f
-            && modifier.BonusCriticalPercentageRate == 0f;
+            && modifier.BonusCriticalPercentageRate == 0f
+            && modifier.BonusBasicAttackTargetCount == 0;
     }
 
     public static EntityStatModifier Scale(EntityStatModifier modifier, float multiplier)
@@ -40,6 +41,9 @@ public static class EntityStatModifierUtility
             BonusAttackPowerRate = modifier.BonusAttackPowerRate * multiplier,
             BonusAttackSpeedRate = modifier.BonusAttackSpeedRate * multiplier,
             BonusCriticalPercentageRate = modifier.BonusCriticalPercentageRate * multiplier,
+            BonusBasicAttackTargetCount = UnityEngine.Mathf.RoundToInt(
+                modifier.BonusBasicAttackTargetCount * multiplier
+            ),
         };
     }
 }

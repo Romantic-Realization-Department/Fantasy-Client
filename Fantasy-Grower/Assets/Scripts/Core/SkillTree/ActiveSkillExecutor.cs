@@ -288,6 +288,9 @@ public sealed class ActiveSkillExecutor : MonoBehaviour
         float duration
     )
     {
+        if (player == null)
+            return default;
+
         EntityStatModifierHandle handle = player.ApplyStatModifier(modifier);
         temporaryModifierHandles.Add(handle);
 
@@ -327,7 +330,9 @@ public sealed class ActiveSkillExecutor : MonoBehaviour
         if (!handle.IsValid)
             return;
 
-        player.RemoveStatModifier(handle);
+        if (player != null)
+            player.RemoveStatModifier(handle);
+
         temporaryModifierHandles.Remove(handle);
     }
 
@@ -335,8 +340,11 @@ public sealed class ActiveSkillExecutor : MonoBehaviour
     {
         StopAllCoroutines();
 
-        foreach (EntityStatModifierHandle handle in temporaryModifierHandles)
-            player.RemoveStatModifier(handle);
+        if (player != null)
+        {
+            foreach (EntityStatModifierHandle handle in temporaryModifierHandles)
+                player.RemoveStatModifier(handle);
+        }
 
         temporaryModifierHandles.Clear();
     }
@@ -355,7 +363,14 @@ public sealed class ActiveSkillExecutor : MonoBehaviour
         if (cooldownEndTimes != null && cooldownEndTimes.Length == slotCount)
             return;
 
-        cooldownEndTimes = new float[slotCount];
+        float[] newCooldownEndTimes = new float[slotCount];
+        if (cooldownEndTimes != null)
+        {
+            int copyLength = Mathf.Min(cooldownEndTimes.Length, slotCount);
+            Array.Copy(cooldownEndTimes, newCooldownEndTimes, copyLength);
+        }
+
+        cooldownEndTimes = newCooldownEndTimes;
     }
 
     private int GetActiveSlotCount()
@@ -372,7 +387,7 @@ public sealed class ActiveSkillExecutor : MonoBehaviour
         if (source == null)
             return;
 
-        int targetLimit = maxTargets > 0 ? maxTargets : int.MaxValue;
+        int targetLimit = Mathf.Max(0, maxTargets);
         for (int i = 0; i < source.Count && results.Count < targetLimit; i++)
         {
             Entity target = source[i];
@@ -394,7 +409,7 @@ public sealed class ActiveSkillExecutor : MonoBehaviour
     )
     {
         float rangeSqr = totalRange * totalRange;
-        int k = maxTargets > 0 ? maxTargets : int.MaxValue;
+        int k = Mathf.Max(0, maxTargets);
 
         // results는 호출 전 Clear된 상태이므로 재활용됨
         for (int i = 0; i < candidates.Count; i++)

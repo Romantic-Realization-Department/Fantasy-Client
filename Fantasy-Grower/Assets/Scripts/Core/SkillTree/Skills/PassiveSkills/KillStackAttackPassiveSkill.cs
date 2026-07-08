@@ -62,7 +62,10 @@ public sealed class KillStackAttackPassiveSkill : PassiveSkillData
             if (modifierHandle.IsValid)
             {
                 if (!Context.Owner.UpdateStatModifier(modifierHandle, modifier))
+                {
+                    Context.Owner.RemoveStatModifier(modifierHandle);
                     modifierHandle = Context.Owner.ApplyStatModifier(modifier);
+                }
             }
             else
             {
