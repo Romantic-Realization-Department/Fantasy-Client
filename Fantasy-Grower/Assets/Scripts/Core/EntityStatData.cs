@@ -9,4 +9,5 @@ public class EntityStatData : ScriptableObject
     public float AttackPower;
     public float AttackSpeed;
     public float CriticalPercentage;
+    public float AttackRange;
 }

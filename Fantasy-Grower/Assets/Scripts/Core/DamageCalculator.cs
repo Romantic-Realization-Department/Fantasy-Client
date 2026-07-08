@@ -16,12 +16,13 @@ public static class DamageCalculator
     public static (float damage, bool isCritical) Calculate(
         float rawAttackPower,
         float targetDamageReduction,
-        float attackerCriticalPercentage
+        float attackerCriticalPercentage,
+        float criticalDamageMultiplier = 2f
     )
     {
         float reduced = Mathf.Max(1, rawAttackPower * (1f - targetDamageReduction));
         bool isCritical = Random.value * 100f < attackerCriticalPercentage;
-        float finalDamage = isCritical ? reduced * 2 : reduced;
+        float finalDamage = isCritical ? reduced * criticalDamageMultiplier : reduced;
         return (finalDamage, isCritical);
     }
 }

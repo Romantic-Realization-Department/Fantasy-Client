@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -23,9 +22,14 @@ public class SkillTreeComponent : MonoBehaviour
     private List<ActiveSkillData> equippedActives;
     private List<PassiveSkillData> equippedPassives;
     private readonly List<EntityStatModifierHandle> passiveModifierHandles = new();
+    private readonly List<PassiveSkillRuntime> passiveRuntimes = new();
 
     private ISkillTreeStrategy strategy;
     private Entity entity;
+
+    public event System.Action<PassiveTriggerType> OnPassiveTriggered;
+
+    public int EquippedActiveCount => equippedActives != null ? equippedActives.Count : 0;
 
     private void Awake()
     {
@@ -63,6 +67,11 @@ public class SkillTreeComponent : MonoBehaviour
         RecalculatePassives();
     }
 
+    private void OnDestroy()
+    {
+        ClearPassiveEffects();
+    }
+
     /// <summary>
     /// 트리 데이터를 결정한다. GameManager가 존재하고 선택된 직업의 트리가
     /// 등록되어 있으면 그것을 사용하고, 아니면 직렬화된 treeData를 유지한다.
@@ -90,13 +99,15 @@ public class SkillTreeComponent : MonoBehaviour
 
         if (IsUnlocked(node))
         {
-            Debug.Log($"[SkillTree] {node.Skill?.SkillName}은 이미 해금되어 있습니다.");
+            string skillName = node.Skill != null ? node.Skill.SkillName : string.Empty;
+            Debug.Log($"[SkillTree] {skillName}은 이미 해금되어 있습니다.");
             return false;
         }
 
         if (!CanUnlock(node))
         {
-            Debug.Log($"[SkillTree] {node.Skill?.SkillName} 해금 조건 미충족.");
+            string skillName = node.Skill != null ? node.Skill.SkillName : string.Empty;
+            Debug.Log($"[SkillTree] {skillName} 해금 조건 미충족.");
             return false;
         }
 
@@ -106,7 +117,11 @@ public class SkillTreeComponent : MonoBehaviour
         unlockedState[node] = true;
         strategy.OnNodeUnlocked(node, unlockedState);
 
-        Debug.Log($"[SkillTree] {node.Skill?.SkillName} 해금 완료.");
+        if (node.TierIndex == 0)
+            RecalculatePassives();
+
+        string unlockedSkillName = node.Skill != null ? node.Skill.SkillName : string.Empty;
+        Debug.Log($"[SkillTree] {unlockedSkillName} 해금 완료.");
         return true;
     }
 
@@ -116,9 +131,7 @@ public class SkillTreeComponent : MonoBehaviour
     /// </summary>
     private void RecalculatePassives()
     {
-        foreach (EntityStatModifierHandle handle in passiveModifierHandles)
-            entity.RemoveStatModifier(handle);
-        passiveModifierHandles.Clear();
+        ClearPassiveEffects();
 
         foreach (PassiveSkillData passive in equippedPassives)
         {
@@ -128,7 +141,193 @@ public class SkillTreeComponent : MonoBehaviour
             EntityStatModifier modifier = EntityStatModifier.Zero;
             passive.ApplyPassive(ref modifier);
             passiveModifierHandles.Add(entity.ApplyStatModifier(modifier));
+
+            PassiveSkillRuntime runtime = passive.CreateRuntime(
+                new PassiveSkillRuntimeContext(this, entity)
+            );
+            if (runtime != null)
+                passiveRuntimes.Add(runtime);
         }
+
+        BasicAttackSkillData basicAttack = GetUnlockedBasicAttack();
+        if (basicAttack != null && basicAttack.BonusAttackSpeed != 0f)
+        {
+            EntityStatModifier modifier = EntityStatModifier.Zero;
+            modifier.BonusAttackSpeed = basicAttack.BonusAttackSpeed;
+            passiveModifierHandles.Add(entity.ApplyStatModifier(modifier));
+        }
+    }
+
+    public float GetActiveSkillCooldownMultiplier()
+    {
+        if (equippedPassives == null)
+            return 1f;
+
+        float reduction = 0f;
+        foreach (PassiveSkillData passive in equippedPassives)
+        {
+            if (passive is IActiveSkillCooldownModifier cooldownModifier)
+                reduction += cooldownModifier.CooldownReductionRate;
+        }
+
+        return Mathf.Max(0f, 1f - reduction);
+    }
+
+    public float GetOutgoingDamageMultiplier()
+    {
+        float multiplier =
+            1f + SumPassiveBonus<IOutgoingDamageModifier>(m => m.OutgoingDamageBonusRate);
+
+        if (WaveController.CurrentActiveEnemyCount == 1)
+        {
+            multiplier *=
+                1f + SumPassiveBonus<ISingleEnemyDamageModifier>(m => m.SingleEnemyDamageBonusRate);
+        }
+
+        return multiplier;
+    }
+
+    public float GetActiveSkillDamageMultiplier(ActiveSkillData skill)
+    {
+        float multiplier = GetOutgoingDamageMultiplier();
+        multiplier *=
+            1f + SumPassiveBonus<IActiveSkillDamageModifier>(m => m.ActiveSkillDamageBonusRate);
+
+        ActiveSkillDamageCategory damageCategory =
+            skill != null ? skill.DamageCategory : ActiveSkillDamageCategory.None;
+
+        if (damageCategory == ActiveSkillDamageCategory.SingleTarget)
+        {
+            multiplier *=
+                1f
+                + SumPassiveBonus<ISingleTargetActiveSkillDamageModifier>(m =>
+                    m.SingleTargetActiveSkillDamageBonusRate
+                );
+        }
+        else if (damageCategory == ActiveSkillDamageCategory.Area)
+        {
+            multiplier *=
+                1f
+                + SumPassiveBonus<IAreaActiveSkillDamageModifier>(m =>
+                    m.AreaActiveSkillDamageBonusRate
+                );
+
+            if (WaveController.CurrentActiveEnemyCount == 1)
+            {
+                multiplier *=
+                    1f
+                    + SumPassiveBonus<ISingleEnemyAreaSkillDamageModifier>(m =>
+                        m.SingleEnemyAreaSkillDamageBonusRate
+                    );
+            }
+        }
+
+        return multiplier;
+    }
+
+    public float GetBasicAttackDamageMultiplier()
+    {
+        if (equippedPassives == null)
+            return 1f;
+
+        float multiplier = 1f;
+        foreach (PassiveSkillData passive in equippedPassives)
+        {
+            if (passive is IBasicAttackDamageModifier damageModifier)
+                multiplier *= Mathf.Max(0f, damageModifier.BasicAttackDamageMultiplier);
+        }
+
+        return multiplier;
+    }
+
+    public float GetAttackAreaMultiplier()
+    {
+        return 1f + SumPassiveBonus<IAttackAreaModifier>(m => m.AttackAreaBonusRate);
+    }
+
+    public float GetEliteDamageMultiplier()
+    {
+        return 1f + SumPassiveBonus<IEliteDamageModifier>(m => m.EliteDamageBonusRate);
+    }
+
+    public void NotifyPassiveTriggered(PassiveTriggerType triggerType)
+    {
+        OnPassiveTriggered?.Invoke(triggerType);
+    }
+
+    public bool AllowsBurnStacking()
+    {
+        if (equippedPassives == null)
+            return false;
+
+        foreach (PassiveSkillData passive in equippedPassives)
+        {
+            if (passive is IBurnStackingModifier { AllowsBurnStacking: true })
+                return true;
+        }
+
+        return false;
+    }
+
+    public float GetFrostEffectMultiplier()
+    {
+        return 1f + SumPassiveBonus<IFrostEffectBonusModifier>(m => m.FrostEffectBonusRate);
+    }
+
+    public bool TryGetFrostFreezeRule(
+        out int requiredStacks,
+        out float duration,
+        out EntityStatModifier modifier
+    )
+    {
+        requiredStacks = 0;
+        duration = 0f;
+        modifier = EntityStatModifier.Zero;
+
+        if (equippedPassives == null)
+            return false;
+
+        foreach (PassiveSkillData passive in equippedPassives)
+        {
+            if (passive is not IFrostFreezeModifier freezeModifier)
+                continue;
+
+            requiredStacks = freezeModifier.RequiredFrostStacks;
+            duration = freezeModifier.FreezeDuration;
+            modifier = freezeModifier.FreezeModifier;
+            return requiredStacks > 0 && duration > 0f;
+        }
+
+        return false;
+    }
+
+    private void ClearPassiveEffects()
+    {
+        foreach (PassiveSkillRuntime runtime in passiveRuntimes)
+            runtime.Dispose();
+        passiveRuntimes.Clear();
+
+        foreach (EntityStatModifierHandle handle in passiveModifierHandles)
+        {
+            if (entity != null)
+                entity.RemoveStatModifier(handle);
+        }
+        passiveModifierHandles.Clear();
+    }
+
+    private float SumPassiveBonus<T>(System.Func<T, float> selector)
+    {
+        if (equippedPassives == null)
+            return 0f;
+
+        float bonus = 0f;
+        foreach (PassiveSkillData passive in equippedPassives)
+        {
+            if (passive is T modifier)
+                bonus += selector(modifier);
+        }
+
+        return bonus;
     }
 
     // ─── 액티브 스킬 장착 ─────────────────────────────────────────
@@ -229,6 +428,30 @@ public class SkillTreeComponent : MonoBehaviour
 
     private SkillNodeData FindNodeBySkill(SkillData skill)
     {
-        return treeData?.AllNodes?.FirstOrDefault(n => n.Skill == skill);
+        if (treeData == null || treeData.AllNodes == null)
+            return null;
+
+        foreach (SkillNodeData node in treeData.AllNodes)
+        {
+            if (node != null && node.Skill == skill)
+                return node;
+        }
+
+        return null;
+    }
+
+    public BasicAttackSkillData GetUnlockedBasicAttack()
+    {
+        if (unlockedState == null)
+            return null;
+
+        foreach (var kvp in unlockedState)
+        {
+            if (kvp.Value && kvp.Key != null && kvp.Key.TierIndex == 0)
+            {
+                return kvp.Key.Skill as BasicAttackSkillData;
+            }
+        }
+        return null;
     }
 }

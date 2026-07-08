@@ -1,11 +1,23 @@
 using UnityEngine;
 
+public enum EnemyGrade
+{
+    Normal,
+    Elite,
+    Boss,
+}
+
 /// <summary>
 /// 적 엔티티 기반 클래스.
 /// 사망 시 EnemyRewardData에 정의된 Gold/XP를 지급한다.
 /// </summary>
 public class Enemy : Entity
 {
+    [field: SerializeField, Header("적 등급")]
+    public EnemyGrade Grade { get; private set; }
+
+    public bool IsEliteTarget => Grade is EnemyGrade.Elite or EnemyGrade.Boss;
+
     [SerializeField, Header("공격 방식")]
     private EntityAttackBehaviour attackBehaviour;
 
@@ -32,6 +44,7 @@ public class Enemy : Entity
         stageStatScaler = GetComponent<EnemyStageStatScaler>();
         sensor.OnBlocked += OnBlocked;
         sensor.OnUnBlocked += OnUnBlocked;
+        OnStatsChanged += HandleStatsChanged;
     }
 
     protected override void Start()
@@ -41,7 +54,7 @@ public class Enemy : Entity
 
     protected override void OnMove()
     {
-        rb.linearVelocityX = -moveSpeed;
+        rb.linearVelocityX = -moveSpeed * MoveSpeedMultiplier;
     }
 
     protected override void OnIdle()
@@ -86,6 +99,12 @@ public class Enemy : Entity
         sensor.OnUnBlocked -= OnUnBlocked;
     }
 
+    private void HandleStatsChanged()
+    {
+        if (entityState[gameObject].State == PlayerState.MOVE)
+            OnMove();
+    }
+
     public override void Death()
     {
         base.Death(); // OnDied 이벤트 발화 (WaveController가 구독 중)
@@ -108,6 +127,8 @@ public class Enemy : Entity
     protected override void OnDestroy()
     {
         base.OnDestroy();
+
+        OnStatsChanged -= HandleStatsChanged;
 
         // 예외 처리(만약 적이 죽어서 파괴된 게 아니라면)
         UnsubscribeSensorEvents();

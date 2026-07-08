@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: TestEnemyStat
   m_EditorClassIdentifier: 
   Hp: 150
+  HpRecovery: 0
   DamageReduction: 0
   AttackPower: 10
   AttackSpeed: 1
-  AttackRange: 2.5
   CriticalPercentage: 0
-  EntityType: 1
+  AttackRange: 1

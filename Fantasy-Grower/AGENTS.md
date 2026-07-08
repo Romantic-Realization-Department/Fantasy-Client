@@ -55,14 +55,21 @@
 ## 10. Code Formatting
 - **CSharpier**: All C# code must be formatted strictly following the **CSharpier** formatting style. Do not use custom formatting or spacing that contradicts CSharpier conventions.
 
-## 11. Unity and C# Compatibility
+## 11. Encoding and File Reading
+- Treat project text files as UTF-8. When reading files through PowerShell, prefer `Get-Content -Encoding UTF8` and set UTF-8 output encoding when practical.
+- The Codex/terminal output pipeline may still display Korean comments, tooltips, headers, or XML documentation as mojibake. Do not infer code behavior from garbled Korean text.
+- Do not treat garbled Korean comments or Inspector strings as evidence of a source-file corruption by themselves. Verify using C# syntax, symbols, braces, declarations, references, compiler/formatter output, and Unity serialization data.
+- If a line appears to contain code after `//` because of mojibake, do not edit it merely based on the displayed Korean text. First confirm that the actual C# token is missing, duplicated, unreachable, or otherwise causing a real compile/logic issue.
+- When adding new Korean comments or Inspector text, save files as UTF-8 and keep executable C# statements on their own lines, separate from comments and attributes.
+
+## 12. Unity and C# Compatibility
 - The project targets Unity 6 and C# 9, but available BCL APIs are determined by Unity's configured API compatibility level. Do not assume that every API from modern standalone .NET is available.
 - Before introducing a new runtime or BCL type, verify that Unity can compile it under the project's current API compatibility settings.
 - Prefer APIs already used successfully in the project when an equivalent modern API has uncertain Unity support.
 - Never edit Unity-generated `.csproj` or `.sln` files manually. Configure compatibility and packages through Unity.
 - Do not add, remove, or upgrade packages without explicit user approval.
 
-## 12. Unity Serialization and Asset Safety
+## 13. Unity Serialization and Asset Safety
 - Preserve `.meta` files and Unity GUIDs. Never recreate, delete, or move assets casually.
 - When renaming a serialized field, use `[FormerlySerializedAs]` or provide an explicit migration so existing scenes, prefabs, and ScriptableObjects retain their values.
 - Do not change a serialized field's type without checking all affected scenes, prefabs, and assets.
@@ -70,14 +77,14 @@
 - Keep player progression/state separate from definitions such as weapon, skill, dungeon, wave, reward, and stat data.
 - Do not directly edit Unity YAML assets unless necessary and understood; prefer Unity Editor operations for structural scene/prefab changes.
 
-## 13. Inspector and Runtime Validation
+## 14. Inspector and Runtime Validation
 - `OnValidate()` is an editor-time aid, not a runtime safety mechanism. Public entry points and lifecycle methods must still handle invalid or missing dependencies safely.
 - Use `NaughtyAttributes` such as `ShowIf`, `HideIf`, and validation attributes when they materially improve Inspector clarity.
 - Log validation errors with the component context (`this`) and enough information to identify the affected object and field.
 - Do not spam logs every frame or repeatedly report the same recoverable error.
 - Required component dependencies should use `[RequireComponent]` where appropriate.
 
-## 14. Lifecycle, Events, Coroutines, and Tweening
+## 15. Lifecycle, Events, Coroutines, and Tweening
 - Every event subscription must have a matching unsubscription at the appropriate lifecycle boundary.
 - Stop or kill owned coroutines and tweens when their owner is disabled or destroyed when continued execution could access stale objects.
 - Before starting a replacement tween, kill the previous tween that writes to the same state or UI element.
@@ -85,14 +92,14 @@
 - Avoid static events unless global broadcast semantics are genuinely required; static subscribers must always unsubscribe.
 - Singleton components must reject duplicates safely and must not destroy unrelated components attached to the same GameObject.
 
-## 15. Performance and Allocation Policy
+## 16. Performance and Allocation Policy
 - Optimize measured or clearly hot paths such as per-frame combat, frequently refreshed UI, and repeated spawning. Do not complicate cold code for speculative micro-optimization.
 - Avoid repeated LINQ, reflection, `Find*`, string interpolation, and avoidable allocations in `Update`, combat loops, and high-frequency UI callbacks.
 - For allocation-sensitive TMP number displays, prefer reusable `char[]`/`Span<char>`, project `SpanExtension` helpers, and `TMP_Text.SetCharArray` when Unity compatibility is verified.
 - Reuse existing caches such as `YieldInstructionCache` for repeated fixed waits.
 - Object pooling is preferred for frequently spawned combat effects and entities once their spawn rate justifies it.
 
-## 16. Persistence, Networking, and Security
+## 17. Persistence, Networking, and Security
 - PlayerPrefs is only for non-sensitive device-local preferences. Never treat it as authoritative storage for currency, progression, inventory, equipment, skills, dungeon records, or credentials.
 - Never store passwords, session secrets, or long-lived authentication tokens in plain PlayerPrefs or unencrypted JSON.
 - Server-authoritative values must be validated and calculated by the server; never trust client-submitted rewards, prices, or balances.
@@ -100,14 +107,14 @@
 - Network mutations that grant or consume value must be idempotent and safe against duplicate requests.
 - Keep DTOs separate from Unity domain objects and ScriptableObjects.
 
-## 17. Error Handling and Data Integrity
+## 18. Error Handling and Data Integrity
 - Validate currency balance, index bounds, null references, maximum levels, and state transitions before mutating state.
 - Avoid unsigned subtraction when the minuend may be smaller; validate first to prevent underflow.
 - A multi-step operation such as purchase, synthesis, upgrade, reward grant, or skill unlock must either complete fully or leave state unchanged.
 - Do not silently swallow failures. Return a meaningful result or log a clear error at the correct ownership layer.
 - Do not use placeholder conditions such as `if (true)` or ship test-only behavior in production paths.
 
-## 18. Testing, Verification, and Git Safety
+## 19. Testing, Verification, and Git Safety
 - Do not claim Unity compilation, Play Mode behavior, or Inspector wiring was verified unless it was actually checked in the Unity Editor.
 - Add EditMode or PlayMode tests for deterministic core logic when practical, especially currency consumption, rewards, damage, skill unlock rules, and progression calculations.
 - After code changes, inspect the diff and run whitespace/error checks. Report any verification that could not be performed.

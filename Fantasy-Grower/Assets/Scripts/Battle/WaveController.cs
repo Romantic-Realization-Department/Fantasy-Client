@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -12,8 +11,32 @@ public class WaveController : MonoBehaviour
     /// <summary>현재 웨이브의 모든 적이 사망했을 때 발화된다.</summary>
     public static event Action OnAllEnemiesDead;
 
+    /// <summary>현재 웨이브에 등록된 적 하나가 사망했을 때 발화된다.</summary>
+    public static event Action<Enemy> OnEnemyDiedGlobal;
+
+    /// <summary>새 웨이브 스폰이 시작되었을 때 발화된다.</summary>
+    public static event Action OnWaveStartedGlobal;
+
+    /// <summary>현재 웨이브의 생존 적 수가 변경되었을 때 발화된다.</summary>
+    public static event Action<int> OnEnemyCountChangedGlobal;
+
+    public static int CurrentActiveEnemyCount { get; private set; }
+
+    private static readonly List<WaveController> activeControllers = new();
+
     private int _aliveCount;
     private readonly HashSet<Enemy> _activeEnemies = new();
+
+    private void OnEnable()
+    {
+        if (!activeControllers.Contains(this))
+            activeControllers.Add(this);
+    }
+
+    private void OnDisable()
+    {
+        activeControllers.Remove(this);
+    }
 
     private void OnDestroy()
     {
@@ -22,6 +45,9 @@ public class WaveController : MonoBehaviour
             if (e != null)
                 e.OnDied -= OnEnemyDied;
         }
+
+        CurrentActiveEnemyCount = 0;
+        OnEnemyCountChangedGlobal?.Invoke(CurrentActiveEnemyCount);
     }
 
     /// <summary>
@@ -37,6 +63,8 @@ public class WaveController : MonoBehaviour
         }
 
         _activeEnemies.Clear();
+        OnWaveStartedGlobal?.Invoke();
+
         float curOffset = 0f;
 
         // 추후 오브젝트 풀링 작동 방식으로 변환할 것.
@@ -63,6 +91,8 @@ public class WaveController : MonoBehaviour
         }
 
         _aliveCount = _activeEnemies.Count;
+        CurrentActiveEnemyCount = _aliveCount;
+        OnEnemyCountChangedGlobal?.Invoke(CurrentActiveEnemyCount);
 
         if (_aliveCount == 0)
         {
@@ -72,9 +102,44 @@ public class WaveController : MonoBehaviour
     }
 
     /// <summary>현재 살아있는 첫 번째 적을 반환한다. 없으면 null.</summary>
-    public Enemy GetFirstAliveEnemy() => _activeEnemies.FirstOrDefault(e => e != null && e.Hp > 0);
+    public Enemy GetFirstAliveEnemy()
+    {
+        foreach (Enemy enemy in _activeEnemies)
+        {
+            if (enemy != null && enemy.Hp > 0)
+                return enemy;
+        }
+
+        return null;
+    }
 
     public IReadOnlyCollection<Enemy> ActiveEnemies => _activeEnemies;
+
+    public static bool TryCollectActiveEnemies(List<Entity> results)
+    {
+        if (results == null)
+            return false;
+
+        results.Clear();
+
+        for (int i = 0; i < activeControllers.Count; i++)
+        {
+            WaveController waveController = activeControllers[i];
+            if (waveController != null)
+                waveController.CollectAliveEnemies(results);
+        }
+
+        return results.Count > 0;
+    }
+
+    private void CollectAliveEnemies(List<Entity> results)
+    {
+        foreach (Enemy enemy in _activeEnemies)
+        {
+            if (enemy != null && enemy.Hp > 0f)
+                results.Add(enemy);
+        }
+    }
 
     /// <summary>살아있는 적을 모두 파괴하고 상태를 초기화한다. 재시도 또는 씬 정리 시 사용.</summary>
     public void Clear()
@@ -89,6 +154,8 @@ public class WaveController : MonoBehaviour
         }
         _activeEnemies.Clear();
         _aliveCount = 0;
+        CurrentActiveEnemyCount = 0;
+        OnEnemyCountChangedGlobal?.Invoke(CurrentActiveEnemyCount);
     }
 
     private void OnEnemyDied(Entity entity)
@@ -99,6 +166,9 @@ public class WaveController : MonoBehaviour
         entity.OnDied -= OnEnemyDied;
         _activeEnemies.Remove(enemy);
         _aliveCount = Mathf.Max(0, _aliveCount - 1);
+        CurrentActiveEnemyCount = _aliveCount;
+        OnEnemyCountChangedGlobal?.Invoke(CurrentActiveEnemyCount);
+        OnEnemyDiedGlobal?.Invoke(enemy);
 
         if (_aliveCount == 0)
             OnAllEnemiesDead?.Invoke();
