@@ -7,4 +7,5 @@ public enum StatusEffectType
     Stun,
     AttackPowerDown,
     IncomingDamageUp,
+    MoveSpeedDown,
 }

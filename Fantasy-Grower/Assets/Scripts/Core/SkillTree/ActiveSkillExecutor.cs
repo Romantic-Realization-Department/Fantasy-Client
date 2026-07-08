@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -145,6 +145,22 @@ public sealed class ActiveSkillExecutor : MonoBehaviour
             ReduceCooldown(i, seconds);
     }
 
+    public void ReduceAllCooldownsPercent(float percent)
+    {
+        if (percent <= 0f || cooldownEndTimes == null)
+            return;
+
+        for (int i = 0; i < cooldownEndTimes.Length; i++)
+        {
+            ActiveSkillData skill = GetEquippedSkill(i);
+            if (skill != null)
+            {
+                float totalCooldown = GetModifiedCooldown(skill);
+                ReduceCooldown(i, totalCooldown * percent);
+            }
+        }
+    }
+
     public void ResetCooldownsExcept(int excludedSlotIndex)
     {
         if (cooldownEndTimes == null)
@@ -194,8 +210,13 @@ public sealed class ActiveSkillExecutor : MonoBehaviour
                 if (extensionRange > 0f && player != null)
                 {
                     // 인식 사거리 + 연장 사거리 범위 내에서 가장 가까운 K마리를 O(N*K)로 수집
+                    float attackAreaMultiplier =
+                        skillTreeComponent != null
+                            ? skillTreeComponent.GetAttackAreaMultiplier()
+                            : 1f;
                     float totalRange =
-                        (player.AttackRange > 0f ? player.AttackRange : 0f) + extensionRange;
+                        (player.AttackRange > 0f ? player.AttackRange : 0f)
+                        + extensionRange * attackAreaMultiplier;
                     WaveController.TryCollectActiveEnemies(waveTargetBuffer);
                     CollectNearestInRange(
                         waveTargetBuffer,
@@ -375,10 +396,7 @@ public sealed class ActiveSkillExecutor : MonoBehaviour
         float rangeSqr = totalRange * totalRange;
         int k = maxTargets > 0 ? maxTargets : int.MaxValue;
 
-        // distBuffer[i]는 results[i]의 제곱 거리를 저장하는 병렬 버퍼
         // results는 호출 전 Clear된 상태이므로 재활용됨
-        // distBuffer는 stackalloc을 쓸 수 없으므로(k가 변동) 매우 작은 배열만 임시로 사용
-        // k는 보통 1~5이므로 results 리스트 자체만으로 충분히 관리 가능
         for (int i = 0; i < candidates.Count; i++)
         {
             Entity candidate = candidates[i];
@@ -404,7 +422,6 @@ public sealed class ActiveSkillExecutor : MonoBehaviour
             {
                 results.Insert(insertIndex, candidate);
 
-                // K를 초과하면 가장 먼 적(마지막)을 버린다
                 if (results.Count > k)
                     results.RemoveAt(results.Count - 1);
             }

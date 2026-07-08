@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 public enum EntityType
@@ -20,6 +20,7 @@ public abstract class Entity : MonoBehaviour
     public float AttackRange { get; private set; } = 1f;
     public float MoveSpeedMultiplier { get; private set; } = 1f;
     public float OutgoingDamageMultiplier { get; private set; } = 1f;
+    public int BasicAttackTargetCountBonus { get; private set; }
 
     [field: SerializeField, Header("엔티티 설정")]
     public EntityType EntityType { get; private set; }
@@ -307,6 +308,7 @@ public abstract class Entity : MonoBehaviour
         );
         MoveSpeedMultiplier = Mathf.Max(0f, 1f + totalModifier.BonusMoveSpeedRate);
         OutgoingDamageMultiplier = Mathf.Max(0f, 1f + totalModifier.BonusOutgoingDamageRate);
+        BasicAttackTargetCountBonus = totalModifier.BonusBasicAttackTargetCount;
         OnStatsChanged?.Invoke();
     }
 

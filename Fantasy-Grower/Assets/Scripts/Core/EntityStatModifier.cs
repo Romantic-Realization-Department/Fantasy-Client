@@ -1,4 +1,4 @@
-﻿[System.Serializable]
+[System.Serializable]
 public readonly struct EntityStatModifierHandle : System.IEquatable<EntityStatModifierHandle>
 {
     internal EntityStatModifierHandle(int id)
@@ -46,6 +46,9 @@ public struct EntityStatModifier
     public float BonusAttackSpeedRate;
     public float BonusCriticalPercentageRate;
 
+    [UnityEngine.Header("기타 보정")]
+    public int BonusBasicAttackTargetCount;
+
     public static EntityStatModifier operator +(EntityStatModifier a, EntityStatModifier b)
     {
         return new EntityStatModifier
@@ -67,6 +70,8 @@ public struct EntityStatModifier
             BonusAttackSpeedRate = a.BonusAttackSpeedRate + b.BonusAttackSpeedRate,
             BonusCriticalPercentageRate =
                 a.BonusCriticalPercentageRate + b.BonusCriticalPercentageRate,
+            BonusBasicAttackTargetCount =
+                a.BonusBasicAttackTargetCount + b.BonusBasicAttackTargetCount,
         };
     }
 

@@ -6,25 +6,29 @@ using UnityEngine;
 )]
 public sealed class WindScarCooldownReductionPassiveSkill : PassiveSkillData
 {
-    [SerializeField, Min(0f)]
-    private float reduceCooldownSeconds = 1f;
+    [
+        SerializeField,
+        Range(0f, 1f),
+        Tooltip("칼바람 발동 시 모든 스킬 총 쿨타임 감소 비율 (예: 0.333 = 1/3 감소)")
+    ]
+    private float cooldownReductionRate = 0.333f;
 
     public override void ApplyPassive(ref EntityStatModifier modifier) { }
 
     public override PassiveSkillRuntime CreateRuntime(PassiveSkillRuntimeContext context)
     {
-        return new Runtime(context, reduceCooldownSeconds);
+        return new Runtime(context, cooldownReductionRate);
     }
 
     private sealed class Runtime : PassiveSkillRuntime
     {
-        private readonly float reduceCooldownSeconds;
+        private readonly float cooldownReductionRate;
         private readonly ActiveSkillExecutor executor;
 
-        public Runtime(PassiveSkillRuntimeContext context, float reduceCooldownSeconds)
+        public Runtime(PassiveSkillRuntimeContext context, float cooldownReductionRate)
             : base(context)
         {
-            this.reduceCooldownSeconds = reduceCooldownSeconds;
+            this.cooldownReductionRate = cooldownReductionRate;
             executor =
                 context.Owner != null ? context.Owner.GetComponent<ActiveSkillExecutor>() : null;
 
@@ -40,11 +44,11 @@ public sealed class WindScarCooldownReductionPassiveSkill : PassiveSkillData
 
         private void HandlePassiveTriggered(PassiveTriggerType triggerType)
         {
-            if (triggerType != PassiveTriggerType.WindScar || reduceCooldownSeconds <= 0f)
+            if (triggerType != PassiveTriggerType.WindScar || cooldownReductionRate <= 0f)
                 return;
 
             if (executor != null)
-                executor.ReduceAllCooldowns(reduceCooldownSeconds);
+                executor.ReduceAllCooldownsPercent(cooldownReductionRate);
         }
     }
 }

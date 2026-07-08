@@ -1,10 +1,10 @@
 using UnityEngine;
 
 [CreateAssetMenu(
-    fileName = "WarriorTargetedDamageActiveSkill",
-    menuName = "ScriptableObjects/SkillTree/Active/Warrior Targeted Damage"
+    fileName = "TargetedDamageActiveSkill",
+    menuName = "ScriptableObjects/SkillTree/Active/Targeted Damage"
 )]
-public sealed class WarriorTargetedDamageActiveSkill : ActiveSkillData
+public sealed class TargetedDamageActiveSkill : ActiveSkillData
 {
     [SerializeField, Min(0f)]
     private float baseDamage;

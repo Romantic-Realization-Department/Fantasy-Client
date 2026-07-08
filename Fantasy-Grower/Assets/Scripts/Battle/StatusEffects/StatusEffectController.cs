@@ -10,6 +10,7 @@ public sealed class StatusEffectController : MonoBehaviour
         public Entity Source;
         public float RemainingDuration;
         public float DamagePerSecond;
+        public float TargetMaxHpDamageRatePerSecond;
         public float IncomingDamageBonusRate;
         public bool PreventsAction;
         public EntityStatModifierHandle ModifierHandle;
@@ -73,8 +74,13 @@ public sealed class StatusEffectController : MonoBehaviour
         for (int i = effects.Count - 1; i >= 0; i--)
         {
             StatusEffectInstance effect = effects[i];
-            if (effect.DamagePerSecond > 0f && owner != null && owner.Hp > 0f)
-                owner.TakeDamage(effect.DamagePerSecond * deltaTime, effect.Source);
+            if (owner != null && owner.Hp > 0f)
+            {
+                float damagePerSecond =
+                    effect.DamagePerSecond + owner.MaxHp * effect.TargetMaxHpDamageRatePerSecond;
+                if (damagePerSecond > 0f)
+                    owner.TakeDamage(damagePerSecond * deltaTime, effect.Source);
+            }
 
             effect.RemainingDuration -= deltaTime;
             if (effect.RemainingDuration <= 0f)
@@ -85,12 +91,13 @@ public sealed class StatusEffectController : MonoBehaviour
     public void ApplyBurn(
         Entity source,
         float damagePerSecond,
+        float targetMaxHpDamageRatePerSecond,
         float duration,
         bool canStack,
         int maxStacks
     )
     {
-        if (damagePerSecond <= 0f || duration <= 0f)
+        if ((damagePerSecond <= 0f && targetMaxHpDamageRatePerSecond <= 0f) || duration <= 0f)
             return;
 
         ApplyEffect(
@@ -98,6 +105,7 @@ public sealed class StatusEffectController : MonoBehaviour
             source,
             duration,
             damagePerSecond,
+            targetMaxHpDamageRatePerSecond,
             EntityStatModifier.Zero,
             0f,
             false,
@@ -118,7 +126,7 @@ public sealed class StatusEffectController : MonoBehaviour
         if (duration <= 0f)
             return;
 
-        ApplyEffect(type, source, duration, 0f, modifier, 0f, false, canStack, maxStacks);
+        ApplyEffect(type, source, duration, 0f, 0f, modifier, 0f, false, canStack, maxStacks);
     }
 
     public void ApplyIncomingDamageUp(
@@ -137,6 +145,7 @@ public sealed class StatusEffectController : MonoBehaviour
             source,
             duration,
             0f,
+            0f,
             EntityStatModifier.Zero,
             incomingDamageBonusRate,
             false,
@@ -153,7 +162,7 @@ public sealed class StatusEffectController : MonoBehaviour
         EntityStatModifier modifier = EntityStatModifier.Zero;
         modifier.BonusMoveSpeedRate = -1f;
 
-        ApplyEffect(type, source, duration, 0f, modifier, 0f, true, false, 1);
+        ApplyEffect(type, source, duration, 0f, 0f, modifier, 0f, true, false, 1);
     }
 
     public void RemoveAll(StatusEffectType type)
@@ -170,6 +179,7 @@ public sealed class StatusEffectController : MonoBehaviour
         Entity source,
         float duration,
         float damagePerSecond,
+        float targetMaxHpDamageRatePerSecond,
         EntityStatModifier modifier,
         float incomingDamageBonusRate,
         bool preventsAction,
@@ -196,6 +206,7 @@ public sealed class StatusEffectController : MonoBehaviour
                 Source = source,
                 RemainingDuration = duration,
                 DamagePerSecond = damagePerSecond,
+                TargetMaxHpDamageRatePerSecond = targetMaxHpDamageRatePerSecond,
                 IncomingDamageBonusRate = incomingDamageBonusRate,
                 PreventsAction = preventsAction,
                 ModifierHandle = handle,

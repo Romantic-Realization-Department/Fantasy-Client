@@ -38,15 +38,19 @@ public sealed class SingleTargetAttackBehaviour : EntityAttackBehaviour
         if (sensingTargets == null || sensingTargets.Count == 0)
             return false;
 
-        int maxTargets = basicAttack != null ? basicAttack.MaxTargets : 1;
+        int maxTargets =
+            (basicAttack != null ? basicAttack.MaxTargets : 1)
+            + attacker.BasicAttackTargetCountBonus;
 
         // 연장 사거리가 있으면 거리 기반 O(N*K) 탐색으로 타겟을 수집
         System.Collections.Generic.IReadOnlyList<Entity> attackTargets;
-        if (basicAttack != null && basicAttack.ExtensionRange > 0f && maxTargets > 1)
+        if (basicAttack != null && basicAttack.ExtensionRange > 0f)
         {
+            float attackAreaMultiplier =
+                skillTreeComponent != null ? skillTreeComponent.GetAttackAreaMultiplier() : 1f;
             float totalRange =
                 (attacker.AttackRange > 0f ? attacker.AttackRange : 0f)
-                + basicAttack.ExtensionRange;
+                + basicAttack.ExtensionRange * attackAreaMultiplier;
             WaveController.TryCollectActiveEnemies(extensionTargetBuffer);
             for (int j = extensionTargetBuffer.Count - 1; j >= 0; j--)
             {

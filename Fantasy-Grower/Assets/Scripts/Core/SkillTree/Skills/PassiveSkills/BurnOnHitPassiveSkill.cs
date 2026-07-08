@@ -13,6 +13,9 @@ public sealed class BurnOnHitPassiveSkill : PassiveSkillData
     private float attackPowerDamageRatePerSecond;
 
     [SerializeField, Min(0f)]
+    private float targetMaxHpDamageRatePerSecond;
+
+    [SerializeField, Min(0f)]
     private float duration = 3f;
 
     [SerializeField, Min(1)]
@@ -26,6 +29,7 @@ public sealed class BurnOnHitPassiveSkill : PassiveSkillData
             context,
             damagePerSecond,
             attackPowerDamageRatePerSecond,
+            targetMaxHpDamageRatePerSecond,
             duration,
             maxStacks
         );
@@ -35,6 +39,7 @@ public sealed class BurnOnHitPassiveSkill : PassiveSkillData
     {
         private readonly float damagePerSecond;
         private readonly float attackPowerDamageRatePerSecond;
+        private readonly float targetMaxHpDamageRatePerSecond;
         private readonly float duration;
         private readonly int maxStacks;
 
@@ -42,6 +47,7 @@ public sealed class BurnOnHitPassiveSkill : PassiveSkillData
             PassiveSkillRuntimeContext context,
             float damagePerSecond,
             float attackPowerDamageRatePerSecond,
+            float targetMaxHpDamageRatePerSecond,
             float duration,
             int maxStacks
         )
@@ -49,6 +55,7 @@ public sealed class BurnOnHitPassiveSkill : PassiveSkillData
         {
             this.damagePerSecond = damagePerSecond;
             this.attackPowerDamageRatePerSecond = attackPowerDamageRatePerSecond;
+            this.targetMaxHpDamageRatePerSecond = targetMaxHpDamageRatePerSecond;
             this.duration = duration;
             this.maxStacks = maxStacks;
 
@@ -69,8 +76,13 @@ public sealed class BurnOnHitPassiveSkill : PassiveSkillData
 
             float finalDamagePerSecond =
                 damagePerSecond + Context.Owner.AttackPower * attackPowerDamageRatePerSecond;
+            float finalTargetMaxHpDamageRatePerSecond = targetMaxHpDamageRatePerSecond;
             if (Context.SkillTreeComponent != null)
+            {
                 finalDamagePerSecond *= Context.SkillTreeComponent.GetOutgoingDamageMultiplier();
+                finalTargetMaxHpDamageRatePerSecond *=
+                    Context.SkillTreeComponent.GetOutgoingDamageMultiplier();
+            }
 
             StatusEffectController controller = StatusEffectController.GetOrAdd(target);
             if (controller == null)
@@ -82,6 +94,7 @@ public sealed class BurnOnHitPassiveSkill : PassiveSkillData
             controller.ApplyBurn(
                 Context.Owner,
                 finalDamagePerSecond,
+                finalTargetMaxHpDamageRatePerSecond,
                 duration,
                 allowsBurnStacking,
                 maxStacks
