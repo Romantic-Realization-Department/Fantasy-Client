@@ -43,6 +43,12 @@ public class EquipmentManager : MonoBehaviour
     public int maxUpgradeLevel => _maxUpgradeLevel;
     public SO_Weapon EquipWeapon { get; private set; }
 
+    [SerializeField]
+    private int[] MithrilAmount = { 50, 75, 120, 180, 300 };
+
+    [SerializeField]
+    private float[] GradeScrollV = { 3.0f, 2.2f, 1.7f, 1.3f, 1.0f };
+
     [Header("인벤토리")]
     public Weapon[] weapons = new Weapon[(int)Career.Wizard + 1];
 
@@ -137,20 +143,19 @@ public class EquipmentManager : MonoBehaviour
     public void UpgradeWeapon()
     {
         //재화 관리 매니저에서 강화스크롤 비교 후 사용 메서드 활용하여 재화 사용
-        if (
-            currentWeapon != null
-            && GoodsManager
-                .Instance.GetGoods(GoodsType.UpgradeScroll)
-                .Decrease((uint)useScrollAmount)
-        )
+        if (currentWeapon != null && maxUpgradeLevel > currentWeapon.weaponLevel)
         {
-            if (maxUpgradeLevel > currentWeapon.weaponLevel)
+            if (
+                GoodsManager
+                    .Instance.GetGoods(GoodsType.UpgradeScroll)
+                    .Decrease((uint)useScrollAmount)
+            )
             {
                 currentWeapon.weaponLevel++;
                 RefreshInfo();
                 RefreshInfoInUpgradeTab();
                 RefreshStatModifiers();
-                EquipmentUIManager.Instance.RefrashSlotUI();
+                EquipmentUIManager.Instance.RefreshSlotUI();
             }
         }
     } //버튼 추가 형
@@ -172,7 +177,7 @@ public class EquipmentManager : MonoBehaviour
 
     private int GetRequiredScrolls(int targetLevel)
     {
-        int L = targetLevel;
+        int L = targetLevel + 1;
 
         if (L < 1 || L > 20)
             return 0; // 범위 외 예외 처리
@@ -193,38 +198,13 @@ public class EquipmentManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// 등급별 무기 강화 스크롤 사용 배수
-    /// </summary>
-    /// <returns></returns>
-    private float GradeScrollValue()
-    {
-        return ((int)currentWeapon.WeaponID / 2) switch
-        {
-            <= 0 => 3.0f,
-            <= 1 => 2.2f,
-            <= 2 => 1.7f,
-            <= 3 => 1.3f,
-            <= 4 => 1.0f,
-            _ => 1,
-        };
-    }
-
     public int useScrollAmount =>
-        Mathf.RoundToInt(GetRequiredScrolls(currentWeapon.weaponLevel) * GradeScrollValue());
+        Mathf.RoundToInt(
+            GetRequiredScrolls(currentWeapon.weaponLevel)
+                * GradeScrollV[((int)currentWeapon.WeaponID / 2)]
+        );
 
-    private uint AwakeUseMithril()
-    {
-        return currentWeapon.weaponAwakeLevel switch
-        {
-            <= 0 => 50u,
-            <= 1 => 75u,
-            <= 2 => 120u,
-            <= 3 => 180u,
-            <= 4 => 300u,
-            _ => 0,
-        };
-    }
+    private uint AwakeUseMithril() => (uint)MithrilAmount[currentWeapon.weaponAwakeLevel];
 
     void RefreshInfo()
     {
@@ -351,28 +331,24 @@ public class EquipmentManager : MonoBehaviour
             );
             GetWeapon(currentWeapon.NextWeaponID).Increase(synthAmount);
             SaveSelectSynthWeapon(currentSelectID);
-            EquipmentUIManager.Instance.RefrashSlotUI();
+            EquipmentUIManager.Instance.RefreshSlotUI();
             RefreshStatModifiers();
         }
     } //버튼 추가 형
 
     public void Awakening()
     {
-        if (
+        while (
             CheckWeaponState
             && currentWeapon.weaponAwakeLevel < maxAwakeLevel
             && GoodsManager.Instance.GetGoods(GoodsType.Mithril).Decrease(AwakeUseMithril())
         )
         {
-            int possibleAwakeCount = (int)(currentWeapon.Get() / (int)useWeaponCount);
-            int remainingAwakeLevel = maxAwakeLevel - currentWeapon.weaponAwakeLevel;
-            int actualAwakeCount = Mathf.Min(possibleAwakeCount, remainingAwakeLevel);
-
-            currentWeapon.Decrease((uint)(actualAwakeCount * useWeaponCount));
-            currentWeapon.weaponAwakeLevel += actualAwakeCount;
+            currentWeapon.Decrease((uint)useWeaponCount);
+            currentWeapon.weaponAwakeLevel++;
         }
         SaveSelectAwakeWeapon(currentSelectID);
-        EquipmentUIManager.Instance.RefrashSlotUI();
+        EquipmentUIManager.Instance.RefreshSlotUI();
         RefreshStatModifiers();
     } //버튼 추가 형
 

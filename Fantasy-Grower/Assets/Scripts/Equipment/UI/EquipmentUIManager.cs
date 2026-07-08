@@ -104,19 +104,27 @@ public class EquipmentUIManager : MonoBehaviour
         }
         if (currentWeapon.weaponLevel < EquipmentManager.Instance.maxUpgradeLevel)
         {
+            float currentED = currentWeapon.EquipDamage();
+            float currentDD = currentWeapon.DefaultDamage();
             currentWeapon.weaponLevel++;
-            float upgradeED = currentWeapon.EquipDamage();
-            float upgradeDD = currentWeapon.DefaultDamage();
-            currentWeapon.weaponLevel--;
-            UpgradeEquipInfoText.text =
-                "공격력 +"
-                + currentWeapon.EquipDamage()
-                + $"<color=green>(+{upgradeED - currentWeapon.EquipDamage()})</color>";
-            UpgradeGetInfoText.text =
-                "공격력 +"
-                + currentWeapon.DefaultDamage()
-                + $"<color=green>(+{upgradeDD - currentWeapon.DefaultDamage()})</color>";
-            UpgradeWeaponLevelUpText.gameObject.SetActive(true);
+            try
+            {
+                float upgradeED = currentWeapon.EquipDamage();
+                float upgradeDD = currentWeapon.DefaultDamage();
+                UpgradeEquipInfoText.text =
+                    "공격력 +"
+                    + currentWeapon.EquipDamage()
+                    + $"<color=green>(+{upgradeED - currentWeapon.EquipDamage()})</color>";
+                UpgradeGetInfoText.text =
+                    "공격력 +"
+                    + currentWeapon.DefaultDamage()
+                    + $"<color=green>(+{upgradeDD - currentWeapon.DefaultDamage()})</color>";
+                UpgradeWeaponLevelUpText.gameObject.SetActive(true);
+            }
+            finally
+            {
+                currentWeapon.weaponLevel--;
+            }
         }
         else
         {
@@ -126,7 +134,7 @@ public class EquipmentUIManager : MonoBehaviour
         }
     }
 
-    public void RefrashSlotUI()
+    public void RefreshSlotUI()
     {
         for (int i = 0; i < slots.Length; i++)
             slots[i].RefreshIcon();
