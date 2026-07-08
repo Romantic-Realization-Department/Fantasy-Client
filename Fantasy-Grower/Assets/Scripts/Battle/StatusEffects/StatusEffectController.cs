@@ -10,6 +10,8 @@ public sealed class StatusEffectController : MonoBehaviour
         public Entity Source;
         public float RemainingDuration;
         public float DamagePerSecond;
+        public float IncomingDamageBonusRate;
+        public bool PreventsAction;
         public EntityStatModifierHandle ModifierHandle;
     }
 
@@ -44,9 +46,25 @@ public sealed class StatusEffectController : MonoBehaviour
         return count;
     }
 
+    public bool PreventsAction
+    {
+        get
+        {
+            for (int i = 0; i < effects.Count; i++)
+            {
+                if (effects[i].PreventsAction)
+                    return true;
+            }
+
+            return false;
+        }
+    }
+
     private void Awake()
     {
         owner = GetComponent<Entity>();
+        if (owner != null)
+            owner.OnBeforeDamageTaken += HandleBeforeDamageTaken;
     }
 
     private void Update()
@@ -81,6 +99,8 @@ public sealed class StatusEffectController : MonoBehaviour
             duration,
             damagePerSecond,
             EntityStatModifier.Zero,
+            0f,
+            false,
             canStack,
             maxStacks
         );
@@ -98,7 +118,42 @@ public sealed class StatusEffectController : MonoBehaviour
         if (duration <= 0f)
             return;
 
-        ApplyEffect(type, source, duration, 0f, modifier, canStack, maxStacks);
+        ApplyEffect(type, source, duration, 0f, modifier, 0f, false, canStack, maxStacks);
+    }
+
+    public void ApplyIncomingDamageUp(
+        Entity source,
+        float incomingDamageBonusRate,
+        float duration,
+        bool canStack,
+        int maxStacks
+    )
+    {
+        if (incomingDamageBonusRate <= 0f || duration <= 0f)
+            return;
+
+        ApplyEffect(
+            StatusEffectType.IncomingDamageUp,
+            source,
+            duration,
+            0f,
+            EntityStatModifier.Zero,
+            incomingDamageBonusRate,
+            false,
+            canStack,
+            maxStacks
+        );
+    }
+
+    public void ApplyActionBlock(StatusEffectType type, Entity source, float duration)
+    {
+        if (duration <= 0f)
+            return;
+
+        EntityStatModifier modifier = EntityStatModifier.Zero;
+        modifier.BonusMoveSpeedRate = -1f;
+
+        ApplyEffect(type, source, duration, 0f, modifier, 0f, true, false, 1);
     }
 
     public void RemoveAll(StatusEffectType type)
@@ -116,6 +171,8 @@ public sealed class StatusEffectController : MonoBehaviour
         float duration,
         float damagePerSecond,
         EntityStatModifier modifier,
+        float incomingDamageBonusRate,
+        bool preventsAction,
         bool canStack,
         int maxStacks
     )
@@ -129,7 +186,7 @@ public sealed class StatusEffectController : MonoBehaviour
             TrimOldestStacks(type, maxStacks - 1);
 
         EntityStatModifierHandle handle = default;
-        if (!modifier.Equals(EntityStatModifier.Zero))
+        if (!EntityStatModifierUtility.IsZero(modifier))
             handle = owner.ApplyStatModifier(modifier);
 
         effects.Add(
@@ -139,9 +196,24 @@ public sealed class StatusEffectController : MonoBehaviour
                 Source = source,
                 RemainingDuration = duration,
                 DamagePerSecond = damagePerSecond,
+                IncomingDamageBonusRate = incomingDamageBonusRate,
+                PreventsAction = preventsAction,
                 ModifierHandle = handle,
             }
         );
+    }
+
+    private void HandleBeforeDamageTaken(IncomingDamageContext damageContext)
+    {
+        if (damageContext == null || damageContext.IsCancelled)
+            return;
+
+        float incomingDamageBonusRate = 0f;
+        for (int i = 0; i < effects.Count; i++)
+            incomingDamageBonusRate += effects[i].IncomingDamageBonusRate;
+
+        if (incomingDamageBonusRate > 0f)
+            damageContext.Damage *= 1f + incomingDamageBonusRate;
     }
 
     private void TrimOldestStacks(StatusEffectType type, int targetStackCount)
@@ -176,6 +248,9 @@ public sealed class StatusEffectController : MonoBehaviour
 
     private void OnDestroy()
     {
+        if (owner != null)
+            owner.OnBeforeDamageTaken -= HandleBeforeDamageTaken;
+
         for (int i = effects.Count - 1; i >= 0; i--)
             RemoveAt(i);
     }

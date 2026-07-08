@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,20 +26,32 @@ public sealed class ActiveSkillExecutor : MonoBehaviour
     };
 
     private readonly List<EntityStatModifierHandle> temporaryModifierHandles = new();
+    private readonly List<Action> runtimeCleanups = new();
+    private readonly List<Entity> targetBuffer = new();
+    private readonly List<Entity> waveTargetBuffer = new();
+    private readonly HashSet<int> usedOncePerDungeonSlots = new();
 
     private Player player;
     private SkillTreeComponent skillTreeComponent;
+    private AttackTargetsSensing attackTargetsSensing;
     private float[] cooldownEndTimes;
 
     private void Awake()
     {
         player = GetComponent<Player>();
         skillTreeComponent = GetComponent<SkillTreeComponent>();
+        attackTargetsSensing = GetComponentInChildren<AttackTargetsSensing>();
     }
 
     private void Start()
     {
         EnsureCooldownBuffer();
+    }
+
+    private void OnEnable()
+    {
+        AddressableStageFeatureBase.OnAnyStageChanged += HandleStageChanged;
+        ResetOncePerDungeonUsages();
     }
 
     private void Update()
@@ -56,6 +69,8 @@ public sealed class ActiveSkillExecutor : MonoBehaviour
 
     private void OnDisable()
     {
+        AddressableStageFeatureBase.OnAnyStageChanged -= HandleStageChanged;
+        ClearRuntimeCleanups();
         ClearTemporaryModifiers();
     }
 
@@ -72,10 +87,16 @@ public sealed class ActiveSkillExecutor : MonoBehaviour
         if (GetCooldownRemaining(slotIndex) > 0f)
             return false;
 
+        if (skill.UsableOncePerDungeon && usedOncePerDungeonSlots.Contains(slotIndex))
+            return false;
+
         var context = new ActiveSkillContext(this, skillTreeComponent, player, skill, slotIndex);
 
         if (!skill.TryUseSkill(context))
             return false;
+
+        if (skill.UsableOncePerDungeon)
+            usedOncePerDungeonSlots.Add(slotIndex);
 
         float cooldown = GetModifiedCooldown(skill);
         if (cooldown > 0f)
@@ -110,6 +131,11 @@ public sealed class ActiveSkillExecutor : MonoBehaviour
         return Mathf.Clamp01(GetCooldownRemaining(slotIndex) / cooldown);
     }
 
+    public bool IsOncePerDungeonSkillUsed(int slotIndex)
+    {
+        return usedOncePerDungeonSlots.Contains(slotIndex);
+    }
+
     public void ReduceAllCooldowns(float seconds)
     {
         if (seconds <= 0f || cooldownEndTimes == null)
@@ -117,6 +143,86 @@ public sealed class ActiveSkillExecutor : MonoBehaviour
 
         for (int i = 0; i < cooldownEndTimes.Length; i++)
             ReduceCooldown(i, seconds);
+    }
+
+    public void ResetCooldownsExcept(int excludedSlotIndex)
+    {
+        if (cooldownEndTimes == null)
+            return;
+
+        for (int i = 0; i < cooldownEndTimes.Length; i++)
+        {
+            if (i != excludedSlotIndex)
+                cooldownEndTimes[i] = Time.time;
+        }
+    }
+
+    public void ResetOncePerDungeonUsages()
+    {
+        usedOncePerDungeonSlots.Clear();
+    }
+
+    private void HandleStageChanged(int stageIndex)
+    {
+        ResetOncePerDungeonUsages();
+    }
+
+    public bool TryCollectTargets(
+        ActiveSkillTargetMode targetMode,
+        int maxTargets,
+        List<Entity> results,
+        float extensionRange = 0f
+    )
+    {
+        if (results == null)
+            return false;
+
+        results.Clear();
+
+        switch (targetMode)
+        {
+            case ActiveSkillTargetMode.Self:
+                if (player != null)
+                    results.Add(player);
+                break;
+            case ActiveSkillTargetMode.AllEnemies:
+                WaveController.TryCollectActiveEnemies(waveTargetBuffer);
+                AddTargets(waveTargetBuffer, maxTargets, results);
+                break;
+            case ActiveSkillTargetMode.DetectedTargets:
+            default:
+                if (extensionRange > 0f && player != null)
+                {
+                    // 인식 사거리 + 연장 사거리 범위 내에서 가장 가까운 K마리를 O(N*K)로 수집
+                    float totalRange =
+                        (player.AttackRange > 0f ? player.AttackRange : 0f) + extensionRange;
+                    WaveController.TryCollectActiveEnemies(waveTargetBuffer);
+                    CollectNearestInRange(
+                        waveTargetBuffer,
+                        player.transform.position,
+                        totalRange,
+                        maxTargets,
+                        results
+                    );
+                }
+                else if (attackTargetsSensing != null)
+                {
+                    AddTargets(attackTargetsSensing.GetTargets(), maxTargets, results);
+                }
+                break;
+        }
+
+        return results.Count > 0;
+    }
+
+    public IReadOnlyList<Entity> CollectTargets(
+        ActiveSkillTargetMode targetMode,
+        int maxTargets,
+        float extensionRange = 0f
+    )
+    {
+        TryCollectTargets(targetMode, maxTargets, targetBuffer, extensionRange);
+        return targetBuffer;
     }
 
     public void ReduceCooldown(int slotIndex, float seconds)
@@ -170,12 +276,28 @@ public sealed class ActiveSkillExecutor : MonoBehaviour
         return handle;
     }
 
+    public void RegisterRuntimeCleanup(Action cleanup)
+    {
+        if (cleanup == null || runtimeCleanups.Contains(cleanup))
+            return;
+
+        runtimeCleanups.Add(cleanup);
+    }
+
+    public void UnregisterRuntimeCleanup(Action cleanup)
+    {
+        if (cleanup == null)
+            return;
+
+        runtimeCleanups.Remove(cleanup);
+    }
+
     private IEnumerator RemoveTemporaryModifierAfterDelay(
         EntityStatModifierHandle handle,
         float duration
     )
     {
-        yield return new WaitForSeconds(duration);
+        yield return YieldInstructionCache.WaitForSeconds(duration);
         RemoveTemporaryModifier(handle);
     }
 
@@ -198,6 +320,14 @@ public sealed class ActiveSkillExecutor : MonoBehaviour
         temporaryModifierHandles.Clear();
     }
 
+    private void ClearRuntimeCleanups()
+    {
+        for (int i = runtimeCleanups.Count - 1; i >= 0; i--)
+            runtimeCleanups[i].Invoke();
+
+        runtimeCleanups.Clear();
+    }
+
     private void EnsureCooldownBuffer()
     {
         int slotCount = GetActiveSlotCount();
@@ -210,5 +340,74 @@ public sealed class ActiveSkillExecutor : MonoBehaviour
     private int GetActiveSlotCount()
     {
         return skillTreeComponent != null ? skillTreeComponent.EquippedActiveCount : 0;
+    }
+
+    private static void AddTargets(
+        IReadOnlyList<Entity> source,
+        int maxTargets,
+        List<Entity> results
+    )
+    {
+        if (source == null)
+            return;
+
+        int targetLimit = maxTargets > 0 ? maxTargets : int.MaxValue;
+        for (int i = 0; i < source.Count && results.Count < targetLimit; i++)
+        {
+            Entity target = source[i];
+            if (target != null && target.Hp > 0f)
+                results.Add(target);
+        }
+    }
+
+    /// <summary>
+    /// 지정한 원점으로부터 totalRange 이내의 생존 적 중 가장 가까운 K마리를 수집합니다.
+    /// O(N * K) 삽입 정렬 방식: 람다 캡처·Sort·Sqrt 호출 없이 제곱 거리(sqrMagnitude)만 비교합니다.
+    /// </summary>
+    private static void CollectNearestInRange(
+        List<Entity> candidates,
+        Vector3 origin,
+        float totalRange,
+        int maxTargets,
+        List<Entity> results
+    )
+    {
+        float rangeSqr = totalRange * totalRange;
+        int k = maxTargets > 0 ? maxTargets : int.MaxValue;
+
+        // distBuffer[i]는 results[i]의 제곱 거리를 저장하는 병렬 버퍼
+        // results는 호출 전 Clear된 상태이므로 재활용됨
+        // distBuffer는 stackalloc을 쓸 수 없으므로(k가 변동) 매우 작은 배열만 임시로 사용
+        // k는 보통 1~5이므로 results 리스트 자체만으로 충분히 관리 가능
+        for (int i = 0; i < candidates.Count; i++)
+        {
+            Entity candidate = candidates[i];
+            if (candidate == null || candidate.Hp <= 0f)
+                continue;
+
+            float sqrDist = (candidate.transform.position - origin).sqrMagnitude;
+            if (sqrDist > rangeSqr)
+                continue;
+
+            // results에 삽입할 위치를 찾는다 (가까운 순서 유지)
+            int insertIndex = results.Count;
+            for (int j = results.Count - 1; j >= 0; j--)
+            {
+                float existingSqrDist = (results[j].transform.position - origin).sqrMagnitude;
+                if (sqrDist < existingSqrDist)
+                    insertIndex = j;
+                else
+                    break;
+            }
+
+            if (insertIndex < k)
+            {
+                results.Insert(insertIndex, candidate);
+
+                // K를 초과하면 가장 먼 적(마지막)을 버린다
+                if (results.Count > k)
+                    results.RemoveAt(results.Count - 1);
+            }
+        }
     }
 }

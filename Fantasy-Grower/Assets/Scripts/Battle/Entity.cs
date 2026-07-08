@@ -19,6 +19,7 @@ public abstract class Entity : MonoBehaviour
     public float CriticalDamageMultiplier { get; private set; } = 2f;
     public float AttackRange { get; private set; } = 1f;
     public float MoveSpeedMultiplier { get; private set; } = 1f;
+    public float OutgoingDamageMultiplier { get; private set; } = 1f;
 
     [field: SerializeField, Header("엔티티 설정")]
     public EntityType EntityType { get; private set; }
@@ -305,6 +306,7 @@ public abstract class Entity : MonoBehaviour
             totalModifier.BonusAttackRangeRate
         );
         MoveSpeedMultiplier = Mathf.Max(0f, 1f + totalModifier.BonusMoveSpeedRate);
+        OutgoingDamageMultiplier = Mathf.Max(0f, 1f + totalModifier.BonusOutgoingDamageRate);
         OnStatsChanged?.Invoke();
     }
 

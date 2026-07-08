@@ -9,7 +9,19 @@ public abstract class ActiveSkillData : SkillData
     [SerializeField]
     private ActiveSkillDamageCategory damageCategory = ActiveSkillDamageCategory.None;
 
+    [SerializeField]
+    private bool usableOncePerDungeon;
+
+    [
+        SerializeField,
+        Min(0f),
+        Tooltip("인식 사거리 너머 추가 타격 반경 (0이면 인식 사거리 내만 공격)")
+    ]
+    private float extensionRange;
+
     public ActiveSkillDamageCategory DamageCategory => damageCategory;
+    public virtual bool UsableOncePerDungeon => usableOncePerDungeon;
+    public float ExtensionRange => extensionRange;
 
     /// <summary>
     /// 기존 테스트/에디터 호출 호환용 메서드입니다.

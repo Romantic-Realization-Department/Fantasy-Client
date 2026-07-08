@@ -25,11 +25,37 @@ public readonly struct ActiveSkillContext
     public ActiveSkillData Skill { get; }
     public int SlotIndex { get; }
 
+    public bool TryCollectTargets(
+        ActiveSkillTargetMode targetMode,
+        int maxTargets,
+        System.Collections.Generic.List<Entity> results,
+        float extensionRange = 0f
+    )
+    {
+        if (Executor == null)
+            return false;
+
+        return Executor.TryCollectTargets(targetMode, maxTargets, results, extensionRange);
+    }
+
+    public System.Collections.Generic.IReadOnlyList<Entity> CollectTargets(
+        ActiveSkillTargetMode targetMode,
+        int maxTargets,
+        float extensionRange = 0f
+    )
+    {
+        if (Executor == null)
+            return System.Array.Empty<Entity>();
+
+        return Executor.CollectTargets(targetMode, maxTargets, extensionRange);
+    }
+
     public float GetModifiedDamage(float baseDamage)
     {
         if (Executor == null)
             return baseDamage;
 
-        return baseDamage * Executor.GetActiveSkillDamageMultiplier(Skill);
+        float multiplier = Caster != null ? Caster.OutgoingDamageMultiplier : 1f;
+        return baseDamage * multiplier * Executor.GetActiveSkillDamageMultiplier(Skill);
     }
 }

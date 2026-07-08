@@ -108,8 +108,10 @@ public sealed class ActiveSkillButtonUI : MonoBehaviour
         float cooldownRemaining =
             executor != null && skill != null ? executor.GetCooldownRemaining(slotIndex) : 0f;
         bool isCooldown = cooldownRemaining > 0f;
+        bool isOncePerDungeonUsed =
+            executor != null && skill != null && executor.IsOncePerDungeonSkillUsed(slotIndex);
 
-        button.interactable = skill != null && !isCooldown;
+        button.interactable = skill != null && !isCooldown && !isOncePerDungeonUsed;
 
         if (cooldownFillImage != null)
         {

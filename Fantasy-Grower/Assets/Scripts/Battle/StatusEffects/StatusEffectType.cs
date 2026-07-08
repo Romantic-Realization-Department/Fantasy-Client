@@ -4,4 +4,7 @@ public enum StatusEffectType
     Frost,
     Freeze,
     Airborne,
+    Stun,
+    AttackPowerDown,
+    IncomingDamageUp,
 }

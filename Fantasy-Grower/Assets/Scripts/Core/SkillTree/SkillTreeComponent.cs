@@ -117,6 +117,9 @@ public class SkillTreeComponent : MonoBehaviour
         unlockedState[node] = true;
         strategy.OnNodeUnlocked(node, unlockedState);
 
+        if (node.TierIndex == 0)
+            RecalculatePassives();
+
         string unlockedSkillName = node.Skill != null ? node.Skill.SkillName : string.Empty;
         Debug.Log($"[SkillTree] {unlockedSkillName} 해금 완료.");
         return true;
@@ -144,6 +147,14 @@ public class SkillTreeComponent : MonoBehaviour
             );
             if (runtime != null)
                 passiveRuntimes.Add(runtime);
+        }
+
+        BasicAttackSkillData basicAttack = GetUnlockedBasicAttack();
+        if (basicAttack != null && basicAttack.BonusAttackSpeed != 0f)
+        {
+            EntityStatModifier modifier = EntityStatModifier.Zero;
+            modifier.BonusAttackSpeed = basicAttack.BonusAttackSpeed;
+            passiveModifierHandles.Add(entity.ApplyStatModifier(modifier));
         }
     }
 
@@ -426,6 +437,21 @@ public class SkillTreeComponent : MonoBehaviour
                 return node;
         }
 
+        return null;
+    }
+
+    public BasicAttackSkillData GetUnlockedBasicAttack()
+    {
+        if (unlockedState == null)
+            return null;
+
+        foreach (var kvp in unlockedState)
+        {
+            if (kvp.Value && kvp.Key != null && kvp.Key.TierIndex == 0)
+            {
+                return kvp.Key.Skill as BasicAttackSkillData;
+            }
+        }
         return null;
     }
 }
