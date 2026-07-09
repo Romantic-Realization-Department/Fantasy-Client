@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 132d26f865664db6995d12e02027f9eb, type: 3}
+  m_Name: MagicTrainingIce
+  m_EditorClassIdentifier: 
+  SkillName: 마법 단련(빙결)
+  SkillIcon: {fileID: 0}
+  SkillDescription: "액티브 스킬의 전체적인 데미지를 20% 영구적으로 증폭시킵니다."
+  SPCost: 1
+  activeSkillDamageBonusRate: 0.2

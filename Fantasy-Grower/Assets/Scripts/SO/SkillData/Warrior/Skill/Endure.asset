@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c5f4ee6e7c5497ab2ad794df2e0bbd2, type: 3}
+  m_Name: Endure
+  m_EditorClassIdentifier: 
+  SkillName: 버티기
+  SkillIcon: {fileID: 0}
+  SkillDescription: "전투에 돌입하여 받는 피해량을 줄입니다."
+  SPCost: 1
+  Cooldown: 22
+  usableOncePerDungeon: 0
+  extensionRange: 0
+  damageReductionPerEnemy: 0.3
+  duration: 5

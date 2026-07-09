@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddf55e731a924b0ab887d60fa540b096, type: 3}
+  m_Name: Awakening
+  m_EditorClassIdentifier: 
+  SkillName: 각성
+  SkillIcon: {fileID: 0}
+  SkillDescription: "초인적인 능력을 일시적으로 이끌어냅니다."
+  SPCost: 1
+  Cooldown: 0
+  usableOncePerDungeon: 1
+  extensionRange: 0
+  duration: 20
+  awakeningModifier:
+    BonusHp: 0
+    BonusHpRecovery: 0
+    BonusDamageReduction: 0.1
+    BonusAttackPower: 0
+    BonusAttackSpeed: 0.5
+    BonusCriticalPercentage: 50.0
+    BonusCriticalDamageRate: 0
+    BonusAttackRangeRate: 0
+    BonusMoveSpeedRate: 0
+    BonusOutgoingDamageRate: 0.2
+    BonusHpRate: 0
+    BonusHpRecoveryRate: 0
+    BonusDamageReductionRate: 0
+    BonusAttackPowerRate: 0
+    BonusAttackSpeedRate: 0
+    BonusCriticalPercentageRate: 0
+    BonusBasicAttackTargetCount: 0

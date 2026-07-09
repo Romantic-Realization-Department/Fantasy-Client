@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be420bc1b73d40d2a8cf9843d088fbcf, type: 3}
+  m_Name: BrokenArmor
+  m_EditorClassIdentifier: 
+  SkillName: 부러진 갑옷
+  SkillIcon: {fileID: 0}
+  SkillDescription: "체력이 50% 이하일 때 공격 피해의 7%를 체력으로 되돌려 받습니다."
+  SPCost: 1
+  healthThreshold: 0.5
+  damageHealRate: 0.07

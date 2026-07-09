@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4415e54686e93be41b9f8b1beab02d17, type: 3}
+  m_Name: FlamePillar
+  m_EditorClassIdentifier: 
+  SkillName: 불기둥
+  SkillIcon: {fileID: 0}
+  SkillDescription: "대상을 추적해 수초간 지속되며 주기적인 화염 피해를 주는 불바다 영역을 형성합니다."
+  SPCost: 1
+  Cooldown: 8
+  usableOncePerDungeon: 0
+  extensionRange: 2.0
+  totalBaseDamage: 80
+  totalAttackPowerRate: 0.7
+  duration: 3
+  tickInterval: 0.5
+  slowRate: 0

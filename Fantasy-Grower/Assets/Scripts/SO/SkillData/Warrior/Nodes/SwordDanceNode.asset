@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfcb3861838a4ec46924a354ad034191, type: 3}
+  m_Name: SwordDanceNode
+  m_EditorClassIdentifier: 
+  Skill: {fileID: 11400000, guid: 313a569a856c46c4aa9dc4d41d58315d, type: 2}
+  Prerequisites:
+  - {fileID: 11400000, guid: adedc30f2320434084feabf7a651ff2e, type: 2}
+  - {fileID: 11400000, guid: d400b29746b84858b35e646d88c8d09d, type: 2}
+  TierIndex: 2
+  SlotIndex: 0
+  AttributeTag: 

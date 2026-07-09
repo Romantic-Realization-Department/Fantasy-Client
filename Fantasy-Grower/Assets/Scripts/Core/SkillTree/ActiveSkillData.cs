@@ -6,6 +6,10 @@ using UnityEngine;
 /// </summary>
 public abstract class ActiveSkillData : SkillData
 {
+    [Space(40)]
+    [Min(0f)]
+    public float Cooldown;
+
     [SerializeField]
     private ActiveSkillDamageCategory damageCategory = ActiveSkillDamageCategory.None;
 

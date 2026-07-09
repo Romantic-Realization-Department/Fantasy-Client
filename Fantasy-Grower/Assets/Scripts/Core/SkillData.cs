@@ -15,12 +15,7 @@ public abstract class SkillData : ScriptableObject
     [TextArea]
     public string SkillDescription;
 
-    [Space(40)]
-    public float Cooldown;
-    public int Damage;
-
     [Header("스킬 트리")]
-    public SkillCategory Category;
     public int SPCost;
 
     public abstract void UseSkill();

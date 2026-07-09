@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb0e751247bb4f1c8e40674a6de9ce01, type: 3}
+  m_Name: BelowZero
+  m_EditorClassIdentifier: 
+  SkillName: 영하
+  SkillIcon: {fileID: 0}
+  SkillDescription: "적에게 동상이 3회 중첩되어 쌓이면 지속 얼음 동결 상태로 묶어 이속을 차단합니다."
+  SPCost: 1
+  requiredFrostStacks: 3
+  freezeDuration: 2.5
+  freezeModifier:
+    BonusHp: 0
+    BonusHpRecovery: 0
+    BonusDamageReduction: 0
+    BonusAttackPower: 0
+    BonusAttackSpeed: 0
+    BonusCriticalPercentage: 0
+    BonusCriticalDamageRate: 0
+    BonusAttackRangeRate: 0
+    BonusMoveSpeedRate: -1.0
+    BonusOutgoingDamageRate: 0
+    BonusHpRate: 0
+    BonusHpRecoveryRate: 0
+    BonusDamageReductionRate: 0
+    BonusAttackPowerRate: 0
+    BonusAttackSpeedRate: 0
+    BonusCriticalPercentageRate: 0
+    BonusBasicAttackTargetCount: 0

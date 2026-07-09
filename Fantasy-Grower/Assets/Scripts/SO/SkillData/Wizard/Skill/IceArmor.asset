@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdffde80a01f4e5d9422ab0b983b8ee4, type: 3}
+  m_Name: IceArmor
+  m_EditorClassIdentifier: 
+  SkillName: 얼음 갑옷
+  SkillIcon: {fileID: 0}
+  SkillDescription: "전장 진입 시 단단한 얼음 서리 갑옷을 감싸 피해를 30% 흡수합니다."
+  SPCost: 1
+  damageReductionModifier:
+    BonusHp: 0
+    BonusHpRecovery: 0
+    BonusDamageReduction: 0.3
+    BonusAttackPower: 0
+    BonusAttackSpeed: 0
+    BonusCriticalPercentage: 0
+    BonusCriticalDamageRate: 0
+    BonusAttackRangeRate: 0
+    BonusMoveSpeedRate: 0
+    BonusOutgoingDamageRate: 0
+    BonusHpRate: 0
+    BonusHpRecoveryRate: 0
+    BonusDamageReductionRate: 0
+    BonusAttackPowerRate: 0
+    BonusAttackSpeedRate: 0
+    BonusCriticalPercentageRate: 0
+    BonusBasicAttackTargetCount: 0
+  duration: 10

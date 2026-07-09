@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e78177b50544ff4d9c909f44451d436, type: 3}
+  m_Name: WarriorBasicSlash
+  m_EditorClassIdentifier: 
+  SkillName: "\uAE30\uBCF8 \uBCA0\uAE30"
+  SkillIcon: {fileID: 0}
+  SkillDescription: "\uACF5\uACA9 \uBC94\uC704\uC640 \uACF5\uACA9 \uC18D\uB3C4\uAC00
+    \uC99D\uAC00\uD558\uACE0 \uCD5C\uB300 2\uBA85\uC758 \uC801\uC744 \uD0C0\uACA9\uD560
+    \uC218 \uC788\uC2B5\uB2C8\uB2E4."
+  SPCost: 1
+  damageRate: 1
+  maxTargets: 2
+  bonusAttackSpeed: 0.3
+  extensionRange: 1.5

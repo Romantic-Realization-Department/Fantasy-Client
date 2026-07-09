@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdbce97dd4097ce42a08397728ce416b, type: 3}
+  m_Name: Impale
+  m_EditorClassIdentifier: 
+  SkillName: 꿰뚫기
+  SkillIcon: {fileID: 0}
+  SkillDescription: "적 1명을 꿰뚫어 추가 피해를 받는 디버프를 부여합니다."
+  SPCost: 1
+  Cooldown: 15
+  damageCategory: 1
+  usableOncePerDungeon: 0
+  extensionRange: 0
+  baseDamage: 100
+  attackPowerRate: 0.8
+  maxTargets: 1
+  targetMode: 0
+  guaranteedCritical: 0
+  lifeStealRate: 0
+  applyStatusEffect: 1
+  statusEffectType: 6
+  statusEffectDuration: 5
+  statusModifier:
+    BonusHp: 0
+    BonusHpRecovery: 0
+    BonusDamageReduction: 0
+    BonusAttackPower: 0
+    BonusAttackSpeed: 0
+    BonusCriticalPercentage: 0
+    BonusCriticalDamageRate: 0
+    BonusAttackRangeRate: 0
+    BonusMoveSpeedRate: 0
+    BonusOutgoingDamageRate: 0
+    BonusHpRate: 0
+    BonusHpRecoveryRate: 0
+    BonusDamageReductionRate: 0
+    BonusAttackPowerRate: 0
+    BonusAttackSpeedRate: 0
+    BonusCriticalPercentageRate: 0
+    BonusBasicAttackTargetCount: 0
+  incomingDamageBonusRate: 0.1

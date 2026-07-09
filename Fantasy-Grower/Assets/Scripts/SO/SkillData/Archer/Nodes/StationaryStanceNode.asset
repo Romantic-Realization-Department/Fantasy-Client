@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfcb3861838a4ec46924a354ad034191, type: 3}
+  m_Name: StationaryStanceNode
+  m_EditorClassIdentifier: 
+  Skill: {fileID: 11400000, guid: 6145b676a9d646c1883a96b39c679088, type: 2}
+  Prerequisites:
+  - {fileID: 11400000, guid: 01d4d3180b804bc49f6e0bc069112d08, type: 2}
+  - {fileID: 11400000, guid: 85fcd7f03bcc4646bc95ba8d26a1e37d, type: 2}
+  - {fileID: 11400000, guid: d99ae448e9c445ba914bf1b02ceda2d4, type: 2}
+  TierIndex: 6
+  SlotIndex: 1
+  AttributeTag: 

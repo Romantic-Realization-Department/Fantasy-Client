@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa06e7b2449485d419fc089d7d55a35c, type: 3}
+  m_Name: Track
+  m_EditorClassIdentifier: 
+  SkillName: 추적
+  SkillIcon: {fileID: 0}
+  SkillDescription: "위협을 읽고 10초간 완벽하게 모든 피해를 회피하고 회피 시마다 120% 위력으로 카운터합니다."
+  SPCost: 1
+  Cooldown: 30
+  usableOncePerDungeon: 0
+  extensionRange: 0
+  duration: 10
+  counterDamageRate: 1.2
