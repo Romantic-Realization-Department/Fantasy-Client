@@ -1,4 +1,4 @@
-﻿[System.Serializable]
+[System.Serializable]
 public readonly struct EntityStatModifierHandle : System.IEquatable<EntityStatModifierHandle>
 {
     internal EntityStatModifierHandle(int id)
@@ -33,6 +33,10 @@ public struct EntityStatModifier
     public float BonusAttackPower;
     public float BonusAttackSpeed;
     public float BonusCriticalPercentage;
+    public float BonusCriticalDamageRate;
+    public float BonusAttackRangeRate;
+    public float BonusMoveSpeedRate;
+    public float BonusOutgoingDamageRate;
 
     [UnityEngine.Header("비율 보정 (0.2 = 20%)")]
     public float BonusHpRate;
@@ -41,6 +45,9 @@ public struct EntityStatModifier
     public float BonusAttackPowerRate;
     public float BonusAttackSpeedRate;
     public float BonusCriticalPercentageRate;
+
+    [UnityEngine.Header("기타 보정")]
+    public int BonusBasicAttackTargetCount;
 
     public static EntityStatModifier operator +(EntityStatModifier a, EntityStatModifier b)
     {
@@ -52,6 +59,10 @@ public struct EntityStatModifier
             BonusAttackPower = a.BonusAttackPower + b.BonusAttackPower,
             BonusAttackSpeed = a.BonusAttackSpeed + b.BonusAttackSpeed,
             BonusCriticalPercentage = a.BonusCriticalPercentage + b.BonusCriticalPercentage,
+            BonusCriticalDamageRate = a.BonusCriticalDamageRate + b.BonusCriticalDamageRate,
+            BonusAttackRangeRate = a.BonusAttackRangeRate + b.BonusAttackRangeRate,
+            BonusMoveSpeedRate = a.BonusMoveSpeedRate + b.BonusMoveSpeedRate,
+            BonusOutgoingDamageRate = a.BonusOutgoingDamageRate + b.BonusOutgoingDamageRate,
             BonusHpRate = a.BonusHpRate + b.BonusHpRate,
             BonusHpRecoveryRate = a.BonusHpRecoveryRate + b.BonusHpRecoveryRate,
             BonusDamageReductionRate = a.BonusDamageReductionRate + b.BonusDamageReductionRate,
@@ -59,6 +70,8 @@ public struct EntityStatModifier
             BonusAttackSpeedRate = a.BonusAttackSpeedRate + b.BonusAttackSpeedRate,
             BonusCriticalPercentageRate =
                 a.BonusCriticalPercentageRate + b.BonusCriticalPercentageRate,
+            BonusBasicAttackTargetCount =
+                a.BonusBasicAttackTargetCount + b.BonusBasicAttackTargetCount,
         };
     }
 

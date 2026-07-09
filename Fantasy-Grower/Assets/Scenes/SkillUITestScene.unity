@@ -524,6 +524,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 337639da0d037cc488129d99da5472b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  category: 0
   slotLabel: {fileID: 2099235114}
   background: {fileID: 527535259}
 --- !u!114 &527535258
@@ -1127,7 +1128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90b7d76b3664bbb46bff9a765e07851a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillTreeComponent: {fileID: 695998551}
+  fallbackSkillTreeComponent: {fileID: 695998551}
   skillNodeButtonPrefab: {fileID: 7657851272068659580, guid: c612bb9b8094f484b976e5e8494cf7d6, type: 3}
   nodeContainer: {fileID: 848310862}
   activeEquipSlotUIs:
@@ -1139,6 +1140,12 @@ MonoBehaviour:
   entityStatsText: {fileID: 1452858422}
   nodeSpacingX: 120
   nodeSpacingY: 100
+  nodeAlignment: 1
+  nodeOffset: {x: 0, y: 0}
+  connectionContainer: {fileID: 0}
+  connectionLinePrefab: {fileID: 0}
+  connectionLineColor: {r: 0, g: 0, b: 0, a: 1}
+  connectionLineThickness: 2
 --- !u!114 &1200061776
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1286,6 +1293,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 337639da0d037cc488129d99da5472b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  category: 0
   slotLabel: {fileID: 141358404}
   background: {fileID: 1226624411}
 --- !u!114 &1226624410
@@ -1805,6 +1813,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 337639da0d037cc488129d99da5472b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  category: 0
   slotLabel: {fileID: 509416972}
   background: {fileID: 1821015448}
 --- !u!114 &1821015447

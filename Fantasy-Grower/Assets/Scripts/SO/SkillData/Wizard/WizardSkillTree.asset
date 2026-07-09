@@ -14,6 +14,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   JobClassName: Wizard
   StrategyType: 2
-  AllNodes: []
+  AllNodes:
+  - {fileID: 11400000, guid: 22d03c45153745f2b5a130e2c854a78a, type: 2}
+  - {fileID: 11400000, guid: 9ea556547ac640fb9d8a3413b04d14ed, type: 2}
+  - {fileID: 11400000, guid: 875cf697f8a841ed9ab1f3f21a2e7b88, type: 2}
+  - {fileID: 11400000, guid: a2f7a95c08854b8daad2b9a738751dd7, type: 2}
+  - {fileID: 11400000, guid: bc096d87cead40dfa27a2a561f906e89, type: 2}
+  - {fileID: 11400000, guid: 1b0ba7dd5e6844d7a32e92e193b39950, type: 2}
+  - {fileID: 11400000, guid: 076f69e5a8054f6381241f8f9df12dfb, type: 2}
+  - {fileID: 11400000, guid: 8681310f967f48558a35dc752257cd17, type: 2}
+  - {fileID: 11400000, guid: 6e292ddb40594f3da1948f3f85e10e32, type: 2}
+  - {fileID: 11400000, guid: 6ac8b7b4257f429f9c0f2062d945a9d2, type: 2}
+  - {fileID: 11400000, guid: 485a16844470431b8d477dbe68822c09, type: 2}
+  - {fileID: 11400000, guid: 0f925d64510c47eb82b4de79a12e5881, type: 2}
+  - {fileID: 11400000, guid: c84d80283dc64e3c83abe7db90b18faa, type: 2}
+  - {fileID: 11400000, guid: aad7166eb6e3400bb31f8f9c75859e6c, type: 2}
+  - {fileID: 11400000, guid: c6ec17b061004d5ba6fe1662069e342a, type: 2}
+  - {fileID: 11400000, guid: c05bc70f3244460e8c1dc54703743de1, type: 2}
+  - {fileID: 11400000, guid: f26712f00db24d1996d3d4364cbcca23, type: 2}
+  - {fileID: 11400000, guid: af12ba947c1f427c870300c44cab099f, type: 2}
+  - {fileID: 11400000, guid: 15dbecba2e3d40c480e4aeb542932aba, type: 2}
+  - {fileID: 11400000, guid: 8eae7b92d0fc44a48761a8cdc1b75f39, type: 2}
+  - {fileID: 11400000, guid: dc432a977b36473894c8021ecc49043e, type: 2}
+  - {fileID: 11400000, guid: fc3e039e0d7048f8a6af9d5614d1a9c0, type: 2}
+  - {fileID: 11400000, guid: ae602dd69c9c4592bebf28b6d26936ab, type: 2}
+  - {fileID: 11400000, guid: 3f56c0478c4b44539a96a5ddd1ee41ee, type: 2}
+  - {fileID: 11400000, guid: 2e82e4839f3344eba1ef02eb7e0473da, type: 2}
+  - {fileID: 11400000, guid: a72bb13d0dec4b7889e00f63a9ee9504, type: 2}
+  - {fileID: 11400000, guid: 5ffa26c042834cd682bacea43f804945, type: 2}
   MaxActiveSkillSlots: 5
   MaxPassiveSkillSlots: 3

@@ -1,4 +1,3 @@
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,33 +12,90 @@ public class SkillEquipSlotUI : MonoBehaviour
     private SkillCategory category = SkillCategory.Active;
 
     [SerializeField]
-    private TMP_Text slotLabel;
+    private Image skillIconImage;
+
+    [Header("장착 대기 표시")]
+    [SerializeField]
+    private Graphic highlightTarget;
 
     [SerializeField]
-    private Image background;
+    private Color highlightedColor = new(0.55f, 0.8f, 1f, 1f);
 
     private int slotIndex;
     private SkillTreePanel panel;
-
-    private static readonly Color ColorFilled = Color.cyan;
-    private static readonly Color ColorEmpty = Color.gray;
+    private Button button;
+    private Graphic resolvedHighlightTarget;
+    private Color defaultHighlightColor;
+    private bool hasDefaultHighlightColor;
 
     public SkillCategory Category => category;
 
-    public void Initialize(int index, SkillTreePanel ownerPanel)
+    private void Awake()
+    {
+        button = GetComponent<Button>();
+        ResolveHighlightTarget();
+    }
+
+    public void Initialize(int index, SkillTreePanel ownerPanel, SkillCategory slotCategory)
     {
         slotIndex = index;
         panel = ownerPanel;
-        GetComponent<Button>().onClick.AddListener(OnClicked);
+        category = slotCategory;
+
+        if (button == null)
+            button = GetComponent<Button>();
+
+        button.onClick.AddListener(OnClicked);
     }
 
-    public void Refresh(SkillData skill)
+    public void Refresh(SkillData skill, bool isHighlighted)
     {
-        if (slotLabel != null)
-            slotLabel.text = skill != null ? skill.SkillName : "(비어있음)";
-        if (background != null)
-            background.color = skill != null ? ColorFilled : ColorEmpty;
+        RefreshHighlight(isHighlighted);
+
+        if (skillIconImage == null)
+            return;
+
+        Sprite icon = skill != null ? skill.SkillIcon : null;
+        skillIconImage.sprite = icon;
+        skillIconImage.preserveAspect = true;
+        skillIconImage.gameObject.SetActive(icon != null);
     }
 
-    private void OnClicked() => panel?.OnEquipSlotClicked(slotIndex, category);
+    private void RefreshHighlight(bool isHighlighted)
+    {
+        ResolveHighlightTarget();
+
+        if (resolvedHighlightTarget == null || !hasDefaultHighlightColor)
+            return;
+
+        resolvedHighlightTarget.color = isHighlighted ? highlightedColor : defaultHighlightColor;
+    }
+
+    private void ResolveHighlightTarget()
+    {
+        if (resolvedHighlightTarget != null && hasDefaultHighlightColor)
+            return;
+
+        if (button == null)
+            button = GetComponent<Button>();
+
+        resolvedHighlightTarget = highlightTarget;
+        if (resolvedHighlightTarget == null && button != null)
+            resolvedHighlightTarget = button.targetGraphic;
+        if (resolvedHighlightTarget == null)
+            resolvedHighlightTarget = GetComponent<Graphic>();
+
+        if (resolvedHighlightTarget == null)
+            return;
+
+        // 장착 대기 상태가 끝나면 원래 슬롯 색상으로 되돌리기 위해 최초 색상을 보관합니다.
+        defaultHighlightColor = resolvedHighlightTarget.color;
+        hasDefaultHighlightColor = true;
+    }
+
+    private void OnClicked()
+    {
+        if (panel != null)
+            panel.OnEquipSlotClicked(slotIndex, category);
+    }
 }

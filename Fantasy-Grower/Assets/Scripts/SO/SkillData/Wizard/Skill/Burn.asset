@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c8f3e12d3df4c098d4d0e4b37e33b38, type: 3}
+  m_Name: Burn
+  m_EditorClassIdentifier: 
+  SkillName: 화상
+  SkillIcon: {fileID: 21300000, guid: 58be3832980e0b34db72a081633cded0, type: 3}
+  SkillDescription: "화염 공격 시 적들에게 매초 최대 체력의 3%에 비례하는 지속 화상 효과를 입힙니다."
+  SPCost: 1
+  damagePerSecond: 0
+  attackPowerDamageRatePerSecond: 0
+  targetMaxHpDamageRatePerSecond: 0.03
+  duration: 5
+  maxStacks: 1

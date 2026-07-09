@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfc3196a34b79c446aea0b228fa4cd90, type: 3}
+  m_Name: StationaryStance
+  m_EditorClassIdentifier: 
+  SkillName: 부동자세
+  SkillIcon: {fileID: 21300000, guid: 64b05c3b141a6c04290477be9765e811, type: 3}
+  SkillDescription: "제자리에 자세를 고정하여 공속 +1.0 및 전체 공격 광역으로 바꾸며 받는 피해가 50% 늘어납니다."
+  SPCost: 1
+  Cooldown: 5
+  usableOncePerDungeon: 0
+  extensionRange: 0
+  bonusAttackSpeed: 1.0
+  bonusTargetCount: 99
+  incomingDamageIncreaseRate: 0.5

@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: ArcherStat
   m_EditorClassIdentifier: 
   Hp: 30
-  HpRecovery: 15
+  HpRecovery: 5
   DamageReduction: 0.15
   AttackPower: 8
   AttackSpeed: 2.3
   CriticalPercentage: 0
+  AttackRange: 3

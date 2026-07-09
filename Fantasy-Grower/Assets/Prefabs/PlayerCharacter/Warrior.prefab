@@ -3670,6 +3670,7 @@ GameObject:
   - component: {fileID: 9091531221583279582}
   - component: {fileID: 8937113908660665095}
   - component: {fileID: 713001000000000002}
+  - component: {fileID: 713002000000000002}
   m_Layer: 0
   m_Name: Warrior
   m_TagString: Untagged
@@ -6748,6 +6749,25 @@ MonoBehaviour:
   m_Name:
   m_EditorClassIdentifier:
   targets: {fileID: 5115161450785208119}
+--- !u!114 &713002000000000002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6499316856751531827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0733f8d1a3f642ca9bcfa8813c6cb14b, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  enableKeyboardInput: 1
+  slotKeys:
+  - 49
+  - 50
+  - 51
+  - 52
+  - 53
 --- !u!114 &6107641911005882464
 MonoBehaviour:
   m_ObjectHideFlags: 0

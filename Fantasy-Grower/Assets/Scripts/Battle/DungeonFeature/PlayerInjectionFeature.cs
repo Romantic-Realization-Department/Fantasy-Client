@@ -43,6 +43,8 @@ public class PlayerInjectionFeature : MonoBehaviour
             return;
         }
 
+        gameManager.SetPlayer(player);
+
         // 3. DungeonManager에 의존성 주입
         if (DungeonManager.Instance is IPlayerInjectable injectable)
         {

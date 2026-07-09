@@ -12,6 +12,11 @@ public class AttackTargetsSensing : MonoBehaviour
 
     private readonly List<Entity> _targets = new();
 
+    private BoxCollider2D boxCollider;
+    private Entity owner;
+    private Vector2 originalSize;
+    private Vector2 originalOffset;
+
     public Entity GetFirstTarget()
     {
         if (_targets.Count > 0)
@@ -28,6 +33,13 @@ public class AttackTargetsSensing : MonoBehaviour
         _attackEvent = GetComponentInParent<IAttackEvent>();
         if (_attackEvent == null)
             Debug.LogError("[AttackTargets] 부모 중 IAttackEvent 구현체가 없습니다.", this);
+
+        owner = GetComponentInParent<Entity>();
+        if (owner != null)
+            owner.OnStatsChanged += RecalculateRange;
+
+        CacheRangeCollider();
+        RecalculateRange();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -83,5 +95,45 @@ public class AttackTargetsSensing : MonoBehaviour
                 target.OnDied -= HandleTargetDied;
         }
         _targets.Clear();
+    }
+
+    private void OnDestroy()
+    {
+        if (owner != null)
+            owner.OnStatsChanged -= RecalculateRange;
+    }
+
+    private bool CacheRangeCollider()
+    {
+        if (boxCollider != null)
+            return true;
+
+        boxCollider = GetComponent<BoxCollider2D>();
+        if (boxCollider == null)
+        {
+            Debug.LogError(
+                "[AttackTargets] 사거리 패시브는 BoxCollider2D 감지 콜라이더에서만 동작합니다.",
+                this
+            );
+            return false;
+        }
+
+        originalSize = boxCollider.size;
+        originalOffset = boxCollider.offset;
+        return true;
+    }
+
+    private void RecalculateRange()
+    {
+        if (!CacheRangeCollider())
+            return;
+
+        float attackRange =
+            owner != null && owner.AttackRange > 0f ? owner.AttackRange : originalSize.x;
+        float newWidth = Mathf.Max(0f, attackRange);
+        float widthDelta = newWidth - originalSize.x;
+
+        boxCollider.size = new Vector2(newWidth, originalSize.y);
+        boxCollider.offset = new Vector2(originalOffset.x - widthDelta * 0.5f, originalOffset.y);
     }
 }

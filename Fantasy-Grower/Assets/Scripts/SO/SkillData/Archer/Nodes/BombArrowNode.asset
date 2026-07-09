@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfcb3861838a4ec46924a354ad034191, type: 3}
+  m_Name: BombArrowNode
+  m_EditorClassIdentifier: 
+  Skill: {fileID: 11400000, guid: 622ffe5899894719b07c11d7f1d68bd5, type: 2}
+  Prerequisites:
+  - {fileID: 11400000, guid: 83c9182272a4435f8f33ef0493f0fb18, type: 2}
+  - {fileID: 11400000, guid: 66e5bc3e17324cb99ad9c18ecfadcd11, type: 2}
+  - {fileID: 11400000, guid: 2b74c8c924954db9bd9be8f9a9ce83c0, type: 2}
+  TierIndex: 4
+  SlotIndex: 2
+  AttributeTag: 

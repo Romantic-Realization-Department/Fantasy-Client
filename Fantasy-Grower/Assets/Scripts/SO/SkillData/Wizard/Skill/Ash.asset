@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e116b81fb15a44fdb6ae9a3dd1f1b7eb, type: 3}
+  m_Name: Ash
+  m_EditorClassIdentifier: 
+  SkillName: 재
+  SkillIcon: {fileID: 21300000, guid: 18b2b41b127ec2e48b64f05a7abafc11, type: 3}
+  SkillDescription: "지속 화상 상태에 걸린 상대에게는 가하는 피해량이 10% 증가합니다."
+  SPCost: 1
+  bonusDamageRate: 0.1

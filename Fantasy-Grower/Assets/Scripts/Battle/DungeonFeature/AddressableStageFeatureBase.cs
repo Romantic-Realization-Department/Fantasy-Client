@@ -22,6 +22,8 @@ public sealed class DungeonDataAssetReference : AssetReferenceT<DungeonData>
 /// </summary>
 public abstract class AddressableStageFeatureBase : MonoBehaviour, IStageProvider
 {
+    public static event Action<int> OnAnyStageChanged;
+
     [SerializeField, Tooltip("스테이지 순서대로 등록한 Addressable DungeonData 배열")]
     [FormerlySerializedAs("_stages")]
     private DungeonDataAssetReference[] stageReferences;
@@ -143,6 +145,7 @@ public abstract class AddressableStageFeatureBase : MonoBehaviour, IStageProvide
         }
 
         OnStageChanged?.Invoke(currentStageIndex);
+        OnAnyStageChanged?.Invoke(currentStageIndex);
 
         int nextStageIndex = currentStageIndex + 1;
         if (nextStageIndex < stageReferences.Length)

@@ -44,7 +44,13 @@ public class EnemyAI : MonoBehaviour, IAttackEvent
     {
         while (true)
         {
-            enemy.Attack();
+            if (
+                !enemy.TryGetComponent(out StatusEffectController statusEffectController)
+                || !statusEffectController.PreventsAction
+            )
+            {
+                enemy.Attack();
+            }
 
             float interval = enemy.AttackSpeed > 0f ? 1f / enemy.AttackSpeed : 2f;
             yield return YieldInstructionCache.WaitForSeconds(interval);

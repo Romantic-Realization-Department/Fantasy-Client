@@ -14,4 +14,10 @@ public abstract class PassiveSkillData : SkillData
     /// SkillTreeComponent.RecalculatePassives()에서 일괄 호출된다.
     /// </summary>
     public abstract void ApplyPassive(ref EntityStatModifier modifier);
+
+    /// <summary>
+    /// 장착 중에만 유지되어야 하는 런타임 패시브 효과를 생성한다.
+    /// 단순 스탯 패시브는 null을 반환하면 된다.
+    /// </summary>
+    public virtual PassiveSkillRuntime CreateRuntime(PassiveSkillRuntimeContext context) => null;
 }
