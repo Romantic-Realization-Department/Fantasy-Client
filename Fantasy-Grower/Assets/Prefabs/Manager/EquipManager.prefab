@@ -1,0 +1,113 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6065251155769569597
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6941261738494206148}
+  - component: {fileID: 3834045335616846445}
+  m_Layer: 0
+  m_Name: EquipManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6941261738494206148
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6065251155769569597}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3834045335616846445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6065251155769569597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 745ad09a46763e0449a12022ffc84c2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponLevelColor:
+  - {r: 1, g: 1, b: 0, a: 1}
+  - {r: 0.50980395, g: 0, b: 1, a: 1}
+  - {r: 0, g: 1, b: 1, a: 1}
+  - {r: 0, g: 1, b: 0, a: 1}
+  - {r: 1, g: 1, b: 1, a: 1}
+  career: 0
+  WeaponIcons:
+  - career: 0
+    icons:
+    - {fileID: 21300000, guid: 01c22b6d497e0484db647e3d384dfe67, type: 3}
+    - {fileID: 21300000, guid: fcd3983f703124c5f9580c4d3b5a5823, type: 3}
+  - career: 1
+    icons:
+    - {fileID: 21300000, guid: 67812ca3763dba646962be701db58322, type: 3}
+    - {fileID: 21300000, guid: 1ea53a95770b8fd47bcc16ef6ecdc305, type: 3}
+  - career: 2
+    icons:
+    - {fileID: -8694134567703425497, guid: 3d9b1fff06fe32d44b155e672a1efe43, type: 3}
+    - {fileID: -3572316528669986933, guid: cabf502f8738f4b44820e79de0e37342, type: 3}
+  _maxUpgradeLevel: 25
+  MithrilAmount: 320000004b00000078000000b40000002c010000
+  GradeScrollV:
+  - 3
+  - 2.2
+  - 1.7
+  - 1.3
+  - 1
+  weapons:
+  - career: 0
+    weapon:
+    - {fileID: 11400000, guid: e22ea1c6b1adf5244ac49a2537b11138, type: 2}
+    - {fileID: 11400000, guid: 9f27d5c1c66c563478c7e488dadff492, type: 2}
+    - {fileID: 11400000, guid: e5b1f6e83b130c64aac2892fbfc11500, type: 2}
+    - {fileID: 11400000, guid: b906291d88686194bab121226fc99a8e, type: 2}
+    - {fileID: 11400000, guid: 9c0872036acaba641833ed96324bcece, type: 2}
+    - {fileID: 11400000, guid: e9659b3ab2b2e6041ba177085e8f8193, type: 2}
+    - {fileID: 11400000, guid: 03f9b3cd6e6e04e41b8218d8f3af6f74, type: 2}
+    - {fileID: 11400000, guid: bae3635cf4d609442b3a32cc0ca48885, type: 2}
+    - {fileID: 11400000, guid: 715c1af359c01cb438b363878dff6410, type: 2}
+    - {fileID: 11400000, guid: 97cff8a40817f62489a91d3c9b4d96e8, type: 2}
+  - career: 1
+    weapon:
+    - {fileID: 11400000, guid: ee6a98afd829a4e419f77104983e9467, type: 2}
+    - {fileID: 11400000, guid: 08e488b310e3ded4fa76182c6fe2df73, type: 2}
+    - {fileID: 11400000, guid: 2d7b7b6e416f222469f064416ab379e9, type: 2}
+    - {fileID: 11400000, guid: f0490ee4367fcf3418a89d0d90e75781, type: 2}
+    - {fileID: 11400000, guid: fd2750b6a43bcc744b18b2f2f4660dd0, type: 2}
+    - {fileID: 11400000, guid: 33ef6b6c98d17b94782c8bcc411e44c7, type: 2}
+    - {fileID: 11400000, guid: 9c52b4e3114ccb94aa609612040515d6, type: 2}
+    - {fileID: 11400000, guid: 2fd5739767620c54f9b78feac5854b57, type: 2}
+    - {fileID: 11400000, guid: ef62d1767cbed0d4088981ef70bc6aa0, type: 2}
+    - {fileID: 11400000, guid: df333fabdaadbef40bb2750f5d7f5759, type: 2}
+  - career: 2
+    weapon:
+    - {fileID: 11400000, guid: 423ef3eb63f2d6344b3449991b829045, type: 2}
+    - {fileID: 11400000, guid: 595e5dca7384c2949b028807926cd7ea, type: 2}
+    - {fileID: 11400000, guid: b2e35cf6354d4ff4284c8a2254f8c2ec, type: 2}
+    - {fileID: 11400000, guid: 4c517774607a0d44b8880f1697e04e6b, type: 2}
+    - {fileID: 11400000, guid: 8e5923d8e4e103f4b9c64f7f509840eb, type: 2}
+    - {fileID: 11400000, guid: 15a1e0b3e6f905e46ad755fd5affabab, type: 2}
+    - {fileID: 11400000, guid: 909d816ec2c5baa40a64114ec3953282, type: 2}
+    - {fileID: 11400000, guid: 80a5c6606bf5d74468082e2d7c76edc2, type: 2}
+    - {fileID: 11400000, guid: 0c8d7061ff67ce942a363adc1a21a798, type: 2}
+    - {fileID: 11400000, guid: 1134bddb48b83f443a5c554b4186cd2a, type: 2}
+  useWeaponCount: 5
+  maxAwakeLevel: 5
