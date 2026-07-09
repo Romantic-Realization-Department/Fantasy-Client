@@ -19,7 +19,7 @@ MonoBehaviour:
   Cooldown: 17
   damageCategory: 2
   usableOncePerDungeon: 0
-  extensionRange: 9.0
+  extensionRange: 4.0
   baseDamage: 70
   attackPowerRate: 0.8
   maxTargets: 3

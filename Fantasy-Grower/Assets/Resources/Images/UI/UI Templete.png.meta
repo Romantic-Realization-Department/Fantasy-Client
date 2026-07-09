@@ -1,0 +1,2613 @@
+fileFormatVersion: 2
+guid: 7ecfeef58092bb6429fdbeb0de1c8509
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 6670689772930334690
+    second: UI Templete_0
+  - first:
+      213: 1586345622768777628
+    second: UI Templete_1
+  - first:
+      213: 279732520032562186
+    second: UI Templete_2
+  - first:
+      213: 5510632291714999360
+    second: UI Templete_3
+  - first:
+      213: -3812489411308864889
+    second: UI Templete_4
+  - first:
+      213: -4570573477220841444
+    second: UI Templete_5
+  - first:
+      213: 1824478333424516979
+    second: UI Templete_6
+  - first:
+      213: 1637535839621243831
+    second: UI Templete_7
+  - first:
+      213: 3001959106097311399
+    second: UI Templete_8
+  - first:
+      213: -4204751493044772819
+    second: UI Templete_9
+  - first:
+      213: -3610307830078788971
+    second: UI Templete_10
+  - first:
+      213: -4608386323246190614
+    second: UI Templete_11
+  - first:
+      213: -6504092813620952430
+    second: UI Templete_12
+  - first:
+      213: -9040947863365065918
+    second: UI Templete_13
+  - first:
+      213: -5776309417423057421
+    second: UI Templete_14
+  - first:
+      213: 8965189031802503462
+    second: UI Templete_15
+  - first:
+      213: 2435022696072337247
+    second: UI Templete_16
+  - first:
+      213: 1253759850373481264
+    second: UI Templete_17
+  - first:
+      213: -1811294685254223431
+    second: UI Templete_18
+  - first:
+      213: -8761226990912367055
+    second: UI Templete_19
+  - first:
+      213: 4425073360321275817
+    second: UI Templete_20
+  - first:
+      213: -4728080104759164710
+    second: UI Templete_21
+  - first:
+      213: -9080995122786371150
+    second: UI Templete_22
+  - first:
+      213: -9201116195463379403
+    second: UI Templete_23
+  - first:
+      213: -6850627067055765137
+    second: UI Templete_24
+  - first:
+      213: 1558547542794984741
+    second: UI Templete_25
+  - first:
+      213: 8404330783373955866
+    second: UI Templete_26
+  - first:
+      213: -4008268853540998295
+    second: UI Templete_27
+  - first:
+      213: 2862743300984324639
+    second: UI Templete_28
+  - first:
+      213: -1753966256202596040
+    second: UI Templete_29
+  - first:
+      213: 1267088065203369102
+    second: UI Templete_30
+  - first:
+      213: -5347246156037795757
+    second: UI Templete_31
+  - first:
+      213: -5318828652184519946
+    second: UI Templete_32
+  - first:
+      213: 7694602160274674505
+    second: UI Templete_33
+  - first:
+      213: -3187775637136182672
+    second: UI Templete_34
+  - first:
+      213: -1587025011588915871
+    second: UI Templete_35
+  - first:
+      213: 1395991295985622400
+    second: UI Templete_36
+  - first:
+      213: -6499012823893979312
+    second: UI Templete_37
+  - first:
+      213: -3875970154048369969
+    second: UI Templete_38
+  - first:
+      213: -6286498578040754288
+    second: UI Templete_39
+  - first:
+      213: 1778742098933278049
+    second: UI Templete_40
+  - first:
+      213: -8815030416868724597
+    second: UI Templete_41
+  - first:
+      213: -916914920425189280
+    second: UI Templete_42
+  - first:
+      213: 5676047645954713769
+    second: UI Templete_43
+  - first:
+      213: -6606930343562435236
+    second: UI Templete_44
+  - first:
+      213: 6595540272582853253
+    second: UI Templete_45
+  - first:
+      213: 2541208076596079941
+    second: UI Templete_46
+  - first:
+      213: 4451651439037688419
+    second: UI Templete_47
+  - first:
+      213: -759700976794707739
+    second: UI Templete_48
+  - first:
+      213: -5566038940110235308
+    second: UI Templete_49
+  - first:
+      213: -3142520614664481512
+    second: UI Templete_50
+  - first:
+      213: -557872770310472152
+    second: UI Templete_51
+  - first:
+      213: 2102078145686200585
+    second: UI Templete_52
+  - first:
+      213: -1441486972734840998
+    second: UI Templete_53
+  - first:
+      213: 4172378761187945442
+    second: UI Templete_54
+  - first:
+      213: -8769239407382243729
+    second: UI Templete_55
+  - first:
+      213: 2834443753076568510
+    second: UI Templete_56
+  - first:
+      213: 9075386616152949748
+    second: UI Templete_57
+  - first:
+      213: -4476947734196553877
+    second: UI Templete_58
+  - first:
+      213: 3406137867503551560
+    second: UI Templete_59
+  - first:
+      213: -5505075281195814845
+    second: UI Templete_60
+  - first:
+      213: -6164262048057777964
+    second: UI Templete_61
+  - first:
+      213: -962677544635489593
+    second: UI Templete_62
+  - first:
+      213: -4717572074037991119
+    second: UI Templete_63
+  - first:
+      213: 6776642342342410522
+    second: UI Templete_64
+  - first:
+      213: -620851204616445371
+    second: UI Templete_65
+  - first:
+      213: 5438225149027848686
+    second: UI Templete_66
+  - first:
+      213: 266666563913935861
+    second: UI Templete_67
+  - first:
+      213: -2770667254742198624
+    second: UI Templete_68
+  - first:
+      213: 8491896492119965134
+    second: UI Templete_69
+  - first:
+      213: -2316930062187317046
+    second: UI Templete_70
+  - first:
+      213: -3638682009412986911
+    second: UI Templete_71
+  - first:
+      213: 8485873793672645754
+    second: UI Templete_72
+  - first:
+      213: 7139676594236467773
+    second: UI Templete_73
+  - first:
+      213: 3704138364397954908
+    second: UI Templete_74
+  - first:
+      213: 3482732943303330910
+    second: UI Templete_75
+  - first:
+      213: 3462782739450133218
+    second: UI Templete_76
+  - first:
+      213: -5371528085433807285
+    second: UI Templete_77
+  - first:
+      213: -6035588257315084510
+    second: UI Templete_78
+  - first:
+      213: 5059167780618493807
+    second: UI Templete_79
+  - first:
+      213: -6284565745672192002
+    second: UI Templete_80
+  - first:
+      213: -4708467518299189279
+    second: UI Templete_81
+  - first:
+      213: -2660093247184170761
+    second: UI Templete_82
+  - first:
+      213: -1919668704222266579
+    second: UI Templete_83
+  - first:
+      213: -3903441204693228577
+    second: UI Templete_84
+  - first:
+      213: 6795612785832864409
+    second: UI Templete_85
+  - first:
+      213: -1732528077892760465
+    second: UI Templete_86
+  - first:
+      213: -2090773114085656946
+    second: UI Templete_87
+  - first:
+      213: -8885061725880572549
+    second: UI Templete_88
+  - first:
+      213: -715901798713638539
+    second: UI Templete_89
+  - first:
+      213: 7505264337558729907
+    second: UI Templete_90
+  - first:
+      213: -8569291459134236181
+    second: UI Templete_91
+  - first:
+      213: 5027977646857092603
+    second: UI Templete_92
+  - first:
+      213: 6058562782540603190
+    second: UI Templete_93
+  - first:
+      213: -5753639989561004369
+    second: UI Templete_94
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: UI Templete_0
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 1434
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2eff752710d039c50800000000000000
+      internalID: 6670689772930334690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_1
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 1486
+        width: 221
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c99f02860f4d30610800000000000000
+      internalID: 1586345622768777628
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_2
+      rect:
+        serializedVersion: 2
+        x: 349
+        y: 1476
+        width: 184
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a0c6aa0be3fc1e300800000000000000
+      internalID: 279732520032562186
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_3
+      rect:
+        serializedVersion: 2
+        x: 545
+        y: 1476
+        width: 151
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 044287b6fd2b97c40800000000000000
+      internalID: 5510632291714999360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_4
+      rect:
+        serializedVersion: 2
+        x: 693
+        y: 1478
+        width: 34
+        height: 36
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 78a3ff07411571bc0800000000000000
+      internalID: -3812489411308864889
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_5
+      rect:
+        serializedVersion: 2
+        x: 740
+        y: 1476
+        width: 270
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c180e6e63af0290c0800000000000000
+      internalID: -4570573477220841444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_6
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 1431
+        width: 25
+        height: 53
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 37f3a24b069d15910800000000000000
+      internalID: 1824478333424516979
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_7
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 1461
+        width: 195
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b3689b8b22b9b610800000000000000
+      internalID: 1637535839621243831
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_8
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 1433
+        width: 195
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7aeed25e6e919a920800000000000000
+      internalID: 3001959106097311399
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_9
+      rect:
+        serializedVersion: 2
+        x: 702
+        y: 1398
+        width: 53
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d20e5487bc8b5a5c0800000000000000
+      internalID: -4204751493044772819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_10
+      rect:
+        serializedVersion: 2
+        x: 766
+        y: 1398
+        width: 53
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 59aa752282c95edc0800000000000000
+      internalID: -3610307830078788971
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_11
+      rect:
+        serializedVersion: 2
+        x: 829
+        y: 1398
+        width: 54
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aef64272e09bb00c0800000000000000
+      internalID: -4608386323246190614
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_12
+      rect:
+        serializedVersion: 2
+        x: 893
+        y: 1398
+        width: 53
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 292c3f1db02dcb5a0800000000000000
+      internalID: -6504092813620952430
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_13
+      rect:
+        serializedVersion: 2
+        x: 956
+        y: 1398
+        width: 54
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2436c4bb1d9188280800000000000000
+      internalID: -9040947863365065918
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_14
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 1223
+        width: 321
+        height: 199
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3fd41c5603d66dfa0800000000000000
+      internalID: -5776309417423057421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_15
+      rect:
+        serializedVersion: 2
+        x: 365
+        y: 1100
+        width: 311
+        height: 328
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62101d0ccefba6c70800000000000000
+      internalID: 8965189031802503462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_16
+      rect:
+        serializedVersion: 2
+        x: 508
+        y: 1412
+        width: 24
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f57d763ad30fac120800000000000000
+      internalID: 2435022696072337247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_17
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 1345
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0338823f0ff366110800000000000000
+      internalID: 1253759850373481264
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_18
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 1349
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b97ed5941dfcd6e0800000000000000
+      internalID: -1811294685254223431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_19
+      rect:
+        serializedVersion: 2
+        x: 701
+        y: 1109
+        width: 313
+        height: 277
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1369a12887ed96680800000000000000
+      internalID: -8761226990912367055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_20
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 1275
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a76ef2b6c4096d30800000000000000
+      internalID: 4425073360321275817
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_21
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 1274
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ad00d36f13c726eb0800000000000000
+      internalID: -4728080104759164710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_22
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 1223
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b9734b8c03d9f180800000000000000
+      internalID: -9080995122786371150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_23
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 690
+        width: 316
+        height: 506
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 536cf40e1911f4080800000000000000
+      internalID: -9201116195463379403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_24
+      rect:
+        serializedVersion: 2
+        x: 351
+        y: 681
+        width: 304
+        height: 400
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f69077b8afeade0a0800000000000000
+      internalID: -6850627067055765137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_25
+      rect:
+        serializedVersion: 2
+        x: 679
+        y: 678
+        width: 336
+        height: 419
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 52d5add8bb211a510800000000000000
+      internalID: 1558547542794984741
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_26
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 580
+        width: 87
+        height: 82
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a1392e5c15e22a470800000000000000
+      internalID: 8404330783373955866
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_27
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 588
+        width: 69
+        height: 67
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9633d64e6b4cf58c0800000000000000
+      internalID: -4008268853540998295
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_28
+      rect:
+        serializedVersion: 2
+        x: 177
+        y: 588
+        width: 69
+        height: 67
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f12cc426dd18ab720800000000000000
+      internalID: 2862743300984324639
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_29
+      rect:
+        serializedVersion: 2
+        x: 257
+        y: 588
+        width: 69
+        height: 67
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 831c50f9bf8a8a7e0800000000000000
+      internalID: -1753966256202596040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_30
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 588
+        width: 69
+        height: 67
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e847599c1e9959110800000000000000
+      internalID: 1267088065203369102
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_31
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 588
+        width: 70
+        height: 67
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3505bc6b3f3cac5b0800000000000000
+      internalID: -5347246156037795757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_32
+      rect:
+        serializedVersion: 2
+        x: 605
+        y: 376
+        width: 306
+        height: 279
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6fa3f5d6589bf26b0800000000000000
+      internalID: -5318828652184519946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_33
+      rect:
+        serializedVersion: 2
+        x: 946
+        y: 595
+        width: 56
+        height: 60
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9431023a5e7b8ca60800000000000000
+      internalID: 7694602160274674505
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_34
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 504
+        width: 181
+        height: 55
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0727ad492feb2c3d0800000000000000
+      internalID: -3187775637136182672
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_35
+      rect:
+        serializedVersion: 2
+        x: 217
+        y: 392
+        width: 117
+        height: 173
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 16d159e0921c9f9e0800000000000000
+      internalID: -1587025011588915871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_36
+      rect:
+        serializedVersion: 2
+        x: 355
+        y: 520
+        width: 38
+        height: 38
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 08d92caffae8f5310800000000000000
+      internalID: 1395991295985622400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_37
+      rect:
+        serializedVersion: 2
+        x: 394
+        y: 526
+        width: 180
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05f4719154edec5a0800000000000000
+      internalID: -6499012823893979312
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_38
+      rect:
+        serializedVersion: 2
+        x: 945
+        y: 537
+        width: 57
+        height: 47
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fca4eef3ea9c53ac0800000000000000
+      internalID: -3875970154048369969
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_39
+      rect:
+        serializedVersion: 2
+        x: 962
+        y: 524
+        width: 23
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09fe1eeb9ded1c8a0800000000000000
+      internalID: -6286498578040754288
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_40
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 448
+        width: 180
+        height: 47
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 16563f9c38c5fa810800000000000000
+      internalID: 1778742098933278049
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_41
+      rect:
+        serializedVersion: 2
+        x: 355
+        y: 460
+        width: 219
+        height: 38
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b80b6463a88baa580800000000000000
+      internalID: -8815030416868724597
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_42
+      rect:
+        serializedVersion: 2
+        x: 945
+        y: 454
+        width: 57
+        height: 60
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0601dc6ecb67643f0800000000000000
+      internalID: -916914920425189280
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_43
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 393
+        width: 180
+        height: 46
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a8a251d24f55ce40800000000000000
+      internalID: 5676047645954713769
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_44
+      rect:
+        serializedVersion: 2
+        x: 355
+        y: 401
+        width: 38
+        height: 38
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c5526388bd77f44a0800000000000000
+      internalID: -6606930343562435236
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_45
+      rect:
+        serializedVersion: 2
+        x: 394
+        y: 407
+        width: 180
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5828519eee0188b50800000000000000
+      internalID: 6595540272582853253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_46
+      rect:
+        serializedVersion: 2
+        x: 946
+        y: 386
+        width: 56
+        height: 58
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 54decd1284f244320800000000000000
+      internalID: 2541208076596079941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_47
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 321
+        width: 47
+        height: 51
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36aa2bfd56177cd30800000000000000
+      internalID: 4451651439037688419
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_48
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 321
+        width: 52
+        height: 51
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e852a69cfff475f0800000000000000
+      internalID: -759700976794707739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_49
+      rect:
+        serializedVersion: 2
+        x: 119
+        y: 320
+        width: 52
+        height: 52
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 459dcb8f21571c2b0800000000000000
+      internalID: -5566038940110235308
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_50
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 321
+        width: 52
+        height: 51
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 815d49796268364d0800000000000000
+      internalID: -3142520614664481512
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_51
+      rect:
+        serializedVersion: 2
+        x: 246
+        y: 327
+        width: 28
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 82ef7cfcba90248f0800000000000000
+      internalID: -557872770310472152
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_52
+      rect:
+        serializedVersion: 2
+        x: 283
+        y: 327
+        width: 28
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 901ecbbafe41c2d10800000000000000
+      internalID: 2102078145686200585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_53
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 327
+        width: 28
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a5f59c15c3fcefbe0800000000000000
+      internalID: -1441486972734840998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_54
+      rect:
+        serializedVersion: 2
+        x: 370
+        y: 335
+        width: 22
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ebedf8806447e930800000000000000
+      internalID: 4172378761187945442
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_55
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 328
+        width: 26
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f66df9c68376d4680800000000000000
+      internalID: -8769239407382243729
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_56
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 336
+        width: 18
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb134fd6397f55720800000000000000
+      internalID: 2834443753076568510
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_57
+      rect:
+        serializedVersion: 2
+        x: 439
+        y: 336
+        width: 18
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f3812f3b0042fd70800000000000000
+      internalID: 9075386616152949748
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_58
+      rect:
+        serializedVersion: 2
+        x: 458
+        y: 328
+        width: 26
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b67793171cfaed1c0800000000000000
+      internalID: -4476947734196553877
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_59
+      rect:
+        serializedVersion: 2
+        x: 485
+        y: 336
+        width: 18
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8444e801858054f20800000000000000
+      internalID: 3406137867503551560
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_60
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 336
+        width: 17
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3403a8ae23b0a93b0800000000000000
+      internalID: -5505075281195814845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_61
+      rect:
+        serializedVersion: 2
+        x: 522
+        y: 328
+        width: 26
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d02813b354247aa0800000000000000
+      internalID: -6164262048057777964
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_62
+      rect:
+        serializedVersion: 2
+        x: 550
+        y: 336
+        width: 36
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c2a1c6afd1e3a2f0800000000000000
+      internalID: -962677544635489593
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_63
+      rect:
+        serializedVersion: 2
+        x: 587
+        y: 328
+        width: 26
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 139a9a48131d78eb0800000000000000
+      internalID: -4717572074037991119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_64
+      rect:
+        serializedVersion: 2
+        x: 615
+        y: 335
+        width: 22
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a11c0316e487b0e50800000000000000
+      internalID: 6776642342342410522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_65
+      rect:
+        serializedVersion: 2
+        x: 946
+        y: 317
+        width: 56
+        height: 58
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 542a67a6e1b4267f0800000000000000
+      internalID: -620851204616445371
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_66
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 91
+        width: 292
+        height: 212
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee19668c5f4787b40800000000000000
+      internalID: 5438225149027848686
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_67
+      rect:
+        serializedVersion: 2
+        x: 332
+        y: 78
+        width: 299
+        height: 225
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5fb6097b3d363b300800000000000000
+      internalID: 266666563913935861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_68
+      rect:
+        serializedVersion: 2
+        x: 656
+        y: 110
+        width: 273
+        height: 193
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0a6d84abfcc9c89d0800000000000000
+      internalID: -2770667254742198624
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_69
+      rect:
+        serializedVersion: 2
+        x: 946
+        y: 249
+        width: 56
+        height: 58
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ecd323a1ed649d570800000000000000
+      internalID: 8491896492119965134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_70
+      rect:
+        serializedVersion: 2
+        x: 946
+        y: 179
+        width: 56
+        height: 58
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac8b6e1526c98dfd0800000000000000
+      internalID: -2316930062187317046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_71
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 14
+        width: 145
+        height: 46
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e79552bdfdc08dc0800000000000000
+      internalID: -3638682009412986911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_72
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 35
+        width: 43
+        height: 4
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7c87a85141e3c570800000000000000
+      internalID: 8485873793672645754
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_73
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 15
+        width: 45
+        height: 45
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d3aa2aae80a351360800000000000000
+      internalID: 7139676594236467773
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_74
+      rect:
+        serializedVersion: 2
+        x: 289
+        y: 35
+        width: 21
+        height: 4
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c5726d0973eb76330800000000000000
+      internalID: 3704138364397954908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_75
+      rect:
+        serializedVersion: 2
+        x: 311
+        y: 35
+        width: 11
+        height: 4
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e5c452dd827255030800000000000000
+      internalID: 3482732943303330910
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_76
+      rect:
+        serializedVersion: 2
+        x: 323
+        y: 35
+        width: 27
+        height: 4
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ea774f0e864e0030800000000000000
+      internalID: 3462782739450133218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_77
+      rect:
+        serializedVersion: 2
+        x: 351
+        y: 35
+        width: 14
+        height: 4
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4e0fa67aaf7475b0800000000000000
+      internalID: -5371528085433807285
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_78
+      rect:
+        serializedVersion: 2
+        x: 366
+        y: 15
+        width: 44
+        height: 45
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 227273835784d3ca0800000000000000
+      internalID: -6035588257315084510
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_79
+      rect:
+        serializedVersion: 2
+        x: 411
+        y: 35
+        width: 33
+        height: 4
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6fddd6ba46c53640800000000000000
+      internalID: 5059167780618493807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_80
+      rect:
+        serializedVersion: 2
+        x: 446
+        y: 35
+        width: 41
+        height: 4
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: efffe9950ccb8c8a0800000000000000
+      internalID: -6284565745672192002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_81
+      rect:
+        serializedVersion: 2
+        x: 488
+        y: 15
+        width: 44
+        height: 45
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1efcf471db928aeb0800000000000000
+      internalID: -4708467518299189279
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_82
+      rect:
+        serializedVersion: 2
+        x: 533
+        y: 35
+        width: 10
+        height: 4
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f01c241943751bd0800000000000000
+      internalID: -2660093247184170761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_83
+      rect:
+        serializedVersion: 2
+        x: 544
+        y: 35
+        width: 11
+        height: 4
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2bb56efb77fb55e0800000000000000
+      internalID: -1919668704222266579
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_84
+      rect:
+        serializedVersion: 2
+        x: 556
+        y: 35
+        width: 10
+        height: 4
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd323a8d7e034d9c0800000000000000
+      internalID: -3903441204693228577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_85
+      rect:
+        serializedVersion: 2
+        x: 567
+        y: 35
+        width: 15
+        height: 4
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 99aaba2f2ddde4e50800000000000000
+      internalID: 6795612785832864409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_86
+      rect:
+        serializedVersion: 2
+        x: 583
+        y: 28
+        width: 23
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6ccfc974e2d4f7e0800000000000000
+      internalID: -1732528077892760465
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_87
+      rect:
+        serializedVersion: 2
+        x: 635
+        y: 9
+        width: 75
+        height: 74
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e86bcfc1ee41cf2e0800000000000000
+      internalID: -2090773114085656946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_88
+      rect:
+        serializedVersion: 2
+        x: 726
+        y: 29
+        width: 41
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b7528757f6be1b480800000000000000
+      internalID: -8885061725880572549
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_89
+      rect:
+        serializedVersion: 2
+        x: 802
+        y: 25
+        width: 31
+        height: 35
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5714c996b1b9016f0800000000000000
+      internalID: -715901798713638539
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_90
+      rect:
+        serializedVersion: 2
+        x: 839
+        y: 25
+        width: 28
+        height: 35
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b47891862e082860800000000000000
+      internalID: 7505264337558729907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_91
+      rect:
+        serializedVersion: 2
+        x: 873
+        y: 26
+        width: 28
+        height: 34
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be9d389e1d2c31980800000000000000
+      internalID: -8569291459134236181
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_92
+      rect:
+        serializedVersion: 2
+        x: 907
+        y: 26
+        width: 28
+        height: 34
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bfd758bc707f6c540800000000000000
+      internalID: 5027977646857092603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_93
+      rect:
+        serializedVersion: 2
+        x: 941
+        y: 26
+        width: 27
+        height: 34
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63f1cb640c6541450800000000000000
+      internalID: 6058562782540603190
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Templete_94
+      rect:
+        serializedVersion: 2
+        x: 975
+        y: 25
+        width: 30
+        height: 35
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: faeebb0e9e6f620b0800000000000000
+      internalID: -5753639989561004369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 8f2605d1e4e60244d9c625d092cc4693
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      UI Templete_0: 6670689772930334690
+      UI Templete_1: 1586345622768777628
+      UI Templete_10: -3610307830078788971
+      UI Templete_11: -4608386323246190614
+      UI Templete_12: -6504092813620952430
+      UI Templete_13: -9040947863365065918
+      UI Templete_14: -5776309417423057421
+      UI Templete_15: 8965189031802503462
+      UI Templete_16: 2435022696072337247
+      UI Templete_17: 1253759850373481264
+      UI Templete_18: -1811294685254223431
+      UI Templete_19: -8761226990912367055
+      UI Templete_2: 279732520032562186
+      UI Templete_20: 4425073360321275817
+      UI Templete_21: -4728080104759164710
+      UI Templete_22: -9080995122786371150
+      UI Templete_23: -9201116195463379403
+      UI Templete_24: -6850627067055765137
+      UI Templete_25: 1558547542794984741
+      UI Templete_26: 8404330783373955866
+      UI Templete_27: -4008268853540998295
+      UI Templete_28: 2862743300984324639
+      UI Templete_29: -1753966256202596040
+      UI Templete_3: 5510632291714999360
+      UI Templete_30: 1267088065203369102
+      UI Templete_31: -5347246156037795757
+      UI Templete_32: -5318828652184519946
+      UI Templete_33: 7694602160274674505
+      UI Templete_34: -3187775637136182672
+      UI Templete_35: -1587025011588915871
+      UI Templete_36: 1395991295985622400
+      UI Templete_37: -6499012823893979312
+      UI Templete_38: -3875970154048369969
+      UI Templete_39: -6286498578040754288
+      UI Templete_4: -3812489411308864889
+      UI Templete_40: 1778742098933278049
+      UI Templete_41: -8815030416868724597
+      UI Templete_42: -916914920425189280
+      UI Templete_43: 5676047645954713769
+      UI Templete_44: -6606930343562435236
+      UI Templete_45: 6595540272582853253
+      UI Templete_46: 2541208076596079941
+      UI Templete_47: 4451651439037688419
+      UI Templete_48: -759700976794707739
+      UI Templete_49: -5566038940110235308
+      UI Templete_5: -4570573477220841444
+      UI Templete_50: -3142520614664481512
+      UI Templete_51: -557872770310472152
+      UI Templete_52: 2102078145686200585
+      UI Templete_53: -1441486972734840998
+      UI Templete_54: 4172378761187945442
+      UI Templete_55: -8769239407382243729
+      UI Templete_56: 2834443753076568510
+      UI Templete_57: 9075386616152949748
+      UI Templete_58: -4476947734196553877
+      UI Templete_59: 3406137867503551560
+      UI Templete_6: 1824478333424516979
+      UI Templete_60: -5505075281195814845
+      UI Templete_61: -6164262048057777964
+      UI Templete_62: -962677544635489593
+      UI Templete_63: -4717572074037991119
+      UI Templete_64: 6776642342342410522
+      UI Templete_65: -620851204616445371
+      UI Templete_66: 5438225149027848686
+      UI Templete_67: 266666563913935861
+      UI Templete_68: -2770667254742198624
+      UI Templete_69: 8491896492119965134
+      UI Templete_7: 1637535839621243831
+      UI Templete_70: -2316930062187317046
+      UI Templete_71: -3638682009412986911
+      UI Templete_72: 8485873793672645754
+      UI Templete_73: 7139676594236467773
+      UI Templete_74: 3704138364397954908
+      UI Templete_75: 3482732943303330910
+      UI Templete_76: 3462782739450133218
+      UI Templete_77: -5371528085433807285
+      UI Templete_78: -6035588257315084510
+      UI Templete_79: 5059167780618493807
+      UI Templete_8: 3001959106097311399
+      UI Templete_80: -6284565745672192002
+      UI Templete_81: -4708467518299189279
+      UI Templete_82: -2660093247184170761
+      UI Templete_83: -1919668704222266579
+      UI Templete_84: -3903441204693228577
+      UI Templete_85: 6795612785832864409
+      UI Templete_86: -1732528077892760465
+      UI Templete_87: -2090773114085656946
+      UI Templete_88: -8885061725880572549
+      UI Templete_89: -715901798713638539
+      UI Templete_9: -4204751493044772819
+      UI Templete_90: 7505264337558729907
+      UI Templete_91: -8569291459134236181
+      UI Templete_92: 5027977646857092603
+      UI Templete_93: 6058562782540603190
+      UI Templete_94: -5753639989561004369
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

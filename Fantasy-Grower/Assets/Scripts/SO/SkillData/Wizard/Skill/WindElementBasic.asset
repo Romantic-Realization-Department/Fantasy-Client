@@ -19,4 +19,4 @@ MonoBehaviour:
   damageRate: 0.9
   maxTargets: 2
   bonusAttackSpeed: 0.3
-  extensionRange: 6.0
+  extensionRange: 2.0
