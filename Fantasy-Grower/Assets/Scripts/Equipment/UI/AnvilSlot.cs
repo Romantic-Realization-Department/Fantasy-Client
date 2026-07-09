@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -12,7 +13,7 @@ public class AnvilSlot : MonoBehaviour, IPointerClickHandler
     private Image BGImage;
 
     [SerializeField]
-    private Text WeaponCountText; //TMP로 바뀔 예정
+    private TMP_Text WeaponCountText; //TMP로 바뀔 예정
 
     [SerializeField]
     private GameObject[] AwakeImage;

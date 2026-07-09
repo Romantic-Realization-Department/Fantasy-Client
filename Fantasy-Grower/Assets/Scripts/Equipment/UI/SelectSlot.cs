@@ -47,6 +47,7 @@ public class SelectSlot : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        EquipmentManager.Instance.SaveSelectWeapon(ID, selectSlotType);
+        if (!CantUseWall.activeSelf)
+            EquipmentManager.Instance.SaveSelectWeapon(ID, selectSlotType);
     }
 }

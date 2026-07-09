@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -30,10 +31,10 @@ public class Slot : MonoBehaviour, IPointerClickHandler
     private Image[] AwakeImages;
 
     [SerializeField]
-    private Text WeaponNameText;
+    private TMP_Text WeaponNameText;
 
     [SerializeField]
-    private Text WeaponUpgradeText;
+    private TMP_Text WeaponUpgradeText;
 
     protected void Start()
     {
@@ -52,7 +53,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler
 
     Sprite getIcon() => EquipmentManager.Instance.GetIcon(ID);
 
-    private void RefreshIcon()
+    public void RefreshIcon()
     {
         MyImage.color = EquipmentManager.Instance.GetColor(ID);
         WeaponNameText.text = GetWeapon().weaponName;
@@ -85,6 +86,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        EquipmentManager.Instance.OpenItemInfoPage(this);
+        if (!WeaponIconWall.activeSelf)
+            EquipmentManager.Instance.OpenItemInfoPage(this);
     }
 }
