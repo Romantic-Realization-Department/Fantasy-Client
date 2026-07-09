@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Tornado
   m_EditorClassIdentifier: 
   SkillName: 토네이도
-  SkillIcon: {fileID: 0}
+  SkillIcon: {fileID: 21300000, guid: 162e298589930b74898da9e368bc46b3, type: 3}
   SkillDescription: "회오리바람을 생성해 적들을 쓸어담으며 1초간 이동 속도를 극도로 감소시킵니다."
   SPCost: 1
   Cooldown: 17

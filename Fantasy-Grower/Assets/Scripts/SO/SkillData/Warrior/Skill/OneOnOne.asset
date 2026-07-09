@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: OneOnOne
   m_EditorClassIdentifier: 
   SkillName: 일기토
-  SkillIcon: {fileID: 0}
+  SkillIcon: {fileID: 21300000, guid: 1568968c69817de42890d2db9fdd951b, type: 3}
   SkillDescription: "전투에 생존한 적이 단 한 명인 상태일 때 가하는 데미지가 20% 증가합니다."
   SPCost: 1
   singleEnemyDamageBonusRate: 0.2

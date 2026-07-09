@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Ash
   m_EditorClassIdentifier: 
   SkillName: 재
-  SkillIcon: {fileID: 0}
+  SkillIcon: {fileID: 21300000, guid: 18b2b41b127ec2e48b64f05a7abafc11, type: 3}
   SkillDescription: "지속 화상 상태에 걸린 상대에게는 가하는 피해량이 10% 증가합니다."
   SPCost: 1
   bonusDamageRate: 0.1

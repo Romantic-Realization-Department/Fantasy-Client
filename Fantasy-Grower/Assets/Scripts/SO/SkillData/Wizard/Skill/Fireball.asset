@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: Fireball
   m_EditorClassIdentifier: 
   SkillName: 화염구
-  SkillIcon: {fileID: 0}
+  SkillIcon: {fileID: 21300000, guid: 213232a13a18d944383332f9e4cc3528, type: 3}
   SkillDescription: "전방 1명의 대상을 향해 강력한 화염 미사일을 투사합니다."
   SPCost: 1
   Cooldown: 5
   damageCategory: 1
   usableOncePerDungeon: 0
-  extensionRange: 0
+  extensionRange: 3.0
   baseDamage: 80
   attackPowerRate: 1.0
   maxTargets: 1

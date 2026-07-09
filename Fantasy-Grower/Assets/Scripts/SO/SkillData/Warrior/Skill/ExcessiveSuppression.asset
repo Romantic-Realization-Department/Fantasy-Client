@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ExcessiveSuppression
   m_EditorClassIdentifier: 
   SkillName: 과잉 진압
-  SkillIcon: {fileID: 0}
+  SkillIcon: {fileID: 21300000, guid: 0d367a35462be424abefc74b7b8dcd4d, type: 3}
   SkillDescription: "적이 한 명일 때 광역 공격 사용 시 피해량을 20% 늘려줍니다."
   SPCost: 1
   singleEnemyAreaSkillDamageBonusRate: 0.2

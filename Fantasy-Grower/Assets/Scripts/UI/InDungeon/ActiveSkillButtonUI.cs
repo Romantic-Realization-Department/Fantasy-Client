@@ -2,9 +2,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary>
-/// 모바일 던전 UI에서 액티브 스킬 슬롯 하나를 실행하는 버튼입니다.
-/// </summary>
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Button))]
 public sealed class ActiveSkillButtonUI : MonoBehaviour
@@ -12,7 +9,7 @@ public sealed class ActiveSkillButtonUI : MonoBehaviour
     [SerializeField, Min(0)]
     private int slotIndex;
 
-    [Header("표시")]
+    [Header("Display")]
     [SerializeField]
     private Image iconImage;
 
@@ -22,13 +19,12 @@ public sealed class ActiveSkillButtonUI : MonoBehaviour
     [SerializeField]
     private TMP_Text cooldownText;
 
-    [SerializeField]
-    private GameObject emptySlotObject;
-
+    private GameManager boundGameManager;
     private ActiveSkillExecutor cachedExecutor;
 
     private Button button;
     private ActiveSkillData currentSkill;
+    private int lastCooldownSecond = -1;
 
     private void Awake()
     {
@@ -38,7 +34,8 @@ public sealed class ActiveSkillButtonUI : MonoBehaviour
     private void OnEnable()
     {
         button.onClick.AddListener(OnClicked);
-        ResolveExecutor();
+        BindGameManager();
+        BindCurrentPlayer();
         Refresh(true);
     }
 
@@ -50,40 +47,86 @@ public sealed class ActiveSkillButtonUI : MonoBehaviour
     private void OnDisable()
     {
         button.onClick.RemoveListener(OnClicked);
+        UnbindGameManager();
     }
 
     public void Initialize(int index, ActiveSkillExecutor skillExecutor)
     {
         slotIndex = Mathf.Max(0, index);
         cachedExecutor = skillExecutor;
+        currentSkill = null;
         Refresh(true);
     }
 
     private void OnClicked()
     {
-        ActiveSkillExecutor executor = ResolveExecutor();
+        ActiveSkillExecutor executor = GetExecutor();
         if (executor != null)
             executor.TryUseSkill(slotIndex);
 
         Refresh(true);
     }
 
-    private ActiveSkillExecutor ResolveExecutor()
+    private void BindGameManager()
+    {
+        GameManager gameManager = GameManager.InstanceOrNull;
+        if (boundGameManager == gameManager)
+            return;
+
+        UnbindGameManager();
+
+        boundGameManager = gameManager;
+        if (boundGameManager != null)
+            boundGameManager.OnPlayerChanged += HandlePlayerChanged;
+    }
+
+    private void UnbindGameManager()
+    {
+        if (boundGameManager != null)
+            boundGameManager.OnPlayerChanged -= HandlePlayerChanged;
+
+        boundGameManager = null;
+    }
+
+    private void BindCurrentPlayer()
+    {
+        Entity player = boundGameManager != null ? boundGameManager.GetPlayer() : null;
+        BindPlayer(player);
+    }
+
+    private void HandlePlayerChanged(Entity player)
+    {
+        BindPlayer(player);
+        Refresh(true);
+    }
+
+    private void BindPlayer(Entity player)
+    {
+        cachedExecutor = null;
+        currentSkill = null;
+        lastCooldownSecond = -1;
+
+        if (player != null)
+            player.TryGetComponent(out cachedExecutor);
+    }
+
+    private ActiveSkillExecutor GetExecutor()
     {
         if (cachedExecutor == null)
-            cachedExecutor = FindAnyObjectByType<ActiveSkillExecutor>();
+            BindCurrentPlayer();
 
         return cachedExecutor;
     }
 
     private void Refresh(bool force)
     {
-        ActiveSkillExecutor executor = ResolveExecutor();
+        ActiveSkillExecutor executor = GetExecutor();
         ActiveSkillData skill = executor != null ? executor.GetEquippedSkill(slotIndex) : null;
         if (force || skill != currentSkill)
         {
             currentSkill = skill;
             RefreshSkillView(skill);
+            lastCooldownSecond = -1;
         }
 
         RefreshCooldown(executor, skill);
@@ -96,11 +139,9 @@ public sealed class ActiveSkillButtonUI : MonoBehaviour
         if (iconImage != null)
         {
             iconImage.sprite = hasSkill ? skill.SkillIcon : null;
+            iconImage.preserveAspect = true;
             iconImage.enabled = hasSkill && skill.SkillIcon != null;
         }
-
-        if (emptySlotObject != null)
-            emptySlotObject.SetActive(!hasSkill);
     }
 
     private void RefreshCooldown(ActiveSkillExecutor executor, ActiveSkillData skill)
@@ -124,7 +165,18 @@ public sealed class ActiveSkillButtonUI : MonoBehaviour
         {
             cooldownText.gameObject.SetActive(isCooldown);
             if (isCooldown)
-                cooldownText.text = Mathf.CeilToInt(cooldownRemaining).ToString();
+            {
+                int cooldownSecond = Mathf.CeilToInt(cooldownRemaining);
+                if (cooldownSecond != lastCooldownSecond)
+                {
+                    lastCooldownSecond = cooldownSecond;
+                    cooldownText.text = cooldownSecond.ToString();
+                }
+            }
+            else
+            {
+                lastCooldownSecond = -1;
+            }
         }
     }
 

@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: WindElementBasic
   m_EditorClassIdentifier: 
   SkillName: 바람 원소
-  SkillIcon: {fileID: 0}
+  SkillIcon: {fileID: 21300000, guid: 13c18e2da9a79ae439ef2bb5fd32c199, type: 3}
   SkillDescription: "공기가 뿜어 나와 전방의 적 2마리를 동시에 타격하는 빠른 궤적을 갖습니다."
   SPCost: 1
   damageRate: 0.9
   maxTargets: 2
   bonusAttackSpeed: 0.3
-  extensionRange: 1.5
+  extensionRange: 6.0

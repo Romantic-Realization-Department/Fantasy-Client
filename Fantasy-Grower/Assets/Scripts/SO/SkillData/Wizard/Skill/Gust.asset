@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Gust
   m_EditorClassIdentifier: 
   SkillName: 돌풍
-  SkillIcon: {fileID: 0}
+  SkillIcon: {fileID: 21300000, guid: 1620a8d946960a942b0a5ffb023e7c8b, type: 3}
   SkillDescription: "강렬한 전방 바람을 뿜어내며 모든 라인의 몬스터들을 뒤흔듭니다."
   SPCost: 1
   Cooldown: 30

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CloneDamage
   m_EditorClassIdentifier: 
   SkillName: 분신
-  SkillIcon: {fileID: 0}
+  SkillIcon: {fileID: 21300000, guid: f46c6b8204a82b34daf3502ea2779991, type: 3}
   SkillDescription: "자신의 공격을 흉내내는 그림자를 만들어 냅니다."
   SPCost: 1
   Cooldown: 30

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FrostEnhance
   m_EditorClassIdentifier: 
   SkillName: 냉기강화
-  SkillIcon: {fileID: 0}
+  SkillIcon: {fileID: 21300000, guid: 1666fb24b220d2242b4e75e7057d249a, type: 3}
   SkillDescription: "동상(Frost) 디버프가 저하시키는 이속/공속 수치를 10% 더 증폭합니다."
   SPCost: 1
   frostEffectBonusRate: 0.1

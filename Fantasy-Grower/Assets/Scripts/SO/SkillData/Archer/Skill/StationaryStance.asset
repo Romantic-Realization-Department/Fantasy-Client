@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: StationaryStance
   m_EditorClassIdentifier: 
   SkillName: 부동자세
-  SkillIcon: {fileID: 0}
+  SkillIcon: {fileID: 21300000, guid: 64b05c3b141a6c04290477be9765e811, type: 3}
   SkillDescription: "제자리에 자세를 고정하여 공속 +1.0 및 전체 공격 광역으로 바꾸며 받는 피해가 50% 늘어납니다."
   SPCost: 1
   Cooldown: 5

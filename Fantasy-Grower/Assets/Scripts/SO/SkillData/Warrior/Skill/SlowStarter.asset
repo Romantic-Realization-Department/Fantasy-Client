@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SlowStarter
   m_EditorClassIdentifier: 
   SkillName: 슬로우스타터
-  SkillIcon: {fileID: 0}
+  SkillIcon: {fileID: 21300000, guid: 2467fd7f0af6c4e42a5ff3cdcb943bef, type: 3}
   SkillDescription: "몬스터를 처치할 때마다 공격력이 2씩 누적해서 영구적으로 증가합니다."
   SPCost: 1
   maxStack: 0

@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: FireElementBasic
   m_EditorClassIdentifier: 
   SkillName: 불 원소
-  SkillIcon: {fileID: 0}
+  SkillIcon: {fileID: 21300000, guid: 227a8556eab6d764483c31ec867d61d2, type: 3}
   SkillDescription: "공격력이 약한 불꽃을 투사해 넓은 범위의 적들을 골고루 타격합니다."
   SPCost: 1
   damageRate: 0.8
   maxTargets: 99
   bonusAttackSpeed: 0
-  extensionRange: 2.0
+  extensionRange: 297.0

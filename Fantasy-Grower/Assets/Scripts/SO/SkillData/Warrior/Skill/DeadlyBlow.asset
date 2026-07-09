@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DeadlyBlow
   m_EditorClassIdentifier: 
   SkillName: 일격 필살
-  SkillIcon: {fileID: 0}
+  SkillIcon: {fileID: 21300000, guid: a8f5069b7b34701479975ec5452e2de2, type: 3}
   SkillDescription: "단일 공격형 액티브 스킬들이 주는 데미지를 20% 늘립니다."
   SPCost: 1
   singleTargetActiveSkillDamageBonusRate: 0.2

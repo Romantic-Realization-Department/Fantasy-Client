@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FourDegreeBurn
   m_EditorClassIdentifier: 
   SkillName: 4도 화상
-  SkillIcon: {fileID: 0}
+  SkillIcon: {fileID: 21300000, guid: 16b02c8029a2f1a4a9d4846e2987328e, type: 3}
   SkillDescription: "화상 상태를 중첩하여 피해를 증폭시킬 수 있게 만듭니다."
   SPCost: 1
   allowsBurnStacking: 1

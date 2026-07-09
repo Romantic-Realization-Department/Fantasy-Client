@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ClothArmor
   m_EditorClassIdentifier: 
   SkillName: 천 갑옷
-  SkillIcon: {fileID: 0}
+  SkillIcon: {fileID: 21300000, guid: bb07ba5c0347c724b869a12eca4875d4, type: 3}
   SkillDescription: "방어력을 0.1 올립니다."
   SPCost: 1
   modifier:

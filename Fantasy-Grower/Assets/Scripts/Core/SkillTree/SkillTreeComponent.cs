@@ -340,6 +340,14 @@ public class SkillTreeComponent : MonoBehaviour
         if (skill == null || slotIndex < 0 || slotIndex >= equippedActives.Count)
             return false;
 
+        if (IsActiveSkillEquippedInAnotherSlot(skill, slotIndex))
+        {
+            Debug.Log(
+                $"[SkillTree] {skill.SkillName}은 이미 다른 액티브 슬롯에 장착되어 있습니다."
+            );
+            return false;
+        }
+
         if (!IsUnlocked(FindNodeBySkill(skill)))
         {
             Debug.Log($"[SkillTree] {skill.SkillName}이 해금되지 않았습니다.");
@@ -375,6 +383,14 @@ public class SkillTreeComponent : MonoBehaviour
         if (skill == null || slotIndex < 0 || slotIndex >= equippedPassives.Count)
             return false;
 
+        if (IsPassiveSkillEquippedInAnotherSlot(skill, slotIndex))
+        {
+            Debug.Log(
+                $"[SkillTree] {skill.SkillName}은 이미 다른 패시브 슬롯에 장착되어 있습니다."
+            );
+            return false;
+        }
+
         if (!IsUnlocked(FindNodeBySkill(skill)))
         {
             Debug.Log($"[SkillTree] {skill.SkillName}이 해금되지 않았습니다.");
@@ -406,6 +422,20 @@ public class SkillTreeComponent : MonoBehaviour
 
     // ─── 조회 ────────────────────────────────────────────────────
 
+    public bool IsEquipped(SkillData skill)
+    {
+        if (skill == null)
+            return false;
+
+        if (skill is ActiveSkillData activeSkill)
+            return IsActiveSkillEquipped(activeSkill);
+
+        if (skill is PassiveSkillData passiveSkill)
+            return IsPassiveSkillEquipped(passiveSkill);
+
+        return false;
+    }
+
     public bool IsUnlocked(SkillNodeData node)
     {
         return node != null && unlockedState.TryGetValue(node, out bool v) && v;
@@ -418,6 +448,10 @@ public class SkillTreeComponent : MonoBehaviour
     {
         if (node == null || node.Skill == null || strategy == null)
             return false;
+
+        if (node.Skill is BasicAttackSkillData && IsAnotherBasicAttackUnlockedInSameTier(node))
+            return false;
+
         var spGoods = GoodsManager.Instance.GetGoods(GoodsType.SP) as SO_SP;
         if (strategy == null || spGoods == null || !SkillTreeValidator.HasEnoughSP(node, spGoods))
             return false;
@@ -440,6 +474,85 @@ public class SkillTreeComponent : MonoBehaviour
         return null;
     }
 
+    private bool IsActiveSkillEquipped(ActiveSkillData skill)
+    {
+        if (equippedActives == null)
+            return false;
+
+        for (int i = 0; i < equippedActives.Count; i++)
+        {
+            if (equippedActives[i] == skill)
+                return true;
+        }
+
+        return false;
+    }
+
+    private bool IsActiveSkillEquippedInAnotherSlot(ActiveSkillData skill, int slotIndex)
+    {
+        if (equippedActives == null)
+            return false;
+
+        for (int i = 0; i < equippedActives.Count; i++)
+        {
+            if (i != slotIndex && equippedActives[i] == skill)
+                return true;
+        }
+
+        return false;
+    }
+
+    private bool IsPassiveSkillEquipped(PassiveSkillData skill)
+    {
+        if (equippedPassives == null)
+            return false;
+
+        for (int i = 0; i < equippedPassives.Count; i++)
+        {
+            if (equippedPassives[i] == skill)
+                return true;
+        }
+
+        return false;
+    }
+
+    private bool IsPassiveSkillEquippedInAnotherSlot(PassiveSkillData skill, int slotIndex)
+    {
+        if (equippedPassives == null)
+            return false;
+
+        for (int i = 0; i < equippedPassives.Count; i++)
+        {
+            if (i != slotIndex && equippedPassives[i] == skill)
+                return true;
+        }
+
+        return false;
+    }
+
+    private bool IsAnotherBasicAttackUnlockedInSameTier(SkillNodeData node)
+    {
+        if (unlockedState == null)
+            return false;
+
+        foreach (var kvp in unlockedState)
+        {
+            SkillNodeData unlockedNode = kvp.Key;
+            if (
+                !kvp.Value
+                || unlockedNode == null
+                || unlockedNode == node
+                || unlockedNode.TierIndex != node.TierIndex
+                || unlockedNode.Skill is not BasicAttackSkillData
+            )
+                continue;
+
+            return true;
+        }
+
+        return false;
+    }
+
     public BasicAttackSkillData GetUnlockedBasicAttack()
     {
         if (unlockedState == null)
@@ -447,9 +560,15 @@ public class SkillTreeComponent : MonoBehaviour
 
         foreach (var kvp in unlockedState)
         {
-            if (kvp.Value && kvp.Key != null && kvp.Key.TierIndex == 0)
+            // Tier 0에는 패시브도 있으므로 실제 평타 스킬만 반환합니다.
+            if (
+                kvp.Value
+                && kvp.Key != null
+                && kvp.Key.TierIndex == 0
+                && kvp.Key.Skill is BasicAttackSkillData basicAttack
+            )
             {
-                return kvp.Key.Skill as BasicAttackSkillData;
+                return basicAttack;
             }
         }
         return null;

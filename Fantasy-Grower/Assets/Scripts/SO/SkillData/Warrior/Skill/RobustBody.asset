@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RobustBody
   m_EditorClassIdentifier: 
   SkillName: 강인한 육체
-  SkillIcon: {fileID: 0}
+  SkillIcon: {fileID: 21300000, guid: 440660ad1b51e9347b85dcb85a48a982, type: 3}
   SkillDescription: "체력을 20% 늘립니다."
   SPCost: 1
   modifier:

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BelowZero
   m_EditorClassIdentifier: 
   SkillName: 영하
-  SkillIcon: {fileID: 0}
+  SkillIcon: {fileID: 21300000, guid: add1cb68348f0f94483ffaa67fbcbb29, type: 3}
   SkillDescription: "적에게 동상이 3회 중첩되어 쌓이면 지속 얼음 동결 상태로 묶어 이속을 차단합니다."
   SPCost: 1
   requiredFrostStacks: 3

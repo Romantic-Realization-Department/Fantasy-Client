@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Whetstone
   m_EditorClassIdentifier: 
   SkillName: 숫돌
-  SkillIcon: {fileID: 0}
+  SkillIcon: {fileID: 21300000, guid: 808ebda777f044148bce5108a7e6c071, type: 3}
   SkillDescription: "공격 속도를 0.5 증가시킵니다."
   SPCost: 1
   modifier:

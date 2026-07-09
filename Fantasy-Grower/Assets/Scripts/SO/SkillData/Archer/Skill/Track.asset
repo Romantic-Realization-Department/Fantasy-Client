@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Track
   m_EditorClassIdentifier: 
   SkillName: 추적
-  SkillIcon: {fileID: 0}
+  SkillIcon: {fileID: 21300000, guid: 5fb625a032f4aac44b6589bf64a11673, type: 3}
   SkillDescription: "위협을 읽고 10초간 완벽하게 모든 피해를 회피하고 회피 시마다 120% 위력으로 카운터합니다."
   SPCost: 1
   Cooldown: 30

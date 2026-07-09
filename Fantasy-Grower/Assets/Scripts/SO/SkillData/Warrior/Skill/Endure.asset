@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Endure
   m_EditorClassIdentifier: 
   SkillName: 버티기
-  SkillIcon: {fileID: 0}
+  SkillIcon: {fileID: 21300000, guid: 947dc59ca98778343ac3ecb3eabf8a34, type: 3}
   SkillDescription: "전투에 돌입하여 받는 피해량을 줄입니다."
   SPCost: 1
   Cooldown: 22

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Frost
   m_EditorClassIdentifier: 
   SkillName: 동상
-  SkillIcon: {fileID: 0}
+  SkillIcon: {fileID: 21300000, guid: 0f8c613bb6359eb4aaeff6884020c720, type: 3}
   SkillDescription: "얼음 계열 평타/스킬 공격 성공 시 적들의 공격/이동 속도를 일시적으로 30% 저하시킵니다."
   SPCost: 1
   frostModifier:

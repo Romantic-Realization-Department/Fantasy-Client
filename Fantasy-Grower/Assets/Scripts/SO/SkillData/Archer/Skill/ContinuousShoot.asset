@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ContinuousShoot
   m_EditorClassIdentifier: 
   SkillName: 연속 사격
-  SkillIcon: {fileID: 0}
+  SkillIcon: {fileID: 21300000, guid: 9cf3ac0b624168545975e8923bfe94e3, type: 3}
   SkillDescription: "순식간에 화살 3발을 점사하여 적의 장갑을 꿰뚫습니다."
   SPCost: 1
   Cooldown: 4

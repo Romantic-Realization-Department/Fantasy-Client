@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CooldownReset
   m_EditorClassIdentifier: 
   SkillName: 잔심
-  SkillIcon: {fileID: 0}
+  SkillIcon: {fileID: 21300000, guid: 5573d5f21368b0b4f956bd56135c26b1, type: 3}
   SkillDescription: "일시적인 집중으로 활성화된 다른 액티브 스킬들의 대기시간을 초기화합니다."
   SPCost: 1
   Cooldown: 25

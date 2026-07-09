@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GiantArrow
   m_EditorClassIdentifier: 
   SkillName: 대형 화살
-  SkillIcon: {fileID: 0}
+  SkillIcon: {fileID: 21300000, guid: 9961ac31b89001940951a6d1d59a89a2, type: 3}
   SkillDescription: "몸집보다 큰 헤비 화살을 투사하여 궤적에 걸쳐진 전장 전체 적들을 쓸어냅니다."
   SPCost: 1
   Cooldown: 15

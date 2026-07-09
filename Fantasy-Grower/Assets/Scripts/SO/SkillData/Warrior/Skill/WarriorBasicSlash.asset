@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: WarriorBasicSlash
   m_EditorClassIdentifier: 
   SkillName: "\uAE30\uBCF8 \uBCA0\uAE30"
-  SkillIcon: {fileID: 0}
+  SkillIcon: {fileID: 21300000, guid: 2b908f5f20beff14fa10bdef4506d4d1, type: 3}
   SkillDescription: "\uACF5\uACA9 \uBC94\uC704\uC640 \uACF5\uACA9 \uC18D\uB3C4\uAC00
     \uC99D\uAC00\uD558\uACE0 \uCD5C\uB300 2\uBA85\uC758 \uC801\uC744 \uD0C0\uACA9\uD560
     \uC218 \uC788\uC2B5\uB2C8\uB2E4."
@@ -21,4 +21,4 @@ MonoBehaviour:
   damageRate: 1
   maxTargets: 2
   bonusAttackSpeed: 0.3
-  extensionRange: 1.5
+  extensionRange: 6.0

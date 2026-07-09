@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: SwordDance
   m_EditorClassIdentifier: 
   SkillName: 검무
-  SkillIcon: {fileID: 0}
+  SkillIcon: {fileID: 21300000, guid: 030288083a94df04cbffcae106f2ae96, type: 3}
   SkillDescription: "빠른 연격으로 전방의 다수 적들을 베어버립니다."
   SPCost: 1
   Cooldown: 15
   damageCategory: 2
   usableOncePerDungeon: 0
-  extensionRange: 8
+  extensionRange: 12.0
   baseDamage: 80
   attackPowerRate: 0.5
   maxTargets: 4

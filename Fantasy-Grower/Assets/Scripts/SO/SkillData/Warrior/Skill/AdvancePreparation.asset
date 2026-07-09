@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AdvancePreparation
   m_EditorClassIdentifier: 
   SkillName: 사전 준비
-  SkillIcon: {fileID: 0}
+  SkillIcon: {fileID: 21300000, guid: d9bdd32a4659cf64fb333fbb759f3a63, type: 3}
   SkillDescription: "모든 액티브 스킬의 재사용 시간을 10% 단축시킵니다."
   SPCost: 1
   cooldownReductionRate: 0.1

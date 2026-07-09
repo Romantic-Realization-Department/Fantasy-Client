@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Burn
   m_EditorClassIdentifier: 
   SkillName: 화상
-  SkillIcon: {fileID: 0}
+  SkillIcon: {fileID: 21300000, guid: 58be3832980e0b34db72a081633cded0, type: 3}
   SkillDescription: "화염 공격 시 적들에게 매초 최대 체력의 3%에 비례하는 지속 화상 효과를 입힙니다."
   SPCost: 1
   damagePerSecond: 0

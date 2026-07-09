@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: ConsecutiveThrust
   m_EditorClassIdentifier: 
   SkillName: 연속 찌르기
-  SkillIcon: {fileID: 0}
+  SkillIcon: {fileID: 21300000, guid: 0aeec7ac656bda04f8dd3d7535309545, type: 3}
   SkillDescription: "적 1명에게 강력한 관통 피해를 입힙니다."
   SPCost: 1
   Cooldown: 5
   damageCategory: 1
   usableOncePerDungeon: 0
-  extensionRange: 0
+  extensionRange: 3.0
   baseDamage: 200
   attackPowerRate: 0.5
   maxTargets: 1

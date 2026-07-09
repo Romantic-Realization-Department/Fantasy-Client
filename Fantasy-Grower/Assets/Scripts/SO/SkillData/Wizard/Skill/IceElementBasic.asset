@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: IceElementBasic
   m_EditorClassIdentifier: 
   SkillName: 얼음 원소
-  SkillIcon: {fileID: 0}
+  SkillIcon: {fileID: 21300000, guid: 4d8312f5d237f4d46a4b969ab5e45c82, type: 3}
   SkillDescription: "투사 속도는 무겁지만 단일 대상에게 묵직한 얼음 송곳니 공격을 날립니다."
   SPCost: 1
   damageRate: 1.8
   maxTargets: 1
   bonusAttackSpeed: -0.4
-  extensionRange: 0
+  extensionRange: 3.0

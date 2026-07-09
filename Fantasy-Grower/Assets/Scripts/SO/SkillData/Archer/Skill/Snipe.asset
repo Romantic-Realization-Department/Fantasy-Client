@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: Snipe
   m_EditorClassIdentifier: 
   SkillName: 저격
-  SkillIcon: {fileID: 0}
+  SkillIcon: {fileID: 21300000, guid: a0b1264434d85574bb765bdec3050c5c, type: 3}
   SkillDescription: "먼 거리에 단일 대상에게 크리티컬이 확정되는 저격 화살 일격을 가해 무력화합니다."
   SPCost: 1
   Cooldown: 10
   damageCategory: 1
   usableOncePerDungeon: 0
-  extensionRange: 0
+  extensionRange: 3.0
   baseDamage: 100
   attackPowerRate: 1.0
   maxTargets: 1

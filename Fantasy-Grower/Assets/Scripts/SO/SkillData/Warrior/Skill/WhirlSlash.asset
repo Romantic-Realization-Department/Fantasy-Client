@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: WhirlSlash
   m_EditorClassIdentifier: 
   SkillName: "\uD68C\uC804 \uBCA0\uAE30"
-  SkillIcon: {fileID: 0}
+  SkillIcon: {fileID: 21300000, guid: 11cab13548c67f14e88bd4ab018c6ab6, type: 3}
   SkillDescription: "80 + \uACF5\uACA9\uB825\uC758 40% \uB85C \uC801\uC744 3\uB9C8\uB9AC\uAE4C\uC9C0
     \uACF5\uACA9\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4.\n\n\uCFE8\uD0C0\uC784 5\uCD08"
   SPCost: 1
   Cooldown: 5
   damageCategory: 2
   usableOncePerDungeon: 0
-  extensionRange: 6
+  extensionRange: 9.0
   baseDamage: 80
   attackPowerRate: 0.4
   maxTargets: 3

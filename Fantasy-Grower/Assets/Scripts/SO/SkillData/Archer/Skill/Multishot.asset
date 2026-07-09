@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Multishot
   m_EditorClassIdentifier: 
   SkillName: 멀티샷
-  SkillIcon: {fileID: 0}
+  SkillIcon: {fileID: 21300000, guid: 2a8ca7b40282054448af185b4a316faf, type: 3}
   SkillDescription: "화살 피해 위력은 75%로 다듬되, 평타 투사 공격의 타겟을 상시 +1 늘려줍니다."
   SPCost: 1
   basicAttackDamageMultiplier: 0.75

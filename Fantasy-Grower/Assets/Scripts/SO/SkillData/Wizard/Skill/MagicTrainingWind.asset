@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MagicTrainingWind
   m_EditorClassIdentifier: 
   SkillName: 마법 단련(바람)
-  SkillIcon: {fileID: 0}
+  SkillIcon: {fileID: 21300000, guid: 85f6db0efa996b342ac40bb7aa6eb2f9, type: 3}
   SkillDescription: "바람 마법의 결을 강화해 액티브 주문 피해를 20% 증폭시킵니다."
   SPCost: 1
   activeSkillDamageBonusRate: 0.2

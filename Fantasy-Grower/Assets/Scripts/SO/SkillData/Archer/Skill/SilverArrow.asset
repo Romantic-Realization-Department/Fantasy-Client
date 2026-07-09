@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SilverArrow
   m_EditorClassIdentifier: 
   SkillName: 은화살
-  SkillIcon: {fileID: 0}
+  SkillIcon: {fileID: 21300000, guid: 17399e1b9ea134c4d97cd1729668f3d6, type: 3}
   SkillDescription: "치명적인 기운이 서린 화살을 장전해 5초간 치명타 확률을 100%로 가속합니다."
   SPCost: 1
   Cooldown: 8

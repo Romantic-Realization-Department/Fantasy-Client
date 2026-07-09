@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: IceArmor
   m_EditorClassIdentifier: 
   SkillName: 얼음 갑옷
-  SkillIcon: {fileID: 0}
+  SkillIcon: {fileID: 21300000, guid: 7ba70c7fe2668ba4abb2024710cadf07, type: 3}
   SkillDescription: "전장 진입 시 단단한 얼음 서리 갑옷을 감싸 피해를 30% 흡수합니다."
   SPCost: 1
   damageReductionModifier:

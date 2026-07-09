@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Tailwind
   m_EditorClassIdentifier: 
   SkillName: 순풍
-  SkillIcon: {fileID: 0}
+  SkillIcon: {fileID: 21300000, guid: cd813f3c3924d0446b015fc157170d3a, type: 3}
   SkillDescription: "일반 평타 공격 시 50%의 가벼운 흐름 확률로 1회의 추가 바람 화살 피해를 입힙니다."
   SPCost: 1
   triggerChance: 0.5

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Narak
   m_EditorClassIdentifier: 
   SkillName: 나락
-  SkillIcon: {fileID: 0}
+  SkillIcon: {fileID: 21300000, guid: da88b1ff266954f44abd6d1472bd9323, type: 3}
   SkillDescription: "칼바람이 폭발하여 발동하는 즉시 현재 적용 중인 모든 스킬 쿨타임을 대폭 차감시킵니다."
   SPCost: 1
   cooldownReductionRate: 0.333

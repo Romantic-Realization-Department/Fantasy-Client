@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: PiercingShoot
   m_EditorClassIdentifier: 
   SkillName: 관통 사격
-  SkillIcon: {fileID: 0}
+  SkillIcon: {fileID: 21300000, guid: 8dbbc70704e9ec443b89a0d2d82d6535, type: 3}
   SkillDescription: "여러 겹으로 겹쳐서 기어오는 3마리의 몬스터들을 뚫고 나가는 관통 화살을 쏩니다."
   SPCost: 1
   Cooldown: 5
   damageCategory: 2
   usableOncePerDungeon: 0
-  extensionRange: 6
+  extensionRange: 9.0
   baseDamage: 0
   attackPowerRate: 1.0
   maxTargets: 3

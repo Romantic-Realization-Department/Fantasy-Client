@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: HighRisk
   m_EditorClassIdentifier: 
   SkillName: 하이리스크
-  SkillIcon: {fileID: 0}
+  SkillIcon: {fileID: 21300000, guid: e8115c4780a9fb148963983c606506c5, type: 3}
   SkillDescription: "공격력을 50% 올리는 대신 받는 피해량을 30% 늘립니다."
   SPCost: 1
   outgoingDamageBonusRate: 0.5

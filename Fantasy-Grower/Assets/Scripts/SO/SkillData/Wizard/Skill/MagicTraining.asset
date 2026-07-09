@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MagicTraining
   m_EditorClassIdentifier: 
   SkillName: 마법 단련
-  SkillIcon: {fileID: 0}
+  SkillIcon: {fileID: 21300000, guid: c05206f2898706944816b2dfa9e34f7e, type: 3}
   SkillDescription: "마법사가 사용하는 액티브 마법 피해량이 20% 강해집니다."
   SPCost: 1
   activeSkillDamageBonusRate: 0.2

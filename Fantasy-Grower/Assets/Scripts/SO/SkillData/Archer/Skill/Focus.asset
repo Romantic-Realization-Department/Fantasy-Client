@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Focus
   m_EditorClassIdentifier: 
   SkillName: 정신집중
-  SkillIcon: {fileID: 0}
+  SkillIcon: {fileID: 21300000, guid: 015bc8bbd145375458145073edcd12fa, type: 3}
   SkillDescription: "차분하게 조준을 가져가며 다음 가하는 1회의 데미지 배율을 1.5배로 끌어올립니다."
   SPCost: 1
   Cooldown: 4

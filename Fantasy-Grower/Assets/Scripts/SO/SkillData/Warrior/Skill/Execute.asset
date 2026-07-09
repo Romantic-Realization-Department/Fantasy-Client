@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Execute
   m_EditorClassIdentifier: 
   SkillName: 처형
-  SkillIcon: {fileID: 0}
+  SkillIcon: {fileID: 21300000, guid: 6b3ac3be079120548a45077cf22f7467, type: 3}
   SkillDescription: "생명력이 적은 적에게 일격을 날려 체력 비례 큰 피해를 가합니다."
   SPCost: 1
   Cooldown: 10

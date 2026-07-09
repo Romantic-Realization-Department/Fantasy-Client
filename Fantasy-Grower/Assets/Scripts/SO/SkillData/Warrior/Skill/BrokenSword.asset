@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BrokenSword
   m_EditorClassIdentifier: 
   SkillName: 부러진 칼
-  SkillIcon: {fileID: 0}
+  SkillIcon: {fileID: 21300000, guid: c6406523391cdce44a6d3f221b6615f4, type: 3}
   SkillDescription: "체력이 절반 이하로 떨어지면 생명력 재생력이 대폭 활성화됩니다."
   SPCost: 1
   healthThreshold: 0.5

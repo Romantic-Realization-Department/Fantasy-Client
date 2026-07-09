@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: ShootBasic
   m_EditorClassIdentifier: 
   SkillName: 발사
-  SkillIcon: {fileID: 0}
+  SkillIcon: {fileID: 21300000, guid: fc7d858ca5a182e4d80d339cf0b50df2, type: 3}
   SkillDescription: "단일 적에게 빠른 속도로 투사하며 기본적인 크리티컬 보정 20%를 탑재합니다."
   SPCost: 1
   damageRate: 0.8
   maxTargets: 1
   bonusAttackSpeed: 0.5
-  extensionRange: 0
+  extensionRange: 3.0

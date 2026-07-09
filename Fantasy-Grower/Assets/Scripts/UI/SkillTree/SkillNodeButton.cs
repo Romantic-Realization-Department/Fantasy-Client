@@ -1,4 +1,3 @@
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,54 +8,62 @@ using UnityEngine.UI;
 public class SkillNodeButton : MonoBehaviour
 {
     [SerializeField]
-    private TMP_Text skillNameText;
-
-    [SerializeField]
-    private TMP_Text spCostText;
-
-    [SerializeField]
     private Image background;
+
+    [Header("상태 색상")]
+    [SerializeField]
+    private Color equippedColor = new(0.45f, 1f, 0.95f, 1f);
+
+    [SerializeField]
+    private Color unlockedColor = Color.white;
+
+    [SerializeField]
+    private Color lockedColor = new(0.25f, 0.25f, 0.25f, 1f);
 
     private SkillNodeData node;
     private SkillTreePanel panel;
-
-    private static readonly Color ColorUnlocked = Color.green;
-    private static readonly Color ColorCanUnlock = Color.yellow;
-    private static readonly Color ColorSelected = Color.blue;
-    private static readonly Color ColorLocked = Color.gray;
 
     public void Initialize(SkillNodeData nodeData, SkillTreePanel ownerPanel)
     {
         node = nodeData;
         panel = ownerPanel;
 
-        bool isPassive = nodeData.Skill is PassiveSkillData;
-        string suffix = isPassive ? " (패시브)" : string.Empty;
-
-        if (skillNameText != null)
-            skillNameText.text =
-                nodeData.Skill != null ? $"{nodeData.Skill.SkillName}{suffix}" : "(없음)"; // + 연산 삭제
-
-        if (spCostText != null)
-            spCostText.text = nodeData.Skill != null ? $"SP: {nodeData.Skill.SPCost}" : "SP: 0";
-
+        ApplySkillIcon();
         GetComponent<Button>().onClick.AddListener(OnClicked);
     }
 
-    public void Refresh(bool isUnlocked, bool canUnlock, bool isSelected)
+    private void ApplySkillIcon()
+    {
+        if (background == null || node == null || node.Skill == null)
+            return;
+
+        Sprite icon = node.Skill.SkillIcon;
+        background.sprite = icon;
+        background.preserveAspect = true;
+        background.gameObject.SetActive(icon != null);
+    }
+
+    public void Refresh(bool isUnlocked, bool isEquipped)
     {
         if (background == null)
             return;
 
-        if (isSelected)
-            background.color = ColorSelected;
-        else if (isUnlocked)
-            background.color = ColorUnlocked;
-        else if (canUnlock)
-            background.color = ColorCanUnlock;
-        else
-            background.color = ColorLocked;
+        background.color = GetStateColor(isUnlocked, isEquipped);
     }
 
-    private void OnClicked() => panel?.OnNodeClicked(node);
+    private Color GetStateColor(bool isUnlocked, bool isEquipped)
+    {
+        if (isEquipped)
+            return equippedColor;
+        if (isUnlocked)
+            return unlockedColor;
+
+        return lockedColor;
+    }
+
+    private void OnClicked()
+    {
+        if (panel != null)
+            panel.OnNodeClicked(node);
+    }
 }

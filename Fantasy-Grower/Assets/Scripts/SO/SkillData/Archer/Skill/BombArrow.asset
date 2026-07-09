@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: BombArrow
   m_EditorClassIdentifier: 
   SkillName: 폭탄화살
-  SkillIcon: {fileID: 0}
+  SkillIcon: {fileID: 21300000, guid: 47077642d68a2924c8a317e159578f92, type: 3}
   SkillDescription: "강력한 유탄 화살을 날려 폭발 지점 주변의 적 3마리에게 큰 폭발 데미지를 줍니다."
   SPCost: 1
   Cooldown: 18
   damageCategory: 2
   usableOncePerDungeon: 0
-  extensionRange: 6.0
+  extensionRange: 9.0
   baseDamage: 300
   attackPowerRate: 0.7
   maxTargets: 3

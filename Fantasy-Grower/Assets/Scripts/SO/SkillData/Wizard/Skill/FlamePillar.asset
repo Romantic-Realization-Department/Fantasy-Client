@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FlamePillar
   m_EditorClassIdentifier: 
   SkillName: 불기둥
-  SkillIcon: {fileID: 0}
+  SkillIcon: {fileID: 21300000, guid: 11968a4308aa7d643b0f45f22db49d4a, type: 3}
   SkillDescription: "대상을 추적해 수초간 지속되며 주기적인 화염 피해를 주는 불바다 영역을 형성합니다."
   SPCost: 1
   Cooldown: 8

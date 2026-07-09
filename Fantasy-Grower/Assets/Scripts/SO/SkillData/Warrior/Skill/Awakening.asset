@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Awakening
   m_EditorClassIdentifier: 
   SkillName: 각성
-  SkillIcon: {fileID: 0}
+  SkillIcon: {fileID: 21300000, guid: 057472a54a570e144bb2738854bce12a, type: 3}
   SkillDescription: "초인적인 능력을 일시적으로 이끌어냅니다."
   SPCost: 1
   Cooldown: 0

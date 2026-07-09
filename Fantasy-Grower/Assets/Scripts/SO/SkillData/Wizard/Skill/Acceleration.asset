@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Acceleration
   m_EditorClassIdentifier: 
   SkillName: 가속
-  SkillIcon: {fileID: 0}
+  SkillIcon: {fileID: 21300000, guid: 34f4291c2694575439bf2ef25f29aaa3, type: 3}
   SkillDescription: "바람의 흐름을 읽어 10%의 회피율로 적의 치명적인 공격을 완전히 흘려버립니다."
   SPCost: 1
   ignoreChance: 0.1
