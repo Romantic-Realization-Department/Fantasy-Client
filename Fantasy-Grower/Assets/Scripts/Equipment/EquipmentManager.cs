@@ -71,6 +71,8 @@ public class EquipmentManager : MonoBehaviour
 
     private Dictionary<WeaponID, Color> weaponBGColorMap = new Dictionary<WeaponID, Color>();
 
+    private GameManager boundGameManager;
+
     private void Awake()
     {
         if (_instance == null)
@@ -87,11 +89,13 @@ public class EquipmentManager : MonoBehaviour
 
         ResetWeaponDicionary();
         AssignIcon();
+        BindGameManager();
         SceneChanger.SceneLoaded += HandleSceneLoaded;
     }
 
     private void Start()
     {
+        BindGameManager();
         RefreshStatModifiers();
     }
 
@@ -101,6 +105,7 @@ public class EquipmentManager : MonoBehaviour
             return;
 
         SceneChanger.SceneLoaded -= HandleSceneLoaded;
+        UnbindGameManager();
         RemoveStatModifiers();
         _instance = null;
     }
@@ -358,7 +363,12 @@ public class EquipmentManager : MonoBehaviour
     /// </summary>
     private void RefreshStatModifiers()
     {
-        Entity player = GameManager.Instance != null ? GameManager.Instance.GetPlayer() : null;
+        BindGameManager();
+
+        Entity player =
+            boundGameManager != null ? boundGameManager.GetPlayer()
+            : GameManager.InstanceOrNull != null ? GameManager.InstanceOrNull.GetPlayer()
+            : null;
         if (player == null)
             return;
 
@@ -432,6 +442,34 @@ public class EquipmentManager : MonoBehaviour
     }
 
     private void HandleSceneLoaded()
+    {
+        BindGameManager();
+        RefreshStatModifiers();
+    }
+
+    private void BindGameManager()
+    {
+        GameManager gameManager = GameManager.InstanceOrNull;
+        if (gameManager == boundGameManager)
+            return;
+
+        UnbindGameManager();
+        boundGameManager = gameManager;
+
+        if (boundGameManager != null)
+            boundGameManager.OnPlayerChanged += HandlePlayerChanged;
+    }
+
+    private void UnbindGameManager()
+    {
+        if (boundGameManager == null)
+            return;
+
+        boundGameManager.OnPlayerChanged -= HandlePlayerChanged;
+        boundGameManager = null;
+    }
+
+    private void HandlePlayerChanged(Entity player)
     {
         RefreshStatModifiers();
     }
