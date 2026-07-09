@@ -36,10 +36,16 @@ public class Slot : MonoBehaviour, IPointerClickHandler
     [SerializeField]
     private TMP_Text WeaponUpgradeText;
 
-    protected void Start()
+    protected void Awake()
     {
         MyImage = GetComponent<Image>();
-        WeaponIcon.sprite = getIcon();
+    }
+
+    protected void Start()
+    {
+        if (WeaponIcon != null)
+            WeaponIcon.sprite = getIcon();
+
         RefreshIcon();
     }
 
@@ -55,38 +61,52 @@ public class Slot : MonoBehaviour, IPointerClickHandler
 
     public void RefreshIcon()
     {
+        if (EquipmentManager.Instance == null || MyImage == null)
+            return;
+
+        SO_Weapon weapon = GetWeapon();
+        if (weapon == null)
+            return;
+
         MyImage.color = EquipmentManager.Instance.GetColor(ID);
-        WeaponNameText.text = GetWeapon().weaponName;
-        UpdateUpgrade();
-        if (GetWeapon().isUnlock)
+        if (WeaponNameText != null)
+            WeaponNameText.text = weapon.weaponName;
+
+        UpdateUpgrade(weapon);
+        if (weapon.isUnlock)
         {
-            WeaponIconWall.SetActive(false);
-            WeaponIcon.color = Color.white;
+            if (WeaponIconWall != null)
+                WeaponIconWall.SetActive(false);
+            if (WeaponIcon != null)
+                WeaponIcon.color = Color.white;
         }
         else
         {
-            WeaponIconWall.SetActive(true);
+            if (WeaponIconWall != null)
+                WeaponIconWall.SetActive(true);
         }
     }
 
-    private void UpdateUpgrade()
+    private void UpdateUpgrade(SO_Weapon weapon)
     {
-        if (GetWeapon().weaponLevel > 0)
+        if (WeaponUpgradeText != null)
         {
-            WeaponUpgradeText.text = $"+{GetWeapon().weaponLevel}";
+            bool hasUpgrade = weapon.weaponLevel > 0;
+            WeaponUpgradeText.gameObject.SetActive(hasUpgrade);
+            if (hasUpgrade)
+                WeaponUpgradeText.text = $"+{weapon.weaponLevel}";
         }
-        else
-            WeaponUpgradeText.gameObject.SetActive(false);
 
-        for (int i = 0; i < GetWeapon().weaponAwakeLevel; i++)
+        for (int i = 0; i < AwakeImages.Length; i++)
         {
-            AwakeImages[i].gameObject.SetActive(true);
+            if (AwakeImages[i] != null)
+                AwakeImages[i].gameObject.SetActive(i < weapon.weaponAwakeLevel);
         }
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (!WeaponIconWall.activeSelf)
+        if (WeaponIconWall != null && !WeaponIconWall.activeSelf)
             EquipmentManager.Instance.OpenItemInfoPage(this);
     }
 }

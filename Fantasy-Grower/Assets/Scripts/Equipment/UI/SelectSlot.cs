@@ -31,23 +31,48 @@ public class SelectSlot : MonoBehaviour, IPointerClickHandler
 
     private void Awake()
     {
-        if (selectSlotType == SelectSlotType.Synth && ID <= WeaponID.S2)
-        {
-            return;
-        }
-        _Weapon = EquipmentManager.Instance.GetWeapon(ID);
-        WeaponIcon.sprite = EquipmentManager.Instance.GetIcon(ID);
-        BGImage.color = EquipmentManager.Instance.GetColor(ID);
+        TryInitialize();
     }
 
     private void OnEnable()
     {
-        CantUseWall.SetActive(!(_Weapon.isUnlock && EquipmentManager.Instance.CanUse(ID)));
+        if (!TryInitialize())
+        {
+            if (CantUseWall != null)
+                CantUseWall.SetActive(true);
+            return;
+        }
+
+        if (CantUseWall != null)
+            CantUseWall.SetActive(!(_Weapon.isUnlock && EquipmentManager.Instance.CanUse(ID)));
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (!CantUseWall.activeSelf)
+        if (CantUseWall != null && !CantUseWall.activeSelf)
             EquipmentManager.Instance.SaveSelectWeapon(ID, selectSlotType);
+    }
+
+    private bool TryInitialize()
+    {
+        if (_Weapon != null)
+            return true;
+
+        if (selectSlotType == SelectSlotType.Synth && ID <= WeaponID.S2)
+            return false;
+
+        if (EquipmentManager.Instance == null)
+            return false;
+
+        _Weapon = EquipmentManager.Instance.GetWeapon(ID);
+        if (_Weapon == null)
+            return false;
+
+        if (WeaponIcon != null)
+            WeaponIcon.sprite = EquipmentManager.Instance.GetIcon(ID);
+        if (BGImage != null)
+            BGImage.color = EquipmentManager.Instance.GetColor(ID);
+
+        return true;
     }
 }

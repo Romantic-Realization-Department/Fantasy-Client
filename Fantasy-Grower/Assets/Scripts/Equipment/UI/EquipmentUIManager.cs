@@ -13,7 +13,7 @@ public class EquipmentUIManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (Instance != null)
+        if (Instance == this)
             Instance = null;
     }
 
