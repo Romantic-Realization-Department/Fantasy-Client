@@ -39,9 +39,12 @@ public abstract class AddressableStageFeatureBase : MonoBehaviour, IStageProvide
     private DungeonManager dungeonManager;
     private int loadRequestVersion;
     private bool isDestroyed;
+    private bool isStageFixed;
 
     public int CurrentStageIndex => currentStageIndex;
+    public bool IsStageFixed => isStageFixed;
     public event Action<int> OnStageChanged;
+    public event Action<bool> OnStageFixedChanged;
 
     protected DungeonManager BoundDungeonManager => dungeonManager;
     protected bool IsStageSystemReady => stageDungeon != null;
@@ -95,7 +98,9 @@ public abstract class AddressableStageFeatureBase : MonoBehaviour, IStageProvide
         if (!CanUseStages())
             return;
 
-        int targetIndex = Mathf.Min(currentStageIndex + 1, stageReferences.Length - 1);
+        int targetIndex = isStageFixed
+            ? currentStageIndex
+            : Mathf.Min(currentStageIndex + 1, stageReferences.Length - 1);
         RequestStage(targetIndex, true, true);
     }
 
@@ -112,6 +117,15 @@ public abstract class AddressableStageFeatureBase : MonoBehaviour, IStageProvide
             return;
 
         RequestStage(validatedIndex, false, false);
+    }
+
+    public void SetStageFixed(bool isFixed)
+    {
+        if (isStageFixed == isFixed)
+            return;
+
+        isStageFixed = isFixed;
+        OnStageFixedChanged?.Invoke(isStageFixed);
     }
 
     private void RequestStage(int targetIndex, bool updateRecord, bool restartSameStage)
