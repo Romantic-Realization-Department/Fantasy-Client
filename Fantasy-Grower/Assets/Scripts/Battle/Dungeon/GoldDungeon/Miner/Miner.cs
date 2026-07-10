@@ -59,9 +59,6 @@ public class Miner : Player
     {
         float damage = AttackPower;
 
-        if (skillTreeComponent == null)
-            TryGetComponent(out skillTreeComponent);
-
         if (skillTreeComponent != null)
         {
             BasicAttackSkillData basicAttack = skillTreeComponent.GetUnlockedBasicAttack();

@@ -17,13 +17,9 @@ public sealed class EquipmentCategoryLabelUI : MonoBehaviour
     [SerializeField]
     private CareerCategoryLabels[] careerLabels =
     {
-        new() { career = Career.Warrior, labels = new[] { "\uB2E8\uAC80", "\uC7A5\uAC80" } },
-        new() { career = Career.Archer, labels = new[] { "\uB2E8\uAD81", "\uC7A5\uAD81" } },
-        new()
-        {
-            career = Career.Wizard,
-            labels = new[] { "\uC9C0\uD321\uC774", "\uB9C8\uBC95\uC11C" },
-        },
+        new() { career = Career.Warrior, labels = new[] { "단검", "장검" } },
+        new() { career = Career.Archer, labels = new[] { "단궁", "장궁" } },
+        new() { career = Career.Wizard, labels = new[] { "지팡이", "마법서" } },
     };
 
     private GameManager gameManager;
@@ -86,7 +82,7 @@ public sealed class EquipmentCategoryLabelUI : MonoBehaviour
     private void ApplyLabels(Career career)
     {
         string[] labels = GetLabels(career);
-        if (labels == null)
+        if (labels == null || categoryTexts == null)
             return;
 
         int count = Mathf.Min(categoryTexts.Length, labels.Length);

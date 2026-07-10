@@ -39,21 +39,22 @@ public class AutoAttackController : MonoBehaviour, IAttackEvent
 
     private IEnumerator AutoAttackLoop()
     {
+        float initialDelay = GetNextAttackTime() - Time.time;
+        if (initialDelay > 0f)
+            yield return YieldInstructionCache.WaitForSeconds(initialDelay);
+
+        if (!isAttacking)
+            yield break;
+
         while (isAttacking)
         {
-            while (isAttacking && Time.time < GetNextAttackTime())
-                yield return null;
-
-            if (!isAttacking)
-                yield break;
-
             player.Attack(); // 플레이어가 실제 피해를 처리
             lastAttackTime = Time.time;
 
             if (!isAttacking)
                 yield break;
 
-            yield return null;
+            yield return YieldInstructionCache.WaitForSeconds(GetAttackInterval());
         }
     }
 
