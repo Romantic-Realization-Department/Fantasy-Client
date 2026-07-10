@@ -49,6 +49,7 @@ public class BasicDungeonManager
     // ─── 런타임 상태 ─────────────────────────────────────────────
     private BasicDungeonState _basicDungeonState = BasicDungeonState.Idle;
     private int _currentWaveIndex;
+    private Coroutine _restartAfterDeathCoroutine;
 
     // ─── UI 알림 이벤트 ───────────────────────────────────────────
     /// <summary>상태가 변경될 때마다 현재 상태를 전달한다.</summary>
@@ -66,6 +67,11 @@ public class BasicDungeonManager
     protected override void Clear()
     {
         WaveController.OnAllEnemiesDead -= HandleAllEnemiesDead;
+        if (_restartAfterDeathCoroutine != null)
+        {
+            StopCoroutine(_restartAfterDeathCoroutine);
+            _restartAfterDeathCoroutine = null;
+        }
         if (_player != null)
             _player.OnDied -= HandlePlayerDied;
     }
@@ -192,7 +198,17 @@ public class BasicDungeonManager
             return;
 
         _waveController.Clear();
-        TransitionTo(DungeonState.Failed);
+
+        if (_restartAfterDeathCoroutine == null)
+            _restartAfterDeathCoroutine = StartCoroutine(RestartCurrentStageAfterDeath());
+    }
+
+    private IEnumerator RestartCurrentStageAfterDeath()
+    {
+        yield return null;
+
+        _restartAfterDeathCoroutine = null;
+        RetryDungeon();
     }
 
     protected override void OnFailDungeon()

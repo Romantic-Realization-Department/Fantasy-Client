@@ -27,6 +27,7 @@ public abstract class Entity : MonoBehaviour
 
     [SerializeField]
     protected EntityStatData statData;
+    public EntityStatData BaseStatData => statData;
 
     protected EntityState entityState = EntityState.Instance;
 
@@ -138,6 +139,7 @@ public abstract class Entity : MonoBehaviour
     public void ResetHp()
     {
         Hp = MaxHp;
+        entityState[gameObject].State = PlayerState.IDLE;
     }
 
     public virtual void Death()
