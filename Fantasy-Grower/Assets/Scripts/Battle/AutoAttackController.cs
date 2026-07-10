@@ -12,6 +12,7 @@ public class AutoAttackController : MonoBehaviour, IAttackEvent
     private Player player;
     private bool isAttacking;
     private Coroutine attackCoroutine;
+    private float lastAttackTime = float.NegativeInfinity;
 
     private void Awake()
     {
@@ -40,14 +41,30 @@ public class AutoAttackController : MonoBehaviour, IAttackEvent
     {
         while (isAttacking)
         {
-            player.Attack(); // 플레이어가 실제 피해를 처리
+            while (isAttacking && Time.time < GetNextAttackTime())
+                yield return null;
 
             if (!isAttacking)
                 yield break;
 
-            // AttackSpeed = 초당 공격 횟수 (예: 1.0 → 1초마다 공격)
-            float interval = player.AttackSpeed > 0f ? 1f / player.AttackSpeed : 1f;
-            yield return YieldInstructionCache.WaitForSeconds(interval);
+            player.Attack(); // 플레이어가 실제 피해를 처리
+            lastAttackTime = Time.time;
+
+            if (!isAttacking)
+                yield break;
+
+            yield return null;
         }
+    }
+
+    private float GetNextAttackTime()
+    {
+        return lastAttackTime + GetAttackInterval();
+    }
+
+    private float GetAttackInterval()
+    {
+        // AttackSpeed = 초당 공격 횟수 (예: 1.0 → 1초마다 공격)
+        return player.AttackSpeed > 0f ? 1f / player.AttackSpeed : 1f;
     }
 }

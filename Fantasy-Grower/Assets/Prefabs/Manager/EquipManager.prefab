@@ -87,6 +87,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 97cff8a40817f62489a91d3c9b4d96e8, type: 2}
   - career: 1
     weapon:
+    - {fileID: 11400000, guid: ef62d1767cbed0d4088981ef70bc6aa0, type: 2}
+    - {fileID: 11400000, guid: df333fabdaadbef40bb2750f5d7f5759, type: 2}
     - {fileID: 11400000, guid: ee6a98afd829a4e419f77104983e9467, type: 2}
     - {fileID: 11400000, guid: 08e488b310e3ded4fa76182c6fe2df73, type: 2}
     - {fileID: 11400000, guid: 2d7b7b6e416f222469f064416ab379e9, type: 2}
@@ -95,10 +97,10 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 33ef6b6c98d17b94782c8bcc411e44c7, type: 2}
     - {fileID: 11400000, guid: 9c52b4e3114ccb94aa609612040515d6, type: 2}
     - {fileID: 11400000, guid: 2fd5739767620c54f9b78feac5854b57, type: 2}
-    - {fileID: 11400000, guid: ef62d1767cbed0d4088981ef70bc6aa0, type: 2}
-    - {fileID: 11400000, guid: df333fabdaadbef40bb2750f5d7f5759, type: 2}
   - career: 2
     weapon:
+    - {fileID: 11400000, guid: 0c8d7061ff67ce942a363adc1a21a798, type: 2}
+    - {fileID: 11400000, guid: 1134bddb48b83f443a5c554b4186cd2a, type: 2}
     - {fileID: 11400000, guid: 423ef3eb63f2d6344b3449991b829045, type: 2}
     - {fileID: 11400000, guid: 595e5dca7384c2949b028807926cd7ea, type: 2}
     - {fileID: 11400000, guid: b2e35cf6354d4ff4284c8a2254f8c2ec, type: 2}
@@ -107,7 +109,5 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 15a1e0b3e6f905e46ad755fd5affabab, type: 2}
     - {fileID: 11400000, guid: 909d816ec2c5baa40a64114ec3953282, type: 2}
     - {fileID: 11400000, guid: 80a5c6606bf5d74468082e2d7c76edc2, type: 2}
-    - {fileID: 11400000, guid: 0c8d7061ff67ce942a363adc1a21a798, type: 2}
-    - {fileID: 11400000, guid: 1134bddb48b83f443a5c554b4186cd2a, type: 2}
   useWeaponCount: 5
   maxAwakeLevel: 5

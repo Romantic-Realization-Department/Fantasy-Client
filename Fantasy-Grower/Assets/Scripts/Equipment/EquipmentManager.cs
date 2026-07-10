@@ -72,6 +72,7 @@ public class EquipmentManager : MonoBehaviour
     private Dictionary<WeaponID, Color> weaponBGColorMap = new Dictionary<WeaponID, Color>();
 
     private GameManager boundGameManager;
+    private bool isInitialized;
 
     private void Awake()
     {
@@ -87,9 +88,12 @@ public class EquipmentManager : MonoBehaviour
             return;
         }
 
-        ResetWeaponDicionary();
-        AssignIcon();
         BindGameManager();
+        if (boundGameManager != null)
+            career = boundGameManager.SelectedJob;
+
+        RebuildWeaponCache();
+        isInitialized = true;
         SceneChanger.SceneLoaded += HandleSceneLoaded;
     }
 
@@ -121,6 +125,9 @@ public class EquipmentManager : MonoBehaviour
 
     private void ResetWeaponDicionary()
     {
+        weaponMap.Clear();
+        weaponBGColorMap.Clear();
+
         for (int i = 0; i <= (int)WeaponID.D2; i++)
         {
             weaponBGColorMap.Add((WeaponID)i, weaponLevelColor[i / 2]);
@@ -457,7 +464,13 @@ public class EquipmentManager : MonoBehaviour
         boundGameManager = gameManager;
 
         if (boundGameManager != null)
+        {
             boundGameManager.OnPlayerChanged += HandlePlayerChanged;
+            boundGameManager.OnSelectedJobChanged += HandleSelectedJobChanged;
+
+            if (isInitialized)
+                ChangeCareer(boundGameManager.SelectedJob);
+        }
     }
 
     private void UnbindGameManager()
@@ -466,12 +479,43 @@ public class EquipmentManager : MonoBehaviour
             return;
 
         boundGameManager.OnPlayerChanged -= HandlePlayerChanged;
+        boundGameManager.OnSelectedJobChanged -= HandleSelectedJobChanged;
         boundGameManager = null;
     }
 
     private void HandlePlayerChanged(Entity player)
     {
         RefreshStatModifiers();
+    }
+
+    private void HandleSelectedJobChanged(Career job)
+    {
+        ChangeCareer(job);
+    }
+
+    private void ChangeCareer(Career newCareer)
+    {
+        if (career == newCareer && weaponMap.Count > 0)
+            return;
+
+        career = newCareer;
+        currentWeapon = null;
+        currentSelectID = default;
+        EquipWeapon = null;
+
+        RemoveStatModifiers();
+        RebuildWeaponCache();
+
+        if (EquipmentUIManager.Instance != null)
+            EquipmentUIManager.Instance.RefreshSlotUI();
+
+        RefreshStatModifiers();
+    }
+
+    private void RebuildWeaponCache()
+    {
+        ResetWeaponDicionary();
+        AssignIcon();
     }
 
     public void GetItem(WeaponID id, uint amount)
