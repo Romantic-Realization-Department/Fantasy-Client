@@ -12329,17 +12329,17 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Gold Dungeon
+  m_text: "\uACE8\uB4DC \uB358\uC804"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 6a1c2ede6e2b91d429156b7bd2e2a432, type: 2}
-  m_sharedMaterial: {fileID: -4092679814482201340, guid: 6a1c2ede6e2b91d429156b7bd2e2a432, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 742ef043634f984449ba4e0cfd6f1337, type: 2}
+  m_sharedMaterial: {fileID: 6134287026870164134, guid: 742ef043634f984449ba4e0cfd6f1337, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -12356,13 +12356,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 69.1
+  m_fontSize: 79.7
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 300
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -23710,7 +23710,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: -7573024569394530246, guid: 6c92c31f33632ad49a82be3c311baca2, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -28468,17 +28468,17 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Boss Dungeon
+  m_text: "\uBCF4\uC2A4 \uB358\uC804"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 6a1c2ede6e2b91d429156b7bd2e2a432, type: 2}
-  m_sharedMaterial: {fileID: -4092679814482201340, guid: 6a1c2ede6e2b91d429156b7bd2e2a432, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 742ef043634f984449ba4e0cfd6f1337, type: 2}
+  m_sharedMaterial: {fileID: 6134287026870164134, guid: 742ef043634f984449ba4e0cfd6f1337, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -28495,13 +28495,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 68.4
+  m_fontSize: 79.7
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 300
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -32074,17 +32074,17 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Weapon Dungeon
+  m_text: "\uBB34\uAE30 \uB358\uC804"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 6a1c2ede6e2b91d429156b7bd2e2a432, type: 2}
-  m_sharedMaterial: {fileID: -4092679814482201340, guid: 6a1c2ede6e2b91d429156b7bd2e2a432, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 742ef043634f984449ba4e0cfd6f1337, type: 2}
+  m_sharedMaterial: {fileID: 6134287026870164134, guid: 742ef043634f984449ba4e0cfd6f1337, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -32101,13 +32101,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 57
+  m_fontSize: 79.7
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 300
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -36344,7 +36344,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: -4450320686883351151, guid: e01de2488cc35674aa54f07e15b3f447, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -38061,7 +38061,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: -6257634590766873110, guid: d8ea35d03de4f18439f84b549c23bcea, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

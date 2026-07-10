@@ -2035,6 +2035,14 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 411502721}
+    - target: {fileID: 4085440962211041327, guid: 644dad8f9100e314db9dbdafb4d410b0, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4085440962211041327, guid: 644dad8f9100e314db9dbdafb4d410b0, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2324,6 +2332,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _goodsType: 0
+  _prefix: 
+  _suffix: 
+  _useTween: 1
   _duration: 0.3
 --- !u!1001 &5165059561539229371
 PrefabInstance:
