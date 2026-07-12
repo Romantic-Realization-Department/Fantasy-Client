@@ -30,6 +30,8 @@ public abstract class Entity : MonoBehaviour
     public EntityStatData BaseStatData => statData;
 
     protected EntityState entityState = EntityState.Instance;
+    private const float HitSfxInterval = 0.08f;
+    private float lastHitSfxTime = float.NegativeInfinity;
 
     // 패시브 슬롯, 장비, 액티브 버프 인스턴스마다 고유 Handle을 발급해 독립적으로 중첩하고 제거합니다.
     private readonly System.Collections.Generic.Dictionary<int, EntityStatModifier> statModifiers =
@@ -165,8 +167,11 @@ public abstract class Entity : MonoBehaviour
         Hp = Mathf.Max(0, Hp - damage);
         float actualDamage = previousHp - Hp;
 
-        if (Hp < previousHp)
+        if (actualDamage > 0f)
+        {
+            PlayHitSfx();
             OnDamageTaken?.Invoke(previousHp, Hp);
+        }
 
         entityState[gameObject].State = PlayerState.DAMAGED;
 
@@ -174,6 +179,23 @@ public abstract class Entity : MonoBehaviour
             Death();
 
         return actualDamage;
+    }
+
+    private void PlayHitSfx()
+    {
+        if (Time.time - lastHitSfxTime < HitSfxInterval)
+        {
+            return;
+        }
+
+        SFXManager sfxManager = SFXManager.Instance;
+        if (sfxManager == null)
+        {
+            return;
+        }
+
+        sfxManager.PlayHit(EntityType);
+        lastHitSfxTime = Time.time;
     }
 
     public void Heal(float amount)
