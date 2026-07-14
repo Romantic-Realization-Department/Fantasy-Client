@@ -364,6 +364,23 @@ public class SkillTreeComponent : MonoBehaviour
             equippedActives[slotIndex] = null;
     }
 
+    public bool TryUnequipActiveSkill(ActiveSkillData skill)
+    {
+        if (skill == null || equippedActives == null)
+            return false;
+
+        for (int i = 0; i < equippedActives.Count; i++)
+        {
+            if (equippedActives[i] != skill)
+                continue;
+
+            equippedActives[i] = null;
+            return true;
+        }
+
+        return false;
+    }
+
     public ActiveSkillData GetEquippedActive(int slotIndex)
     {
         if (slotIndex < 0 || slotIndex >= equippedActives.Count)
@@ -411,6 +428,24 @@ public class SkillTreeComponent : MonoBehaviour
         }
     }
 
+    public bool TryUnequipPassiveSkill(PassiveSkillData skill)
+    {
+        if (skill == null || equippedPassives == null)
+            return false;
+
+        for (int i = 0; i < equippedPassives.Count; i++)
+        {
+            if (equippedPassives[i] != skill)
+                continue;
+
+            equippedPassives[i] = null;
+            RecalculatePassives();
+            return true;
+        }
+
+        return false;
+    }
+
     public PassiveSkillData GetEquippedPassive(int slotIndex)
     {
         if (slotIndex < 0 || slotIndex >= equippedPassives.Count)
@@ -432,6 +467,17 @@ public class SkillTreeComponent : MonoBehaviour
 
         if (skill is PassiveSkillData passiveSkill)
             return IsPassiveSkillEquipped(passiveSkill);
+
+        return false;
+    }
+
+    public bool TryUnequipSkill(SkillData skill)
+    {
+        if (skill is ActiveSkillData activeSkill)
+            return TryUnequipActiveSkill(activeSkill);
+
+        if (skill is PassiveSkillData passiveSkill)
+            return TryUnequipPassiveSkill(passiveSkill);
 
         return false;
     }

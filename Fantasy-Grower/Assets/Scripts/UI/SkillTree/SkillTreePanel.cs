@@ -86,6 +86,9 @@ public class SkillTreePanel : MonoBehaviour
     [SerializeField]
     private Button equipSkillButton;
 
+    [SerializeField]
+    private Button unequipSkillButton;
+
     [Header("레이아웃")]
     [SerializeField]
     private float nodeSpacingX = 120f;
@@ -176,6 +179,8 @@ public class SkillTreePanel : MonoBehaviour
             unlockSkillButton.onClick.RemoveListener(OnUnlockButtonClicked);
         if (equipSkillButton != null)
             equipSkillButton.onClick.RemoveListener(OnEquipButtonClicked);
+        if (unequipSkillButton != null)
+            unequipSkillButton.onClick.RemoveListener(OnUnequipButtonClicked);
     }
 
     private void InitializeEquipSlots()
@@ -197,6 +202,8 @@ public class SkillTreePanel : MonoBehaviour
             unlockSkillButton.onClick.AddListener(OnUnlockButtonClicked);
         if (equipSkillButton != null)
             equipSkillButton.onClick.AddListener(OnEquipButtonClicked);
+        if (unequipSkillButton != null)
+            unequipSkillButton.onClick.AddListener(OnUnequipButtonClicked);
 
         SetSkillDetailPanelActive(false);
     }
@@ -738,7 +745,14 @@ public class SkillTreePanel : MonoBehaviour
             && IsEquippableSkill(skill);
 
         if (equipSkillButton != null)
-            equipSkillButton.gameObject.SetActive(canShowEquipButton);
+            equipSkillButton.gameObject.SetActive(
+                canShowEquipButton && !skillTreeComponent.IsEquipped(skill)
+            );
+
+        if (unequipSkillButton != null)
+            unequipSkillButton.gameObject.SetActive(
+                skillTreeComponent != null && skillTreeComponent.IsEquipped(skill)
+            );
     }
 
     private void RefreshDetailSkillIcon(SkillData skill)
@@ -857,6 +871,19 @@ public class SkillTreePanel : MonoBehaviour
         RefreshAll();
     }
 
+    private void OnUnequipButtonClicked()
+    {
+        if (
+            focusedNode == null
+            || focusedNode.Skill == null
+            || skillTreeComponent == null
+            || !skillTreeComponent.TryUnequipSkill(focusedNode.Skill)
+        )
+            return;
+
+        RefreshAll();
+    }
+
     private void SelectUnlockedSkillForEquip(SkillNodeData node)
     {
         if (node == null || node.Skill == null)
@@ -891,7 +918,10 @@ public class SkillTreePanel : MonoBehaviour
         if (category == SkillCategory.Active)
         {
             if (selectedActiveSkill == null)
+            {
+                ShowEquippedSkillDetail(skillTreeComponent.GetEquippedActive(slotIndex));
                 return;
+            }
 
             if (skillTreeComponent.TryEquipActiveSkill(selectedActiveSkill, slotIndex))
                 selectedActiveSkill = null;
@@ -899,13 +929,58 @@ public class SkillTreePanel : MonoBehaviour
         else // Passive
         {
             if (selectedPassiveSkill == null)
+            {
+                ShowEquippedSkillDetail(skillTreeComponent.GetEquippedPassive(slotIndex));
                 return;
+            }
 
             if (skillTreeComponent.TryEquipPassiveSkill(selectedPassiveSkill, slotIndex))
                 selectedPassiveSkill = null;
         }
 
         RefreshAll();
+    }
+
+    private void ShowEquippedSkillDetail(SkillData skill)
+    {
+        if (skill == null)
+        {
+            focusedNode = null;
+            RefreshAll();
+            return;
+        }
+
+        SkillNodeData node = FindNodeBySkill(skill);
+        if (node == null)
+        {
+            focusedNode = null;
+            RefreshAll();
+            return;
+        }
+
+        focusedNode = node;
+        selectedActiveSkill = null;
+        selectedPassiveSkill = null;
+        RefreshAll();
+    }
+
+    private SkillNodeData FindNodeBySkill(SkillData skill)
+    {
+        if (skillTreeComponent == null || skillTreeComponent.TreeData == null)
+            return null;
+
+        IReadOnlyList<SkillNodeData> nodes = skillTreeComponent.TreeData.AllNodes;
+        if (nodes == null)
+            return null;
+
+        for (int i = 0; i < nodes.Count; i++)
+        {
+            SkillNodeData node = nodes[i];
+            if (node != null && node.Skill == skill)
+                return node;
+        }
+
+        return null;
     }
 
     // ─── 테스트 유틸 ─────────────────────────────────────────────────

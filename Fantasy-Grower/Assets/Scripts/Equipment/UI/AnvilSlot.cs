@@ -68,7 +68,7 @@ public class AnvilSlot : MonoBehaviour, IPointerClickHandler
     {
         SlotImage.sprite = icon;
         BGImage.color = _color;
-        WeaponCountText.text = weapon.Get().ToString("0");
+        WeaponCountText.SetText("{0}", weapon.Get());
         if (IsSelectSlot)
             SelectUI.SetActive(false);
     }
