@@ -36,6 +36,9 @@ public class Slot : MonoBehaviour, IPointerClickHandler
     [SerializeField]
     private TMP_Text WeaponUpgradeText;
 
+    [SerializeField]
+    private GameObject EquippedHighlightObject;
+
     protected void Awake()
     {
         MyImage = GetComponent<Image>();
@@ -73,6 +76,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler
             WeaponNameText.text = weapon.weaponName;
 
         UpdateUpgrade(weapon);
+        UpdateEquippedHighlight();
         if (weapon.isUnlock)
         {
             if (WeaponIconWall != null)
@@ -87,6 +91,14 @@ public class Slot : MonoBehaviour, IPointerClickHandler
         }
     }
 
+    private void UpdateEquippedHighlight()
+    {
+        if (EquippedHighlightObject == null)
+            return;
+
+        EquippedHighlightObject.SetActive(EquipmentManager.Instance.IsEquipped(ID));
+    }
+
     private void UpdateUpgrade(SO_Weapon weapon)
     {
         if (WeaponUpgradeText != null)
@@ -94,7 +106,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler
             bool hasUpgrade = weapon.weaponLevel > 0;
             WeaponUpgradeText.gameObject.SetActive(hasUpgrade);
             if (hasUpgrade)
-                WeaponUpgradeText.text = $"+{weapon.weaponLevel}";
+                WeaponUpgradeText.SetText("+{0}", weapon.weaponLevel);
         }
 
         for (int i = 0; i < AwakeImages.Length; i++)

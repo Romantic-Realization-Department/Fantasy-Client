@@ -150,6 +150,17 @@ public class EquipmentManager : MonoBehaviour
 
         EquipWeapon = currentWeapon;
         RefreshStatModifiers();
+        RefreshEquipmentUI();
+    } //버튼 추가 형
+
+    public void Unequip()
+    {
+        if (EquipWeapon == null)
+            return;
+
+        EquipWeapon = null;
+        RefreshStatModifiers();
+        RefreshEquipmentUI();
     } //버튼 추가 형
 
     public void UpgradeWeapon()
@@ -185,6 +196,7 @@ public class EquipmentManager : MonoBehaviour
             GetIcon(inven.ID),
             currentWeapon
         );
+        EquipmentUIManager.Instance.SettingEquipStateUI(IsEquipped(inven.ID));
     }
 
     private int GetRequiredScrolls(int targetLevel)
@@ -218,47 +230,76 @@ public class EquipmentManager : MonoBehaviour
 
     private uint AwakeUseMithril() => (uint)MithrilAmount[currentWeapon.weaponAwakeLevel];
 
+    private uint GetCurrentAwakeMithrilAmount()
+    {
+        if (
+            currentWeapon == null
+            || currentWeapon.weaponAwakeLevel >= maxAwakeLevel
+            || currentWeapon.weaponAwakeLevel >= MithrilAmount.Length
+        )
+        {
+            return 0;
+        }
+
+        return AwakeUseMithril();
+    }
+
+    private bool TrySpendAwakeMithril()
+    {
+        uint mithrilAmount = GetCurrentAwakeMithrilAmount();
+        return mithrilAmount > 0
+            && GoodsManager.Instance.GetGoods(GoodsType.Mithril).Decrease(mithrilAmount);
+    }
+
     void RefreshInfo()
     {
         if (currentWeapon.weaponLevel > 0)
         {
-            EquipmentUIManager.Instance.WeaponLevelText.text =
-                "+" + currentWeapon.weaponLevel.ToString("0");
+            EquipmentUIManager.Instance.WeaponLevelText.SetText("+{0}", currentWeapon.weaponLevel);
         }
         else
         {
-            EquipmentUIManager.Instance.WeaponLevelText.text = "";
+            EquipmentUIManager.Instance.WeaponLevelText.SetText("");
         }
 
-        EquipmentUIManager.Instance.EquipInfoText.text =
-            "공격력: " + (currentWeapon.equipDamage * 100f).ToString("0") + "%";
-        EquipmentUIManager.Instance.GetInfoText.text =
-            "공격력: " + (currentWeapon.getDamage * 100f).ToString("0") + "%";
+        EquipmentUIManager.Instance.EquipInfoText.SetText(
+            "공격력: {0}%",
+            currentWeapon.equipDamage * 100f
+        );
+        EquipmentUIManager.Instance.GetInfoText.SetText(
+            "공격력: {0}%",
+            currentWeapon.getDamage * 100f
+        );
     }
 
     void RefreshInfoInUpgradeTab()
     {
         if (currentWeapon.weaponLevel > 0)
         {
-            EquipmentUIManager.Instance.UpgradeWeaponLevelText.text =
-                "+" + currentWeapon.weaponLevel.ToString("0");
+            EquipmentUIManager.Instance.UpgradeWeaponLevelText.SetText(
+                "+{0}",
+                currentWeapon.weaponLevel
+            );
             if (currentWeapon.weaponLevel >= maxUpgradeLevel)
             {
-                EquipmentUIManager.Instance.UpgradeWeaponLevelUpText.text = "";
+                EquipmentUIManager.Instance.UpgradeWeaponLevelUpText.SetText("");
             }
         }
         else
         {
-            EquipmentUIManager.Instance.WeaponLevelText.text = "";
+            EquipmentUIManager.Instance.WeaponLevelText.SetText("");
         }
 
-        string EquipUpPercent = "";
-        string GetUpPercent = "";
+        EquipmentUIManager.Instance.SettingUpgradeCostUI(currentWeapon);
 
-        EquipmentUIManager.Instance.EquipInfoText.text =
-            "공격력: " + (currentWeapon.equipDamage * 100f).ToString("0") + EquipUpPercent + "%";
-        EquipmentUIManager.Instance.GetInfoText.text =
-            "공격력: " + (currentWeapon.getDamage * 100f).ToString("0") + GetUpPercent + "%";
+        EquipmentUIManager.Instance.EquipInfoText.SetText(
+            "공격력: {0}%",
+            currentWeapon.equipDamage * 100f
+        );
+        EquipmentUIManager.Instance.GetInfoText.SetText(
+            "공격력: {0}%",
+            currentWeapon.getDamage * 100f
+        );
     }
 
     public void SaveSelectWeapon(WeaponID ID, SelectSlotType _SelectSlotType)
@@ -313,9 +354,22 @@ public class EquipmentManager : MonoBehaviour
                 .Instance.AwakeSlots[i]
                 .ShowAwakeImage(currentWeapon.weaponAwakeLevel + i);
         }
+
+        EquipmentUIManager.Instance.SettingAwakeCostUI(
+            currentWeapon,
+            GetCurrentAwakeMithrilAmount()
+        );
     }
 
     public SO_Weapon GetWeapon(WeaponID weaponID) => weaponMap[weaponID];
+
+    public bool IsEquipped(WeaponID weaponID)
+    {
+        if (EquipWeapon == null)
+            return false;
+
+        return EquipWeapon == GetWeapon(weaponID);
+    }
 
     public Sprite GetIcon(WeaponID ID)
     {
@@ -353,7 +407,7 @@ public class EquipmentManager : MonoBehaviour
         while (
             CheckWeaponState
             && currentWeapon.weaponAwakeLevel < maxAwakeLevel
-            && GoodsManager.Instance.GetGoods(GoodsType.Mithril).Decrease(AwakeUseMithril())
+            && TrySpendAwakeMithril()
         )
         {
             currentWeapon.Decrease((uint)useWeaponCount);
@@ -507,9 +561,24 @@ public class EquipmentManager : MonoBehaviour
         RebuildWeaponCache();
 
         if (EquipmentUIManager.Instance != null)
+        {
             EquipmentUIManager.Instance.RefreshSlotUI();
+            EquipmentUIManager.Instance.SettingEquipStateUI(false);
+            EquipmentUIManager.Instance.ClearAwakeCostUI();
+        }
 
         RefreshStatModifiers();
+    }
+
+    private void RefreshEquipmentUI()
+    {
+        if (EquipmentUIManager.Instance == null)
+            return;
+
+        EquipmentUIManager.Instance.RefreshSlotUI();
+        EquipmentUIManager.Instance.SettingEquipStateUI(
+            currentWeapon != null && EquipWeapon == currentWeapon
+        );
     }
 
     private void RebuildWeaponCache()
@@ -527,5 +596,14 @@ public class EquipmentManager : MonoBehaviour
         RefreshStatModifiers();
     }
 
-    public void ResetWeapon() => currentWeapon = null;
+    public void ResetWeapon()
+    {
+        currentWeapon = null;
+
+        if (EquipmentUIManager.Instance != null)
+        {
+            EquipmentUIManager.Instance.SettingEquipStateUI(false);
+            EquipmentUIManager.Instance.ClearAwakeCostUI();
+        }
+    }
 }

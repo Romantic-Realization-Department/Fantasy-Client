@@ -628,7 +628,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 596, y: 1167}
+  m_AnchoredPosition: {x: 596, y: 901}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &460879009
@@ -1825,7 +1825,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 800}
+  m_AnchoredPosition: {x: 0, y: 608}
   m_SizeDelta: {x: 1000, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1803429191
@@ -1963,7 +1963,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -192}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1969611506
@@ -2035,6 +2035,14 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 411502721}
+    - target: {fileID: 4085440962211041327, guid: 644dad8f9100e314db9dbdafb4d410b0, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4085440962211041327, guid: 644dad8f9100e314db9dbdafb4d410b0, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2324,6 +2332,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _goodsType: 0
+  _prefix: 
+  _suffix: 
+  _useTween: 1
   _duration: 0.3
 --- !u!1001 &5165059561539229371
 PrefabInstance:
@@ -2397,6 +2408,10 @@ PrefabInstance:
     - target: {fileID: 1171421255154963157, guid: 2794f830e6f41234b966529960210130, type: 3}
       propertyPath: m_Name
       value: GoldDungeonOverlayUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 1779260146003880136, guid: 2794f830e6f41234b966529960210130, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5836471083505480189, guid: 2794f830e6f41234b966529960210130, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size

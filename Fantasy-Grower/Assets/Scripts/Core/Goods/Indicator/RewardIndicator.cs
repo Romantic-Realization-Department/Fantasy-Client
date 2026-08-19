@@ -104,7 +104,11 @@ public static class RewardDisplayItemFactory
 
     public static RewardDisplayItem Weapon(WeaponID id, uint amount)
     {
-        return new RewardDisplayItem(GetWeaponIconName(id), amount);
+        Career career =
+            GameManager.InstanceOrNull != null
+                ? GameManager.InstanceOrNull.SelectedJob
+                : Career.Warrior;
+        return new RewardDisplayItem(GetWeaponIconName(career, id), amount);
     }
 
     private static string GetGoodsIconName(GoodsType type)
@@ -117,6 +121,12 @@ public static class RewardDisplayItemFactory
             GoodsType.UpgradeScroll => RewardIconNames.UpgradeScroll,
             _ => string.Empty,
         };
+    }
+
+    private static string GetWeaponIconName(Career career, WeaponID id)
+    {
+        string weaponIconName = GetWeaponIconName(id);
+        return string.IsNullOrEmpty(weaponIconName) ? string.Empty : $"{career}_{weaponIconName}";
     }
 
     private static string GetWeaponIconName(WeaponID id)
