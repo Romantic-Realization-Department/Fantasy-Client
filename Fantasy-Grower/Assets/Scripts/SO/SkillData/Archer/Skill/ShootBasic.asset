@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e78177b50544ff4d9c909f44451d436, type: 3}
+  m_Name: ShootBasic
+  m_EditorClassIdentifier: 
+  SkillName: 발사
+  SkillIcon: {fileID: 21300000, guid: fc7d858ca5a182e4d80d339cf0b50df2, type: 3}
+  SkillDescription: "단일 적에게 빠른 속도로 투사하며 기본적인 크리티컬 보정 20%를 탑재합니다."
+  SPCost: 1
+  damageRate: 0.8
+  maxTargets: 1
+  bonusAttackSpeed: 0.5
+  extensionRange: 0.0

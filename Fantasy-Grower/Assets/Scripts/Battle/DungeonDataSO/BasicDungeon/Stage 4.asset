@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4558c98443aba914e85f0a2abde84537, type: 3}
+  m_Name: Stage 4
+  m_EditorClassIdentifier: 
+  _dungeonType: 0
+  _hasTimeLimit: 0
+  _timeLimitSeconds: 0
+  _dungeonClearReward:
+    _rewardEachTypes: []
+  _waves:
+  - {fileID: 11400000, guid: 52a736828ce46cc4d883fd339d0dd5b9, type: 2}
+  - {fileID: 11400000, guid: 974553beb59510440a8d7df120d0833a, type: 2}
+  - {fileID: 11400000, guid: 9106eb6efe19b3e45b6cae4144f1d262, type: 2}
+  - {fileID: 11400000, guid: 2a775c2c1a19f4d4c975ce001e612ab1, type: 2}
+  - {fileID: 11400000, guid: 2b61054ab1814a747818825638c27480, type: 2}
+  _nextWaveDelay: 1.5

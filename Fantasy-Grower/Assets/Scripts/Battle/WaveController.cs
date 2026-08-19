@@ -1,0 +1,176 @@
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
+
+/// <summary>
+/// 현재 웨이브의 적 스폰과 생존 수를 추적하는 컴포넌트.
+/// 모든 적이 사망하면 OnAllEnemiesDead 이벤트를 발화한다.
+/// </summary>
+public class WaveController : MonoBehaviour
+{
+    /// <summary>현재 웨이브의 모든 적이 사망했을 때 발화된다.</summary>
+    public static event Action OnAllEnemiesDead;
+
+    /// <summary>현재 웨이브에 등록된 적 하나가 사망했을 때 발화된다.</summary>
+    public static event Action<Enemy> OnEnemyDiedGlobal;
+
+    /// <summary>새 웨이브 스폰이 시작되었을 때 발화된다.</summary>
+    public static event Action OnWaveStartedGlobal;
+
+    /// <summary>현재 웨이브의 생존 적 수가 변경되었을 때 발화된다.</summary>
+    public static event Action<int> OnEnemyCountChangedGlobal;
+
+    public static int CurrentActiveEnemyCount { get; private set; }
+
+    private static readonly List<WaveController> activeControllers = new();
+
+    private int _aliveCount;
+    private readonly HashSet<Enemy> _activeEnemies = new();
+
+    private void OnEnable()
+    {
+        if (!activeControllers.Contains(this))
+            activeControllers.Add(this);
+    }
+
+    private void OnDisable()
+    {
+        activeControllers.Remove(this);
+    }
+
+    private void OnDestroy()
+    {
+        foreach (Enemy e in _activeEnemies)
+        {
+            if (e != null)
+                e.OnDied -= OnEnemyDied;
+        }
+
+        CurrentActiveEnemyCount = 0;
+        OnEnemyCountChangedGlobal?.Invoke(CurrentActiveEnemyCount);
+    }
+
+    /// <summary>
+    /// 웨이브 데이터에 따라 적을 스폰한다.
+    /// 스폰된 Enemy 인스턴스 목록을 반환한다.
+    /// </summary>
+    public void SpawnWave(WaveData waveData, Transform spawnPoint, float spawnInterval)
+    {
+        if (spawnPoint == null)
+        {
+            Debug.LogError("[WaveController] 스폰 포인트가 설정되지 않았습니다.");
+            return;
+        }
+
+        _activeEnemies.Clear();
+        OnWaveStartedGlobal?.Invoke();
+
+        float curOffset = 0f;
+
+        // 추후 오브젝트 풀링 작동 방식으로 변환할 것.
+        foreach (var entry in waveData.Entries)
+        {
+            for (int i = 0; i < entry.Count; i++)
+            {
+                Vector3 pos = spawnPoint.position + new Vector3(curOffset, 0);
+                GameObject go = Instantiate(entry.EnemyPrefab, pos, Quaternion.identity);
+
+                if (!go.TryGetComponent(out Enemy enemy))
+                {
+                    Debug.LogWarning(
+                        $"[WaveController] 프리팹 {entry.EnemyPrefab.name}에 Enemy 컴포넌트가 없습니다."
+                    );
+                    Destroy(go);
+                    continue;
+                }
+
+                enemy.OnDied += OnEnemyDied;
+                _activeEnemies.Add(enemy);
+                curOffset += spawnInterval;
+            }
+        }
+
+        _aliveCount = _activeEnemies.Count;
+        CurrentActiveEnemyCount = _aliveCount;
+        OnEnemyCountChangedGlobal?.Invoke(CurrentActiveEnemyCount);
+
+        if (_aliveCount == 0)
+        {
+            Debug.LogWarning("[WaveController] 웨이브에 적이 없습니다. 즉시 완료 처리됩니다.");
+            OnAllEnemiesDead?.Invoke();
+        }
+    }
+
+    /// <summary>현재 살아있는 첫 번째 적을 반환한다. 없으면 null.</summary>
+    public Enemy GetFirstAliveEnemy()
+    {
+        foreach (Enemy enemy in _activeEnemies)
+        {
+            if (enemy != null && enemy.Hp > 0)
+                return enemy;
+        }
+
+        return null;
+    }
+
+    public IReadOnlyCollection<Enemy> ActiveEnemies => _activeEnemies;
+
+    public static bool TryCollectActiveEnemies(List<Entity> results)
+    {
+        if (results == null)
+            return false;
+
+        results.Clear();
+
+        for (int i = 0; i < activeControllers.Count; i++)
+        {
+            WaveController waveController = activeControllers[i];
+            if (waveController != null)
+                waveController.CollectAliveEnemies(results);
+        }
+
+        return results.Count > 0;
+    }
+
+    private void CollectAliveEnemies(List<Entity> results)
+    {
+        foreach (Enemy enemy in _activeEnemies)
+        {
+            if (enemy != null && enemy.Hp > 0f)
+                results.Add(enemy);
+        }
+    }
+
+    /// <summary>살아있는 적을 모두 파괴하고 상태를 초기화한다. 재시도 또는 씬 정리 시 사용.</summary>
+    public void Clear()
+    {
+        foreach (Enemy e in _activeEnemies)
+        {
+            if (e != null)
+            {
+                e.OnDied -= OnEnemyDied;
+                Destroy(e.gameObject);
+            }
+        }
+        _activeEnemies.Clear();
+        _aliveCount = 0;
+        CurrentActiveEnemyCount = 0;
+        OnEnemyCountChangedGlobal?.Invoke(CurrentActiveEnemyCount);
+    }
+
+    private void OnEnemyDied(Entity entity)
+    {
+        if (entity is not Enemy enemy || !_activeEnemies.Contains(enemy))
+            return;
+
+        entity.OnDied -= OnEnemyDied;
+        _activeEnemies.Remove(enemy);
+        _aliveCount = Mathf.Max(0, _aliveCount - 1);
+        CurrentActiveEnemyCount = _aliveCount;
+        OnEnemyCountChangedGlobal?.Invoke(CurrentActiveEnemyCount);
+        OnEnemyDiedGlobal?.Invoke(enemy);
+
+        if (_aliveCount == 0)
+            OnAllEnemiesDead?.Invoke();
+    }
+}

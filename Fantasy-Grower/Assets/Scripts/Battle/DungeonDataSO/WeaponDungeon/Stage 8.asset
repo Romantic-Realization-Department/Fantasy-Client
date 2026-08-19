@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe17c2e22f9316643a7becc3d1502426, type: 3}
+  m_Name: Stage 8
+  m_EditorClassIdentifier: 
+  _dungeonType: 2
+  _hasTimeLimit: 0
+  _timeLimitSeconds: 0
+  _dungeonClearReward:
+    _rewardEachTypes: []
+  _waves:
+  - {fileID: 11400000, guid: 27a5f5c1e5c1bd34ab783661e0e744f3, type: 2}
+  - {fileID: 11400000, guid: 1ad440f0e45c47649bacd4af1598792e, type: 2}
+  - {fileID: 11400000, guid: d389c53910c85524fa69622573930798, type: 2}
+  - {fileID: 11400000, guid: 5fee78f13ba5643469b6001e88d73981, type: 2}
+  - {fileID: 11400000, guid: 62414f71e86e02c4ba027cefe78c460e, type: 2}
+  _nextWaveDelay: 1.5
+  _weaponDrops:
+  - WeaponID: 8
+    DropChance: 50
+    Amount: 3
+  - WeaponID: 9
+    DropChance: 50
+    Amount: 3
+  - WeaponID: 6
+    DropChance: 50
+    Amount: 1
+  - WeaponID: 7
+    DropChance: 50
+    Amount: 1
+  _upgradeScrollDropChance: 50
+  _upgradeScrollDropAmount: 3

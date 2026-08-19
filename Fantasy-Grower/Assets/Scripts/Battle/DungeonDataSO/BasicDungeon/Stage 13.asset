@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4558c98443aba914e85f0a2abde84537, type: 3}
+  m_Name: Stage 13
+  m_EditorClassIdentifier: 
+  _dungeonType: 0
+  _hasTimeLimit: 0
+  _timeLimitSeconds: 0
+  _dungeonClearReward:
+    _rewardEachTypes: []
+  _waves:
+  - {fileID: 11400000, guid: 5d3040fb72225b645bc05a74a299613a, type: 2}
+  - {fileID: 11400000, guid: 85bf3efa9ec1ac948adf44dc22f39736, type: 2}
+  - {fileID: 11400000, guid: cd799006aec18cf489ba39ae5ab15169, type: 2}
+  - {fileID: 11400000, guid: b8e1b0d75a34d204c94ff296eee1d592, type: 2}
+  - {fileID: 11400000, guid: 62d2c90f4d6fdb74398a745500a79334, type: 2}
+  _nextWaveDelay: 1.5

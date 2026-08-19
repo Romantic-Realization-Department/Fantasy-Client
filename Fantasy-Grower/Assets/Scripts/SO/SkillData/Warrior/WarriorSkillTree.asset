@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 714ac6181a5a647479fea7f51342d8b1, type: 3}
+  m_Name: WarriorSkillTree
+  m_EditorClassIdentifier: 
+  JobClassName: Warrior
+  StrategyType: 0
+  AllNodes:
+  - {fileID: 11400000, guid: 4a45b0db05b160648a3ac2abecd8409f, type: 2}
+  - {fileID: 11400000, guid: 2919f551d30a4882a529eb732e616e24, type: 2}
+  - {fileID: 11400000, guid: adedc30f2320434084feabf7a651ff2e, type: 2}
+  - {fileID: 11400000, guid: d400b29746b84858b35e646d88c8d09d, type: 2}
+  - {fileID: 11400000, guid: 08b711dc4f6b48f69fa4dad3d711b0a3, type: 2}
+  - {fileID: 11400000, guid: 0f0efd86c9154b28ba9ff63705ecd047, type: 2}
+  - {fileID: 11400000, guid: 52f11b65052e4e1fa9677c6745230018, type: 2}
+  - {fileID: 11400000, guid: ae980264e439413c9d5d9fdaeb6e185d, type: 2}
+  - {fileID: 11400000, guid: 49281f36859e4342887987b12a4c71e7, type: 2}
+  - {fileID: 11400000, guid: be401a2940144628a012fb909a17eb8b, type: 2}
+  - {fileID: 11400000, guid: 2042715b2f554c00878cb1323874f2b0, type: 2}
+  - {fileID: 11400000, guid: e705726383f54fc5833109d6bb814ebe, type: 2}
+  - {fileID: 11400000, guid: 6fa18ec0a8af47f98208d3c80475930c, type: 2}
+  - {fileID: 11400000, guid: 36f898d7a4094b7bbef47e3167ca80a7, type: 2}
+  - {fileID: 11400000, guid: c5f168d5e4df4965bdefe68e3654821c, type: 2}
+  - {fileID: 11400000, guid: 274eff6f4c77492da3866b97c41779a8, type: 2}
+  - {fileID: 11400000, guid: 890f12b8492649eea7a782a7f97bdf15, type: 2}
+  - {fileID: 11400000, guid: 44244d7b92aa4d0485566549f86c4762, type: 2}
+  - {fileID: 11400000, guid: 456164f57172486f8f23711078e6e771, type: 2}
+  - {fileID: 11400000, guid: 319bd2f1b2904811a866c2a5e66ebd3a, type: 2}
+  - {fileID: 11400000, guid: 9d69e4995e0349b1a2d78a6552bfa295, type: 2}
+  - {fileID: 11400000, guid: 5c0be1759794479a86bb7401e5680f28, type: 2}
+  - {fileID: 11400000, guid: b39bb8719d4740d8bf3e7c1f5deb0f7f, type: 2}
+  - {fileID: 11400000, guid: 677f66058d914e6498fcd011589aac3c, type: 2}
+  - {fileID: 11400000, guid: 2dd5556a39834df0b883f73963272512, type: 2}
+  - {fileID: 11400000, guid: 0607f543be5b493f8cd98a372652361c, type: 2}
+  - {fileID: 11400000, guid: bee8e72194bf403e8b9c25429b2b3ddc, type: 2}
+  - {fileID: 11400000, guid: 467287c0dac24e68b6d8144de5721a75, type: 2}
+  - {fileID: 11400000, guid: f83f70e01af347c8a39e1d6bda455848, type: 2}
+  - {fileID: 11400000, guid: d226677b443f4c7c98ca0798ccf36d1d, type: 2}
+  - {fileID: 11400000, guid: e675b09d9e384e0a92d70461e668935e, type: 2}
+  MaxActiveSkillSlots: 5
+  MaxPassiveSkillSlots: 3

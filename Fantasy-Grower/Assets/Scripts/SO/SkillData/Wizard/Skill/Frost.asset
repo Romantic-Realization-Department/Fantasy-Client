@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cb0d540c28948fa87261b1de4b61409, type: 3}
+  m_Name: Frost
+  m_EditorClassIdentifier: 
+  SkillName: 동상
+  SkillIcon: {fileID: 21300000, guid: 0f8c613bb6359eb4aaeff6884020c720, type: 3}
+  SkillDescription: "얼음 계열 평타/스킬 공격 성공 시 적들의 공격/이동 속도를 일시적으로 30% 저하시킵니다."
+  SPCost: 1
+  frostModifier:
+    BonusHp: 0
+    BonusHpRecovery: 0
+    BonusDamageReduction: 0
+    BonusAttackPower: 0
+    BonusAttackSpeed: 0
+    BonusCriticalPercentage: 0
+    BonusCriticalDamageRate: 0
+    BonusAttackRangeRate: 0
+    BonusMoveSpeedRate: -0.3
+    BonusOutgoingDamageRate: 0
+    BonusHpRate: 0
+    BonusHpRecoveryRate: 0
+    BonusDamageReductionRate: 0
+    BonusAttackPowerRate: 0
+    BonusAttackSpeedRate: -0.3
+    BonusCriticalPercentageRate: 0
+    BonusBasicAttackTargetCount: 0
+  duration: 3
+  maxStacks: 5

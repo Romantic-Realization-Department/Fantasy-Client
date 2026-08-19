@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfcb3861838a4ec46924a354ad034191, type: 3}
+  m_Name: MasteryNode
+  m_EditorClassIdentifier: 
+  Skill: {fileID: 11400000, guid: 528a2c7eb24e4486ad74391b230291e3, type: 2}
+  Prerequisites:
+  - {fileID: 11400000, guid: 41519e4afc314524b0a2c29fa0fe713e, type: 2}
+  - {fileID: 11400000, guid: 84cca3ee4c514ea59eaf3b76f2a4eb51, type: 2}
+  - {fileID: 11400000, guid: 169bf6d853164b4cb1f0f407bc40d5bf, type: 2}
+  TierIndex: 5
+  SlotIndex: 1
+  AttributeTag: 

@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 040e06596a3f4feb9fc3b889fdf7d6cc, type: 3}
+  m_Name: SilverArrow
+  m_EditorClassIdentifier: 
+  SkillName: 은화살
+  SkillIcon: {fileID: 21300000, guid: 17399e1b9ea134c4d97cd1729668f3d6, type: 3}
+  SkillDescription: "치명적인 기운이 서린 화살을 장전해 5초간 치명타 확률을 100%로 가속합니다."
+  SPCost: 1
+  Cooldown: 8
+  usableOncePerDungeon: 0
+  extensionRange: 0
+  duration: 5
+  modifier:
+    BonusHp: 0
+    BonusHpRecovery: 0
+    BonusDamageReduction: 0
+    BonusAttackPower: 0
+    BonusAttackSpeed: 0
+    BonusCriticalPercentage: 100.0
+    BonusCriticalDamageRate: 0
+    BonusAttackRangeRate: 0
+    BonusMoveSpeedRate: 0
+    BonusOutgoingDamageRate: 0
+    BonusHpRate: 0
+    BonusHpRecoveryRate: 0
+    BonusDamageReductionRate: 0
+    BonusAttackPowerRate: 0
+    BonusAttackSpeedRate: 0
+    BonusCriticalPercentageRate: 0
+    BonusBasicAttackTargetCount: 0

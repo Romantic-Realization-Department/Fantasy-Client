@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfcb3861838a4ec46924a354ad034191, type: 3}
+  m_Name: WhirlSlashNode
+  m_EditorClassIdentifier: 
+  Skill: {fileID: 11400000, guid: 82f7e3e4ec418b14881849e86537aa68, type: 2}
+  Prerequisites:
+  - {fileID: 11400000, guid: 4a45b0db05b160648a3ac2abecd8409f, type: 2}
+  TierIndex: 1
+  SlotIndex: 0
+  AttributeTag: 

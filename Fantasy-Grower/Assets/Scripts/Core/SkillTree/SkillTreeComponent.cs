@@ -1,0 +1,622 @@
+using System.Collections.Generic;
+using UnityEngine;
+
+/// <summary>
+/// 플레이어의 스킬 트리 런타임 상태를 관리하는 컴포넌트.
+/// 해금 상태를 Dictionary로 보관하여 ScriptableObject 에셋 오염을 방지한다.
+/// 트리 데이터는 GameManager의 선택된 직업을 우선 사용하고,
+/// GameManager가 없으면 직렬화된 treeData로 폴백한다(테스트 씬 호환).
+/// </summary>
+[RequireComponent(typeof(Player))]
+public class SkillTreeComponent : MonoBehaviour
+{
+    [SerializeField]
+    [Tooltip("GameManager가 없을 때 사용할 폴백 스킬 트리(테스트용)")]
+    private SkillTreeData treeData;
+    public SkillTreeData TreeData => treeData;
+
+    // ScriptableObject를 직접 수정하지 않고 런타임 상태를 Dictionary로 격리
+    private Dictionary<SkillNodeData, bool> unlockedState;
+
+    // 장착된 스킬 슬롯 (null = 비어있음)
+    private List<ActiveSkillData> equippedActives;
+    private List<PassiveSkillData> equippedPassives;
+    private readonly List<EntityStatModifierHandle> passiveModifierHandles = new();
+    private readonly List<PassiveSkillRuntime> passiveRuntimes = new();
+
+    private ISkillTreeStrategy strategy;
+    private Entity entity;
+
+    public event System.Action<PassiveTriggerType> OnPassiveTriggered;
+
+    public int EquippedActiveCount => equippedActives != null ? equippedActives.Count : 0;
+
+    private void Awake()
+    {
+        entity = GetComponent<Entity>();
+
+        ResolveTreeData();
+
+        strategy = treeData != null ? treeData.CreateStrategy() : null;
+
+        int activeSlots = treeData != null ? treeData.MaxActiveSkillSlots : 5;
+        int passiveSlots = treeData != null ? treeData.MaxPassiveSkillSlots : 3;
+
+        var gm = GameManager.InstanceOrNull;
+        if (gm != null)
+        {
+            Career currentJob = gm.SelectedJob;
+            unlockedState = gm.GetUnlockedState(currentJob);
+            equippedActives = gm.GetEquippedActives(currentJob, activeSlots);
+            equippedPassives = gm.GetEquippedPassives(currentJob, passiveSlots);
+        }
+        else
+        {
+            // 테스트 씬 등 GameManager가 없는 경우를 위한 폴백
+            unlockedState = new Dictionary<SkillNodeData, bool>();
+            equippedActives = new List<ActiveSkillData>(new ActiveSkillData[activeSlots]);
+            equippedPassives = new List<PassiveSkillData>(new PassiveSkillData[passiveSlots]);
+        }
+
+        if (treeData == null)
+        {
+            Debug.LogWarning("[SkillTreeComponent] SkillTreeData가 비어 있습니다!");
+        }
+
+        // 패시브 스탯 재생성 복구 (GameManager에서 가져온 기존 장착 데이터 적용)
+        RecalculatePassives();
+    }
+
+    private void OnDestroy()
+    {
+        ClearPassiveEffects();
+    }
+
+    /// <summary>
+    /// 트리 데이터를 결정한다. GameManager가 존재하고 선택된 직업의 트리가
+    /// 등록되어 있으면 그것을 사용하고, 아니면 직렬화된 treeData를 유지한다.
+    /// </summary>
+    private void ResolveTreeData()
+    {
+        var gm = GameManager.InstanceOrNull;
+        if (gm == null)
+            return;
+
+        var selectedTree = gm.CurrentSkillTreeData;
+        if (selectedTree != null)
+            treeData = selectedTree;
+    }
+
+    // ─── 해금 흐름 ───────────────────────────────────────────────
+
+    /// <summary>
+    /// UI에서 노드 선택 시 진입점. SP 소비 + 전략 조건 모두 통과해야 해금된다.
+    /// </summary>
+    public bool TryUnlockNode(SkillNodeData node)
+    {
+        if (node == null || strategy == null)
+            return false;
+
+        if (IsUnlocked(node))
+        {
+            string skillName = node.Skill != null ? node.Skill.SkillName : string.Empty;
+            Debug.Log($"[SkillTree] {skillName}은 이미 해금되어 있습니다.");
+            return false;
+        }
+
+        if (!CanUnlock(node))
+        {
+            string skillName = node.Skill != null ? node.Skill.SkillName : string.Empty;
+            Debug.Log($"[SkillTree] {skillName} 해금 조건 미충족.");
+            return false;
+        }
+
+        // SP 소비
+        GoodsManager.Instance.GetGoods(GoodsType.SP).Decrease((uint)node.Skill.SPCost);
+
+        unlockedState[node] = true;
+        strategy.OnNodeUnlocked(node, unlockedState);
+
+        if (node.TierIndex == 0)
+            RecalculatePassives();
+
+        string unlockedSkillName = node.Skill != null ? node.Skill.SkillName : string.Empty;
+        Debug.Log($"[SkillTree] {unlockedSkillName} 해금 완료.");
+        return true;
+    }
+
+    /// <summary>
+    /// 장착된 패시브 스킬 효과만 재계산하여 Entity 스탯에 반영한다.
+    /// (해금만으로는 효과가 적용되지 않으며, 슬롯에 장착해야 적용된다.)
+    /// </summary>
+    private void RecalculatePassives()
+    {
+        ClearPassiveEffects();
+
+        foreach (PassiveSkillData passive in equippedPassives)
+        {
+            if (passive == null)
+                continue;
+
+            EntityStatModifier modifier = EntityStatModifier.Zero;
+            passive.ApplyPassive(ref modifier);
+            passiveModifierHandles.Add(entity.ApplyStatModifier(modifier));
+
+            PassiveSkillRuntime runtime = passive.CreateRuntime(
+                new PassiveSkillRuntimeContext(this, entity)
+            );
+            if (runtime != null)
+                passiveRuntimes.Add(runtime);
+        }
+
+        BasicAttackSkillData basicAttack = GetUnlockedBasicAttack();
+        if (basicAttack != null && basicAttack.BonusAttackSpeed != 0f)
+        {
+            EntityStatModifier modifier = EntityStatModifier.Zero;
+            modifier.BonusAttackSpeed = basicAttack.BonusAttackSpeed;
+            passiveModifierHandles.Add(entity.ApplyStatModifier(modifier));
+        }
+    }
+
+    public float GetActiveSkillCooldownMultiplier()
+    {
+        if (equippedPassives == null)
+            return 1f;
+
+        float reduction = 0f;
+        foreach (PassiveSkillData passive in equippedPassives)
+        {
+            if (passive is IActiveSkillCooldownModifier cooldownModifier)
+                reduction += cooldownModifier.CooldownReductionRate;
+        }
+
+        return Mathf.Max(0f, 1f - reduction);
+    }
+
+    public float GetOutgoingDamageMultiplier()
+    {
+        float multiplier =
+            1f + SumPassiveBonus<IOutgoingDamageModifier>(m => m.OutgoingDamageBonusRate);
+
+        if (WaveController.CurrentActiveEnemyCount == 1)
+        {
+            multiplier *=
+                1f + SumPassiveBonus<ISingleEnemyDamageModifier>(m => m.SingleEnemyDamageBonusRate);
+        }
+
+        return multiplier;
+    }
+
+    public float GetActiveSkillDamageMultiplier(ActiveSkillData skill)
+    {
+        float multiplier = GetOutgoingDamageMultiplier();
+        multiplier *=
+            1f + SumPassiveBonus<IActiveSkillDamageModifier>(m => m.ActiveSkillDamageBonusRate);
+
+        ActiveSkillDamageCategory damageCategory =
+            skill != null ? skill.DamageCategory : ActiveSkillDamageCategory.None;
+
+        if (damageCategory == ActiveSkillDamageCategory.SingleTarget)
+        {
+            multiplier *=
+                1f
+                + SumPassiveBonus<ISingleTargetActiveSkillDamageModifier>(m =>
+                    m.SingleTargetActiveSkillDamageBonusRate
+                );
+        }
+        else if (damageCategory == ActiveSkillDamageCategory.Area)
+        {
+            multiplier *=
+                1f
+                + SumPassiveBonus<IAreaActiveSkillDamageModifier>(m =>
+                    m.AreaActiveSkillDamageBonusRate
+                );
+
+            if (WaveController.CurrentActiveEnemyCount == 1)
+            {
+                multiplier *=
+                    1f
+                    + SumPassiveBonus<ISingleEnemyAreaSkillDamageModifier>(m =>
+                        m.SingleEnemyAreaSkillDamageBonusRate
+                    );
+            }
+        }
+
+        return multiplier;
+    }
+
+    public float GetBasicAttackDamageMultiplier()
+    {
+        if (equippedPassives == null)
+            return 1f;
+
+        float multiplier = 1f;
+        foreach (PassiveSkillData passive in equippedPassives)
+        {
+            if (passive is IBasicAttackDamageModifier damageModifier)
+                multiplier *= Mathf.Max(0f, damageModifier.BasicAttackDamageMultiplier);
+        }
+
+        return multiplier;
+    }
+
+    public float GetAttackAreaMultiplier()
+    {
+        return 1f + SumPassiveBonus<IAttackAreaModifier>(m => m.AttackAreaBonusRate);
+    }
+
+    public float GetEliteDamageMultiplier()
+    {
+        return 1f + SumPassiveBonus<IEliteDamageModifier>(m => m.EliteDamageBonusRate);
+    }
+
+    public void NotifyPassiveTriggered(PassiveTriggerType triggerType)
+    {
+        OnPassiveTriggered?.Invoke(triggerType);
+    }
+
+    public bool AllowsBurnStacking()
+    {
+        if (equippedPassives == null)
+            return false;
+
+        foreach (PassiveSkillData passive in equippedPassives)
+        {
+            if (passive is IBurnStackingModifier { AllowsBurnStacking: true })
+                return true;
+        }
+
+        return false;
+    }
+
+    public float GetFrostEffectMultiplier()
+    {
+        return 1f + SumPassiveBonus<IFrostEffectBonusModifier>(m => m.FrostEffectBonusRate);
+    }
+
+    public bool TryGetFrostFreezeRule(
+        out int requiredStacks,
+        out float duration,
+        out EntityStatModifier modifier
+    )
+    {
+        requiredStacks = 0;
+        duration = 0f;
+        modifier = EntityStatModifier.Zero;
+
+        if (equippedPassives == null)
+            return false;
+
+        foreach (PassiveSkillData passive in equippedPassives)
+        {
+            if (passive is not IFrostFreezeModifier freezeModifier)
+                continue;
+
+            requiredStacks = freezeModifier.RequiredFrostStacks;
+            duration = freezeModifier.FreezeDuration;
+            modifier = freezeModifier.FreezeModifier;
+            return requiredStacks > 0 && duration > 0f;
+        }
+
+        return false;
+    }
+
+    private void ClearPassiveEffects()
+    {
+        foreach (PassiveSkillRuntime runtime in passiveRuntimes)
+            runtime.Dispose();
+        passiveRuntimes.Clear();
+
+        foreach (EntityStatModifierHandle handle in passiveModifierHandles)
+        {
+            if (entity != null)
+                entity.RemoveStatModifier(handle);
+        }
+        passiveModifierHandles.Clear();
+    }
+
+    private float SumPassiveBonus<T>(System.Func<T, float> selector)
+    {
+        if (equippedPassives == null)
+            return 0f;
+
+        float bonus = 0f;
+        foreach (PassiveSkillData passive in equippedPassives)
+        {
+            if (passive is T modifier)
+                bonus += selector(modifier);
+        }
+
+        return bonus;
+    }
+
+    // ─── 액티브 스킬 장착 ─────────────────────────────────────────
+
+    /// <summary>
+    /// 해금된 액티브 스킬을 지정 슬롯에 장착한다.
+    /// </summary>
+    public bool TryEquipActiveSkill(ActiveSkillData skill, int slotIndex)
+    {
+        if (skill == null || slotIndex < 0 || slotIndex >= equippedActives.Count)
+            return false;
+
+        if (IsActiveSkillEquippedInAnotherSlot(skill, slotIndex))
+        {
+            Debug.Log(
+                $"[SkillTree] {skill.SkillName}은 이미 다른 액티브 슬롯에 장착되어 있습니다."
+            );
+            return false;
+        }
+
+        if (!IsUnlocked(FindNodeBySkill(skill)))
+        {
+            Debug.Log($"[SkillTree] {skill.SkillName}이 해금되지 않았습니다.");
+            return false;
+        }
+
+        equippedActives[slotIndex] = skill;
+        return true;
+    }
+
+    public void UnequipActiveSkill(int slotIndex)
+    {
+        if (slotIndex >= 0 && slotIndex < equippedActives.Count)
+            equippedActives[slotIndex] = null;
+    }
+
+    public bool TryUnequipActiveSkill(ActiveSkillData skill)
+    {
+        if (skill == null || equippedActives == null)
+            return false;
+
+        for (int i = 0; i < equippedActives.Count; i++)
+        {
+            if (equippedActives[i] != skill)
+                continue;
+
+            equippedActives[i] = null;
+            return true;
+        }
+
+        return false;
+    }
+
+    public ActiveSkillData GetEquippedActive(int slotIndex)
+    {
+        if (slotIndex < 0 || slotIndex >= equippedActives.Count)
+            return null;
+        return equippedActives[slotIndex];
+    }
+
+    public IReadOnlyList<ActiveSkillData> GetEquippedActives() => equippedActives.AsReadOnly();
+
+    // ─── 패시브 스킬 장착 ─────────────────────────────────────────
+
+    /// <summary>
+    /// 해금된 패시브 스킬을 지정 슬롯에 장착하고 스탯에 반영한다.
+    /// </summary>
+    public bool TryEquipPassiveSkill(PassiveSkillData skill, int slotIndex)
+    {
+        if (skill == null || slotIndex < 0 || slotIndex >= equippedPassives.Count)
+            return false;
+
+        if (IsPassiveSkillEquippedInAnotherSlot(skill, slotIndex))
+        {
+            Debug.Log(
+                $"[SkillTree] {skill.SkillName}은 이미 다른 패시브 슬롯에 장착되어 있습니다."
+            );
+            return false;
+        }
+
+        if (!IsUnlocked(FindNodeBySkill(skill)))
+        {
+            Debug.Log($"[SkillTree] {skill.SkillName}이 해금되지 않았습니다.");
+            return false;
+        }
+
+        equippedPassives[slotIndex] = skill;
+        RecalculatePassives();
+        return true;
+    }
+
+    public void UnequipPassiveSkill(int slotIndex)
+    {
+        if (slotIndex >= 0 && slotIndex < equippedPassives.Count)
+        {
+            equippedPassives[slotIndex] = null;
+            RecalculatePassives();
+        }
+    }
+
+    public bool TryUnequipPassiveSkill(PassiveSkillData skill)
+    {
+        if (skill == null || equippedPassives == null)
+            return false;
+
+        for (int i = 0; i < equippedPassives.Count; i++)
+        {
+            if (equippedPassives[i] != skill)
+                continue;
+
+            equippedPassives[i] = null;
+            RecalculatePassives();
+            return true;
+        }
+
+        return false;
+    }
+
+    public PassiveSkillData GetEquippedPassive(int slotIndex)
+    {
+        if (slotIndex < 0 || slotIndex >= equippedPassives.Count)
+            return null;
+        return equippedPassives[slotIndex];
+    }
+
+    public IReadOnlyList<PassiveSkillData> GetEquippedPassives() => equippedPassives.AsReadOnly();
+
+    // ─── 조회 ────────────────────────────────────────────────────
+
+    public bool IsEquipped(SkillData skill)
+    {
+        if (skill == null)
+            return false;
+
+        if (skill is ActiveSkillData activeSkill)
+            return IsActiveSkillEquipped(activeSkill);
+
+        if (skill is PassiveSkillData passiveSkill)
+            return IsPassiveSkillEquipped(passiveSkill);
+
+        return false;
+    }
+
+    public bool TryUnequipSkill(SkillData skill)
+    {
+        if (skill is ActiveSkillData activeSkill)
+            return TryUnequipActiveSkill(activeSkill);
+
+        if (skill is PassiveSkillData passiveSkill)
+            return TryUnequipPassiveSkill(passiveSkill);
+
+        return false;
+    }
+
+    public bool IsUnlocked(SkillNodeData node)
+    {
+        return node != null && unlockedState.TryGetValue(node, out bool v) && v;
+    }
+
+    /// <summary>
+    /// SP 조건과 전략 조건을 통합하여 해금 가능 여부를 반환한다.
+    /// </summary>
+    public bool CanUnlock(SkillNodeData node)
+    {
+        if (node == null || node.Skill == null || strategy == null)
+            return false;
+
+        if (node.Skill is BasicAttackSkillData && IsAnotherBasicAttackUnlockedInSameTier(node))
+            return false;
+
+        var spGoods = GoodsManager.Instance.GetGoods(GoodsType.SP) as SO_SP;
+        if (strategy == null || spGoods == null || !SkillTreeValidator.HasEnoughSP(node, spGoods))
+            return false;
+        return strategy.CanUnlock(node, unlockedState);
+    }
+
+    // ─── 내부 유틸 ────────────────────────────────────────────────
+
+    private SkillNodeData FindNodeBySkill(SkillData skill)
+    {
+        if (treeData == null || treeData.AllNodes == null)
+            return null;
+
+        foreach (SkillNodeData node in treeData.AllNodes)
+        {
+            if (node != null && node.Skill == skill)
+                return node;
+        }
+
+        return null;
+    }
+
+    private bool IsActiveSkillEquipped(ActiveSkillData skill)
+    {
+        if (equippedActives == null)
+            return false;
+
+        for (int i = 0; i < equippedActives.Count; i++)
+        {
+            if (equippedActives[i] == skill)
+                return true;
+        }
+
+        return false;
+    }
+
+    private bool IsActiveSkillEquippedInAnotherSlot(ActiveSkillData skill, int slotIndex)
+    {
+        if (equippedActives == null)
+            return false;
+
+        for (int i = 0; i < equippedActives.Count; i++)
+        {
+            if (i != slotIndex && equippedActives[i] == skill)
+                return true;
+        }
+
+        return false;
+    }
+
+    private bool IsPassiveSkillEquipped(PassiveSkillData skill)
+    {
+        if (equippedPassives == null)
+            return false;
+
+        for (int i = 0; i < equippedPassives.Count; i++)
+        {
+            if (equippedPassives[i] == skill)
+                return true;
+        }
+
+        return false;
+    }
+
+    private bool IsPassiveSkillEquippedInAnotherSlot(PassiveSkillData skill, int slotIndex)
+    {
+        if (equippedPassives == null)
+            return false;
+
+        for (int i = 0; i < equippedPassives.Count; i++)
+        {
+            if (i != slotIndex && equippedPassives[i] == skill)
+                return true;
+        }
+
+        return false;
+    }
+
+    private bool IsAnotherBasicAttackUnlockedInSameTier(SkillNodeData node)
+    {
+        if (unlockedState == null)
+            return false;
+
+        foreach (var kvp in unlockedState)
+        {
+            SkillNodeData unlockedNode = kvp.Key;
+            if (
+                !kvp.Value
+                || unlockedNode == null
+                || unlockedNode == node
+                || unlockedNode.TierIndex != node.TierIndex
+                || unlockedNode.Skill is not BasicAttackSkillData
+            )
+                continue;
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public BasicAttackSkillData GetUnlockedBasicAttack()
+    {
+        if (unlockedState == null)
+            return null;
+
+        foreach (var kvp in unlockedState)
+        {
+            // Tier 0에는 패시브도 있으므로 실제 평타 스킬만 반환합니다.
+            if (
+                kvp.Value
+                && kvp.Key != null
+                && kvp.Key.TierIndex == 0
+                && kvp.Key.Skill is BasicAttackSkillData basicAttack
+            )
+            {
+                return basicAttack;
+            }
+        }
+        return null;
+    }
+}

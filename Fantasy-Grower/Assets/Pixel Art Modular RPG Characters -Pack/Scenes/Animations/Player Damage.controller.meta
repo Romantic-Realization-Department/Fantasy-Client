@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 3e0619e3006e7bd4eb05eed626952c19
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 197984
+  packageName: Pixel Art Modular RPG Characters
+  packageVersion: 1.0
+  assetPath: Assets/Pixel Art Modular RPG Characters -Pack/Scenes/Animations/Player
+    Damage.controller
+  uploadId: 439931

@@ -6,8 +6,21 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 8c9cfa26abfee488c85f1582747f6a02
+    path: Assets/Scenes/MainScene.unity
+    guid: fa7ee4c0883e6cd448a62da02ce16498
+  - enabled: 1
+    path: Assets/Scenes/Map/Test/TestDefaultDungeonMap.unity
+    guid: 79d2772aad620ed4cac208a01b7f75d9
+  - enabled: 1
+    path: Assets/Scenes/Map/Test/TestGoldDungeon.unity
+    guid: b1d9e9d593dd9964795b8749dd126f84
+  - enabled: 1
+    path: Assets/Scenes/Map/Test/TestWeaponDungeon.unity
+    guid: abf172eca520dd54ca38736e2ab71a98
+  - enabled: 1
+    path: Assets/Scenes/Map/Test/TestBossDungeon.unity
+    guid: c0c3ba6fa807eba48ba17c2745d6f88e
   m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: 73c4e31d07eff344cbc35929156771e8, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

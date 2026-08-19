@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfcb3861838a4ec46924a354ad034191, type: 3}
+  m_Name: DamageReflectionNode
+  m_EditorClassIdentifier: 
+  Skill: {fileID: 11400000, guid: 037c6945cd71463a97a2a30e43e114ff, type: 2}
+  Prerequisites:
+  - {fileID: 11400000, guid: 2042715b2f554c00878cb1323874f2b0, type: 2}
+  - {fileID: 11400000, guid: e705726383f54fc5833109d6bb814ebe, type: 2}
+  TierIndex: 4
+  SlotIndex: 0
+  AttributeTag: 
